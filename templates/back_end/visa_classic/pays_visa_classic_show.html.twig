@@ -1,0 +1,113 @@
+{% extends "back_end/base.html.twig" %}
+
+{% block menu_header %}
+    {% include "back_end/visa_classic/__header.html.twig" %}
+{% endblock %}
+
+
+{% block contenu %}
+
+    <div class="row">
+        <h5 class=" m-auto col-8"><i class="fa fa-users-cog"></i> Liste des pages pays</h5>
+        <div class="col-3 float-right">
+            <a href="{{path('add_pays_visa_classic')}}" class="btn btn-primary petite-taille"><i class="fas fa-plus-circle"></i> Ajouter une page Pays </a>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-12">
+            <table data-toggle="table" data-url="{{ path('json_visa_classic')}}" data-pagination="true" data-search="true" data-pagination: "true">
+                <thead>
+                    <tr>
+                        <th data-field="pays.iso" data-sortable="true">Code ISO</th>
+                        <th data-field="pays" data-formatter="libelleFormatter" data-sortable="true">Nom et zone</th>
+                        <th data-field="visas" data-formatter="listeVisasFormatter">Visas disponibles</th>
+                        <th data-field="valide" data-formatter="booleanFormatter" data-align="center" data-sortable="true">Actif</th>
+                        <th data-field="edit" data-formatter="actionsFormatter">Editer</th>
+                    </tr>
+                </thead>
+            </table>
+        </div> 
+    </div>
+
+{% endblock %}
+
+{% block javascripts %}
+
+    {{ parent() }}
+    <script>
+
+        function actionsFormatter(value, row, index){
+            return '<a href="'+Routing.generate('edit_pays_visa_classic', {'id' : row.id})+'" title="Modifier"><i class="far fa-edit"></i></a>'+
+            '<a href="'+Routing.generate('show_type_visa_classic', {'id' : row.id})+'" title="Modifier"><i class="fa fa-money-bill"></i></a>'+
+            '<a href="'+Routing.generate('show_categorie_visa_classic', {'id' : row.id})+'" title="Modifier"><i class="fas fa-window-restore"></i></a>'+
+            '<a href="'+Routing.generate('show_volet_infos_visa_classic', {'id' : row.id})+'" title="Modifier"><i class="fas fa-info-circle"></i></a>';
+        }
+
+        function booleanFormatter(value, row, index) {
+            if (value === true) {
+                return '<i class="fa fa-check text-success text-center"></i>';
+            }
+            else {
+                return '<i class="fa fa-times text-danger text-center"></i>';
+            }
+        }
+
+        function libelleFormatter(value, row,index){
+            libelleZone = "";
+            if (row["pays"]["zoneGeographique"]){
+                return row["pays"]["titre"] + "<br /><small>" + row["pays"]["zoneGeographique"]["titre"] + "</small>";
+            }
+            return row["pays"]["titre"];
+        }
+
+        function listeVisasFormatter(value, row, index){
+            if (row["typeVisa"].length > 0){
+                var listeVisas = [];
+                $.each(row["typeVisa"], function(idx, elt){
+                    /*var data = {
+                        visa_edit_link: Routing.generate("backend_visa_modifier", {'entiteId': elt['id']}),
+                        libelle_visa: elt["libelle"],
+                        id_visa: row["code"] + "_" + elt["id"],
+                        documents_edit_link: Routing.generate("backend_documents_liste", {'entiteId': elt['id']}),
+                        piece_jointes_edit_link: Routing.generate("backend_pieces_jointes_liste", {'entiteId' : elt['id']}),
+                        last_elt : ((idx !== 0) && (idx + 1 === row["visas"].length)) || ((idx === 0) && (row["visas"].length <= 1)),
+                        numero: idx + 1
+                    };*/
+                    txt = "<span class='kt-badge kt-badge--info kt-badge--lg kt-badge--inline kt-badge--pill kt-badge--rounded'>" +
+                        elt["titre"] + "</span>";
+                    listeVisas.push(txt);
+                });
+                return listeVisas.join(" ");
+            }
+            return "<span class='kt-badge kt-badge--lg kt-badge--warning kt-badge--inline kt-badge--pill kt-badge--rounded'>Aucun type de visa paramétré</span>";
+        }
+
+        // function rolesFormatter(value, row, index) {
+        //     switch (row.roles) {
+        //         case "ROLE_SUPERADMIN":
+        //             return "Super administrateur"
+        //             break;
+                
+        //         case "ROLE_COURSIER":
+        //             return "Coursier"
+        //             break;
+
+        //         case "ROLE_ADMIN":
+        //             return "Administrateur secondaire"
+        //             break;
+
+        //         case "ROLE_REDACTEUR":     
+        //             return "Rédacteur"
+        //             break;    
+        //         case "ROLE_USER":
+        //             return "null"
+        //             break;      
+            
+        //         default:
+        //             break;
+        //     }
+        // }
+    </script>
+    
+{% endblock %}

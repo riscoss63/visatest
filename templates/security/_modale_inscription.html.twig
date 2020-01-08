@@ -1,0 +1,54 @@
+<div class="modal fade show" id="modal-compte" tabindex="-1" role="dialog" aria-labelledby="modal-compteLabel" aria-modal="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="modal-compteLabel">Créer un compte</h4>
+                <button type="button" class="close on-mobile" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+
+                {{ form_start(form) }}
+                    {# <div class="form-group">
+                        {{form_widget(form.type) }}
+                    </div> #}
+                    <div class="form-group">
+                        {{ form_widget(form.nom) }}
+                    </div>
+                    <div class="form-group">
+                        {{ form_widget(form.prenom) }}
+                    </div>
+                    {# <div class="form-group">
+						<!--<label class="form-label">Pays</label>-->
+						<div class="multiple-country-select">
+							{{ form_widget(form.pays)}}	
+						</div>
+                    </div>
+                    <div class="form-group">
+                        {{ form_widget(form.adresse)}}
+                    </div>
+                    <div class="form-group">
+                        {{ form_widget(form.codePostal)}}
+                    </div>
+                    <div class="form-group">
+                        {{ form_widget(form.ville)}}
+                    </div>
+                    <div class="form-group">
+                        {{ form_widget(form.telephone)}}
+                    </div> #}
+                    <div class="form-group">
+                        {{ form_widget(form.email)}}
+                    </div> 
+                    <div class="form-group">
+                        {{ form_widget(form.password)}}
+                    </div>
+                    <div class="btn-submit-modal">
+                        <button type="submit" class="btn btn-primary btn-next">Envoyer<img src="images/btn-send.svg" alt="icône étape suivant" class="icon"></button>
+                    </div>
+                    {# <input type="hidden" name="token" value="{{ csrf_token('registration_item') }}"/> #}
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
+</div>

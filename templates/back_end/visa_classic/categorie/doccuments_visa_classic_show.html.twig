@@ -1,0 +1,86 @@
+{% extends "back_end/base.html.twig" %}
+
+{% block menu_header %}
+    {% include "back_end/visa_classic/__header.html.twig" %}
+{% endblock %}
+
+
+{% block contenu %}
+
+    <div class="row">
+        <h5 class=" m-auto col-8"><i class="fa fa-users-cog"></i>Gestion des documents (nécessaires et optionnels) - Visas classiques /  /  {{ categorie.titre }}</h5>
+    </div>
+
+    <div class="row mt-5">
+        <div class="col-6">
+            <h6 class="text-center">Gestion de la liste des documents obligatoires</h6>
+            {{ form_start(doccuments_obligatoires_ajout)}}
+            <div class="row mt-4 justify-content-center">
+                {{ form_widget(doccuments_obligatoires_ajout.titre)}}
+                <button type="submit" class="btn btn-success btn-elevate btn-enregistrer2 col-5 ml-1">
+                    <i class="fa fa-save"></i> Ajouter un document nécessaire
+                </button>
+            </div>
+            {{ form_end(doccuments_obligatoires_ajout)}}
+            <table data-toggle="table" data-url="{{ path('json_categorie_doccument_obligatoire', {id: categorie.id} )}}" data-pagination="true" data-search="true" data-pagination: "true" data-card-view="true" data-show-header="false" class="table-bordered">
+                <thead>
+                    <tr>
+                        <th data-field="titre" data-sortable="true">Titre</th>
+                        <th data-field="contenu" data-sortable="true">Titre</th>
+                        <th data-field="edite"data-formatter="actionsFormatter">Modifier</th>
+                    </tr>
+                </thead>
+            </table>
+        </div> 
+        <div class="col-6">
+            <h6 class="text-center">Gestion de la liste des documents facultatifs</h6>
+            {{ form_start(doccuments_facultatifs_ajout)}}
+            <div class="row mt-4 justify-content-center">
+                {{ form_widget(doccuments_facultatifs_ajout.titre)}}
+                <button type="submit" class="btn btn-success btn-elevate btn-enregistrer2 col-5 ml-1">
+                    <i class="fa fa-save"></i> Ajouter un document facultatif
+                </button>
+            </div>
+            {{ form_end(doccuments_facultatifs_ajout)}}
+            <table data-toggle="table" data-url="{{ path('json_categorie_doccument_facultatif', {id: categorie.id} )}}" data-pagination="true" data-search="true" data-pagination: "true" data-card-view="true" data-show-header="false" class="table-bordered">
+                <thead>
+                    <tr>
+                        <th data-field="titre" data-sortable="true">Titre</th>
+                        <th data-field="contenu" data-sortable="true">contenu</th>
+                        <th data-field="edite"data-formatter="actionsFormattertwo">Modifier</th>
+                    </tr>
+                </thead>
+            </table>
+        </div> 
+    </div>
+
+{% endblock %}
+
+{% block javascripts %}
+
+    {{ parent() }}
+    <script>
+
+        function actionsFormatter(value, row, index){
+            return '<a href="'+Routing.generate('edit_doccument_obligatoire', {'id' : row.id})+'" title="Modifier" rel="modal:open"><i class="far fa-edit"> Editer </i></a>'+
+                    '<a href="'+Routing.generate('del_doccument_obligatoire', {'id' : row.id})+'" title="Supprimer""><i class="far fa-trash-alt"></i> Supprimer </a>';
+        }
+
+        function actionsFormattertwo(value, row, index){
+            return '<a href="'+Routing.generate('edit_doccument_facultatif', {'id' : row.id})+'" title="Modifier" rel="modal:open"><i class="far fa-edit"> Editer </i></a>'+
+                    '<a href="'+Routing.generate('del_doccument_facultatif', {'id' : row.id})+'" title="Supprimer""><i class="far fa-trash-alt"></i> Supprimer </a>';
+        }
+        
+
+        // function libelleFormatter(value, row,index){
+        //     libelleZone = "";
+        //     if (row["pays"]["zoneGeographique"]){
+        //         return row["pays"]["titre"] + "<br /><small>" + row["pays"]["zoneGeographique"]["titre"] + "</small>";
+        //     }
+        //     return row["pays"]["titre"];
+        // }
+
+        
+    </script>
+    
+{% endblock %}

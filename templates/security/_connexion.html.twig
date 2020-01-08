@@ -1,0 +1,60 @@
+<div class="login">
+
+    <div class="login-box">
+        <div class="login-container">
+            <h1 class="login-box-title">Connexion à votre espace de suivi</h1>
+            <div class="login-logo">
+                <a href="#"><img src=" {{asset("/images/logo-blanc.svg")}}" alt="logo visa-en-ligne.com" class="logo"></a>
+            </div>
+
+            <form method="post">
+                {% if error %}
+                    <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                {% endif %}
+                {% if app.user %}
+                    <div class="mb-3">
+                        You are logged in as {{ app.user.username }}, <a href="{{ path('app_logout') }}">Logout</a>
+                    </div>
+                {% endif %}
+                <div class="mb-3">
+                    <label for="inputEmail">Adresse Email</label>
+                    <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" required autofocus>
+                </div>
+
+                <div class="mb-3">
+                    <label for="inputPassword">Mot de passe</label>
+                    <input type="password" name="password" id="inputPassword" class="form-control" required>
+                </div>
+
+                <div>
+                    <button class="btn btn-submit"  type="submit">Me connecter <img src="../images/chevron-right-solo.svg" alt="icône chevron" class="icon float-right"></button>
+                </div>
+                <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+
+                {#
+                    Uncomment this section and add a remember_me option below your firewall to activate remember me functionality.
+                    See https://symfony.com/doc/current/security/remember_me.html
+
+                    <div class="checkbox mb-3">
+                        <label>
+                            <input type="checkbox" name="_remember_me"> Remember me
+                        </label>
+                    </div>
+                #}
+            </form>
+
+            <div class="row link-container">
+                <div class="col-6">
+                    <a href="#" data-toggle="modal" data-target="#modal-mdp-oublie">Mot de passe oublié ?</a>
+                </div>
+                <div class="col-6 text-right">
+                    <a href="#" data-toggle="modal" data-target="#modal-compte">Créer un compte</a>
+                </div>
+            </div>
+
+            <p>Cet espace client est réservé aux clients visa-en-ligne.com<br>
+                Il simplifie vos démarches et vos commandes pour un gain de temps assuré.<br>
+                Suivez vos commandes en toute tranquilité.</p>
+        </div>
+    </div>
+</div>

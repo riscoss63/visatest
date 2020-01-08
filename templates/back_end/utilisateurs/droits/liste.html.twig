@@ -1,0 +1,46 @@
+{% extends "back_end/base.html.twig" %}
+
+{% block menu_header %}
+    {% include "back_end/utilisateurs/__header.html.twig" %}
+{% endblock %}
+
+
+{% block contenu %}
+
+    <div class="row">
+        <h5 class=" m-auto col-8"><i class="fa fa-lock"></i> Paramétrage des droits d'accès aux sections par type</h5>
+        <div class="col-3 float-right">
+            {# <a href="{{path('add_user')}}" class="btn btn-primary petite-taille"><i class="fas fa-plus-circle"></i> Nouveau utilisateur</a> #}
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-12">
+            <table data-toggle="table" data-url="{{ path('json_acces')}}" data-pagination="true" data-search="true" data-pagination: "true">
+                <thead>
+                    <tr>
+                        <th data-sortable="true" data-field="id">Id</th>
+                        <th data-field="service" data-sortable="true">Service</th>
+                        <th data-field="droits.0" data-sortable="true">Roles</th>
+                        <th data-field="edit" data-formatter="actionsFormatter">Editer</th>
+                    </tr>
+                </thead>
+            </table>
+        </div> 
+    </div>
+
+{% endblock %}
+
+{% block javascripts %}
+
+    {{ parent() }}
+    <script>
+
+        function actionsFormatter(value, row, index){
+            return '<a href="'+Routing.generate('edit_acces', {'id' : row.id})+'" title="Modifier"><i class="far fa-edit"></i></a>';
+        }
+
+        
+    </script>
+    
+{% endblock %}

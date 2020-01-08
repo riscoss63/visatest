@@ -1,0 +1,63 @@
+{% extends "back_end/base.html.twig" %}
+
+{% block menu_header %}
+    {% include "back_end/visa_classic/__header.html.twig" %}
+{% endblock %}
+
+
+{% block contenu %}
+
+    <div class="row">
+        <h5 class=" m-auto col-8"><i class="fa fa-users-cog"></i> Gestion des formulaires - Visas classiques / {{ categorie.titre }} </h5>
+    </div>
+
+    <div class="row mt-5">
+        <div class="col-12">
+            <h6 class="text-center">Gestion de la liste des documents obligatoires</h6>
+            {{ form_start(form)}}
+            <div class="row mt-4 justify-content-center">
+                {{ form_label(form.name)}}
+                {{ form_widget(form.name)}}
+                {{ form_widget(form.doccumentOfficielFile)}}
+                <button type="submit" class="btn btn-success btn-elevate btn-enregistrer2 col-3 ml-1">
+                    <i class="fa fa-save"></i> Ajouter un document nécessaire
+                </button>
+            </div>
+            {{ form_end(form)}}
+            <table data-toggle="table" data-url="{{ path('json_categorie_formulaire_officiel', {id: categorie.id} )}}" data-pagination="true" data-search="true" data-pagination: "true" data-card-view="true" data-show-header="false" class="table-bordered">
+                <thead>
+                    <tr>
+                        <th data-field="titre" data-sortable="true">Titre</th>
+                        <th data-field="edite"data-formatter="actionsFormatter">Modifier</th>
+                    </tr>
+                </thead>
+            </table>
+        </div> 
+    </div>
+
+{% endblock %}
+
+{% block javascripts %}
+
+    {{ parent() }}
+    <script>
+
+        function actionsFormatter(value, row, index){
+            return '<a href="'+Routing.generate('edit_formulaire_officiel', {'id' : row.id})+'" title="Modifier" rel="modal:open"><i class="far fa-edit"> Editer </i></a>'+
+                    '<a href="'+Routing.generate('del_formulaire_officiel', {'id' : row.id})+'" title="Supprimer""><i class="far fa-trash-alt"></i> Supprimer </a>';
+        }
+
+        
+
+        // function libelleFormatter(value, row,index){
+        //     libelleZone = "";
+        //     if (row["pays"]["zoneGeographique"]){
+        //         return row["pays"]["titre"] + "<br /><small>" + row["pays"]["zoneGeographique"]["titre"] + "</small>";
+        //     }
+        //     return row["pays"]["titre"];
+        // }
+
+        
+    </script>
+    
+{% endblock %}

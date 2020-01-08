@@ -1,0 +1,69 @@
+{% extends "back_end/base.html.twig" %}
+
+{% block contenu %}
+
+    <div class="row">
+        <h5 class=" m-auto col-6"><i class="fa fa-globe"></i> Liste des zones géographiques  </h5>
+        <div class="col-6 float-right">
+            <a id="" href="{{path('show_continents')}}" type="button" class="btn btn-warning btn-elevate btn-icon-sm mx-2 "><i class="fa fa-globe"></i> Gérer les continents</a>
+
+            <a href="{{path('add_zone')}}" class="btn btn-primary petite-taille"><i class="fas fa-plus-circle"></i> Nouvelle zone</a>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-12">
+            <table data-toggle="table" data-url="{{ path('json_zone')}}" data-pagination="true" data-search="true" data-pagination: "true">
+                <thead>
+                    <tr>
+                        <th data-sortable="true" data-field="titre">Nom</th>
+                        <th data-field="valide" data-formatter="booleanFormatter" data-align="center" data-sortable="true">Actif</th>
+                        <th data-field="listePays" data-formatter="listePaysFormatter">Pays</th>
+                        <th data-field="edit" data-formatter="actionsFormatter">Editer</th>
+                    </tr>
+                </thead>
+            </table>
+        </div> 
+    </div>
+
+{% endblock %}
+
+{% block javascripts %}
+
+    {{ parent() }}
+    <script>
+
+        function actionsFormatter(value, row, index){
+            return '<a href="'+Routing.generate('edit_zone', {'id' : row.id})+'" title="Modifier"><i class="far fa-edit"></i></a>';
+        }
+
+        function booleanFormatter(value, row, index) {
+            if (value === true) {
+                return '<i class="fa fa-check text-success text-center"></i>';
+            }
+            else {
+                return '<i class="fa fa-times text-danger text-center"></i>';
+            }
+        }
+
+        function listePaysFormatter(value, row, index){
+        if (row["pays"].length > 0){
+            var listePays = [];
+            $.each(row["pays"], function(idx, elt){
+                txt = "<span class='kt-badge kt-badge--info kt-badge--lg kt-badge--inline kt-badge--pill kt-badge--rounded'>" +
+                    elt["titre"] + "</span>";
+                listePays.push(txt);
+            });
+            return listePays.join(" ");
+        }
+        return "<span class='kt-badge kt-badge--lg kt-badge--warning kt-badge--inline kt-badge--pill kt-badge--rounded'>Aucun pays paramétré</span>";
+    }
+
+        // function dateFormatter(value, row, index) {
+        //     var date = new Date(value*1000);
+        //     return `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`;
+        // }
+
+    </script>
+    
+{% endblock %}

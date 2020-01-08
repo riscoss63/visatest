@@ -1,0 +1,70 @@
+body{
+    font-family: 'Poppins', sans-serif;
+    font-size: 13px;
+    font-weight: 300;
+}
+
+.fa {
+    color: #CCCC00 !important;
+    font-size: 20px;
+    padding-right: 5px;
+}
+
+.fa-italic{
+    color: #CCCC00 !important;
+    font-style: italic !important;
+}
+.menu-l {
+    color: #9899ac;
+}
+
+.active{
+    color:#850d11 !important;
+    font-weight: bold !important;
+    background-color: #CCCC00 !important;
+}
+.active i{
+    color:#850d11 !important;
+    
+}
+.nav-link:visited{
+    color: #9899ac;
+}
+
+.top-menu {
+    min-height: 80px;
+    align-items: center;
+}
+
+.petite-taille {
+    font-size: 13px;
+}
+
+.kt-badge.kt-badge--inline.kt-badge--lg {
+    padding: 0.9rem 0.7rem;
+}
+
+.kt-badge.kt-badge--rounded {
+    border-radius: 0;
+}
+
+.kt-badge.kt-badge--inline {
+    height: 0;
+    width: auto;
+    padding: 0.75rem 0.75rem;
+}
+
+.kt-badge.kt-badge--info {
+    color:#ffffff;
+    background:#5578eb;
+}
+
+.kt-badge.kt-badge--lg {
+    height: 35px;
+    width: 35px;
+    font-size: 1rem !important;
+}
+
+strong {
+    font-weight: bold;
+}

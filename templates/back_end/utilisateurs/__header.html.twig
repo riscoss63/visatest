@@ -1,0 +1,11 @@
+<nav class="nav">
+
+    <a class="nav-link {% if app.request.attributes.get('_route') == 'show_users' %} active {% endif %}" href="{{ path('show_users')}}"><i class="fa fa-users-cog"></i>Utilisateurs</a>
+
+    <a class="nav-link {% if app.request.attributes.get('_route') == 'show_acces' %} active {% endif %}" href="{{ path('show_acces')}}"><i class="fa fa-lock"></i>Droits d'accès par section</a>
+
+    <a class="nav-link {% if app.request.attributes.get('_route') == 'show_acces_user' %} active {% endif %}" href="{{ path('show_acces_user')}}"><i class="fa fa-lock"></i>Droits spéciaux par utilisateur</a>
+
+    <a class="nav-link {% if app.request.attributes.get('_route') == 'show_access_ip_users' %} active {% endif %}" href="{{ path('show_access_ip_users')}}" ><i class="fa fa-check"><span></span></i>Accès par IPs</a>
+
+</nav>

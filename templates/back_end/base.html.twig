@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %}Welcome{% endblock %}</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        {% block stylesheets %}
+            <link rel="stylesheet" type="text/css" href="{{ asset('/frontend/fonts/font.css') }}"> 
+            <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+            <link href="https://fonts.googleapis.com/css?family=Fira+Sans+Condensed:500|Open+Sans+Condensed:300|Open+Sans:300,600|Roboto+Condensed:300,400,700|Roboto:100&display=swap" rel="stylesheet">
+            <link href="https://fonts.googleapis.com/css?family=Poppins&display=swap" rel="stylesheet"> 
+            <link href="{{ asset('/backend/css/main.css') }}" rel="stylesheet">
+            <link rel="stylesheet" href="https://unpkg.com/bootstrap-table@1.15.5/dist/bootstrap-table.min.css">
+            <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+            <script src="https://kit.fontawesome.com/d4578f32e0.js" crossorigin="anonymous"></script>
+            <script src="{{ asset('bundles/fosjsrouting/js/router.min.js') }}"></script>
+            <script src="{{ path('fos_js_routing_js', { callback: 'fos.Router.setData' }) }}"></script>
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" />
+            
+        {% endblock %}
+
+    </head>
+
+    <body>
+        {% block header %}
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-2">
+                        <div class="row" style="background-color: #282733;">
+                            <div class="col-12 mt-4">
+                                <a href=""><img src=" {{ asset("/backend/images/logo-visa-en-ligne.png")}} " /> </a>
+                            </div>
+                            <div class="col-12 mt-5">
+                                <ul class="nav flex-column">
+                                    <li class="nav-item">
+                                        <a class="nav-link 
+                                            {% if (app.request.attributes.get('_route') == 'show_users' or app.request.attributes.get('_route') == 'show_acces' or app.request.attributes.get('_route') == 'show_acces_user')%} 
+                                                active 
+                                            {% endif %}" href="{{ path('show_users')}}"><i class="fa fa-users-cog"></i> Utilisateurs</a>
+                                        <a class="nav-link {% if app.request.attributes.get('_route') == 'service' %} active {% endif %}" href="#"><i class=" fa fa-briefcase "> </i> Service</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link menu-l" href="#"><i class="fa fa-users"> </i> Clients</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link menu-l {% if app.request.attributes.get('_route') == 'liste_zone' %} active {% endif %}" href="{{ path('liste_zone') }}"><i class="fa fa-globe"> </i> Zones</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link menu-l {% if app.request.attributes.get('_route') == 'show_pays' %} active {% endif %}" href="{{ path('show_pays') }}" ><i class="fa fa-flag"> </i> Pays</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link menu-l" href="#"><i class="fa fa-bicycle"> </i> Notes de courses</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link menu-l" href="#"><i class="fa fa-shipping-fast"> </i> Tarifs transport/livraison</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link menu-l" href="#"><i class="fa fa-shield-alt"></i> Tarifs assurances</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link menu-l" href="{{ path('home_edit') }}"><i class="fa fa-tags"> </i> Page accueil</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link menu-l" href="#"><i class="fa fa-layer-group"> </i> Pages additionnelles</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link menu-l" href="#"><i class="fa fa-question-circle"> </i> Foire aux questions</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link menu-l {% if app.request.attributes.get('_route') == 'infos_entreprise_evisa' %} active {% endif %}" href="{{ path('infos_entreprise_evisa')}}"><i class="fa"> EV </i> E-visa</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link menu-l {% if app.request.attributes.get('_route') == 'show_pays_visa_classic' %} active {% endif %}" href="{{ path('show_pays_visa_classic')}}"><i class="fa"> VC </i> Visa classic</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link menu-l" href="#"><i class="fa"> CT </i> Carte de tourisme</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link menu-l" href="#"><i class="fa"> IV </i> Invitations</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link menu-l" href="#"><i class="fa"> AS </i> Assurances</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link menu-l" href="#"><i class="fa fa-at"> </i> Personnalisation des emails</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link menu-l" href="#"><i class="fa fa-star"> </i> Codes promotionnels</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-10">
+                        <div class="row  sticky-top" style="background-color: #282733;">
+                            <div class="col-9">
+                                {% block menu_header %}{% endblock %}
+                            </div>
+                            <div class="col-3">
+                                {% if app.user %}
+                                    Bienvenue, {{ app.user.prenom }}, <a href="{{ path('app_logout') }}">Logout</a>
+                                {% endif %}                                
+                            </div>
+                        </div>
+                        <div class="row mt-4">
+                            <div class="col-12">
+                                {% block contenu %}{% endblock %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endblock %}
+        {% block body %}
+                    
+        {% endblock %}
+        {% block javascripts %}
+            <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+            <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+            <script src="https://unpkg.com/bootstrap-table@1.15.5/dist/bootstrap-table.min.js"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
+        {% endblock %}
+    </body>
+</html>

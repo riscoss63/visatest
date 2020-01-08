@@ -1,0 +1,298 @@
+.page-title {
+  text-align: center;
+  font-family: 'Roboto Condensed', sans-serif;
+  text-transform: initial;
+  font-size: 30px;
+  font-weight: bold;
+  margin-bottom: 15px;
+  margin-top: 25px; }
+
+.actus-cards .page-title {
+  margin-bottom: 35px; }
+
+/*Main.scss ?*/
+.btn-see .icon {
+  display: inline-block;
+  margin-right: 5px;
+  vertical-align: top; }
+  .btn-see .icon path, .btn-see .icon polygon {
+    fill: #bfbfbf; }
+.btn-see span {
+  color: #cccc00; }
+.btn-see a {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 14px;
+  color: #bfbfbf; }
+
+.actu-date {
+  color: #000; }
+
+.banner-wrapper {
+  display: flex;
+  justify-content: center;
+  background-color: #fbfbfb;
+  padding-top: 16px; }
+  .banner-wrapper .img-home {
+    width: 557px;
+    height: 341px;
+    border-radius: 6px;
+    background: url(images/banner/home-1.jpg) no-repeat;
+    background-size: cover; }
+
+.banner-img-left {
+  width: 158px;
+  height: auto;
+  background: url(images/banner/image-gauche.jpg) no-repeat;
+  background-position: -47px;
+  background-size: cover;
+  flex-grow: 1;
+  image-rendering: crisp-edges;
+  image-rendering: -moz-crisp-edges;
+  /* Firefox */
+  image-rendering: -o-crisp-edges;
+  /* Opera */
+  image-rendering: -webkit-optimize-contrast;
+  /* Webkit (non-standard naming)*/
+  -ms-interpolation-mode: nearest-neighbor;
+  /* IE (non-standard property) */ }
+
+.banner-img-right {
+  width: 158px;
+  height: auto;
+  background: url(images/banner/image-droite.jpg) no-repeat;
+  background-position: -282px;
+  background-size: cover;
+  flex-grow: 1;
+  image-rendering: crisp-edges;
+  image-rendering: -moz-crisp-edges;
+  /* Firefox */
+  image-rendering: -o-crisp-edges;
+  /* Opera */
+  image-rendering: -webkit-optimize-contrast;
+  /* Webkit (non-standard naming)*/
+  -ms-interpolation-mode: nearest-neighbor;
+  /* IE (non-standard property) */ }
+
+/* Tabs - visa + Cuba + Assurance */
+.tabs-home {
+  min-width: 400px;
+  width: 400px;
+  margin-left: 7px;
+  margin-right: 12px; }
+  .tabs-home .nav-tabs-navigation {
+    width: 100%;
+    margin: 0; }
+  .tabs-home .nav-link {
+    font-size: 16px;
+    color: #a6a6a6;
+    background-color: #000;
+    padding: .5rem 0rem; }
+  .tabs-home .nav-item.nav-item-smaller {
+    width: 100px; }
+  .tabs-home .nav-item.nav-item-bigger {
+    border-left: 1px solid #a6a6a6;
+    border-right: 1px solid #a6a6a6; }
+  .tabs-home .nav-link.nav-link.active {
+    background-color: #000;
+    color: #fff; }
+    .tabs-home .nav-link.nav-link.active .tabs-icon rect, .tabs-home .nav-link.nav-link.active .tabs-icon polygon, .tabs-home .nav-link.nav-link.active .tabs-icon ellipse, .tabs-home .nav-link.nav-link.active .tabs-icon text, .tabs-home .nav-link.nav-link.active .tabs-icon path {
+      fill: #fff !important; }
+  .tabs-home .nav-tabs-navigation .nav-item .tabs-icon {
+    height: 25px;
+    width: auto;
+    margin-bottom: 3px; }
+  .tabs-home .nav-tabs-wrapper ul li:nth-child(2) a .tabs-icon {
+    height: 15px;
+    width: auto;
+    margin-bottom: 13px; }
+  .tabs-home .tab-content {
+    background-color: #000;
+    color: #fff;
+    padding: 10px 25px 0 25px;
+    height: 267px; }
+
+.btn-next {
+  box-shadow: none !important;
+  border-radius: 0;
+  font-size: 26px;
+  width: 100%; }
+
+.tabs-home .form-control {
+  border-radius: 5px;
+  font-size: 13px;
+  height: 37px; }
+
+.form-check-wrapper {
+  margin-bottom: 18px;
+  margin-top: 5px; }
+
+.tabs-home .form-check .radio-title {
+  font-weight: 400;
+  font-size: 16px; }
+
+/* Box avec icone et courte description */
+.best-boxes {
+  white-space: nowrap;
+  font-size: 13px;
+  padding: 16px 10px 8px;
+  background-color: #fff;
+  border-radius: 10px;
+  margin-left: 7px;
+  margin-right: 12px;
+  font-weight: 800; }
+  .best-boxes .best-boxes-title {
+    text-align: center;
+    font-size: 23px;
+    font-family: 'Roboto Condensed', sans-serif;
+    font-weight: 800; }
+  .best-boxes .box-wrapper .box {
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center; }
+  .best-boxes .box-wrapper .box img {
+    width: 20px;
+    height: auto;
+    margin-right: 10px; }
+  .best-boxes .box-wrapper .box:nth-child(4) img {
+    margin-top: -11px; }
+  .best-boxes .box-wrapper .box-img.img-bigger img {
+    width: 21px;
+    width: 28px;
+    margin-right: 5px; }
+  .best-boxes .box-wrapper .box p {
+    margin-bottom: 0;
+    font-family: 'Roboto Condensed', sans-serif;
+    font-size: 17px; }
+
+/* Destination boxes */
+.avis-clients {
+  margin-bottom: 85px; }
+
+.destinations-tabs {
+  margin-bottom: 55px;
+  /*.categorie-visa {
+    font-family: 'Open Sans', sans-serif;
+  }*/ }
+  .destinations-tabs .destination-img {
+    width: 345px;
+    height: 211px;
+    overflow: hidden; }
+  .destinations-tabs .tab-content {
+    margin-top: 30px;
+    margin-bottom: 45px; }
+  .destinations-tabs .destination-info {
+    margin-right: 0; }
+  .destinations-tabs .destination-price {
+    align-items: center; }
+    .destinations-tabs .destination-price > div {
+      margin-top: 20px; }
+  .destinations-tabs .nav-tabs-navigation {
+    margin: 0;
+    text-align: center; }
+    .destinations-tabs .nav-tabs-navigation .nav.nav-tabs.nav-tabs-two {
+      justify-content: center; }
+  .destinations-tabs .tabs-simple .nav-tabs .nav-item .nav-link {
+    text-transform: initial;
+    color: #d9d9d9;
+    font-family: 'Roboto Condensed', sans-serif;
+    font-weight: 300; }
+    .destinations-tabs .tabs-simple .nav-tabs .nav-item .nav-link h2 {
+      font-size: 17px;
+      font-family: 'Roboto Condensed', sans-serif;
+      font-weight: 300; }
+    .destinations-tabs .tabs-simple .nav-tabs .nav-item .nav-link:hover, .destinations-tabs .tabs-simple .nav-tabs .nav-item .nav-link.active {
+      color: #cccc00; }
+  .destinations-tabs .tabs-simple .nav-tabs-navigation .nav.nav-tabs.nav-tabs-two .nav-item:first-child {
+    margin-right: 15px; }
+
+.destination .destination-wrapper {
+  width: 345px; }
+
+.destination-wrapper:hover {
+  -webkit-box-shadow: 1px 1px 15px -2px rgba(0, 0, 0, 0.4);
+  -moz-box-shadow: 1px 1px 15px -2px rgba(0, 0, 0, 0.4);
+  box-shadow: 1px 1px 15px -2px rgba(0, 0, 0, 0.4);
+  border-radius: 0 0 10px 10px; }
+
+.actus-card {
+  margin-bottom: 60px; }
+
+.actus-cards .destination-img {
+  height: 212px;
+  overflow: hidden;
+  text-align: center; }
+.actus-cards .destination-title {
+  font-size: 17px;
+  margin-bottom: 0; }
+
+.actus-cards {
+  margin-bottom: 100px; }
+
+.how {
+  margin-bottom: 100px; }
+  .how .container {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
+    text-align: flex-start;
+    margin-bottom: 20px; }
+  .how .step-container {
+    width: 25%; }
+  .how .step-wrapper {
+    display: flex;
+    padding-right: 39px; }
+  .how .step {
+    margin-right: 17px; }
+    .how .step .step-icon img {
+      height: auto;
+      width: 89px; }
+    .how .step .step-icon.step-icon--smaller img {
+      width: 73px; }
+    .how .step .step-icon.step-icon--bigger img {
+      width: 117px; }
+  .how .step-content .step-title {
+    font-family: 'Roboto Condensed', sans-serif;
+    font-weight: bold;
+    color: #cccc00;
+    font-size: 23px;
+    text-transform: uppercase;
+    border-bottom: 1px solid #cccc00;
+    margin-bottom: 10px; }
+
+.how-mentions, .how .step-content .step-description {
+  color: #adadad;
+  /*font-size: 12px;*/ }
+
+@media screen and (max-width: 1024px) {
+  .tabs-home {
+    width: 100%;
+    min-width: 100%;
+    margin: 0; }
+    .tabs-home .nav-item-smaller {
+      width: calc(100%/3) !important; }
+
+  .nav-tabs {
+    border-bottom: none; }
+
+  .destinations-tabs, .actus-cards {
+    margin: 0 15px 55px 15px; }
+
+  .destination-wrapper, .destinations-tabs .destination-img {
+    width: 100%;
+    max-width: 346px; }
+
+  .tab-content {
+    margin: 0; }
+
+  .how .step {
+    display: none; }
+  .how .step-container {
+    width: 45%; }
+  .how .step-wrapper {
+    padding-right: 0;
+    margin-right: 15px; }
+  .how .text-center.how-mentions {
+    display: none; }
+
+  .fixed-element {
+    display: none; } }

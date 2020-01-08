@@ -1,0 +1,10 @@
+ <style>
+   .modal{
+       margin-top: 35px;
+       max-width: 1100px;
+   } 
+ </style>
+
+    {{ form_start(form, {'action': path('edit_volet_infos_evisa', {'id': voletinfo.id}), 'method': 'POST'}) }}
+        {{ form_row(form) }}
+    {{ form_end(form)}}

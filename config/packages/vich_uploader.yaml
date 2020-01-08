@@ -1,0 +1,43 @@
+vich_uploader:
+    db_driver: orm
+
+    mappings:
+        accueil_images:
+            uri_prefix: /images/accueil
+            upload_destination: '%kernel.project_dir%/public/images/accueil'
+
+            inject_on_load: false
+            delete_on_update: true
+            delete_on_remove: true
+
+        visa_classic:
+            uri_prefix: /images/visa_classic
+            upload_destination: '%kernel.project_dir%/public/images/visa_classic'
+
+            inject_on_load: false
+            delete_on_update: true
+            delete_on_remove: true
+
+        doccuments_officiel:
+            uri_prefix: /pdf/doccuments_officiel
+            upload_destination: '%kernel.project_dir%/public/pdf/doccuments_officiel'
+            namer:
+                service: Vich\UploaderBundle\Naming\PropertyNamer
+                options: { property: 'name'}
+            inject_on_load: false
+            delete_on_update: true
+            delete_on_remove: true
+
+        doccuments_supplementaire:
+            uri_prefix: /pdf/doccuments_supplementaire
+            upload_destination: '%kernel.project_dir%/public/pdf/doccuments_supplementaire'
+            inject_on_load: false
+            delete_on_update: true
+            delete_on_remove: true
+            
+        transport_images:
+            uri_prefix: /images/logo_transport
+            upload_destination: '%kernel.project_dir%/public/images/logo_transport'
+            inject_on_load: false
+            delete_on_update: true
+            delete_on_remove: true

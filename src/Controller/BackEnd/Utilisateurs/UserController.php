@@ -1,0 +1,173 @@
+<?php
+
+namespace App\Controller\BackEnd\Utilisateurs;
+
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Doctrine\ORM\EntityManagerInterface;
+use App\Repository\ServicesRepository;
+use App\Entity\User;
+use App\Form\Backend\Utilisateurs\UserType;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\Serializer\Encoder\JsonEncoder;
+use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
+use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
+use Symfony\Component\Serializer\Serializer;
+
+
+/**
+ * @Route("/gestion")
+ */
+class UserController extends AbstractController
+{
+    
+    private $serviceUsers;
+
+    public function __construct(ServicesRepository $service)
+    {
+        $this->serviceUsers=$service->findUsers();
+        
+    }
+    
+    /**
+     * Vue sur tous les utilisateurs
+     * @Route("/utilisateurs", name="show_users")
+     * 
+     */
+    public function utilisateursShow(Request $request) : Response
+    {
+        $this->denyAccessUnlessGranted('SHOW', $this->serviceUsers);
+    
+        return $this->render('back_end/utilisateurs/liste.html.twig');
+    }
+
+    /**
+     * Retourne un json pour le bootstrap table
+     * @Route("/utilisateurs/json", name="json_users")
+     */
+    public function utilisateursJson()
+    {
+        $this->denyAccessUnlessGranted('SHOW', $this->serviceUsers);
+
+        //Pour éviter les soucis de relations entre les objets        
+        // $encoder = new JsonEncoder();
+        // $defaultContext = [
+        //     AbstractNormalizer::CIRCULAR_REFERENCE_HANDLER => function ($object, $format, $context) {
+        //         return $object->getNom();
+        //     },
+        // ];
+        // $normalizer = new ObjectNormalizer(null, null, null, null, null, null, $defaultContext);
+
+        // $serializer = new Serializer([$normalizer], [$encoder]);
+
+
+        //On initialise l'encoder et le normalizer
+        $encoder = new JsonEncoder();
+        $normalizer = new ObjectNormalizer();
+        $serializer = new Serializer([$normalizer], [$encoder]);
+        
+
+        //On récupe tous nos users du back-end
+        $users=$this->getDoctrine()->getRepository(User::class)->findAll();
+        
+        if($users)
+        {
+            foreach($users as $user) 
+            {
+                $roles=$user->getRoles();
+                $rolePrincipal= $roles[0];
+                if ($rolePrincipal === "ROLE_SUPERADMIN" OR $rolePrincipal === 'ROLE_ADMIN' OR $rolePrincipal === 'ROLE_COURSIER' OR $rolePrincipal === 'ROLE_REDACTEUR') 
+                {
+                    $userAdmin[] = $user;
+                }
+                else
+                {
+                    $userAdmin=[];
+                }
+                
+                $jsonUsers=$serializer->serialize($userAdmin, 'json', [
+                    AbstractNormalizer::ATTRIBUTES      => ['id', 'username', 'nom', 'prenom', 'valide', 'roles', 'dateCreation', 'dateModif']
+                ]);
+            }
+        }
+        
+        //On retourne une réponse JSON
+        return new Response($jsonUsers, 200, ['Content-Type' => 'application/json']);
+    }
+
+    /**
+     * Modifier un User grâce a son id
+     * @Route("/utilisateur-{id}", name="modif_user", options={"expose"=true})
+     */
+    public function utilisateurEdit(Request $request, $id, EntityManagerInterface $manager, UserPasswordEncoderInterface $encoder) : Response
+    {
+        $this->denyAccessUnlessGranted('SHOW', $this->serviceUsers);
+
+        $user= $this->getDoctrine()->getRepository(User::class)->find($id);
+        
+        $form=$this->createForm(UserType::class, $user);
+        $form->handleRequest($request);
+        
+        if($form->isSubmitted() AND $form->isValid())
+        {
+            //On récupere le mot de passe en clair et l'encode grâce a l'encodage auto
+            $password=$form->get('password')->getData();
+            if($password != null)
+            {
+                $user->setPassword($encoder->encodePassword($user, $password));
+            }
+            $user->setPassword($user->getPassword());
+
+            //On modifie da date de modification
+            $user->setDateModif(new \DateTime("now"));
+            
+            $manager->persist($user);
+            $manager->flush();
+            
+        }   
+        return $this->render('back_end\utilisateurs\edit_utilisateur.html.twig', [
+            'form'          =>$form->createView()
+        ]);
+    }
+
+    /**
+     * Création d'un nouveau utilisateur
+     * @Route("/utilisateur/add", name="add_user")
+     */
+    public function utilisateurAdd(Request $request, EntityManagerInterface $manager, UserPasswordEncoderInterface $encoder) : Response
+    {
+        $this->denyAccessUnlessGranted('SHOW', $this->serviceUsers);
+        //On crée un nouveau User
+        $user = new User;
+
+        //On crée le formulaire
+        $form= $this->createForm(UserType::class, $user);
+        $form->handleRequest($request);
+
+        //Si le formulaire est validé et valide
+        if($form->isSubmitted() AND $form->isValid())
+        {
+            //On récupere notre psw et on l'encode
+            $password=$form->get('password')->getData();
+            $user->setPassword($encoder->encodePassword($user, $password));
+
+            //On modifie da date de modification
+            $user->setDateCreation(new \DateTime("now"));
+
+            //On enregistre dans la BD
+            $manager->persist($user);
+            $manager->flush();
+
+            //On redirige sur la modification de cette user
+            return $this->redirectToRoute('modif_user', [
+                'id'    =>$user->getId()
+            ]);
+        }
+        return $this->render('back_end\utilisateurs\edit_utilisateur.html.twig', [
+            'form'      => $form->createView()
+        ]);
+    }
+}

@@ -1,0 +1,9 @@
+{% extends "back_end/base.html.twig" %}
+
+{% block menu_header %}
+    {% include "back_end/utilisateurs/__header.html.twig" %}
+{% endblock %}
+
+{% block contenu %}
+    {{ form(form) }}
+{% endblock %}

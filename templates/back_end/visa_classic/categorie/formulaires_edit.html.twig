@@ -1,0 +1,8 @@
+ <style>
+   .modal{
+       margin-top: 35px;
+   } 
+ </style>
+    {{ form_start(form, {'action': path('edit_formulaire_officiel', {'id': formulaire.id}), 'method': 'POST'}) }}
+        {{ form(form) }}
+    {{ form_end(form)}}

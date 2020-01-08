@@ -1,0 +1,17 @@
+{% extends "back_end/base.html.twig" %}
+
+
+{% block contenu %}
+    {% form_theme form '/back_end/jquery.collection.html.twig' %}
+
+    {{ form(form)}}
+{% endblock %}
+
+
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript" src="{{ asset('backend/js/jquery.collection.js') }}"></script>
+    <script type="text/javascript">
+        $('.my-selector').collection();
+    </script>
+{% endblock %}

@@ -1,0 +1,8 @@
+ <style>
+   .modal{
+       margin-top: 35px;
+   } 
+ </style>
+    {{ form_start(form, {'action': path('edit_doccument_facultatif', {'id': doc.id}), 'method': 'POST'}) }}
+        {{ form_row(form) }}
+    {{ form_end(form)}}
