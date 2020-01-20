@@ -1,0 +1,293 @@
+{% extends "base.html.twig" %}
+{% block header %}
+    {% include "/front_end/home/__header.html.twig" %}
+{% endblock %}
+
+{% block body %}
+    <div class="container-fluid">
+        <div class="breadcrumb-page">
+            <div><a href="#">Accueil</a> / <a href="#">Pays Visa</a> / <a href="#">Caraïbes</a> / <a href="#"><span class="last">Carte tourisme Cuba</span></a></div>
+
+            <div class="on-mobile share-btn">
+                <a href="#"><img src="/images/share.svg" alt="icône de partage" class="icon">Partager</a>
+            </div>
+        </div>
+
+        <div class="country-infos">
+            <div class="row">
+                <div class="on-mobile flex-column col-12">
+                    <div class="d-flex justify-content-between infos-container-title">
+                        <h1><span class="text-primary">Carte Tourisme</span> Cuba</h1>
+                        <div class="ranking-stars">
+                            <div>
+                                <a href="#avis">
+                                    <img src="/images/star-green.svg" alt="icone étoile avis" class="star-icon star-filled svg">
+                                    <img src="/images/star-green.svg" alt="icone étoile avis" class="star-icon star-filled svg">
+                                    <img src="/images/star-green.svg" alt="icone étoile avis" class="star-icon star-filled svg">
+                                    <img src="/images/star-green.svg" alt="icone étoile avis" class="star-icon star-filled svg">
+                                    <img src="/images/star-green.svg" alt="icone étoile avis" class="star-icon star-filled svg">
+                                </a>
+                            </div>
+                            <a href="#avis" class="ranking-stars-title">12 avis</a>
+                        </div>
+                    </div>
+                    <h2 class="text-grey">Demande de visa pour Cuba</h2>
+                </div>
+
+                <div class="photo-container col-12 col-md-6">
+                    <div class="photo-box">
+                        <img src="/images/pays-img/cuba.jpg" alt="photo de cuba">
+                        <div class="country-like">
+                            <div class="like-icon">
+                                <a href="#"><img src="/images/heart.svg" alt="icône like visa inde" class="icon"></a>
+                            </div>
+                            <span>Visa Cuba</span>
+                        </div>
+                    </div>
+                    <div class="photo-content on-tablet-desktop">
+                        <div class="social-media">
+                            <ul>
+                                <li><a href="#"><img src="/images/social-media/twitter.svg" class="icon svg" alt="logo twitter"></a></li>
+                                <li><a href="#"><img src="/images/social-media/google-plus.svg" class="icon svg" alt="logo google plus"></a></li>
+                                <li><a href="#"><img src="/images/social-media/facebook.svg" class="icon svg" alt="logo facebook"></a></li>
+                                <li><a href="#"><img src="/images/social-media/pinterest.svg" class="icon svg" alt="logo pinterest"></a></li>
+                            </ul>
+                        </div>
+                        <div class="card communique">
+                            <div class="card-body">
+                                <span class="communique-title"><img src="/images/communique.svg" alt="icone communiqué" class="communique-icon"> Communiqué :</span>
+                                {{ cuba.communique }}.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="infos-container col-12 col-md-6">
+                    <div class="d-flex align-items-center justify-content-end infos-container-title on-tablet-desktop">
+                        <h1 class="title-segblk"><span class="text-primary">Carte de tourisme </span>Cuba</h1>
+                        <div class="ranking-stars d-flex flex-row align-items-center">
+                            <div>
+                                <a href="#avis">
+                                    <img src="/images/star-green.svg" alt="icone étoile avis" class="star-icon star-filled svg">
+                                    <img src="/images/star-green.svg" alt="icone étoile avis" class="star-icon star-filled svg">
+                                    <img src="/images/star-green.svg" alt="icone étoile avis" class="star-icon star-filled svg">
+                                    <img src="/images/star-green.svg" alt="icone étoile avis" class="star-icon star-filled svg">
+                                    <img src="/images/star-green.svg" alt="icone étoile avis" class="star-icon star-filled svg">
+                                </a>
+                            </div>
+                            <a href="#avis" class="ranking-stars-title">12 avis</a>
+                        </div>
+                    </div>
+                    <h2 class="text-grey on-desktop">Demande de visa pour Cuba</h2>
+                    <div class="info-tabs">
+
+                        <div class="tabs-with-icon">
+                            <div>
+                            <!-- <nav class="tabs-with-icon-container on-desktop">
+                                    <div class="tabs-with-icon-nav nav nav-tabs nav-fill" id="nav-tab" role="tablist">
+                                        <a class="nav-item nav-link active" id="nav-carte-tourisme-tab" data-toggle="tab" href="#nav-carte-tourisme" role="tab" aria-controls="nav-carte-tourisme" aria-selected="true">
+                                            <span class="wrap-for-border">Carte de tourisme <span class="on-desktop"> Cuba</span></span>
+                                        </a>
+                                        <a class="nav-item nav-link" id="nav-affaires-tab" data-toggle="tab" href="#nav-affaires" role="tab" aria-controls="nav-affaires" aria-selected="false">
+                                            <span class="wrap-for-border">Visa affaires <span class="on-desktop"> Cuba</span></span>
+                                        </a>
+
+                                    </div>
+                                </nav>-->
+                                <div class="tab-content" id="nav-tabContent">
+                                    <div class="tab-pane fade show active" id="nav-carte-tourisme" role="tabpanel" aria-labelledby="nav-carte-tourisme-tab">
+                                        <div class="tab-wrapper pt-3">
+                                            <p class="title-segpr-regular">Sélectionner un <span class="text-primary">mode de réception</span></p>
+
+                                            <div class="form-radio-box">
+                                                <div>
+                                                    <label class="form-radio form-radio-img-wrapper">
+                                                        <div class="form-radio-img">
+                                                            <img  class="img-black" src="/images/domicile.svg" alt="livraison à domicile">
+                                                            <img class="img-green" src="/images/domicile-green.svg" alt="livraison à domicile">
+                                                        </div>
+                                                        <p class="form-radio-img-title">Livraison à domicile</p>
+                                                        <input type="radio" checked="checked" name="radio">
+                                                        <span class="checkmark"></span>
+
+                                                    </label>
+                                                </div>
+
+                                                <div>
+                                                    <label class="form-radio form-radio-img-wrapper">
+                                                        <div class="form-radio-img">
+                                                            <img class="img-black" src="/images/retrait.svg" alt="icone Retrait à l'agence">
+                                                            <img class="img-green" src="/images/retrait-green.svg" alt="icone Retrait à l'agence">
+                                                        </div>
+                                                        <p class="form-radio-img-title">Retrait à l'agence</p>
+                                                        <p class="form-radio-img-description"><img src="/images/eiffel-tower.svg" class="icon mr-0" alt="icone paris">Paris</p>
+                                                        <input type="radio" checked="checked" name="radio">
+                                                        <span class="checkmark"></span>
+                                                        <span class="on-mobile icon-tooltip" data-toggle="tooltip" title="Paris"><img src="/images/help-round-button.svg" alt="bouton en savoir plus" class="icon"></span>
+                                                    </label>
+                                                </div>
+
+                                                <div>
+                                                    <label class="form-radio form-radio-img-wrapper">
+                                                        <div class="form-radio-img">
+                                                            <img class="img-black smaller" src="/images/coursier.svg" alt="icone livraison par coursier">
+                                                            <img class="img-green smaller" src="/images/coursier-green.svg" alt="icone livraison par coursier">
+                                                        </div>
+                                                        <p class="form-radio-img-title">Livraison par coursier</p>
+                                                        <p class="form-radio-img-description">Dép:75,77,78,91,92,95</p>
+                                                        <input type="radio" checked="checked" name="radio">
+                                                        <span class="checkmark"></span>
+                                                        <span class="on-mobile icon-tooltip" data-toggle="tooltip" title="Dep:75,77,78,91,92,95"><img src="/images/help-round-button.svg" alt="bouton en savoir plus" class="icon"></span>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="text-center">
+                                            <a href="formulaire-cuba.html" class="btn btn-primary btn-next">Commander mes cartes
+                                                <img src="/images/btn-send.svg" alt="icône" class="icon-next">
+                                            </a>
+                                        </div>
+                                    </div>
+
+                                    <div class="tab-pane fade on-desktop" id="nav-affaires" role="tabpanel" aria-labelledby="nav-affaires-tab">
+                                        2
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="col-12">
+                    <div class="card communique on-mobile">
+                        <div class="card-body">
+                            <span class="communique-title"><img src="/images/communique.svg" alt="icone communiqué" class="communique-icon"> Communiqué :</span>
+                            {{cuba.communique}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="infos-in-tabs full-width-mobile container-fluid">
+        <div class="tabs-simple">
+                <div class="nav-tabs-navigation">
+                    <div class="nav-tabs-wrapper">
+                        <ul class="nav nav-tabs" role="tablist">
+                            <li class="nav-item">
+                                <a class="nav-link active" data-toggle="tab" href="#type-visa" role="tab" aria-selected="true"> 
+                                    <div>Infos Visa <span class="on-desktop">Cuba</span></div>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" data-toggle="tab" href="#apercu-carte" role="tab" aria-selected="false">
+                                    <div><span class="on-desktop">Aperçu</span> carte tourisme <span class="on-desktop"> Cuba </span></div>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" data-toggle="tab" href="#infos" role="tab" aria-selected="false">
+                                    <div>Infos <span class="on-desktop">Cuba</span></div>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="tab-content">
+                    <div class="tab-pane active" id="type-visa" role="tabpanel">
+
+                        <div class="row on-tablet-desktop">
+                            <div class="col-md-3 links-anchors to-stick">
+                                <ul>
+                                    {% for info in cuba.voletsInfos %}
+                                        <li>
+                                            <a href="#{{info.titre}}" class="{% if loop.first %} active {% endif %}">{{info.titre}}<img src="/images/next-green.svg" alt="icône contenu affiché" class="links-anchor-active icon-next"></a>
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+
+                            </div>
+
+                            <div class="col-md-8">
+                                {% for info in cuba.voletsInfos %}
+                                    <div id="{{ info.titre }}">
+                                        <div class=" row row-with-margins">
+                                            <div class="on-tablet-desktop">
+                                                    <h3>{{ info.titre }}</h3>
+                                            </div>
+                                            {{ info.contenu}}
+                                        </div>
+                                    </div>
+                                    <hr>
+                                {% endfor %}
+                            </div>
+                        </div>
+
+                        <div class="on-mobile">
+                            <div class="links-anchors full-width-mobile">
+                                <ul>
+                                    {% for info in cuba.voletsInfos %}
+                                        <li>
+                                            <a  class="d-flex align-items-start {% if loop.first %} active {% endif %}" data-toggle="collapse" data-target=".{{ info.titre }}" aria-expanded="true">{{ info.titre }}
+                                                <img src="/images/next-bas.svg" alt="icône contenu affiché" class="icon-next">
+                                                <img src="/images/next-haut-green.svg" alt="icône contenu affiché" class="icon-next2">
+                                            </a>
+                                        </li>
+                                        <div class="{{ info.titre }} collapse {% if loop.first %} show {% endif %}">
+                                            {{ info.contenu }}
+                                        </div>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+
+                        </div>
+
+                    </div>
+                    <div class="tab-pane" id="apercu-carte" role="tabpanel">
+                        <div class="row">
+
+                        </div>
+
+                    </div>
+                    <div class="tab-pane" id="infos" role="tabpanel">
+                        <div class="actu-wrapper row">
+                            <div class="col-12 col-md-12 col-lg-9">
+                                <!-- Actu 1-->
+                                <div class="actu-box">
+                                    <p class="actu-info">
+                                        <img src="/images/pen-black.svg" alt="icône crayon" class="icon">
+                                        <span class="text-primary">Le 03/04/2019 |</span>
+                                        Visa-en-ligne.com
+                                    </p>
+                                    <div class="actu-card">
+                                        <a href="actualite-focus.html"><h3 class="actu-card-title">Ouverture économique et tourisme</h3></a>
+                                        <p class="actu-card-description">Lorem ipsum dolor sit amet consectetur adipisicing elit. Commodi eius incidunt, distinctio cum enim quis ex, provident blanditiis unde, saepe totam modi. Officiis, aut? Quaerat quidem a natus fugiat magni.</p>
+                                    </div>
+                                </div>
+
+
+                                <!-- Actu 2-->
+                                <div class="actu-box">
+                                    <p class="actu-info">
+                                        <img src="/images/pen-black.svg" alt="icône crayon" class="icon">
+                                        <span class="text-primary">Le 03/04/2019 |</span>
+                                        Visa-en-ligne.com
+                                    </p>
+                                    <div class="actu-card">
+                                        <a href="actualite-focus.html"><h3 class="actu-card-title">Ouverture économique et tourisme</h3></a>
+                                        <p class="actu-card-description">Lorem ipsum dolor sit amet consectetur adipisicing elit. Commodi eius incidunt, distinctio cum enim quis ex, provident blanditiis unde, saepe totam modi. Officiis, aut? Quaerat quidem a natus fugiat magni.</p>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+    </div>
+
+{% endblock %}

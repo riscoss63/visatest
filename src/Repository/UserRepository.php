@@ -64,4 +64,18 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         ;
     }
     */
+    public function findCoursier()
+    {
+        $users = $this->findAll();
+        foreach($users as $user) 
+        {
+            $roles=$user->getRoles();
+            if (in_array('ROLE_COURSIER', $roles)) 
+            {
+                $usersCoursier[] = $user;
+            }
+            $usersCoursier;
+        }
+        return $usersCoursier;
+    }
 }

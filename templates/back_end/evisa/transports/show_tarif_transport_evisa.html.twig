@@ -1,0 +1,54 @@
+{% extends "back_end/base.html.twig" %}
+
+{% block menu_header %}
+    {% include "back_end/evisa/__header.html.twig" %}
+{% endblock %}
+
+
+{% block contenu %}
+
+    <div class="row">
+        <h5 class=" m-auto col-8"><i class="fa fa-shipping-fast"></i>  Liste des tarifs transports/ {{transport.titre}} </h5>
+        <div class="col-3 float-right">
+            <a href="{{path('add_tarif_transport_evisa', { id : transport.id})}}" class="btn btn-primary petite-taille"><i class="fas fa-plus-circle"></i> Ajouter un tarif de transport </a>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-12">
+            <table data-toggle="table" data-url="{{ path('json_tarif_transport_evisa', {id : transport.id})}}" data-pagination="true" data-search="true" data-pagination: "true">
+                <thead>
+                    <tr>
+                        <th data-field="zone" data-sortable="true">Zone</th>
+                        <th data-field="departement.nom" data-sortable="true">Département</th>
+                        <th data-field="prix" >Tarif</th>
+                        <th data-field="actif" data-formatter="booleanFormatter" data-align="center" data-sortable="true">Actif</th>
+                        <th data-field="edit" data-formatter="actionsFormatter">Actions</th>
+                    </tr>
+                </thead>
+            </table>
+        </div> 
+    </div>
+
+{% endblock %}
+
+{% block javascripts %}
+
+    {{ parent() }}
+    <script>
+        function actionsFormatter(value, row, index){
+            return '<a href="'+Routing.generate('edit_tarif_transport_evisa', {'id' : row.id})+'" title="Modifier"><i class="far fa-edit"></i></a>';
+        }
+
+        function booleanFormatter(value, row, index) {
+            if (value === true) {
+                return '<i class="fa fa-check text-success text-center"></i>';
+            }
+            else {
+                return '<i class="fa fa-times text-danger text-center"></i>';
+            }
+        }
+
+    </script>
+    
+{% endblock %}

@@ -1,0 +1,92 @@
+{% extends "back_end/base.html.twig" %}
+
+{% block menu_header %}
+    {% include "back_end/evisa/__header.html.twig" %}
+{% endblock %}
+
+
+{% block contenu %}
+
+    <div class="row">
+        <h5 class=" m-auto col-8"><i class="fa fa-shipping-fast"></i>  Liste des types de tarif </h5>
+        <div class="col-3 float-right">
+            <a href="{{path('add_transport_evisa')}}" class="btn btn-primary petite-taille"><i class="fas fa-plus-circle"></i> Nouveau type de tarif </a>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-12">
+            <table data-toggle="table" data-url="{{ path('json_transport_evisa')}}" data-pagination="true" data-search="true" data-pagination: "true">
+                <thead>
+                    <tr>
+                        <th data-field="titre" data-sortable="true">Titre</th>
+                        <th data-field="informations"  data-sortable="true">Informations supplémentaires</th>
+                        <th data-field="tarif" >Tarifs global</th>
+                        <th data-field="actif" data-formatter="booleanFormatter" data-align="center" data-sortable="true">Actif</th>
+                        <th data-field="DateCreation.timestamp" data-formatter="dateFormatter" data-align="center" data-sortable="true">Date de création</th>
+                        <th data-field="DateCreation.timestamp" data-formatter="dateFormatter" data-align="center" data-sortable="true">Date de création</th>
+                        <th data-field="edit" data-formatter="actionsFormatter">Actions</th>
+                    </tr>
+                </thead>
+            </table>
+        </div> 
+    </div>
+
+{% endblock %}
+
+{% block javascripts %}
+
+    {{ parent() }}
+    <script>
+        {# var date = new Date(value*1000); #}
+        function dateFormatter(value, row, index) {
+            var date = new Date(value*1000);
+            return `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`;
+        }
+        function actionsFormatter(value, row, index){
+            return '<a href="'+Routing.generate('edit_transport_evisa', {'id' : row.id})+'" title="Modifier"><i class="far fa-edit"></i></a>'+
+            '<a href="'+Routing.generate('show_tarif_transport_evisa', {'id' : row.id})+'" title="Modifier"><i class="fas fa-tasks"></i></a>';
+        }
+
+        function booleanFormatter(value, row, index) {
+            if (value === true) {
+                return '<i class="fa fa-check text-success text-center"></i>';
+            }
+            else {
+                return '<i class="fa fa-times text-danger text-center"></i>';
+            }
+        }
+
+        {#function libelleFormatter(value, row,index){
+            libelleZone = "";
+            if (row["pays"]["zoneGeographique"]){
+                return row["pays"]["titre"] + "<br /><small>" + row["pays"]["zoneGeographique"]["titre"] + "</small>";
+            }
+            return row["pays"]["titre"];
+        }
+
+        function listeVisasFormatter(value, row, index){
+            if (row["typeVisa"].length > 0){
+                var listeVisas = [];
+                $.each(row["typeVisa"], function(idx, elt){
+                    /*var data = {
+                        visa_edit_link: Routing.generate("backend_visa_modifier", {'entiteId': elt['id']}),
+                        libelle_visa: elt["libelle"],
+                        id_visa: row["code"] + "_" + elt["id"],
+                        documents_edit_link: Routing.generate("backend_documents_liste", {'entiteId': elt['id']}),
+                        piece_jointes_edit_link: Routing.generate("backend_pieces_jointes_liste", {'entiteId' : elt['id']}),
+                        last_elt : ((idx !== 0) && (idx + 1 === row["visas"].length)) || ((idx === 0) && (row["visas"].length <= 1)),
+                        numero: idx + 1
+                    };*/
+                    txt = "<span class='kt-badge kt-badge--info kt-badge--lg kt-badge--inline kt-badge--pill kt-badge--rounded'>" +
+                        elt["titre"] + "</span>";
+                    listeVisas.push(txt);
+                });
+                return listeVisas.join(" ");
+            }
+            return "<span class='kt-badge kt-badge--lg kt-badge--warning kt-badge--inline kt-badge--pill kt-badge--rounded'>Aucun type de visa paramétré</span>";
+        } #}
+
+    </script>
+    
+{% endblock %}

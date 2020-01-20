@@ -1,0 +1,87 @@
+{% extends "back_end/base.html.twig" %}
+
+{% block menu_header %}
+    {% include "back_end/faq/__header.html.twig" %}
+{% endblock %}
+
+{% block contenu %}
+
+    <div class="row">
+        <h5 class=" m-auto col-8"><i class="fa fa-users-cog"></i> Gestion des sujets</h5>
+        <div class="col-3 float-right">
+            <a href="{{path('add_sujet_faq')}}" class="btn btn-primary petite-taille"><i class="fas fa-plus-circle"></i> Ajouter un sujet </a>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-12">
+            <table id="table" data-toggle="table" data-url="{{ path('json_sujets_faq')}}" data-pagination="true" data-search="true" data-pagination: "true">
+                <thead>
+
+                    <tr>
+                        <th data-field="categorieFaq.titre" data-sortable="true"> Catégorie </th>
+                        <th data-field="titre" data-sortable="true"> Sujet </th>
+                        <th data-field="dateCreation.timestamp" data-formatter="dateFormatter" data-sortable="true"> Date de création </th>
+                        <th data-field="dateModification.timestamp" data-formatter="dateFormatter" data-sortable="true"> Date de Modification </th>
+                        <th data-field="edit" data-formatter="actionsFormatter"> Editer </th>
+                    </tr>
+
+                </thead>
+            </table>
+        </div> 
+    </div>
+
+{% endblock %}
+
+{% block javascripts %}
+
+    {{ parent() }}
+    <script>
+
+         function actionsFormatter(value, row, index){
+            return '<a href="'+Routing.generate('edit_sujet_faq', {'id' : row.id})+'" title="Modifier"><i class="far fa-edit"></i></a>';
+        }
+
+        var $table = $('#table')
+        var $button = $('select')
+
+        $(function() {
+            $button.change(function () {
+                $( "select option:selected" ).each(function() {
+                    $table.bootstrapTable('filterBy', {
+                        typeDuree: $( this ).val()
+                    })
+                    console.log($( this ).val())
+                });
+                
+            })
+        })
+        
+        function booleanFormatter(value, row, index) {
+            if (value === true) {
+                return '<i class="fa fa-check text-success text-center"></i>';
+            }
+            else {
+                return '<i class="fa fa-times text-danger text-center"></i>';
+            }
+        }
+
+        function visaFormatter(value, row, index) {
+            if(row["visaClassic"]) {
+                return '<strong> Visa classic </strong>';
+            }
+            else if(row["evisa"]) {
+                return '<strong> E visa </strong';
+            }
+            else if(row["carteTourisme"]) {
+                return '<strong>Carte de tourisme</strong>';
+            }
+            return 'Aucun visa n\'est selectionner';
+        }
+        function dateFormatter(value, row, index) {
+            var date = new Date(value*1000);
+            return `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()} à ${date.getHours()}h${date.getMinutes()}`;
+        }
+    </script>
+    
+{% endblock %}

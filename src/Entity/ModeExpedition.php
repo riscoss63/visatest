@@ -31,6 +31,11 @@ class ModeExpedition
      */
     private $eVisa;
 
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\CarteTourisme", mappedBy="modeExpedition", cascade={"persist", "remove"})
+     */
+    private $carteTourisme;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -79,6 +84,24 @@ class ModeExpedition
         $newModeExpedition = null === $eVisa ? null : $this;
         if ($eVisa->getModeExpedition() !== $newModeExpedition) {
             $eVisa->setModeExpedition($newModeExpedition);
+        }
+
+        return $this;
+    }
+
+    public function getCarteTourisme(): ?CarteTourisme
+    {
+        return $this->carteTourisme;
+    }
+
+    public function setCarteTourisme(?CarteTourisme $carteTourisme): self
+    {
+        $this->carteTourisme = $carteTourisme;
+
+        // set (or unset) the owning side of the relation if necessary
+        $newModeExpedition = null === $carteTourisme ? null : $this;
+        if ($carteTourisme->getModeExpedition() !== $newModeExpedition) {
+            $carteTourisme->setModeExpedition($newModeExpedition);
         }
 
         return $this;

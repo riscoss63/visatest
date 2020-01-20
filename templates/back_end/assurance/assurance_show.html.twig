@@ -1,0 +1,79 @@
+{% extends "back_end/base.html.twig" %}
+
+{% block menu_header %}
+    {% include "back_end/assurance/__header.html.twig" %}
+{% endblock %}
+
+{% block contenu %}
+
+    <div class="row">
+        <h5 class=" m-auto col-8"><i class="fa fa-users-cog"></i> Gestion des assurances</h5>
+        <div class="col-3 float-right">
+            <a href="{{path('add_assurance')}}" class="btn btn-primary petite-taille"><i class="fas fa-plus-circle"></i> Ajouter une assurance </a>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-12">
+            <table id="table" data-toggle="table" data-url="{{ path('json_liste_assurance')}}" data-pagination="true" data-search="true" data-pagination: "true">
+                
+                <thead>
+                <select id="type_duree" name="type_duree">
+                    <option value="-1_mois">- d'un mois</option>
+                    <option value="+1_mois">+ d'un mois</option>
+                </select>
+                    <tr>
+                        <th data-field="id" data-sortable="true">Id</th>
+                        <th data-field="tarif" data-sortable="true">Prix</th>
+                        <th data-field="pays.titre" data-sortable="true"> Pays </th>
+                        <th data-field="duree" data-sortable="true">Durée </th>
+                        <th data-field="edit" data-formatter="actionsFormatter">Editer</th>
+                    </tr>
+                </thead>
+            </table>
+        </div> 
+    </div>
+
+{% endblock %}
+
+{% block javascripts %}
+
+    {{ parent() }}
+    <script>
+
+         function actionsFormatter(value, row, index){
+            return '<a href="'+Routing.generate('edit_assurance', {'id' : row.id})+'" title="Modifier"><i class="far fa-edit"></i></a>';
+        }
+
+        var $table = $('#table')
+        var $button = $('select')
+
+        $(function() {
+            $button.change(function () {
+                $( "select option:selected" ).each(function() {
+                    $table.bootstrapTable('filterBy', {
+                        typeDuree: $( this ).val()
+                    })
+                    console.log($( this ).val())
+                });
+                
+            })
+        })
+        {# function dateFormatter(value, row, index) {
+            var date = new Date(value*1000);
+            
+            return `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()} à ${date.getHours()}h${date.getMinutes()}`;
+        } #}
+
+        // function libelleFormatter(value, row,index){
+        //     libelleZone = "";
+        //     if (row["pays"]["zoneGeographique"]){
+        //         return row["pays"]["titre"] + "<br /><small>" + row["pays"]["zoneGeographique"]["titre"] + "</small>";
+        //     }
+        //     return row["pays"]["titre"];
+        // }
+
+        
+    </script>
+    
+{% endblock %}

@@ -1,0 +1,7 @@
+<nav class="nav">
+
+    <a class="nav-link {% if app.request.attributes.get('_route') == 'show_actualite' %} active {% endif %}" href="{{ path('show_actualite')}}"><i class="fa fa-newspaper"></i>Actualitées</a>
+
+    <a class="nav-link {% if app.request.attributes.get('_route') == 'show_page_divers' %} active {% endif %}" href="{{ path('show_page_divers')}}"><i class="fa fa-file-alt"></i> Divers </a>
+
+</nav>

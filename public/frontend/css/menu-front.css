@@ -84,7 +84,7 @@ p.search-title {
   .search-box .border-select option {
     color: #000; }
 .search-box .select-type {
-  background: url(images/arrow-down-white.svg) no-repeat;
+  background: url(/images/arrow-down-white.svg) no-repeat;
   background-size: 20px auto;
   background-position: 60px 4px;
   margin-left: 1px; }

@@ -4,8 +4,8 @@
 
     <a class="nav-link {% if app.request.attributes.get('_route') == 'show_pays_evisa' %} active {% endif %}" href="{{ path('show_pays_evisa')}}"><i class="fa fa-flag"></i>Pays EVisa</a>
 
-    <a class="nav-link {% if app.request.attributes.get('_route') == 'liste_transport_visa_classic' %} active {% endif %}" href="{{ path('liste_transport_visa_classic')}}"><i class="fa fa-shipping-fast"></i> Tarifs transport/livraison</a>
+    <a class="nav-link {% if app.request.attributes.get('_route') == 'liste_transport_evisa' %} active {% endif %}" href="{{ path('liste_transport_evisa')}}"><i class="fa fa-shipping-fast"></i> Tarifs transport/livraison</a>
 
-    <a class="nav-link {% if app.request.attributes.get('_route') == 'show_demandes_visa_classic' %} active {% endif %}" href="{{ path('show_demandes_visa_classic')}}" ><i class="fa fa-check"><span></span></i>Gestion des demandes</a>
+    <a class="nav-link {% if app.request.attributes.get('_route') == 'show_demandes_evisa' %} active {% endif %}" href="{{ path('show_demandes_evisa')}}" ><i class="fa fa-check"><span></span></i>Gestion des demandes</a>
 
 </nav>

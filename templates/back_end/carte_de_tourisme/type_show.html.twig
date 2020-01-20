@@ -1,0 +1,65 @@
+{% extends "back_end/base.html.twig" %}
+
+{% block menu_header %}
+    {% include "back_end/carte_de_tourisme/__header.html.twig" %}
+{% endblock %}
+
+
+{% block contenu %}
+
+    <div class="row">
+        <h5 class=" m-auto col-8"><i class="fa fa-users-cog"></i> Liste des visas - Carte de tourisme / {{ carteTourisme.pays.titre }}</h5>
+        <div class="col-3 float-right">
+            <a href="{{path('add_type_carte_tourisme', {id: carteTourisme.id } )}}" class="btn btn-primary petite-taille"><i class="fas fa-plus-circle"></i> Ajouter un type de visa </a>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-12">
+            <table data-toggle="table" data-url="{{ path('json_type_carte_tourisme', {id: carteTourisme.id} )}}" data-pagination="true" data-search="true" data-pagination: "true">
+                <thead>
+                    <tr>
+                        <th data-field="categorieVisa.titre" data-sortable="true">Catégorie</th>
+                        <th data-field="titre" data-sortable="true">Visa</th>
+                        <th data-field="typeEntre" data-sortable="true">Type entrée</th>
+                        <th data-field="dureSejour" data-sortable="true">Durée séjour</th>
+                        <th data-field="valide" data-formatter="booleanFormatter" data-align="center" data-sortable="true">Visible sur le site ?</th>
+                        <th data-field="edit" data-formatter="actionsFormatter">Editer</th>
+                    </tr>
+                </thead>
+            </table>
+        </div> 
+    </div>
+
+{% endblock %}
+
+{% block javascripts %}
+
+    {{ parent() }}
+    <script>
+
+        function actionsFormatter(value, row, index){
+            return '<a href="'+Routing.generate('edit_type_carte_tourisme', {'id' : row.id})+'" title="Modifier"><i class="far fa-edit"></i></a>';
+        }
+
+        function booleanFormatter(value, row, index) {
+            if (value === true) {
+                return '<i class="fa fa-check text-success text-center"></i>';
+            }
+            else {
+                return '<i class="fa fa-times text-danger text-center"></i>';
+            }
+        }
+
+        // function libelleFormatter(value, row,index){
+        //     libelleZone = "";
+        //     if (row["pays"]["zoneGeographique"]){
+        //         return row["pays"]["titre"] + "<br /><small>" + row["pays"]["zoneGeographique"]["titre"] + "</small>";
+        //     }
+        //     return row["pays"]["titre"];
+        // }
+
+        
+    </script>
+    
+{% endblock %}

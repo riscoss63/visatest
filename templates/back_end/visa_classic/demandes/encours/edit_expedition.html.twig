@@ -1,0 +1,87 @@
+<style>
+    .modal{
+        margin: 35px;
+        max-width: 1100px;
+        overflow: auto;
+
+    } 
+</style>
+
+<div class="row">
+    <h5 class=" m-auto col-8"><i class="fa fa-users-cog"></i> Expéditions</h5>
+</div>
+
+<div class="row mt-5">
+    <div class="col-12">
+
+
+        {{ form_start(formAjout, {'action': path('expedition_visa_classic'), 'method': 'POST'}) }}
+            {{ form_widget(formAjout.reference) }}
+            {{ form_widget(formAjout.submit) }}
+        {{ form_end(formAjout)}}
+
+        
+
+        <div class="row mt-5">
+            <div class="col-12">
+                <table data-toggle="table" id="table" data-url="{{ path('json_expedition_visa_classic') }}" data-pagination="true" data-search="false" data-pagination: "true"   data-show-header="false">
+                    <thead>
+                        <tr>
+                            <th data-field="demande" data-formatter="demandeFormatter" data-sortable="true">Demande</th>
+                            <th data-field="prestations" data-formatter="prestationsFormatter" data-sortable="true">Prestations</th>
+                            <th data-field="transport" data-formatter="transportFormatter" data-sortable="true">Transport</th>
+                            <th data-field="edit" data-formatter="actionsFormatter">Etat</th>
+                        </tr>
+                    </thead>
+                </table>
+            </div> 
+        </div>
+
+ 
+    </div> 
+</div>
+
+<script src="https://unpkg.com/bootstrap-table@1.15.5/dist/bootstrap-table.min.js"></script>
+
+<script>
+    
+    function dateDiff(date1, date2){
+        var diff = {}                           // Initialisation du retour
+        var tmp = date2 - date1;
+    
+        tmp = Math.floor(tmp/1000);             // Nombre de secondes entre les 2 dates
+        diff.sec = tmp % 60;                    // Extraction du nombre de secondes
+    
+        tmp = Math.floor((tmp-diff.sec)/60);    // Nombre de minutes (partie entière)
+        diff.min = tmp % 60;                    // Extraction du nombre de minutes
+    
+        tmp = Math.floor((tmp-diff.min)/60);    // Nombre d'heures (entières)
+        diff.hour = tmp % 24;                   // Extraction du nombre d'heures
+        
+        tmp = Math.floor((tmp-diff.hour)/24);   // Nombre de jours restants
+        diff.day = tmp;
+        
+        return diff;
+    }
+
+    function demandeFormatter(value, row, index) {
+        return 'Réference : <strong>'+row["demande"]["reference"]+'</strong><br/>  '+
+                '<strong>' + row["demande"]["client"]["email"] + '</strong>';
+    }
+
+    function prestationsFormatter(value, row, index) {
+        
+        return '<strong>'+row["demande"]["quantiteVisa"]+'</strong>';
+    }
+
+    function actionsFormatter(value, row, index){
+        return '<form action="'+ Routing.generate('edit_expedition_visa_classic', {id : row["id"]}) + '" method="POST">'+
+        '<input type="text" id="suivi" name="suivi" value="'+row["suivi"]+'" placeholder="Numéro de suivi"> <button type="submit" class="btn btn-primary">Enregistrer</button> </form>';
+    }
+
+    function transportFormatter(value, row, index){
+        return row["demande"]["transport"]["titre"];
+    }
+</script>
+
+    

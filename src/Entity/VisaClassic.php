@@ -82,11 +82,6 @@ class VisaClassic
     private $typeVisa;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\CategorieVisa", mappedBy="pays", cascade={"persist", "remove"})
-     */
-    private $categorieVisa;
-
-    /**
      * @ORM\OneToMany(targetEntity="App\Entity\VoletInfo", mappedBy="visaClassic")
      */
     private $voletsInfos;
@@ -106,6 +101,11 @@ class VisaClassic
      */
     private $notreService;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Actualite", mappedBy="visaClassic")
+     */
+    private $actualites;
+
 
     public function __construct()
     {
@@ -114,6 +114,7 @@ class VisaClassic
         $this->updatedAt = new \DateTimeImmutable();
         $this->voletsInfos = new ArrayCollection();
         $this->doccumentsSupplementaire = new ArrayCollection();
+        $this->actualites = new ArrayCollection();
     }
 
     /**
@@ -264,24 +265,6 @@ class VisaClassic
         return $this;
     }
 
-    public function getCategorieVisa(): ?CategorieVisa
-    {
-        return $this->categorieVisa;
-    }
-
-    public function setCategorieVisa(?CategorieVisa $categorieVisa): self
-    {
-        $this->categorieVisa = $categorieVisa;
-
-        // set (or unset) the owning side of the relation if necessary
-        $newPays = null === $categorieVisa ? null : $this;
-        if ($categorieVisa->getPays() !== $newPays) {
-            $categorieVisa->setPays($newPays);
-        }
-
-        return $this;
-    }
-
     /**
      * @return Collection|VoletInfo[]
      */
@@ -366,6 +349,42 @@ class VisaClassic
         $this->notreService = $notreService;
 
         return $this;
+    }
+
+    /**
+     * @return Collection|Actualite[]
+     */
+    public function getActualites(): Collection
+    {
+        return $this->actualites;
+    }
+
+    public function addActualite(Actualite $actualite): self
+    {
+        if (!$this->actualites->contains($actualite)) {
+            $this->actualites[] = $actualite;
+            $actualite->setVisaClassic($this);
+        }
+
+        return $this;
+    }
+
+    public function removeActualite(Actualite $actualite): self
+    {
+        if ($this->actualites->contains($actualite)) {
+            $this->actualites->removeElement($actualite);
+            // set the owning side to null (unless already changed)
+            if ($actualite->getVisaClassic() === $this) {
+                $actualite->setVisaClassic(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function __toString()
+    {
+        return $this->getPays()->getTitre();
     }
 
 }

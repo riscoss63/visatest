@@ -10,20 +10,105 @@
         {% block stylesheets %}
             <link rel="stylesheet" type="text/css" href="{{ asset('/frontend/css/main.css') }}">
             <link rel="stylesheet" type="text/css" href="{{ asset('/frontend/fonts/font.css') }}">
-            <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+            {# <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"> #}
             <link href="https://fonts.googleapis.com/css?family=Fira+Sans+Condensed:500|Open+Sans+Condensed:300|Open+Sans:300,600|Roboto+Condensed:300,400,700|Roboto:100&display=swap" rel="stylesheet">
+            <link href="https://fonts.googleapis.com/css?family=Lato:200&display=swap" rel="stylesheet"> 
             <link rel="stylesheet" type="text/css" href="{{ asset('/frontend/css/simplebar.css') }}">
             <link rel="stylesheet" type="text/css" href="{{ asset('/frontend/css/menu-front.css') }}">
             <link rel="stylesheet" type="text/css" href="{{ asset('/frontend/css/owl.theme.default.css') }}">
             <link rel="stylesheet" type="text/css" href="{{ asset('/frontend/css/owl.carousel.css') }}">
-            <link rel="stylesheet" type="text/css" href="owl.carousel.css">
-	        <link rel="stylesheet" type="text/css" href="owl.theme.default.css">
+            <link rel="stylesheet" type="text/css" href="{{ asset('/frontend/css/page-front-visa.css') }}">
+            {# <link rel="stylesheet" type="text/css" href="{{ asset('/frontend/css/dist/bootstrap.min.css') }}"> #}
+            <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
         {% endblock %}
 
     </head>
 
     <body>
+        {% block header %}
+        
+        {% endblock %}
         {% block body %}{% endblock %}
+        {% block footer %}
+            <footer>
+                <div class="footer-container row mx-auto on-tablet-desktop">
+                    <div class="footer-box">
+                        <p class="footer-title">A propos<span class="footer-title-light"> de nous</span></p>
+                        <ul>
+                            <li><a href="nous-connaitre.html">Nous connaître</a></li>
+                            <li><a href="#">Mentions légales</a></li>
+                            <li><a href="#">Politique de confidentialité</a></li>
+                        </ul>
+                        <div class="img-paiement">
+                            <img src="/images/footer/logo-cb.png" alt="mode de paiement carte bleue">
+                            <img src="/images/footer/logo-visa.png" alt="mode de paiement visa">
+                            <img src="/images/footer/logo-mastercard.png" alt="mode de paiement mastercard">
+                        </div>
+                    </div>
+
+                    <div class="footer-box">
+                        <p class="footer-title">Besoin <span class="footer-title-light">d'une aide ?</span></p>
+                        <ul>
+                            <li><a href="faq.html">FAQ</a></li>
+                            <li><a href="login.html">Suivre une demande</a></li>
+                            <li><a href="listing-destinations.html">Informations visas par pays</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-box">
+                        <p class="footer-title">Visa <span class="footer-title-light">au top</span></p>
+                        <ul>
+                            <li><a href="#">E-visa Inde</a></li>
+                            <li><a href="page-cuba.html">Carte de tourisme Cuba</a></li>
+                            <li><a href="#">Visa Chine</a></li>
+                            <li><a href="#">Visa Russie</a></li>
+                            <li><a href="#">Visa Thaïlande</a></li>
+                            <li><a href="#">Visa Arabie Saoudite</a></li>
+                            <li><a href="#">Visa Algérie</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="footer-box">
+                        <p class="footer-title">Notre <span class="footer-title-light">agence</span></p>
+                        <!-- Adresse à dynamiser -->
+                        <div class="icon-france">
+                            <span>
+                                4 rue Villebois Mareuil<br>
+                                75017 Paris
+                            </span>
+                        </div>    
+                    </div>
+                    <div class="avis">
+                        <a href="#avis" class="navbar-reviews">
+                            <p>Avis clients</p>
+                            <img src="/images/navbar/reviews.svg" alt="avis">
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="on-mobile container">
+                    <div class="mb-3">
+                        <a href="nous-contacter.html" class="btn btn-outline-white btn-block"><img src="/images/phone-white.svg" alt="icône nous contacter" class="icon">Nous contacter</a>
+                    </div>
+
+                    <!-- Adresse dynamique-->
+                    <div>
+                        <a href="#" class="btn btn-outline-white btn-block">4 rue Villebois Mareuil - 75017 Paris</a>
+                    </div>
+
+                    <div class="links-bottom">
+                        <a href="nous-connaitre.html">Nous connaître</a> | <a href="#">Mentions légales</a> | <a href="#">Politique de confidentialité</a> | <a href="login.html">Suivi de commande</a>
+                    </div>
+                </div>
+            </footer>
+            <div class="fixed-element-scroll fixed-element-bottom btn-top">
+                <a href="#top" class="btn btn-primary btn-sm">
+                    <div><img src="/images/next-white.svg" alt="icône retourner en haut" class="icon svg"></div>
+                    <span class="on-desktop">Haut</span>
+                </a>
+            </div>
+        
+        {% endblock %}
         {% block javascripts %}
             <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
             <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>

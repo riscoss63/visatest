@@ -108,5 +108,8 @@ class TarifTransport
         return $this;
     }
 
-
+    public function getTitre()
+    {
+        return $this->transport->getTitre();
+    }
 }

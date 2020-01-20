@@ -1,0 +1,17 @@
+{% extends "back_end/base.html.twig" %}
+
+
+{% block contenu %}
+
+    <div class="row">
+        <h5 class=" m-auto col-8"><i class="fa fa-users-cog"></i> Ajouter une note de course</h5>
+        <div class="col-3 float-right">
+            <a href="{{path('add_course')}}" class="btn btn-primary petite-taille"><i class="fas fa-plus-circle"></i> Ajouter une Course </a>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            {{ form(form) }}
+        </div> 
+    </div>
+{% endblock %}

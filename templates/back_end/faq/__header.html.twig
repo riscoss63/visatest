@@ -1,0 +1,9 @@
+<nav class="nav">
+
+    <a class="nav-link {% if app.request.attributes.get('_route') == 'show_questions_reponses' %} active {% endif %}" href="{{ path('show_questions_reponses')}}"><i class="fa fa-question-circle"></i>Gérer les questions</a>
+
+    <a class="nav-link {% if app.request.attributes.get('_route') == 'show_categories_faq' %} active {% endif %}" href="{{ path('show_categories_faq')}}"><i class="fa fa-cube"></i> Gérer les categories </a>
+
+    <a class="nav-link {% if app.request.attributes.get('_route') == 'show_sujets_faq' %} active {% endif %}" href="{{ path('show_sujets_faq')}}"><i class="fa fa-cubes"></i> Gérer les sujets </a>
+
+</nav>

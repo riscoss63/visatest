@@ -163,7 +163,7 @@ class EvisaController extends AbstractController
     }
 
     /**
-     * @Route("/edit/mode-expedition-{id}/visa-classic", name="edit_mode_expedition_evisa")
+     * @Route("/edit/mode-expedition-{id}/evisa", name="edit_mode_expedition_evisa")
      */
     public function modeDexpeditionEdit(Request $request, $id, EntityManagerInterface $manager) : Response
     {

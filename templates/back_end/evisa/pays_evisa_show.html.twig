@@ -40,7 +40,7 @@
         function actionsFormatter(value, row, index){
             return '<a href="'+Routing.generate('edit_pays_evisa', {'id' : row.id})+'" title="Modifier"><i class="far fa-edit"></i></a>'+
             '<a href="'+Routing.generate('show_type_evisa', {'id' : row.id})+'" title="Modifier"><i class="fa fa-money-bill"></i></a>'+
-            '<a href="'+Routing.generate('show_categorie_visa_classic', {'id' : row.id})+'" title="Modifier"><i class="fas fa-window-restore"></i></a>'+
+            '<a href="'+Routing.generate('show_categorie_evisa', {'id' : row.id})+'" title="Modifier"><i class="fas fa-window-restore"></i></a>'+
             '<a href="'+Routing.generate('show_volet_infos_evisa', {'id' : row.id})+'" title="Modifier"><i class="fas fa-info-circle"></i></a>';
         }
 

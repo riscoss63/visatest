@@ -2,11 +2,12 @@
     .modal{
         margin-top: 35px;
         max-width: 1100px;
+        overflow: auto;
     } 
 </style>
 
 <div class="row">
-    <h5 class=" m-auto col-8"><i class="fa fa-users-cog"></i> Liste des pages pays</h5>
+    <h5 class=" m-auto col-8"><i class="fa fa-users-cog"></i>Réception dossier</h5>
 </div>
 
 <div class="row">
@@ -39,11 +40,14 @@
         }
 
         function prestationsFormatter(value, row, index) {
+            
             return 'Visa <strong>'+row["demande"]["visaType"]["visaClassic"]["pays"]["titre"]+'</strong> pour '+row["demande"]["quantiteVisa"]+' personne(s)';
+                    
         }
 
         function actionsFormatter(value, row, index){
-            return '<a href="'+Routing.generate('edit_demandes_visa_classic', {'id' : row.id})+'" title="Modifier" rel="modal:open"><i class="far fa-edit"> Editer </i></a>';
+            return '<a href="'+Routing.generate('incomplet_visa_classic', {'id' : row.id})+'" class="btn btn-danger btn-sm mb-2" rel="modal:open">Incomplet</a><br/>'+
+                    '<a href="'+Routing.generate('complet_dossier_visa_classic', {'id' : row.id})+'" class="btn btn-success btn-sm mb-2" rel="modal:open">Complet</a>';
         }
 
         function booleanFormatter(value, row, index) {

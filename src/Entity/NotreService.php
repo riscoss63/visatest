@@ -31,6 +31,11 @@ class NotreService
      */
     private $eVisa;
 
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\CarteTourisme", mappedBy="notreService", cascade={"persist", "remove"})
+     */
+    private $carteTourisme;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -79,6 +84,24 @@ class NotreService
         $newNotreService = null === $eVisa ? null : $this;
         if ($eVisa->getNotreService() !== $newNotreService) {
             $eVisa->setNotreService($newNotreService);
+        }
+
+        return $this;
+    }
+
+    public function getCarteTourisme(): ?CarteTourisme
+    {
+        return $this->carteTourisme;
+    }
+
+    public function setCarteTourisme(?CarteTourisme $carteTourisme): self
+    {
+        $this->carteTourisme = $carteTourisme;
+
+        // set (or unset) the owning side of the relation if necessary
+        $newNotreService = null === $carteTourisme ? null : $this;
+        if ($carteTourisme->getNotreService() !== $newNotreService) {
+            $carteTourisme->setNotreService($newNotreService);
         }
 
         return $this;

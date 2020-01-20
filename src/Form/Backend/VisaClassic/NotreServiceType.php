@@ -4,6 +4,7 @@ namespace App\Form\Backend\VisaClassic;
 
 use App\Entity\ModeExpedition;
 use App\Entity\NotreService;
+use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -15,10 +16,7 @@ class NotreServiceType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('contenu', TextType::class, [
-                'attr'      => [
-                    'class'     => 'form-control col-3 ml-1'
-                ],
+            ->add('contenu', CKEditorType::class, [
                 'label'     => 'contenu du doccument',
                 'required'  => false,
             ])

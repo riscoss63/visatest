@@ -3,6 +3,7 @@
 namespace App\Form\Backend\VisaClassic;
 
 use App\Entity\VoletInfo;
+use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -21,10 +22,7 @@ class VoletInfoVisaClassicEditType extends AbstractType
                 'label'     => 'Titre',
                 'required'  => true,
             ])
-            ->add('contenu', TextType::class, [
-                'attr'      => [
-                    'class'     => 'form-control col-5 ml-1'
-                ],
+            ->add('contenu', CKEditorType::class, [
                 'label'     => 'Contenu',
                 'required'  => true,
             ])

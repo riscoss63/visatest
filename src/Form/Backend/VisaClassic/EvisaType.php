@@ -43,16 +43,16 @@ class EvisaType extends AbstractType
                 'label'     => 'Position sur la page d\'accueil'
             ])
             ->add('meta', MetaType::class)
-            // ->add('imageFile', VichImageType::class, [
-            //     'required' => false,
-            //     'allow_delete' => true,
-            //     'download_label' => true,
-            //     'download_uri' => true,
-            //     'image_uri' => true,
-            //     // 'imagine_pattern' => '...',
-            //     'asset_helper' => true,
-            //     'label'     =>false
-            // ])
+            ->add('imageFile', VichImageType::class, [
+                'required' => false,
+                'allow_delete' => true,
+                'download_label' => true,
+                'download_uri' => true,
+                'image_uri' => true,
+                // 'imagine_pattern' => '...',
+                'asset_helper' => true,
+                'label'     =>false
+            ])
             ->add('communique', TextType::class, [
                 'attr'      => [
                     'class'     => 'form-control'

@@ -44,14 +44,14 @@ class CategorieVisa
     private $doccumentsFacultatifs;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\VisaClassic", inversedBy="categorieVisa", cascade={"persist", "remove"})
-     */
-    private $pays;
-
-    /**
      * @ORM\OneToMany(targetEntity="App\Entity\DoccumentOfficiel", mappedBy="categorieVisa")
      */
     private $doccumentsOfficiel;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Pays", inversedBy="categorieVisas")
+     */
+    private $pays;
 
 
     public function __construct()
@@ -177,17 +177,6 @@ class CategorieVisa
         return $this;
     }
 
-    public function getPays(): ?VisaClassic
-    {
-        return $this->pays;
-    }
-
-    public function setPays(?VisaClassic $pays): self
-    {
-        $this->pays = $pays;
-
-        return $this;
-    }
 
     /**
      * @return Collection|DoccumentOfficiel[]
@@ -216,6 +205,18 @@ class CategorieVisa
                 $doccumentsOfficiel->setCategorieVisa(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getPays(): ?Pays
+    {
+        return $this->pays;
+    }
+
+    public function setPays(?Pays $pays): self
+    {
+        $this->pays = $pays;
 
         return $this;
     }

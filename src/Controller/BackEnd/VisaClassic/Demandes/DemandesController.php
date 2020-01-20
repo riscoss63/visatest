@@ -2,9 +2,14 @@
 
 namespace App\Controller\BackEnd\VisaClassic\Demandes;
 
+use App\Entity\Course;
 use App\Entity\Demande;
+use App\Entity\EtatDossier;
 use App\Entity\ReceptionDossier;
+use App\Form\Backend\VisaClassic\CompletReceptionType;
 use App\Form\Backend\VisaClassic\DemandeType;
+use App\Form\Backend\VisaClassic\EtatDossierType;
+use App\Form\Backend\VisaClassic\IncompletReceptionType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -30,7 +35,7 @@ class DemandesController extends AbstractController
         {
             if($demande->getEtat() === 'commande')
             {
-                $visaClassic = $demande->getVisaType();
+                $visaClassic = $demande->getVisaType()->getVisaClassic();
                 if($visaClassic)
                 {
                     $demandesVisaClassic[] = $demande;
@@ -58,7 +63,21 @@ class DemandesController extends AbstractController
      */
     public function demandesShow() : Response
     {
-        return $this->render('/back_end/visa_classic/demandes/show_demandes.html.twig');
+        $courses = $this->getDoctrine()->getRepository(Course::class)->findAll();
+        $courseVisa = 0;
+        foreach ($courses as $course) 
+        {
+            $typeVisa=$course->getDemande()->getVisaType();
+
+            if($typeVisa->getVisaClassic())
+            {
+                $courseVisa += 1;
+            }
+            $courseVisa;
+        }
+        return $this->render('/back_end/visa_classic/demandes/show_demandes.html.twig', [
+            'nbDeCourse'    => $courseVisa
+        ]);
     }
 
     /**
@@ -145,5 +164,57 @@ class DemandesController extends AbstractController
         
         return $this->render('/back_end/visa_classic/demandes/show_reception_dossier.html.twig');
     }
+
+    /**
+     * @Route("/incomplet-dossier-{id}/visa-classic", name="incomplet_visa_classic", options={"expose" = true})
+     */
+    public function incompletDossierVisaClassic($id, Request $request, EntityManagerInterface $manager) : Response
+    {
+        $receptionDossier = $this->getDoctrine()->getRepository(ReceptionDossier::class)->find($id);
+
+        $form = $this->createForm(IncompletReceptionType::class, $receptionDossier);
+        $form->handleRequest($request);
+        
+
+        if($form->isSubmitted() AND $form->isValid())
+        {
+            $manager->persist($receptionDossier);
+            $manager->flush();
+            return $this->redirectToRoute('show_demandes_visa_classic');
+            
+        }
+
+        return $this->render('/back_end/visa_classic/demandes/incomplet_reception_dossier.html.twig', [
+            'form'      => $form->createView(),
+            'id'        => $receptionDossier->getId()
+        ]);
+    }
+
+    /**
+     * @Route("/complet-dossier-{id}/visa-classic", name="complet_dossier_visa_classic", options={"expose" = true})
+     */
+    public function completDossierVisaClassic($id, Request $request, EntityManagerInterface $manager) : Response
+    {
+        $receptionDossier = $this->getDoctrine()->getRepository(ReceptionDossier::class)->find($id);
+        $demande = $receptionDossier->getDemande();
+        $form= $this->createForm(CompletReceptionType::class, $receptionDossier);
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() AND $form->isValid())
+        {
+            $demande->setEtat('encours');
+
+            $manager->persist($receptionDossier);
+            $manager->flush();
+
+            return $this->redirectToRoute('show_demandes_visa_classic');
+        }
+
+        return $this->render('/back_end/visa_classic/demandes/complet_reception_dossier.html.twig', [
+            'form'      => $form->createView(),
+            'id'        => $receptionDossier->getId()
+        ]);
+    }
+
 
 }

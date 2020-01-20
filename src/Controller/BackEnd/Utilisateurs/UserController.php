@@ -78,15 +78,11 @@ class UserController extends AbstractController
             foreach($users as $user) 
             {
                 $roles=$user->getRoles();
-                $rolePrincipal= $roles[0];
-                if ($rolePrincipal === "ROLE_SUPERADMIN" OR $rolePrincipal === 'ROLE_ADMIN' OR $rolePrincipal === 'ROLE_COURSIER' OR $rolePrincipal === 'ROLE_REDACTEUR') 
+                if (in_array('ROLE_SUPERADMIN', $roles) OR in_array('ROLE_ADMIN', $roles) OR in_array('ROLE_COURSIER', $roles) OR in_array('ROLE_REDACTEUR', $roles)) 
                 {
                     $userAdmin[] = $user;
                 }
-                else
-                {
-                    $userAdmin=[];
-                }
+                $userAdmin;
                 
                 $jsonUsers=$serializer->serialize($userAdmin, 'json', [
                     AbstractNormalizer::ATTRIBUTES      => ['id', 'username', 'nom', 'prenom', 'valide', 'roles', 'dateCreation', 'dateModif']
@@ -170,4 +166,5 @@ class UserController extends AbstractController
             'form'      => $form->createView()
         ]);
     }
+
 }

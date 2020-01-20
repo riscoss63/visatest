@@ -73,6 +73,36 @@ class Demande
      */
     private $receptionDossier;
 
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\Course", mappedBy="demande", cascade={"persist", "remove"})
+     */
+    private $course;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\FraisComplementaire", mappedBy="demande", cascade={"persist"})
+     */
+    private $fraisComplementaire;
+
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\Expedition", mappedBy="demande", cascade={"persist", "remove"})
+     */
+    private $expedition;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\CarteTourisme", inversedBy="demandes")
+     */
+    private $carteTourisme;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Assurance", inversedBy="demande")
+     */
+    private $assurance;
+
+    public function __construct()
+    {
+        $this->fraisComplementaire = new ArrayCollection();
+    }
+
     public function getId(): ?int
     {
         return $this->id;
@@ -221,4 +251,94 @@ class Demande
         return $this;
     }
 
+    public function getCourse(): ?Course
+    {
+        return $this->course;
+    }
+
+    public function setCourse(?Course $course): self
+    {
+        $this->course = $course;
+
+        // set (or unset) the owning side of the relation if necessary
+        $newDemande = null === $course ? null : $this;
+        if ($course->getDemande() !== $newDemande) {
+            $course->setDemande($newDemande);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|FraisComplementaire[]
+     */
+    public function getFraisComplementaire(): Collection
+    {
+        return $this->fraisComplementaire;
+    }
+
+    public function addFraisComplementaire(FraisComplementaire $fraisComplementaire): self
+    {
+        if (!$this->fraisComplementaire->contains($fraisComplementaire)) {
+            $this->fraisComplementaire[] = $fraisComplementaire;
+            $fraisComplementaire->setDemande($this);
+        }
+
+        return $this;
+    }
+
+    public function removeFraisComplementaire(FraisComplementaire $fraisComplementaire): self
+    {
+        if ($this->fraisComplementaire->contains($fraisComplementaire)) {
+            $this->fraisComplementaire->removeElement($fraisComplementaire);
+            // set the owning side to null (unless already changed)
+            if ($fraisComplementaire->getDemande() === $this) {
+                $fraisComplementaire->setDemande(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getExpedition(): ?Expedition
+    {
+        return $this->expedition;
+    }
+
+    public function setExpedition(?Expedition $expedition): self
+    {
+        $this->expedition = $expedition;
+
+        // set (or unset) the owning side of the relation if necessary
+        $newDemande = null === $expedition ? null : $this;
+        if ($expedition->getDemande() !== $newDemande) {
+            $expedition->setDemande($newDemande);
+        }
+
+        return $this;
+    }
+
+    public function getCarteTourisme(): ?CarteTourisme
+    {
+        return $this->carteTourisme;
+    }
+
+    public function setCarteTourisme(?CarteTourisme $carteTourisme): self
+    {
+        $this->carteTourisme = $carteTourisme;
+
+        return $this;
+    }
+
+    public function getAssurance(): ?Assurance
+    {
+        return $this->assurance;
+    }
+
+    public function setAssurance(?Assurance $assurance): self
+    {
+        $this->assurance = $assurance;
+
+        return $this;
+    }
 }

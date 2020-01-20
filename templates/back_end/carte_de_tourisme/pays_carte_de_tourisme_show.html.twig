@@ -1,0 +1,88 @@
+{% extends "back_end/base.html.twig" %}
+
+{% block menu_header %}
+    {% include "back_end/carte_de_tourisme/__header.html.twig" %}
+{% endblock %}
+
+
+{% block contenu %}
+
+    <div class="row">
+        <h5 class=" m-auto col-8"><i class="fa fa-users-cog"></i> Liste des pages pays</h5>
+        <div class="col-3 float-right">
+            <a href="{{path('add_pays_carte_tourisme')}}" class="btn btn-primary petite-taille"><i class="fas fa-plus-circle"></i> Ajouter une page Pays </a>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-12">
+            <table data-toggle="table" data-url="{{ path('json_pays_carte_de_tourisme')}}" data-pagination="true" data-search="true" data-pagination: "true">
+                <thead>
+                    <tr>
+                        <th data-field="pays.iso" data-sortable="true">Code ISO</th>
+                        <th data-field="pays" data-formatter="libelleFormatter" data-sortable="true">Nom et zone</th>
+                        <th data-field="valide" data-formatter="booleanFormatter" data-align="center" data-sortable="true">Actif</th>
+                        <th data-field="edit" data-formatter="actionsFormatter">Editer</th>
+                    </tr>
+                </thead>
+            </table>
+        </div> 
+    </div>
+
+{% endblock %}
+
+{% block javascripts %}
+
+    {{ parent() }}
+    <script>
+
+        function actionsFormatter(value, row, index){
+            return '<a href="'+Routing.generate('edit_pays_carte_tourisme', {'id' : row.id})+'" title="Modifier"><i class="far fa-edit"></i></a>'+
+            '<a href="'+Routing.generate('show_volet_infos_visa_classic', {'id' : row.id})+'" title="Modifier"><i class="fas fa-info-circle"></i></a>';
+        }
+
+        function booleanFormatter(value, row, index) {
+            if (value === true) {
+                return '<i class="fa fa-check text-success text-center"></i>';
+            }
+            else {
+                return '<i class="fa fa-times text-danger text-center"></i>';
+            }
+        }
+
+        function libelleFormatter(value, row,index){
+            libelleZone = "";
+            if (row["pays"]["zoneGeographique"]){
+                return row["pays"]["titre"] + "<br /><small>" + row["pays"]["zoneGeographique"]["titre"] + "</small>";
+            }
+            return row["pays"]["titre"];
+        }
+
+        // function rolesFormatter(value, row, index) {
+        //     switch (row.roles) {
+        //         case "ROLE_SUPERADMIN":
+        //             return "Super administrateur"
+        //             break;
+                
+        //         case "ROLE_COURSIER":
+        //             return "Coursier"
+        //             break;
+
+        //         case "ROLE_ADMIN":
+        //             return "Administrateur secondaire"
+        //             break;
+
+        //         case "ROLE_REDACTEUR":     
+        //             return "Rédacteur"
+        //             break;    
+        //         case "ROLE_USER":
+        //             return "null"
+        //             break;      
+            
+        //         default:
+        //             break;
+        //     }
+        // }
+    </script>
+    
+{% endblock %}

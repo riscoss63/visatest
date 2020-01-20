@@ -1,0 +1,1060 @@
+{% extends "base.html.twig" %}
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" type="text/css" href="{{ asset('/frontend/css/formulaire_visa_classic/formulaires.css') }}">
+    <link rel="stylesheet" href="{{ asset('/frontend/css/formulaire_visa_classic/intlTelInput.css') }}">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.9/css/select2.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.3.0/css/flag-icon.min.css" rel="stylesheet" />
+
+    <!-- TrustBox script -->
+    <script type="text/javascript" src="{{ asset('/frontend/css/formulaire_visa_classic/tp.widget.bootstrap.min.js') }}" async></script>
+    <!-- End TrustBox script -->
+{% endblock %}
+{% block header %}
+    <div>
+        <nav id="top" class="top-navbar navbar navbar-expand-lg">
+            <div class="container">
+                <div class="navbar-visa">
+                    <p class="visa-title"><img src="/images/navbar/top-evisa.svg" alt="icône visa" class="navbar-visa-img">Visa Chine</p>
+                    <p class="visa-description">Système de demande de visa en ligne Chine</p>
+                </div>
+                <div class="navbar-visa-logo">
+                    <a href="index.html"><img src="/images/logo-vectorized.svg" alt="logo visa-en-ligne.com"></a>
+                </div>
+                <div class="ssl-wrapper on-tablet-desktop">
+                    <div class="ssl-box">
+                        <img src="/images/navbar/ssl.svg" alt="icône technologie SSL" class="icon">
+                        <p>Vos données sont protégées grâce à la technologie SSL<img src="/images/cadenas.svg" alt="cadenas"></p>
+                    </div>
+                </div>
+                <!-- Button modal Ma sélection On Mobile-->
+                <button type="button" class="btn btn-modal on-mobile" data-toggle="modal" data-target="#modal-selection">
+                Voir ma sélection
+                </button>
+            </div>
+        </nav>
+    </div>
+{% endblock %}
+{% block body %}
+<!-- Modal  Ma sélection sur mobile-->
+<div class="modal fade" id="modal-selection" tabindex="-1" role="dialog" aria-labelledby="modal-selectionLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+		  <!--<h4 class="modal-title" id="modal-selectionLabel">Plus d'informations</h4>-->
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="tab-contents">
+                    <div class="row selection destination-card">
+                        <div class="col-12 mb-3">
+                            <img src="/images/home-1.jpg" alt="photo de paysage" class="img-fluid">
+                        </div>
+
+                        <div class="col-7 destination-info mr-0">
+                            <h1 class="selection-title">Visa Inde - tourisme</h1>
+                            <div class="selection-description"><span><img src="/images/right-chevron.svg" alt="icône coche valide" class="icon">Simple entrée</span></div>
+                            <div class="selection-description"><span><img src="/images/right-chevron.svg" alt="icône coche valide" class="icon">Durée de séjour maxi</span></div>
+                            <div class="selection-description"><span><img src="/images/right-chevron.svg" alt="icône coche valide" class="icon">Temps de traitement</span></div>
+                            <div class="selection-description"><span><img src="/images/right-chevron.svg" alt="icône coche valide" class="icon">Validité du visa</span></div>
+                        </div>
+
+                        <div class="col-5 destination-price">
+                            <div class="w-100">
+                                <div>
+                                    <p class="price">129€ <small>TTC</small></p>
+                                </div>
+                                <div class="selection-ranking">
+                                    <div class="ranking-stars">
+                                        <div>
+                                            <a href="#">
+                                                <img src="/images/star.svg" alt="icone étoile avis" class="star-icon star-filled svg">
+                                                <img src="/images/star.svg" alt="icone étoile avis" class="star-icon star-filled svg">
+                                                <img src="/images/star.svg" alt="icone étoile avis" class="star-icon star-filled svg">
+                                                <img src="/images/star.svg" alt="icone étoile avis" class="star-icon star-filled svg">
+                                                <img src="/images/star.svg" alt="icone étoile avis" class="star-icon star-filled svg">
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <a href="#" class="ranking-stars-title">12 avis</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+      </div>
+      <!--<div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Quitter</button>
+      </div>-->
+    </div>
+  </div>
+</div>
+<!-- Modal Conditions assurances-->
+<div class="modal fade" id="modal-assurance" tabindex="-1" role="dialog" aria-labelledby="modal-assuranceLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+		  <h4 class="modal-title" id="modal-assuranceLabel">Garanties d'assistance et de rapatriement</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+		  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nobis recusandae, possimus veniam quis optio earum excepturi dicta deleniti dignissimos. Iste illum quae blanditiis sunt dicta obcaecati, perferendis vero laboriosam fuga. <br>
+		  Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aspernatur magnam adipisci velit ex, temporibus necessitatibus repellat hic iusto neque, molestiae alias qui animi molestias, earum harum. Laboriosam, obcaecati hic magni!
+		  </p>
+	  </div>
+    </div>
+  </div>
+</div>
+<!-- Modal CGV-->
+<div class="modal fade" id="modal-cgv" tabindex="-1" role="dialog" aria-labelledby="modal-cgvLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+		  <h4 class="modal-title" id="modal-cgvLabel">Conditions générales de vente</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+		  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nobis recusandae, possimus veniam quis optio earum excepturi dicta deleniti dignissimos. Iste illum quae blanditiis sunt dicta obcaecati, perferendis vero laboriosam fuga. <br>
+		  Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aspernatur magnam adipisci velit ex, temporibus necessitatibus repellat hic iusto neque, molestiae alias qui animi molestias, earum harum. Laboriosam, obcaecati hic magni!
+		  </p>
+	  </div>
+    </div>
+  </div>
+</div>
+
+<div class=" row form-page">
+    <div class="offset-md-1 col-md-7 form-container full-width-mobile">
+        <div class="progress">
+            <div class="progress-bar" role="progressbar" style="width: 0%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
+                <div class="progress-bar-circle">0%</div>
+            </div>
+		</div>
+
+        <!-- Step 1 - Quantité -->
+        <div class="form-step form-step-1">
+            <form>
+                <div class="form-group">
+                    <label class="form-label">Nombre de voyageurs</label>
+                    <div class="range-box">
+                        <div class="range" data-dir="dwn"><img src="/images/btn-minus.svg" alt="bouton moins"></div>
+                        <input type="text" id="nbvoyageurs" name="nbvoyageurs" class="form-control text-center" value="1">
+                        <div class="range" data-dir="up"><img src="/images/btn-plus.svg" alt="bouton moins"></div>
+                    </div>
+                </div>
+
+                <div class="btn-submit">
+                    <a href="#top" class="btn btn-primary btn-next">Etape suivante <img src="/images/btn-send.svg" alt="icône étape suivant" class="icon"></a>
+                </div>
+        </div>
+
+        <!-- Step 2 - Nationalité -->
+        <div  class="form-step form-step-2" style="display: none">
+                <div class="form-group flex-wrap align-items-start">
+                    <label class="form-label">Nationalité des voyageurs</label>
+					
+                    <div class="multiple-country-select">
+                        <select class="classic-select input-width selectpicker countrypicker" name="country"></select>
+						
+							<a href="#" class="add-country"><img src="/images/plus-colored.svg" class="icon" alt="ajouter pays de destination">
+								Ajouter pays de nationalité	
+							</a>							
+							<a href="#" class="moins-country"><img src="/images/moins-colored.svg" class="icon" alt="enlever pays de destination"></a>
+						
+                    </div>
+                </div>
+				<div class="cta d-flex">
+					<div class="btn-precedent on-mobile">
+						<a href="#top" class="btn btn-primary previous-arrow d-flex flex-nowrap align-items-center"><img src="/images/retour-paiement-white.svg" alt="icône étape précédente" class="icon">Précédent</a>
+					</div>
+					<div class="btn-submit">
+						<a href="#top" class="btn btn-primary btn-next">Etape suivante  <img src="/images/btn-send.svg" alt="icône étape suvante" class="icon"></a>
+					</div>
+				</div>
+        </div>
+
+        <!-- Step 3 - Dates -->
+        <div class="form-step form-step-3" style="display: none">
+		
+				<span class="on-mobile form-label">Dates de séjour</span>
+                <div class="form-group">
+                    <label class="form-label">Date d'entrée</label>
+
+                    <div class="date-group input-width">
+                        <span class="on-desktop"><img src="/images/date-depart.svg" alt="date de départ" class="date-icon"></span>
+                        <div class="input-group date">
+							<div class="on-desktop">
+                            	<input type="date" class="form-control"/>
+							</div>
+							<div class="on-mobile">
+								<input type="tel" class="form-control" maxlength="2" placeholder="Jour (JJ)" />
+								<input type="tel" class="form-control" maxlength="2" placeholder="Mois (MM)" />
+								<input type="tel" class="form-control" maxlength="4" placeholder="Année (AAAA)" />
+							</div>
+                            <div class="input-group-append on-desktop">
+                                    <span class="input-group-text">
+                                        <span class="input-icon"><img src="/images/calendar.svg" alt="calendrier" class="icon"></span>
+                                    </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Date de sortie</label>
+
+                    <div class="date-group input-width">
+                        <span class="on-desktop"><img src="/images/date-sortie.svg" alt="date de sortie" class="date-icon"></span>
+                        <div class="input-group date" >
+                            <div class="on-desktop">
+                            	<input type="date" class="form-control">
+							</div>
+							<div class="on-mobile">
+								<input type="tel" class="form-control" maxlength="2" placeholder="Jour (JJ)" />
+								<input type="tel" class="form-control" maxlength="2" placeholder="Mois (MM)" />
+								<input type="tel" class="form-control" maxlength="4" placeholder="Année (AAAA)" />
+							</div>
+                            <div class="input-group-append on-desktop">
+                                    <span class="input-group-text">
+                                        <span class="input-icon"><img src="/images/calendar.svg" alt="calendrier" class="icon"></span>
+                                    </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+				<!--Calculer le  nombre de jours du séjour-->
+				<div class="form-group ">
+                    <label class="form-label form-control-label required" for="order-duration">Durée du séjour</label>
+                    <div class="date-group input-width-duree">
+                       
+                        <div class="input-group date">
+                            <input id="order-duration" type="number" class="form-control" name="order-duration" max-length="4" required="required"/>
+                           	<div class="input-group-text jours"><p>jours</p></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="cta d-flex">
+					<div class="btn-precedent on-mobile">
+						<a href="#top" class="btn btn-primary previous-arrow d-flex flex-nowrap align-items-center"><img src="/images/retour-paiement-white.svg" alt="icône étape précédente" class="icon">Précédent</a>
+					</div>
+					<div class="btn-submit">
+						<a href="#top" class="btn btn-primary btn-next">Etape suivante <img src="/images/btn-send.svg" alt="icône étape suvante" class="icon"></a>
+					</div>
+				</div>
+        </div>
+
+        <!-- Step 4 - Pays de livraison -->
+        <div class="form-step form-step-4 " style="display: none">
+                <div class="form-group flex-wrap align-items-start">
+                    <label class="form-label on-desktop">Pays de livraison</label>
+					<label class="form-label on-mobile">Lieu de livraison</label>
+					<div class="multiple-country-select">
+                    	<select class="classic-select input-width selectpicker countrypicker" name="country"></select>
+					</div>
+                </div>
+				<div class=" form-group on-desktop">
+					<label class="form-label">Code postal et ville de livraison</label>
+					<div class="input-width">
+                        <input class="form-control" type="text">
+					</div>
+                </div>
+				<div class="form-group form-group-animated on-mobile">
+					<label for="codePostal0" class="form-label">Code postal de livraison</label>
+                    <div class="input-width">
+						<input id="codePostal0" class="form-control on-mobile" type="text" name="codePostal0">
+                    </div>
+                </div>
+				<div class="form-group form-group-animated on-mobile">
+					<label for="ville0" class="form-label">Ville</label>
+                    <div class="input-width">
+						<input id="ville0" class="form-control on-mobile" type="text" name="ville0">
+                    </div>
+                </div>
+				<!-- N'afficher cette div que si le code postal correspond à un département de l'ile de France-->
+                <div class="form-group align-items-baseline flex-wrap">
+                    <label class="form-label">Mode d'envoi de votre dossier</label>
+
+                    <div>
+                        <label class="form-radio">
+                            Le dossier sera adressé par courriel
+                            <input type="radio" checked="checked" name="radio">
+                            <span class="checkmark"></span>
+                        </label>
+
+                        <label class="form-radio">
+                            <p>Le dossier sera déposé à notre agence <span class="ml-4"><a href="#" class="small text-primary text-underline on-desktop">Adresse Google Maps</a></span></p>
+                            <input type="radio" name="radio">
+                            <span class="checkmark"></span>
+                        </label>
+
+                        <!-- Afficher ci-dessous, ci l'utilisateur a ajouté un département en île de france -->
+                        <label class="form-radio">
+                            Enlèvement du dossier par un coursier<span class="on-desktop"> visa-en-ligne.com</span><span class="font-weight-bold ml-4">30€</span>
+                            <input type="radio" name="radio">
+                            <span class="checkmark"></span>
+                        </label>
+                    </div>
+                </div>
+				
+               <div class="cta d-flex">
+					<div class="btn-precedent on-mobile">
+						<a href="#top" class="btn btn-primary previous-arrow d-flex flex-nowrap align-items-center"><img src="/images/retour-paiement-white.svg" alt="icône étape précédente" class="icon">Précédent</a>
+					</div>
+					<div class="btn-submit">
+						<a href="#top" class="btn btn-primary btn-next">Etape suivante <img src="/images/btn-send.svg" alt="icône étape suvante" class="icon"></a>
+					</div>
+				</div>
+        </div>
+
+        <!-- Step 5 - Mode de livraison -->
+        <div class="form-step livraison form-step-5 " style="display: none">
+                <div class="form-group flex-wrap align-items-start">
+                    <label class="form-label on-desktop">Choix du mode de livraison</label>
+					<label class="form-label on-mobile">Mode de livraison</label>
+                    <table class="table table-form table-borderless">
+                      <tbody>
+                        <tr>
+                            <td>
+                                <label class="form-radio">
+									<span class="on-desktop">Lettre recommandée avec accusé de réception (3 à 5 jours ouvrés)</span>
+									<span class="on-mobile">Lettre recommandée avec AR (3 à 5 jours ouvrés)</span>
+                                	<input type="radio" name="mode-livraison">
+                                	<span class="checkmark"></span>
+                                </label>
+                            </td>
+                            <td class="price"><span>9€</span></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label class="form-radio">
+                                    Chronopost (24 heures en France métropolitaine)
+                                    <input type="radio" name="mode-livraison">
+                                    <span class="checkmark"></span>
+                                </label>
+                            </td>
+                            <td class="price"><span>26€</span></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label class="form-radio">
+                                    DHL (24 heures en France métropolitaine)
+                                    <input type="radio" name="mode-livraison">
+                                    <span class="checkmark"></span>
+                                </label>
+                            </td>
+                            <td class="price"><span>30€</span></td>
+                        </tr>
+						<tr>
+                            <td>
+                                <label class="form-radio">
+                                    Retrait à notre agence
+                                    <input type="radio" name="mode-livraison">
+                                    <span class="checkmark"></span>
+                                </label>
+                            </td>
+                            <td class="price"><span>0€</span></td>
+                        </tr>
+						<!--tr suivants à n'afficher que si le code postal correspond à un département de l'ile de France-->
+						<tr>
+                            <td>
+                                <label class="form-radio">
+                                    <span class="on-desktop">Par un coursier visa-en-ligne.com</span>
+									<span class="on-mobile">Coursier visa-en-ligne.com</span>
+                                    <input type="radio" name="mode-livraison">
+                                    <span class="checkmark"></span>
+                                </label>
+                            </td>
+                            <td class="price"><span>30€</span></td>
+                        </tr>
+						<tr>
+                            <td>
+                                <label class="form-radio">
+                                    <span class="on-desktop">Par un coursier à l'aéroport - Du lundi au samedi<br><span class="grey">Aéroport de Roissy et Orly - De 8h30 à 18h00</span></span>
+									<span class="on-mobile">Coursier à l'aéroport - Du lundi au vendredi<br><span class="grey">Aéroport de Roissy et Orly - De 8h30 à 18h00</span></span>
+									
+                                    <input type="radio" name="mode-livraison">
+                                    <span class="checkmark"></span>
+                                </label>
+                            </td>
+                            <td class="price"><span>120€</span></td>
+                        </tr>
+						<tr>
+                            <td>
+                                <label class="form-radio">
+                                    <span class="on-desktop">Par un coursier à l'aéroport - Dimanche et jours fériés<br><span class="grey">Aéroport de Roissy et Orly - De 8h30 à 20h00</span></span>
+									<span class="on-mobile">Coursier à l'aéroport - Week-end, jours fériés<br><span class="grey">Aéroport de Roissy et Orly - De 8h30 à 20h00</span></span>
+                                    <input type="radio" name="mode-livraison">
+                                    <span class="checkmark"></span>
+                                </label>
+                            </td>
+                            <td class="price"><span>120€</span></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <!-- Afficher cette div uniqement  un des 2 derniers tr-->
+                <div class=" form-group on-desktop">
+                    <label  class="form-label ">Numéro de vol</label>
+                    <div class="input-width">
+                        <input class="form-control on-desktop" type="text">
+                    </div>
+                </div>
+				<div class="form-group form-group-animated on-mobile">
+					<label for="numeroVol" class="form-label">Numéro de vol</label>
+                    <div class="input-width">
+						<input id="numeroVol" class="form-control on-mobile" type="text" name="numeroVol">
+                    </div>
+                </div>
+
+                <div class=" form-group on-desktop">
+                    <label  class="form-label ">Jour de Vol</label>
+                    <div class="input-width">
+                        <input class="form-control on-desktop" type="text">
+                    </div>
+                </div>
+				<div class="form-group form-group-animated on-mobile">
+					<label for="jourVol" class="form-label">Jour de vol</label>
+                    <div class="input-width">
+						<input id="jourVol" class="form-control on-mobile" type="text" name="jourVol">
+                    </div>
+                </div>
+                <!-- Fin -->
+					
+                 <div class="cta d-flex">
+					<div class="btn-precedent on-mobile">
+						<a href="#top" class="btn btn-primary previous-arrow d-flex flex-nowrap align-items-center"><img src="/images/retour-paiement-white.svg" alt="icône étape précédente" class="icon">Précédent</a>
+					</div>
+					<div class="btn-submit">
+						<a href="#top" class="btn btn-primary btn-next">Etape suivante <img src="/images/btn-send.svg" alt="icône étape suvante" class="icon"></a>
+					</div>
+				</div>
+
+        </div>
+        <!-- Step 6 - Email -->
+        <div class="form-step form-step-6" style="display: none">
+                <div class="form-group">
+                    <label class="form-label">Adresse email</label>
+
+                    <div class="input-width">
+                        <input class="form-control" type="email">
+                    </div>
+                </div>
+                <div class="cta d-flex">
+					<div class="btn-precedent on-mobile">
+						<a href="#top" class="btn btn-primary previous-arrow d-flex flex-nowrap align-items-center"><img src="/images/retour-paiement-white.svg" alt="icône étape précédente" class="icon">Précédent</a>
+					</div>
+					<div class="btn-submit">
+						<a href="#top" class="btn btn-primary btn-next">Etape suivante <img src="/images/btn-send.svg" alt="icône étape suvante" class="icon"></a>
+					</div>
+				</div>
+        </div>
+        <!-- Step 7 - Assurance voyage -->
+        <div class="form-step form-step-7" style="display: none">
+            <div class="description">
+				<div class="d-flex justify-content-between align-items-center">	
+                	<h2 class="form-title">Option assurance voyage</h2>
+					<img src="/images/allianz.png" alt="logo de l'assurance Allianz" class="logo-allianz on-mobile">
+				</div>
+                <p class="form-description on-desktop">Nos services peuvent vous procurer une assurance voyage et rapatriement en collaboration avec
+                Allianz. Il vous suffit de choisir ci-dessous la durée de votre séjour.</p>
+					
+				<p class="form-description on-mobile">Nos services peuvent vous procurer une assurance voyage et rapatriement conforme aux exigences des ambassades pour l’obtention de vos visas.
+					<!-- Lien modal Garanties assurances-->
+					<a href="#" data-toggle="modal" data-target="#modal-assurance" class="text-primary">Consulter les Garanties d'assitance et de rapatriement</a>
+				</p>
+            </div>
+
+                <div class="form-group">
+                    <table class="table table-form table-assurance">
+                        <tbody>
+                        <tr>
+                            <td>
+                                <label class="form-radio">
+                                    <span class="font-weight-bold">J'ai déjà une assurance voyage</span>
+                                    <input type="radio" checked="checked" name="souscrire-assurance">
+                                    <span class="checkmark"></span>
+                                </label>
+                            </td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label class="form-radio">
+                                    Assurance voyage 15 jours
+                                    <input type="radio" name="radio">
+                                    <span class="checkmark"></span>
+                                </label>
+                            </td>
+                            <td class="quantite on-desktop">
+                                <div class="range-box">
+                                    <div class="range" data-dir="dwn"><img src="/images/btn-minus.svg" alt="bouton moins"></div>
+                                    <input type="text" class="form-control text-center" value="1">
+                                    <div class="range" data-dir="up"><img src="/images/btn-plus.svg" alt="bouton moins"></div>
+                                </div>
+                            </td>
+                            <td class="price">
+                                60€
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label class="form-radio">
+                                    Assurance voyage 30 jours
+                                    <input type="radio" name="radio">
+                                    <span class="checkmark"></span>
+                                </label>
+                            </td>
+                            <td class="quantite on-desktop">
+                                <div class="range-box">
+                                    <div class="range" data-dir="dwn"><img src="/images/btn-minus.svg" alt="bouton moins"></div>
+                                    <input type="text" class="form-control text-center" value="1">
+                                    <div class="range" data-dir="up"><img src="/images/btn-plus.svg" alt="bouton moins"></div>
+                                </div>
+                            </td>
+                            <td class="price">
+                                70€
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label class="form-radio">
+                                    Assurance voyage 45 jours
+                                    <input type="radio" name="radio">
+                                    <span class="checkmark"></span>
+                                </label>
+                            </td>
+                            <td class="quantite on-desktop">
+                                <div class="range-box">
+                                    <div class="range" data-dir="dwn"><img src="/images/btn-minus.svg" alt="bouton moins"></div>
+                                    <input type="text" class="form-control text-center" value="1">
+                                    <div class="range" data-dir="up"><img src="/images/btn-plus.svg" alt="bouton moins"></div>
+                                </div>
+                            </td>
+                            <td class="price">
+                                85€
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label class="form-radio">
+                                    Assurance voyage 3 mois
+                                    <input type="radio" name="radio">
+                                    <span class="checkmark"></span>
+                                </label>
+                            </td>
+                            <td class="quantite on-desktop">
+                                <div class="range-box">
+                                    <div class="range" data-dir="dwn"><img src="/images/btn-minus.svg" alt="bouton moins"></div>
+                                    <input type="text" class="form-control text-center" value="1">
+                                    <div class="range" data-dir="up"><img src="/images/btn-plus.svg" alt="bouton moins"></div>
+                                </div>
+                            </td>
+                            <td class="price">
+                                100€
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+				<div class="form-group on-mobile">
+                    <label class="form-label qte">Quantité</label>
+                    <div class="range-box">
+                        <div class="range" data-dir="dwn"><img src="/images/btn-minus.svg" alt="bouton moins"></div>
+                        <input type="text" class="form-control text-center" value="1">
+                        <div class="range" data-dir="up"><img src="/images/btn-plus.svg" alt="bouton moins"></div>
+                    </div>
+                </div>
+                <div class="birthdate-wrapper">
+					<div class=" form-group on-desktop">
+						<label class="form-label">Identité et date de naissance de l'assuré 1</label>
+                    	<input type="text" class="form-control input-width on-desktop" placeholder="Nom et prénom">
+					</div>
+					<span class="form-label on-mobile">Assuré 1</span>	
+					<div class="form-group form-group-animated on-mobile">	
+						<label for="nomAssure1" class="form-label">Nom</label>
+						<div class="input-width">
+							<input id="nomAssure1" class="form-control on-mobile" type="text" name="nomAssure1">
+						</div>
+					</div>	
+					<div class="form-group form-group-animated on-mobile">
+						
+						<label for="prenomAssure1" class="form-label">Prénom</label>
+						<div class="input-width">
+							<input id="prenomAssure1" class="form-control on-mobile" type="text" name="prenomAssure1">
+						</div>
+                	</div>
+                    <div class="birthdate input-width my-3">
+						<label class="form-label on-mobile">Date de naissance</label>	
+                        <input type="tel" class="form-control on-desktop" maxlength="2" placeholder="JJ">
+						<input type="tel" class="form-control on-mobile" maxlength="2" placeholder="Jour (JJ)">
+                        <input type="tel" class="form-control on-desktop" maxlength="2" placeholder="MM">
+						<input type="tel" class="form-control on-mobile" maxlength="2" placeholder="Mois (MM)">
+						<input type="tel" class="form-control on-desktop" maxlength="4" placeholder="AAAA">
+                        <input type="tel" class="form-control on-mobile" maxlength="4" placeholder="Année (AAAA)">
+                    </div>
+                </div>
+
+                <div class="birthdate-wrapper">
+                   <div class=" form-group on-desktop">
+						<label class="form-label">Identité et date de naissance de l'assuré 2</label>
+                    	<input type="text" class="form-control input-width on-desktop" placeholder="Nom et prénom">
+					</div>
+					<span class="form-label on-mobile">Assuré 2</span>	
+					<div class="form-group form-group-animated on-mobile">
+						<label for="nomAssure2" class="form-label">Nom</label>
+						<div class="input-width">
+							<input id="nomAssure2" class="form-control on-mobile" type="text" name="nomAssure1">
+						</div>
+					</div>
+					<div class="form-group form-group-animated on-mobile">
+						<label for="prenomAssure2" class="form-label">Prénom</label>
+						<div class="input-width">
+							<input id="prenomAssure2" class="form-control on-mobile" type="text" name="prenomAssure2">
+						</div>
+                	</div>
+                    <div class="birthdate input-width my-3">
+						<label class="form-label grey on-mobile">Date de naissance</label>
+                        <input type="tel" class="form-control on-desktop" placeholder="JJ">
+						<input type="tel" class="form-control on-mobile" placeholder="Jour (JJ)">
+                        <input type="tel" class="form-control on-desktop" placeholder="MM">
+						<input type="tel" class="form-control on-mobile" placeholder="Mois (MM)">
+						<input type="tel" class="form-control on-desktop" placeholder="AAAA">
+                        <input type="tel" class="form-control on-mobile" placeholder="Année (AAAA)">
+                    </div>
+                </div>
+
+                <div class="help help-background help-top on-desktop">
+                    <p>Votre attestation vous sera adressé par email. L'assurance sera valable à partir du jour d'arrivé dans le pays de destination. Valable pour une entrée simple.</p>
+                </div>
+
+                <p class="form-description on-desktop">Vous pouvez consulter les garanties d'assurance concernant les frais médicaux et les rapatriements :
+                    <br><a href="#" data-toggle="modal" data-target=".modal-assurance" class="text-primary">Garantie rapatriement</a><img src="/images/allianz.png" alt="logo de l'assurance Allianz" class="logo-allianz"></p>
+
+               <div class="cta d-flex">
+					<div class="btn-precedent on-mobile">
+						<a href="#top" class="btn btn-primary previous-arrow d-flex flex-nowrap align-items-center"><img src="/images/retour-paiement-white.svg" alt="icône étape précédente" class="icon">Précédent</a>
+					</div>
+					<div class="btn-submit">
+						<a href="#top" class="btn btn-primary btn-next">Etape suivante <img src="/images/btn-send.svg" alt="icône étape suivante" class="icon"></a>
+					</div>
+			  </div>
+        </div>
+
+        <!-- Step 8 - Coordonnées -->
+        <div class="form-step form-step-8" style="display: none">
+
+				<span class="on-mobile form-label">Coordonnées</span>
+                <div class="form-group">
+                    <label class="form-label on-desktop">Vous êtes un(e)</label>
+
+                    <select class="classic-select input-width">
+                        <option>Particulier</option>
+                        <option>Entreprise</option>
+                        <option>Agence de voyage</option>
+                        <option>Association</option>
+                        <option>Collectivité</option>
+                        <option>Autre</option>
+                    </select>
+                </div>
+
+                <!-- Afficher "Nom de la société" si l'user a selectionné 'entreprise' ou 'agence de voyage'-->
+                <div class=" form-group on-desktop">
+                    <label  class="form-label ">Nom de la société</label>
+                    <div class="input-width">
+                        <input class="form-control on-desktop" type="text">
+                    </div>
+                </div>
+				<div class="form-group form-group-animated on-mobile">
+					<label for="nomSociete" class="form-label">Nom de la société</label>
+                    <div class="input-width">
+						<input id="nomSociete" class="form-control on-mobile" type="text" name="nomSociete">
+                    </div>
+                </div>
+
+                <div class=" form-group on-desktop">
+                    <label  class="form-label ">Nom</label>
+                    <div class="input-width">
+                        <input class="form-control on-desktop" type="text">
+                    </div>
+                </div>
+				<div class="form-group form-group-animated on-mobile">
+					<label for="nom" class="form-label">Nom</label>
+                    <div class="input-width">
+						<input id="nom" class="form-control on-mobile" type="text" name="nom">
+                    </div>
+                </div>
+
+                <div class=" form-group on-desktop">
+                    <label  class="form-label ">Prénom</label>
+                    <div class="input-width">
+                        <input class="form-control on-desktop" type="text">
+                    </div>
+                </div>
+				<div class="form-group form-group-animated on-mobile">
+					<label for="prenom" class="form-label">Prénom</label>
+                    <div class="input-width">
+						<input id="prenom" class="form-control on-mobile" type="text" name="prenom">
+                    </div>
+                </div>
+
+                <div class=" form-group on-desktop">
+                    <label  class="form-label ">Adresse de livraison</label>
+                    <div class="input-width">
+                        <input class="form-control on-desktop" type="text">
+                    </div>
+                </div>
+				<div class="form-group form-group-animated on-mobile">
+					<label for="adresse" class="form-label">Adresse de livraison</label>
+                    <div class="input-width">
+						<input id="adresse" class="form-control on-mobile" type="text" name="adresse">
+                    </div>
+                </div>
+				<!-- récupérer de l'étape 4-->
+                <div class=" form-group on-desktop">
+                    <label  class="form-label ">Code Postal</label>
+                    <div class="input-width">
+                        <input class="form-control on-desktop" type="text">
+                    </div>
+                </div>
+				<div class="form-group form-group-animated on-mobile">
+					<label for="codePostal" class="form-label">Code postal</label>
+                    <div class="input-width">
+						<input id="codePostal" class="form-control on-mobile" type="text" name="codePostal">
+                    </div>
+                </div>
+
+                <!-- récupérer de l'étape 4-->
+                <div class=" form-group on-desktop">
+                    <label  class="form-label ">Ville</label>
+                    <div class="input-width">
+                        <input class="form-control on-desktop" type="text">
+                    </div>
+                </div>
+				<div class="form-group form-group-animated on-mobile">
+					<label for="ville" class="form-label">Ville</label>
+                    <div class="input-width">
+						<input id="ville" class="form-control on-mobile" type="text" name="ville">
+                    </div>
+                </div>
+
+                <div class=" form-group on-desktop">
+                    <label  class="form-label ">Téléphone</label>
+                    <div class="input-width">
+                        <input class="form-control on-desktop" type="tel" id="phone">
+                    </div>
+                </div>
+				<div class="form-group form-group-animated on-mobile">
+					<label for="telephone" class="formlabel">Téléphone</label>
+                    <div class="input-width">
+						<input id="telephone" class="form-control on-mobile" type="tel" name="telephone">
+                    </div>
+                </div>
+
+                <div class="form-check mb-4">
+                    <input class="form-check-input" type="checkbox" value="" id="address-facturation">
+                    <label class="form-check-label on-desktop" for="address-facturation">
+                        Cocher si votre adresse de facturation est différente de celle de l'adresse de livraison
+                    </label>
+					<label class="form-check-label on-mobile" for="address-facturation">
+                        Cocher si adresse de facturation différente
+                    </label>
+                </div>
+
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="ugc" checked>
+                    <label class="form-check-label" for="ugc">
+                        Je confirme avoir bien lu et accepté les <a href="#" data-toggle="modal" data-target="#modal-cgv" class="text-primary">C.G.V</a>
+                    </label>
+                </div>
+
+                <div class="cta d-flex">
+					<div class="btn-precedent on-mobile">
+						<a href="#top" class="btn btn-primary previous-arrow d-flex flex-nowrap align-items-center"><img src="/images/retour-paiement-white.svg" alt="icône étape précédente" class="icon">Précédent</a>
+					</div>
+					<div class="btn-submit">
+						<a href="#top" class="btn btn-primary btn-next">Etape suivante <img src="/images/btn-send.svg" alt="icône étape suivante" class="icon"></a>
+					</div>
+			  </div>
+        </div>
+
+        <!-- Step 9 - Paiement -->
+        <div class="form-step form-step-9" style="display: none">
+				<label class="form-label">Récapitulatif de la commande</label>
+				<table class="table table-form">
+                <tbody>
+					<thead>
+						<tr>
+							<td>Désignation</td>
+							<td>Quantité</td>
+							<td>P.U.</td>
+							<td>Total</td>
+						</tr>
+					</thead>
+					<tr>
+						<td>Carte de tourisme</td>
+						<td class="label label-quantity">2</td>
+						<td class="label-price">35€</td>
+						<td class="label-total">70€</td>
+					</tr>        
+                    <tr>
+						<td>Enlèvement coursier 92</td>
+						<td class="label label-quantity">1</td>
+						<td class="label-price">30€</td>
+						<td class="label-total">30€</td>
+					</tr>
+					<tr>
+						<td>Livraison coursier 92</td>
+						<td class="label label-quantity">1</td>
+						<td class="label-price">30€</td>
+						<td class="label-total">30€</td>
+					</tr> 
+					<tr>
+						<td>Assurance voyage</td>
+						<td class="label label-quantity">1</td>
+						<td class="label-price">30€</td>
+						<td class="label-total">30€</td>
+					</tr>
+				</tbody>
+			</table>
+		
+				<div class="label-wrapper step-9 d-flex flex-column">
+					<div class="label d-flex title-segpr-regular"><img src="/images/communique.svg" alt="Symbole code promo">Code promo<img src="/images/next-bas-green.svg" alt="Icone bas">
+					</div>
+					<div class="d-flex justify-content-between">
+						<div class="special-code d-flex align-items-center">
+							<input type="text" class="form-control">
+							<a href="#">OK</a>
+						</div>
+						<span class="black">Total</span><span class="green">70€</span>
+					</div>
+				</div>
+			</form>
+
+        	<form>
+                <label class="form-label">Sélectionnez le mode de paiement</label>
+
+                <div class="paiement-bloc">
+                    <label class="form-radio">
+                        <span class="paiement-cartes">Paiement par carte <img src="/images/mode-paiement/cartes.jpg" alt="icône de paiement par carte" class="img"></span>
+                        <input type="radio" checked="checked" name="radio">
+                        <span class="checkmark"></span>
+                    </label>
+                    <label class="form-radio mb-0">
+                        <span class="paiement-cheque">Paiement par chèque <img src="/images/mode-paiement/cheque.png" alt="icône de paiement par chèque" class="img"></span>
+                        <input type="radio" checked="checked" name="radio">
+                        <span class="checkmark"></span>
+                    </label>
+                </div>
+
+                <div class="help help-background on-desktop">
+                    <p>Livraison en fonction du type de paiement que vous avez sélectionné. Vous serez alerté par email sur les différentes étapes de votre commande.</p>
+                </div>
+
+                <div class="cta d-flex">
+					<div class="btn-precedent on-mobile">
+						<a href="#top" class="btn btn-primary previous-arrow d-flex flex-nowrap align-items-center"><img src="/images/retour-paiement-white.svg" alt="icône étape précédente" class="icon">Précédent</a>
+					</div>
+					<div class="btn-submit">
+						<a href="formulaire-success-classique.html" class="btn btn-primary btn-next">Payer ma commande <img src="/images/btn-send.svg" alt="icône étape suivante" class="icon"></a>
+					</div>
+			  </div>
+            </form>
+        </div>
+
+        <div class="progress-steps on-desktop">
+            <span class="previous-arrow" style="display: none"><img src="/images/flèche-précédent.png" alt="Flèche précédente"> Précédent</span>
+            <div class="step active">1.Quantité</div>
+            <div class="step">2.Nationalité</div>
+            <div class="step">3.Dates</div>
+            <div class="step">4.Pays de livraison</div>
+            <div class="step">5.Mode de livraison</div>
+            <div class="step">6.Email</div>
+            <div class="step">7.Assurance</div>
+            <div class="step">8.Coordonnées</div>
+            <div class="step">9.Paiement</div>
+        </div>
+
+        <div class="bloc-avis on-desktop">
+            <img src="/images/bloc-avis.png" alt="avis vérifiés">
+        </div>
+    </div>
+
+
+    <div class="offset-md-1 col-md-3 panel-right">
+        <div class="tabs">
+            <div class="tab-button-outer">
+                <ul id="tab-button" class="nav nav-tabs">
+                    <li class="nav-item"><a data-toggle="tab" role="tab" href="#tab01" class="nav-link active" aria-selected="true">Commande de visa Inde</a></li>
+                    <li class="nav-item"><a data-toggle="tab" role="tab" href="#tab02" class="nav-link">Voir ma sélection</a></li>
+                </ul>
+            </div>
+
+            <div class="tab-content">
+                <div id="tab01" class="tab-contents tab-pane fade active show">
+                    <div class="label-wrapper">
+                        <div class="label">Voyageurs</div>
+                        <div class="label label-quantity">x1</div>
+                        <div class="label-price">200€</div>
+                    </div>
+
+                    <div class="label-wrapper step-5" style="display: none">
+                        <div class="label">Enlèvement coursier 92</div>
+                        <div class="label-price">0€</div>
+                    </div>
+
+                    <div class="label-wrapper step-6" style="display: none">
+                        <div class="label">Livraison lettre RAR</div>
+                        <div class="label-price">9€</div>
+                    </div>
+
+                    <div class="label-wrapper">
+                        <div class="total">Total</div>
+                        <div class="total-price">
+                            <div class="text-right text-primary small">
+                                <p class="total text-uppercase">200€</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="label-wrapper delete-order step-9" style="display: none"><a href="formulaires/formulaire-visa-classique.html"><img src="/images/croix.svg" alt="croix"> Supprimer ma demande</a></div>
+
+                    <div class="label-wrapper step-9" style="display: none">
+                        <div class="label">Code spécial</div>
+                        <div class="special-code">
+                            <input type="text" class="form-control">
+                            <a href="#">OK</a>
+                        </div>
+                    </div>
+
+                    <div class="label-wrapper assures step-3" style="display: none">
+                        <div class="label">Nationalité</div>
+                        <div class="float-right">
+                            <p class="label">Française</p>
+                            <p class="label">Suisse</p>
+                        </div>
+                    </div>
+
+                    <div class="label-wrapper date step-4" style="display: none">
+                        <div class="label"><img src="/images/date-depart-black.svg" alt="Date de départ" class="icon">Date d'entrée</div>
+                        <div class="float-right">
+                            <div>
+                                <p class="label">15/06/2019</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="label-wrapper date step-4" style="display: none">
+                        <div class="label"><img src="/images/date-sortie-black.svg" alt="date de sortie" class="icon">Date de sortie</div>
+                        <div class="float-right">
+                            <div>
+                                <p class="label">15/06/2019</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="label-wrapper label-wrapper-nationality step-7" style="display: none">
+                        <div class="label">Adresse email</div>
+                        <div class="float-right">
+                            <div>
+                                <p class="label text-underline">tran07@gmail.com</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="label-wrapper label-wrapper-contact step-9" style="display: none">
+                        <div class="label" data-toggle="collapse" data-target=".coordonnes" aria-expanded="false">Coordonnées</div>
+                        <div class="float-right">
+                            <span data-toggle="collapse" data-target=".coordonnes"><img src="/images/arrow-down.svg" alt="icône descendre les coordonnées" class="icon"></span>
+                        </div>
+                    </div>
+                    <div class="label-wrapper step-9 coordonnees-parent">
+                        <div class="coordonnes collapse">
+                            <div>
+                                <p>John Doe</p>
+                                <p>Adresse - Code postal Ville</p>
+                                <p>Numéro de tel</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="tab02" class="tab-contents tab-pane fade">
+                    <div class="row selection destination-card">
+                        <div class="col-12 mb-3">
+                            <img src="/images/home-1.jpg" alt="photo de paysage" class="img-fluid">
+                        </div>
+
+                        <div class="col-7 destination-info mr-0">
+                            <h1 class="selection-title">Visa Inde - tourisme</h1>
+                            <div class="selection-description"><span><img src="/images/right-chevron.svg" alt="icône coche valide" class="icon">Simple entrée</span></div>
+                            <div class="selection-description"><span><img src="/images/right-chevron.svg" alt="icône coche valide" class="icon">Durée de séjour maxi</span></div>
+                            <div class="selection-description"><span><img src="/images/right-chevron.svg" alt="icône coche valide" class="icon">Temps de traitement</span></div>
+                            <div class="selection-description"><span><img src="/images/right-chevron.svg" alt="icône coche valide" class="icon">Validité du visa</span></div>
+                        </div>
+
+                        <div class="col-5 destination-price">
+                            <div class="w-100">
+                                <div>
+                                    <p class="price">129€ <small>TTC</small></p>
+                                </div>
+                                <div class="selection-ranking">
+                                    <div class="ranking-stars">
+                                        <div>
+                                            <a href="#">
+                                                <img src="/images/star.svg" alt="icone étoile avis" class="star-icon star-filled svg">
+                                                <img src="/images/star.svg" alt="icone étoile avis" class="star-icon star-filled svg">
+                                                <img src="/images/star.svg" alt="icone étoile avis" class="star-icon star-filled svg">
+                                                <img src="/images/star.svg" alt="icone étoile avis" class="star-icon star-filled svg">
+                                                <img src="/images/star.svg" alt="icone étoile avis" class="star-icon star-filled svg">
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <a href="#" class="ranking-stars-title">12 avis</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+{% endblock %}
+
+{% block footer %}
+    <footer>
+        <div class="row w-100">
+            <div>
+                <p>© Visa-en-ligne.com</p>
+            </div>
+
+            <div>
+                <p><a href="#">Mentions légales |</a>
+                    <a href="#">Politique de confidentialité |</a>
+                    <a href="#">CGV</a>
+                </p>
+            </div>
+
+            <div>
+                <select class="select-lang">
+                    <option>France - FR</option>
+                </select>
+            </div>
+        </div>
+    </footer>
+{% endblock %}
+{% block javascripts %}
+{{ parent() }}
+<script src="{{ asset('/frontend/js/intlTelInput.js') }}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.9/js/select2.min.js"></script>
+<script src="{{ asset('/frontend/js/forms.js') }}"></script>
+
+{% endblock %}

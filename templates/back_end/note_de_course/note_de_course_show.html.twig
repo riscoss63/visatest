@@ -1,0 +1,92 @@
+{% extends "back_end/base.html.twig" %}
+
+
+{% block contenu %}
+
+    <div class="row">
+        <h5 class=" m-auto col-8"><i class="fa fa-users-cog"></i> Liste des notes de course</h5>
+        <div class="col-3 float-right">
+            <a href="{{path('add_course')}}" class="btn btn-primary petite-taille"><i class="fas fa-plus-circle"></i> Ajouter une Course </a>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-12">
+            <table data-toggle="table" data-url="{{ path('json_notes_de_course')}}" data-pagination="true" data-search="true" data-pagination: "true">
+                <thead>
+                    <tr>
+                        <th data-field="reference" data-formatter="referenceFormatter" data-sortable="true">Référence</th>
+                        <th data-field="dateEnlevement.timestamp" data-formatter="dateFormatter" data-sortable="true">Date / heure de RDV</th>
+                        <th data-field="nomlieu" data-formatter="nomlieuFormatter" data-sortable="true">Nom / Lieu </th>
+                        <th data-field="coursier.prenom"data-sortable="true">Coursier </th>
+                        <th data-field="edit" data-formatter="actionsFormatter">Réalisation</th>
+                    </tr>
+                </thead>
+            </table>
+        </div> 
+    </div>
+
+{% endblock %}
+
+{% block javascripts %}
+
+    {{ parent() }}
+    <script>
+        function referenceFormatter(value, row, index) {
+            return '<a href="'+Routing.generate('edit_course', {'id' : row.id})+'" title="Modifier" rel="modal:open">'+value+' </a>';
+        }
+
+        function nomlieuFormatter(value, row, index) {
+            return row["nom"]+ ' ' + row["prenom"] + '<br/>'+
+                   row["adresse"] + '<br/>' + 
+                   row["codePostal"] + ' ' + row["ville"];
+        }
+
+        function actionsFormatter(value, row, index){
+            var realisation = '';
+            if(row["realiser"] == true)
+            {
+                realisation = 'Déja signer';
+            }
+            else 
+            {
+                realisation = ' Signer '
+            }
+            return '<a href="'+Routing.generate('add_signature_course', {'id' : row.id})+'" title="Modifier"><i class="far fa-edit"></i> '+realisation+' </a>';
+        }
+
+        function booleanFormatter(value, row, index) {
+            if (value === true) {
+                return '<i class="fa fa-check text-success text-center"></i>';
+            }
+            else {
+                return '<i class="fa fa-times text-danger text-center"></i>';
+            }
+        }
+
+        function dateFormatter(value, row, index) {
+            var date = new Date(value*1000);
+            var livrEnlevement = "";
+            if(row["livraison"] == true)
+            {
+                livrEnlevement = "Livraison"
+            }
+            else if(row["enlevement"] == true)
+            {
+                livrEnlevement = " Enlevement "
+            }
+            return `<strong>${livrEnlevement}</strong> le :<br/> ${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()} à ${date.getHours()}h${date.getMinutes()}`;
+        }
+
+        // function libelleFormatter(value, row,index){
+        //     libelleZone = "";
+        //     if (row["pays"]["zoneGeographique"]){
+        //         return row["pays"]["titre"] + "<br /><small>" + row["pays"]["zoneGeographique"]["titre"] + "</small>";
+        //     }
+        //     return row["pays"]["titre"];
+        // }
+
+        
+    </script>
+    
+{% endblock %}

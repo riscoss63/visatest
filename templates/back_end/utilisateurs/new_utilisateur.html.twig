@@ -5,5 +5,37 @@
 {% endblock %}
 
 {% block contenu %}
-{{ form(form)}}
+{{ form_start(form)}}
+    {{ form_row(form.valide)}}
+    {{ form_row(form.roles)}}
+    {{ form_row(form.nom)}}
+    {{ form_row(form.prenom)}}
+    {{ form_row(form.email)}}
+    <div class="row form-group">
+        {{ form_label(form.password) }}
+        <div class="input-group col-sm-12">
+            <div class="input-group-prepend">
+                <button id="passwd-generator" class="btn btn-secondary" type="button" title="Générer un mot de passe"><i class="fa fa-cogs"></i></button>
+            </div>
+            {{ form_widget(form.password) }}
+        </div>
+    </div>
+
+    {{ form_row(form.submit)}}
+{{ form_end(form)}}
 {% endblock %}
+
+{% block javascripts %}
+{{ parent() }}
+
+<script>
+    $('#passwd-generator').on('click', function(){
+        var text = "";
+        var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+        
+        for (var i = 0; i < 15; i++)
+            text += possible.charAt(Math.floor(Math.random() * possible.length));
+        
+        $('#user_password').val(text);
+    });
+</script>

@@ -2,6 +2,7 @@
 
 namespace App\Controller\BackEnd\Evisa;
 
+use App\Entity\CategorieVisa;
 use App\Entity\EVisa;
 use App\Entity\VisaType;
 use App\Form\Backend\VisaClassic\TypeVisaClassicType;

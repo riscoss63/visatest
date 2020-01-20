@@ -78,7 +78,7 @@ hr.dashed {
   margin-bottom: 60px; }
 
 .container-fluid {
-  width: 80%; }
+  width: 80% !important; }
 
 .modal-body {
   margin-bottom: 40px; }
@@ -109,7 +109,7 @@ hr.dashed {
   left: 0;
   width: 1em;
   height: 1em;
-  background: url(images/check.svg); }
+  background: url(/images/check.svg); }
 
 /*** End colors, fonts and other global settings ***/
 /*** Arrow icon submenu ***/
@@ -277,7 +277,7 @@ span.btn-label {
       margin-bottom: 40px; }
     #modal-mdp-oublie .modal-body form select, #modal-compte .modal-body form select, #modal-voyageur1 .modal-body form select {
       width: 100%;
-      background: #f9f9f9 url(images/arrow-down.svg) no-repeat 320px 5px/20px auto; }
+      background: #f9f9f9 url(/images/arrow-down.svg) no-repeat 320px 5px/20px auto; }
       #modal-mdp-oublie .modal-body form select:not(.classic-select), #modal-compte .modal-body form select:not(.classic-select), #modal-voyageur1 .modal-body form select:not(.classic-select) {
         color: #495057; }
     #modal-mdp-oublie .modal-body form .select2 span.select2-selection.select2-selection--single, #modal-compte .modal-body form .select2 span.select2-selection.select2-selection--single, #modal-voyageur1 .modal-body form .select2 span.select2-selection.select2-selection--single {
@@ -331,7 +331,7 @@ span.btn-label {
       color: #bfbfbf; } }
 /*** End Buttons ***/
 .choice {
-  background: url("images/next-bas.svg") no-repeat;
+  background: url("/images/next-bas.svg") no-repeat;
   background-size: 13px auto;
   background-position: right 14px;
   margin-left: 2px;
@@ -422,7 +422,7 @@ form select:not(.classic-select) {
   border: none;
   -webkit-appearance: none;
   -moz-appearance: none;
-  background: #fff url(images/arrow-down.svg) no-repeat 320px 5px/20px auto;
+  background: #fff url(/images/arrow-down.svg) no-repeat 320px 5px/20px auto;
   overflow: hidden; }
 
 /* Customed input */
@@ -443,17 +443,17 @@ form select:not(.classic-select) {
 
 .localisation-input {
   font-family: "Open Sans", sans-serif;
-  background: #fff url(images/localisation-black.svg) no-repeat 10px 10px/12px auto;
+  background: #fff url(/images/localisation-black.svg) no-repeat 10px 10px/12px auto;
   /*
   background-color: #fff;
-  background-image: url(images/localisation-black.svg);
+  background-image: url(/images/localisation-black.svg);
   background-repeat: no-repeat;
   background-position: 10px 10px;
   background-size: 12px auto;
    */
   padding-left: 30px; }
   .localisation-input.gray-variant {
-    background-image: url(images/localisation-gray.svg); }
+    background-image: url(/images/localisation-gray.svg); }
     .localisation-input.gray-variant::-webkit-input-placeholder {
       /* Chrome/Opera/Safari */
       color: #a6a6a6;
@@ -504,7 +504,7 @@ form select:not(.classic-select) {
     opacity: 0;
     cursor: pointer; }
   .form-radio input:checked ~ .checkmark {
-    background: transparent url(images/puce-checked-verte.svg) no-repeat;
+    background: transparent url(/images/puce-checked-verte.svg) no-repeat;
     height: 22px;
     width: 23px; }
   .form-radio .checkmark {
@@ -514,9 +514,9 @@ form select:not(.classic-select) {
     border-radius: 50%;
     height: 21px;
     width: 21px;
-    background: url("images/fake-radio.png"); }
+    background: url("/images/fake-radio.png"); }
     .form-radio .checkmark:hover {
-      background: url("images/fake-radio.png"); }
+      background: url("/images/fake-radio.png"); }
   .form-radio input:checked ~ .checkmark:after {
     display: block; }
 
@@ -755,7 +755,7 @@ nav.tabs-with-icon-container {
     left: calc(90% - 1px);
     bottom: -22px;
   }*/ }
-  .tabs-simple .nav-tabs .nav-item .nav-link img[src="images/plus-circle-green.svg"] {
+  .tabs-simple .nav-tabs .nav-item .nav-link img[src="/images/plus-circle-green.svg"] {
     display: none; }
   .tabs-simple .nav-tabs .nav-item .nav-link.active, .tabs-simple .nav-tabs .nav-item .nav-link:hover {
     border-left: 0;
@@ -764,14 +764,14 @@ nav.tabs-with-icon-container {
     border-bottom: 0;
     position: relative;
     color: #dad500; }
-    .tabs-simple .nav-tabs .nav-item .nav-link.active img[src="images/plus-circle.svg"], .tabs-simple .nav-tabs .nav-item .nav-link:hover img[src="images/plus-circle.svg"] {
+    .tabs-simple .nav-tabs .nav-item .nav-link.active img[src="/images/plus-circle.svg"], .tabs-simple .nav-tabs .nav-item .nav-link:hover img[src="/images/plus-circle.svg"] {
       display: none; }
-    .tabs-simple .nav-tabs .nav-item .nav-link.active img[src="images/plus-circle-green.svg"], .tabs-simple .nav-tabs .nav-item .nav-link:hover img[src="images/plus-circle-green.svg"] {
+    .tabs-simple .nav-tabs .nav-item .nav-link.active img[src="/images/plus-circle-green.svg"], .tabs-simple .nav-tabs .nav-item .nav-link:hover img[src="/images/plus-circle-green.svg"] {
       display: inline; }
   .tabs-simple .nav-tabs .nav-item .nav-link:hover:after, .tabs-simple .nav-tabs .nav-item .nav-link.active:after {
     /*border: 9.5px solid transparent;
     border-top-color: #fff;*/
-    content: url("images/souligne.svg");
+    content: url("/images/souligne.svg");
     position: absolute;
     left: 0.5px;
     bottom: -20px;
@@ -872,11 +872,11 @@ nav.tabs-with-icon-container {
       position: absolute;
       right: 55px;
       top: 6px;
-      background: url(images/plus.svg) no-repeat; }
+      background: url(/images/plus.svg) no-repeat; }
     .row.faq .title-collapse[aria-expanded="true"] {
       color: #dad500; }
       .row.faq .title-collapse[aria-expanded="true"] .icon-collapse {
-        background: url(images/minus-colored.svg) no-repeat; }
+        background: url(/images/minus-colored.svg) no-repeat; }
 
 @media screen and (min-width: 1024px) {
   .tabs-border-top .nav-tabs-navigation {
@@ -1507,7 +1507,7 @@ footer.fixed-bottom {
     position: absolute;
     width: 174px;
     height: 68px;
-    background: url(images/footer/logo-visa-en-ligne.svg) no-repeat;
+    background: url(/images/footer/logo-visa-en-ligne.svg) no-repeat;
     top: 0;
     margin-top: -21px;
     left: 50%;
@@ -1587,7 +1587,7 @@ footer {
   footer .icon-france {
     width: 130px;
     height: 130px;
-    background: url(images/footer/carte-de-france.svg) no-repeat;
+    background: url(/images/footer/carte-de-france.svg) no-repeat;
     position: relative; }
     footer .icon-france span {
       position: absolute;
@@ -1985,7 +1985,7 @@ footer {
     width: 100%;
     margin-right: 0; }
     #modal-mdp-oublie .modal-body form .form-group select, #modal-compte .modal-body form .form-group select, #modal-voyageur1 .modal-body form .form-group select {
-      background: #f9f9f9 url(images/arrow-down.svg) no-repeat 250px 8px/20px auto; }
+      background: #f9f9f9 url(/images/arrow-down.svg) no-repeat 250px 8px/20px auto; }
   #modal-mdp-oublie .modal-body form .select2 span.select2-selection.select2-selection--single, #modal-compte .modal-body form .select2 span.select2-selection.select2-selection--single, #modal-voyageur1 .modal-body form .select2 span.select2-selection.select2-selection--single {
     width: 265px; }
   #modal-mdp-oublie .modal-body form input, #modal-compte .modal-body form input, #modal-voyageur1 .modal-body form input {

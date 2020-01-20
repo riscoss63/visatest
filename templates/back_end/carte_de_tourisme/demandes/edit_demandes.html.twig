@@ -1,0 +1,33 @@
+ <style>
+   .modal{
+       margin-top: 35px;
+       overflow-y: auto;
+       max-width : 1100px
+   } 
+ </style>
+        {% form_theme form '/back_end/jquery.collection.html.twig' %}
+    <h3> Modification d'une commande </h3>
+    <p>Type de Visa :<strong> {{ demande.carteTourisme.pays.titre}} - {{ demande.carteTourisme.titre }} - NB d'entrées : {{ demande.quantiteVisa }} </strong></p>
+    {{ form_start(form, {'action': path('edit_demandes_visa_classic', {'id': demande.id}), 'method': 'POST'}) }}
+        <h4>Informations commande</h4>
+        {{ form_row(form.entre )}}
+        {{ form_row(form.sortie )}}
+        {{ form_row(form.urgent )}}
+        <h4>Informations de livraison</h4>
+        {{ form_row(form.transport )}}
+        <h4>Informations Utilisateur</h4>
+        {{ form_row(form.client.valide )}}
+        {{ form_row(form.client.premium )}}
+        {{ form_row(form.client.pays )}}
+        {{ form_row(form.client.adresse )}}
+        {{ form_row(form.client.codePostal )}}
+        {{ form_row(form.client.ville )}}
+        {{ form_row(form.client.telephone )}}
+        <h4>Informations Voyageurs</h4>
+        {{ form_row(form.client.voyageurs )}}
+    {{ form_end(form)}}
+
+<script type="text/javascript" src="{{ asset('backend/js/jquery.collection.js') }}"></script>
+    <script type="text/javascript">
+        $('.my-selector').collection();
+    </script>

@@ -1,0 +1,728 @@
+{% extends "base.html.twig" %}
+{% block header %}
+    {% include "/front_end/home/__header.html.twig" %}
+{% endblock %}
+
+{% block body %}
+						
+
+<div class="container-fluid">
+    <div class="breadcrumb-page">
+        <div><a href="index.html">Accueil</a> / <a href="index.html">Pays visa</a> / <a href="page-visa-classique.html">Asie</a> / <a href="page-visa-classique.html"><span class="last">{{visa.pays.titre}}</span></a></div>
+
+        <div class="on-mobile share-btn">
+            <a href="#"><img src="/images/share.svg" alt="icône de partage" class="icon">Partager</a>
+        </div>
+    </div>
+
+    <div class="country-infos">
+        <div class="row">
+			<div class="on-mobile col-12">
+				<div class="d-flex  justify-content-between infos-container-title">
+					<h1>Demande de <span class="text-primary">visa </span> {{ visa.pays.titre }} </h1>
+					<div class="ranking-stars">
+						<div>
+							<a href="#avis">
+								<img src="/images/star-green.svg" alt="icone étoile avis" class="star-icon star-filled svg">
+								<img src="/images/star-green.svg" alt="icone étoile avis" class="star-icon star-filled svg">
+								<img src="/images/star-green.svg" alt="icone étoile avis" class="star-icon star-filled svg">
+								<img src="/images/star-green.svg" alt="icone étoile avis" class="star-icon star-filled svg">
+								<img src="/images/star-green.svg" alt="icone étoile avis" class="star-icon star-filled svg">
+							</a>
+						</div>
+						<a href="#" class="ranking-stars-title">12 avis</a>
+					</div>
+				</div>
+			</div>
+
+			<div class="photo-container col-12 col-md-6">
+				<div class="photo-box">
+					<img src="{{ vich_uploader_asset(visa, 'imageFile') }}" alt="photo du taj mahal">
+					<div class="country-like">
+						<div class="like-icon">
+							<a href="#"><img src="/images/heart.svg" alt="icône like visa inde" class="icon"></a>
+						</div>
+						<span>Visa {{ visa.pays.titre }}</span>
+					</div>
+				</div>
+				<div class="photo-content on-tablet-desktop">
+					<div class="social-media">
+						<ul>
+							<li><a href="#"><img src="/images/social-media/twitter.svg" class="icon svg" alt="logo twitter"></a></li>
+							<li><a href="#"><img src="/images/social-media/google-plus.svg" class="icon svg" alt="logo google plus"></a></li>
+							<li><a href="#"><img src="/images/social-media/facebook.svg" class="icon svg" alt="logo facebook"></a></li>
+							<li><a href="#"><img src="/images/social-media/pinterest.svg" class="icon svg" alt="logo pinterest"></a></li>
+						</ul>
+					</div>
+					<div class="card communique">
+						<div class="card-body">
+							<span class="communique-title"><img src="/images/communique.svg" alt="icone communiqué" class="communique-icon"> Communiqué :</span>
+							{{ visa.communique|raw }}
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="infos-container col-12 col-md-6">
+				<div class="d-flex flex-wrap align-items-center justify-content-between infos-container-title on-tablet-desktop">
+					<h1 class="title-segblk">Demande de visa <span class="text-primary">{{ visa.pays.titre }}</span></h1>
+					<div class="ranking-stars d-flex flex-row align-items-center">
+						<div>
+							<a href="#avis">
+								<img src="/images/star-green.svg" alt="icone étoile avis" class="star-icon star-filled svg">
+								<img src="/images/star-green.svg" alt="icone étoile avis" class="star-icon star-filled svg">
+								<img src="/images/star-green.svg" alt="icone étoile avis" class="star-icon star-filled svg">
+								<img src="/images/star-green.svg" alt="icone étoile avis" class="star-icon star-filled svg">
+								<img src="/images/star-green.svg" alt="icone étoile avis" class="star-icon star-filled svg">
+							</a>
+						</div>
+						<a href="#avis" class="ranking-stars-title">12 avis</a>
+					</div>
+				</div>
+				<div class="info-tabs">
+					<p class="title-segpr-regular">Sélectionner un <span class="text-primary">type de visa :</span></p>
+					<div class="tabs-with-icon">
+                        <nav class="tabs-with-icon-container">
+                            <div class="tabs-with-icon-nav nav nav-tabs nav-fill" id="nav-tabs" role="tablist">
+                                {% for type in visa.typeVisa %}
+                                    <a class="nav-item item nav-link {% if loop.first %} active {% endif %}" id="nav-tourisme-tab" data-toggle="tab" href="#nav-{{ type.categorieVisa.titre }}" role="tab" aria-controls="nav-tourisme" aria-selected="true">
+                                        <span class="wrap-for-border">
+                                            <span class="text">{{ type.categorieVisa.titre }}</span>
+                                            <img src="/images/types-visas/tourisme.svg" alt="icône tourisme" class="icon">
+                                        </span>
+                                    </a>
+                                {% endfor %}
+                            </div>
+                        </nav>
+                        <div class="tab-content" id="nav-tabsContent">
+                            {% for type in visa.typeVisa %}
+                                <div class="tab-pane fade show {% if loop.first %} active {% endif %}" id="nav-{{type.categorieVisa.titre}}" role="tabpanel" aria-labelledby="nav-{{type.categorieVisa.titre}}-tab">
+                                    <div class="tab-wrapper">
+                                        <a href="#" class="text-primary display-invits on-desktop" data-toggle="modal" data-target="#travelDurationModal">Afficher tous les visas {{type.categorieVisa.titre}} <img src="/images/plus-circle-colored.svg" alt="Icone pour afficher toutes les assurances" class="icon"></a>
+                                        <div class="d-flex">
+                                            <div class="d-flex flex-column">
+                                                <form method="post" action="{{path('commande_visa_classic')}}">						
+                                                <label class="form-radio">
+                                                    <span class="d-flex justify-content-between">
+                                                        <span class="radio-title"><span class="on-desktop">{{type.titre}} - </span>{{type.typeEntre}} entrée</span>
+                                                    </span>			
+                                                    <input type="radio" checked="checked" name="typevisa" id="typevisa" value="{{ type.id }}">
+                                                    <span class="checkmark"></span>
+                                                </label>
+                                                <div class="on-desktop">
+                                                    <p class="radio-description on-tablet-desktop">Durée de séjour maxi: {{type.dureSejour}} jours | Traitement: {{type.delaiObtention }} jours| Validité: {{type.validite }} mois</p>
+                                                </div>
+                                                <div class="on-mobile">
+                                                    <button type="submit" class="btn btn-secondary">Commander</button>
+                                                </div>
+
+                                            </div>
+                                            <div class="on-mobile">
+                                                <ul>
+                                                    <li>
+                                                        <div class="table-content-flex">
+                                                            <img src="/images/right-chevron.svg" alt="description visa tourisme" class="table-content-mobile-icon">
+                                                            <span>Validité {{type.validite }} mois</span>
+                                                        </div>
+                                                    </li>
+                                                    <li>
+                                                        <div class="table-content-flex">
+                                                            <img src="/images/right-chevron.svg" alt="description visa tourisme" class="table-content-mobile-icon">
+                                                            <span>{{type.delaiObtention }} jours de traitement</span>
+                                                        </div>
+                                                    </li>
+                                                    <li>
+                                                        <div class="table-content-flex">
+                                                            <img src="/images/right-chevron.svg" alt="description visa tourisme" class="table-content-mobile-icon">
+                                                            <span>Séjour de {{type.dureSejour}} jours maxi</span>
+                                                        </div>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                            <div class="radio-price">95€ <small>TTC</small></div>
+                                        </div>
+                                    </div>
+                                    <div class="text-center on-tablet-desktop">
+                                        <button type="submit" class=" btn btn-primary btn-next">Commander mes visas
+                                            <img src="/images/btn-send.svg" alt="icône" class="icon-next">
+                                        </button>
+                                    </div>
+                                    </form>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+		<div class="col-12">
+			<div class="card communique on-mobile">
+				<div class="card-body">
+					<span class="communique-title"><img src="/images/communique.svg" alt="icone communiqué" class="communique-icon"> Communiqué :</span>
+					{{ visa.communique}}
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="infos-in-tabs full-width-mobile container-fluid">
+    <div class="tabs-simple">
+        <div class="nav-tabs-navigation">
+            <div class="nav-tabs-wrapper">
+                <ul class="nav nav-tabs" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link active" data-toggle="tab" href="#type-visa" role="tab" aria-selected="true">
+                            <div>Type de visa <span class="on-desktop">{{ visa.titre }}</span></div>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="tab" href="#info" role="tab" aria-selected="false">
+                            <div>
+                                <img src="/images/plus-circle.svg" alt="icône plus d'infos" class="icon-tabs-simple svg">
+                                <img src="/images/plus-circle-green.svg" alt="icône plus d'infos verte" class="icon-tabs-simple svg">
+                                Infos
+                            </div>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="tab" href="#pdf" role="tab" aria-selected="false">
+                            <div>PDF Utiles</div>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="tab" href="#tarifs" role="tab" aria-selected="false">
+                            <div><span class="on-desktop">Details</span> tarifs <span class="on-desktop">{{ visa.titre }}</span></div>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="tab-content">
+            <div class="tab-pane active" id="type-visa" role="tabpanel">
+
+                <div  class="row on-tablet-desktop">
+                    <div  class="col-md-2 links-anchors to-stick">
+                        <ul style="top:0">
+                            {% for type in visa.typeVisa %}
+                                <li> 
+                                    <a href="#visa-{{type.categorieVisa.titre}}" class="{% if loop.first %} active {% endif %}"><img src="/images/types-visas/tourisme.svg" alt="icône visa {{type.categorieVisa.titre}}" class="icon icon-bigger">Visa {{type.categorieVisa.titre}}<img src="/images/next-green.svg" alt="icône contenu affiché" class="links-anchor-active icon-next">
+                                    </a>
+                                </li>
+                            {% endfor %}
+                        </ul>
+
+                    </div>
+
+                    <div class="col-md-9">
+                        {% for type in visa.typeVisa %}
+                            <div id="visa-{{type.categorieVisa.titre}}">
+                                <div class="row row-with-margin-bottom">
+                                    <div class="col-md-5 on-tablet-desktop">
+                                        <h3 >Visa {{type.categorieVisa.titre}}</h3>
+                                        <p class="text-duree-obtention"><img src="/images/jours-ouvres-grey.svg" alt="icône durée d'obtention" class="icon">Durée normale d'obtention :{{type.delaiObtention}} jours</p>
+                                    </div>
+                                </div>
+
+    
+                                <div class="row">
+                                    <div class="{% if type.categorieVisa.doccumentsFacultatifs %}col-md-5 {% else %}col-md-10 {% endif %}  ">
+                                        <p class="subtitle"><img src="/images/tag.svg" alt="icône documents obligatoires" class="icon">Documents obligatoires</p>        
+                                        {% for doccumentObligatoire in type.categorieVisa.doccumentsObligatoires %}
+                                                
+                                            {{ doccumentObligatoire.contenu}}
+                                            <!--A récuperer pour le template sur fosckeditor-->
+                                            {# <ul class="ticked-ul no-padding">
+                                                <li>1 Bon de commande Visa-en-ligne.com à formuler en ligne.</li>
+                                                <div class="help help-background">
+                                                    <span><img src="/images/idea.svg" alt="icône aide" class="icon"></span>
+                                                    <p>Visa–en–ligne.com peut vous apporter une aide pour compléter ce formulaire officiel.</p>
+                                                </div>
+                                                <li>1 formulaire officiel de demande de visa.</li>
+                                                <li>1 copie des conditions générales du Centre de demande de visa daté et signé.</li>
+                                                <li>1 photo d’identité collée sur le formulaire. Attention ! les scans ne sont pas acceptés + pas de vêtements blancs sur la photo.</li>
+                                                <li>1 passeport valable au moins 6 mois + photocopie de la page d’identité du passeport.</li>
+                                                <li>1 réservation billet d’avion aller et retour ou copie des billets électroniques précisant noms des passagers, n° de vol, compagnie aérienne et date du séjour pour la Chine.</li>
+                                                <li>1 attestation d’assurance rapatriement valide durant le séjour.</li>
+                                                <li>1 certificat de travail ou 3 derniers buletins de salaire ou 3 derniers relevés de compte bancaire indiquant un solde créditeur égal ou supérieur à 1000 euros ou avis d’imposition.</li>
+                                            </ul> #}
+                                            <!--A recupe-->
+                                                
+                                        {% endfor %}
+                                    </div>
+                                    {% if type.categorieVisa.doccumentsFacultatifs %}
+                                        <div class="col-md-5">
+                                            <p class="subtitle"><img src="/images/tag.svg" alt="icône documents obligatoires" class="icon">Documents optionnels</p>
+                                            {% for doccumentOption in type.categorieVisa.doccumentsFacultatifs %}
+                                                
+                                                {{ doccumentOption.contenu}}
+                                                <!--A récuperer-->
+                                                {# <div class="help help-with-icon">
+                                                    <span><img src="/images/plus-circle-colored.svg" alt="icône aide" class="icon"></span>
+                                                    <p>Si vous êtes ressortissant étranger : Compléter et joindre le formulaire V.2011B+ Certificat de travail de votre employeur + Copie de la carte de séjour ou de résident pour les ressortissants hors Union Européenne.</p>
+                                                </div>
+
+                                                <div class="help help-with-icon">
+                                                    <span><img src="/images/plus-circle-colored.svg" alt="icône aide" class="icon"></span>
+                                                    <p>Dans le cas d’un visa multiples entrées (pour visite familiale uniquement), le requérant doit avoir au moins 1 visa chinois antérieur sur son passeport.</p>
+                                                </div>
+
+                                                <div class="help help-with-icon">
+                                                    <span><img src="/images/plus-circle-colored.svg" alt="icône aide" class="icon"></span>
+                                                    <p>Pour les enfants de moins de 16 ans : Copie du livret de famille de la page de naissance du mineur concerné + copie de la page des époux du livret de famille + copie des passeports ou des CNI (cartes nationales d’identité) des parents + Autorisation de sortie du territoire des mineurs signées par les deux parents.</p>
+                                                </div>
+
+                                                <div class="help help-with-icon">
+                                                    <span><img src="/images/plus-circle-colored.svg" alt="icône aide" class="icon"></span>
+                                                    <p>Si vous êtes en circuit organisé ou via un Tour Operateur (individuel ou groupe) : joindre une attestation de l’agence ou du Tour operateur indiquant que vous avez réservé ou acheté un circuit avec vols et hôtels avec les dates de séjour.</p>
+                                                </div> #}
+                                                
+                                            {% endfor %}
+                                        </div>
+                                    {% endif %}
+                                    
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <div class="on-mobile">
+                    <div class="links-anchors full-width-mobile">
+                        <ul>
+                            {% for type in visa.typeVisa %}
+                                <li>
+                                    <a href="#" class= "d-flex align-items-start {% if loop.first %} active {% endif %}" data-toggle="collapse" data-target=".visa-{{type.categorieVisa.titre}}" aria-expanded="true" aria-controls="visa-{{type.categorieVisa.titre}}">{{type.categorieVisa.titre}}
+                                        <img src="/images/types-visas/tourisme.svg" alt="icône visa {{type.categorieVisa.titre}}" class="icon">
+                                        <p class="text-left"><img src="/images/jours-ouvres-grey.svg" alt="icône durée d'obtention" class="icon-duree">Durée normale d'obtention :{{type.delaiObtention}} jours</p>
+                                        <div>
+                                            <img src="/images/next-bas.svg" alt="icône contenu affiché" class="icon-next">
+                                            <img src="/images/next-haut-green.svg" alt="icône contenu affiché" class="icon-next2">
+                                        </div>
+                                    </a>
+                                </li>
+                            {% endfor %}
+
+                            {% for type in visa.typeVisa %}
+                                <div class="visa-{{type.categorieVisa.titre}} collapse {% if loop.first %} show {% endif %} ">
+                                    <div class="row" aria-hidden="true">
+
+                                        <div class="{% if type.categorieVisa.doccumentsFacultatifs %}col-md-6{% endif %} col-md-12 docs">
+                                            <p class="subtitle"><img src="/images/tag.svg" alt="icône documents obligatoires" class="icon">Documents obligatoires</p>
+                                            {% for doccumentObligatoire in type.categorieVisa.doccumentsObligatoires %}
+                                                {{ doccumentObligatoire.contenu }}
+                                                {# <p><img src="/images/check.svg" alt="icône coche validée" class="icon check">1 Bon de commande Visa-en-ligne.com</p>
+                                                <p><img src="/images/check.svg" alt="icône coche validée" class="icon check">1 formulaire officiel de demande de visa</p>
+                                                <div class="help help-background help-with-icon">
+                                                    <span><img src="/images/idea.svg" alt="icône aide" class="icon svg"></span>
+                                                    <p> Visa–en–ligne.com peut vous apporter une aide pour compléter ce formulaire officiel.</p>
+                                                </div>
+                                                <p><img src="/images/check.svg" alt="icône coche validée" class="icon check"> 1 photo d’identité collée sur le formulaire. Attention! les scans ne sont pas acceptés + pas de vêtements blancs sur la photo</p> #}
+                                            {% endfor %}
+                                        </div>
+
+                                        <div class="col-6 docs">
+                                            <p class="subtitle"><img src="/images/tag.svg" alt="icône documents obligatoires" class="icon">Documents optionnels</p>
+                                            {% for doccumentOption in type.categorieVisa.doccumentsFacultatifs %}
+                                                {{ doccumentOption.contenu}}
+                                                {# <div class="help help-with-icon">
+                                                    <span><img src="/images/plus-circle-colored.svg" alt="icône aide" class="icon svg"></span>
+                                                    <p>Si vous êtes ressortissant étranger: Compléter et joindre le formulaire V.2011B+ Certificat de travail de votre employeur + Copie de la carte de séjour ou de résident pour les ressortissant hors Union Européenne.</p>
+                                                </div>
+
+                                                <div class="help help-with-icon">
+                                                    <span><img src="/images/plus-circle-colored.svg" alt="icône aide" class="icon svg"></span>
+                                                    <p>Dans le cas d’un visa multiples entrées (pour visite familiale uniquement), le requérant doit avoir au moins 1 visa chinois antérieur sur son passeport.</p>
+                                                </div> #}
+                                            {% endfor %}
+                                        </div>
+
+                                    </div>
+                                </div>
+                            {% endfor %}
+                            
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane" id="info" role="tabpanel">
+                <div class="row on-tablet-desktop">
+                    <div class="col-md-3 links-anchors to-stick">
+                        <ul style="top:0">
+                            {% for info in visa.voletsInfos %}
+                                <li>
+                                    <a href="#{{ info.titre }}" class="{% if loop.first %} active {% endif %}">{{ info.titre }}<img src="/images/next-green.svg" alt="icône contenu affiché" class="links-anchor-active icon-next"></a>
+                                </li>
+                            {% endfor %}
+                            
+                        </ul>
+
+                    </div>
+
+                    <div class="col-md-8">
+                        {% for info in visa.voletsInfos %}
+                            <div id="{{ info.titre }}">
+                                <div class=" row row-with-margins">
+                                    <div class="on-tablet-desktop">
+                                            <h3>{{ info.titre }}</h3>
+                                    </div>
+                                    {{ info.contenu}}
+                                </div>
+                            </div>
+                        {% endfor %}
+                        
+                    </div>
+                </div>
+
+                <div class="on-mobile">
+                    <div class="links-anchors full-width-mobile">
+                        <ul>
+                            {% for info in visa.voletsInfos %}
+                                <li>
+                                    <a  class="d-flex align-items-start {% if loop.first %} active {% endif %}" data-toggle="collapse" data-target=".{{ info.titre }}" aria-expanded="true">{{ info.titre }}
+                                        <img src="/images/next-bas.svg" alt="icône contenu affiché" class="icon-next">
+                                        <img src="/images/next-haut-green.svg" alt="icône contenu affiché" class="icon-next2">
+                                    </a>
+                                </li>
+                                <div class="{{ info.titre }} collapse {% if loop.first %} show {% endif %}">
+                                    {{ info.contenu }}
+                                </div>
+                            {% endfor %}
+                            
+                            <div class="restrictions collapse">Restrictions</div>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane" id="pdf" role="tabpanel">
+                <div class="row on-tablet-desktop">
+                    <div class="col-md-3 links-anchors">
+                        <ul  role="tablist">
+                            <li>
+                                <a href="#form-officiel" id="nav-form-officiel" data-toggle="tab"  role="tab" aria-controls="form-officiel" aria-selected="false" class="nav-item nav-link active">
+                                    <img src="/images/peace-flag.svg" alt="icône Formulaire officiel" class="icon icon-bigger">Formulaire officiel
+                                    <img src="/images/next-green.svg" alt="icône contenu affiché" class="links-anchor-active icon-next">
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#liste-documents"  id="nav-liste-documents" data-toggle="tab"  role="tab" aria-controls="liste-documents" aria-selected="false" class="nav-item nav-link"><img src="/images/list-doc.svg" alt="icône Liste des documents" class="icon icon-bigger">Liste des documents<img src="/images/next-green.svg" alt="icône contenu affiché" class="links-anchor-active icon-next"></a>
+                            </li>
+                            <li>
+                                <a href="#doc-complementaires" id="nav-doc-complementaires" data-toggle="tab"  role="tab" aria-controls="docs-complementaires" aria-selected="false" class="nav-item nav-link"><img src="/images/communique.svg" alt="icône Documents complémentaires" class="icon icon-bigger">Documents complémentaires<img src="/images/next-green.svg" alt="icône contenu affiché" class="links-anchor-active icon-next"></a>
+                            </li>
+                        </ul>
+
+                    </div>
+
+                    <div class="col-md-8 tab-content">
+                        <div id="form-officiel" class="tab-pane fade show active" role="tabpanel" aria-labelledby="nav-form-officiel" > 
+                            <div class="col col-md">
+                                {% for type in visa.typeVisa %}
+                                    {% for doccumentsOfficiel in type.categorieVisa.doccumentsOfficiel %}
+                                        <div class="pdf-box"><a href="#">{{doccumentsOfficiel.titre}}</a></div>
+                                    {% endfor %}
+                                {% endfor %}
+                                <div class="pdf-box"><a href="#"><img src="/images/btn-pdf.svg" alt="bouton pdf" class="img-pdf">Formulaire officiel tourisme</a></div>
+                                <div class="pdf-box"><a href="#"><img src="/images/btn-pdf.svg" alt="bouton pdf" class="img-pdf">Formulaire officiel affaires</a></div>
+                            </div>
+                        </div>
+
+                        <div id="liste-documents"  class="tab-pane fade" role="tabpanel" aria-labelledby="nav-liste-documents">
+                            <div class="col col-md">
+                                {% for type in visa.typeVisa %}
+                                    {% for doccumentsOfficiel in type.categorieVisa.doccumentsOfficiel %}
+                                        <div class="pdf-box"><a href="#">{{doccumentsOfficiel.titre}}</a></div>
+                                    {% endfor %}
+                                {% endfor %}                                
+                            </div>
+                        </div>
+
+                        <div id="doc-complementaires" class="tab-pane fade" role="tabpanel" aria-labelledby="nav-doc-complementaires">
+                            <div class="col col-md">
+                                {% for listedoccument in visa.doccumentsSupplementaire %}
+                                    <div class="pdf-box"><a href="#">{{ listedoccument.titre }}</a></div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="on-mobile">
+                    <div class="links-anchors full-width-mobile">
+                        <ul>
+                            <!-- formulaires officiels -->
+                            <li>
+                                <a href="#" class="d-flex active" data-toggle="collapse" data-target=".form-officiel" aria-expanded="true">
+                                    <img src="/images/peace-flag.svg" alt="icône formulaire officiels" class="icon">
+                                    <div>Formulaire officiel</div>
+                                    <img src="/images/next-bas.svg" alt="icône contenu affiché" class="icon-next">
+                                    <img src="/images/next-haut-green.svg" alt="icône contenu affiché" class="icon-next2">
+                                </a>
+                            </li>
+                            <div class="form-officiel collapse show">
+                                <div class="col col-md">
+                                    {% for type in visa.typeVisa %}
+                                        {% for doccumentsOfficiel in type.categorieVisa.doccumentsOfficiel %}
+                                            <div class="pdf-box"><a href="#"><img class="img-pdf" src="/images/btn-pdf.svg" alt="bouton pdf">{{doccumentsOfficiel.titre}}</a></div>
+                                        {% endfor %}
+                                    {% endfor %}                                     
+                                </div>
+                            </div>
+                            <!-- End formulaires officiels -->
+
+                            <!-- liste des documents -->
+                            <li>
+                                <a href="#" class="d-flex " data-toggle="collapse" data-target=".visa-affaires">
+                                    <img src="/images/list-doc.svg" alt="icône liste des documents" class="icon">
+                                    <div>Liste des documents</div>
+                                    <img src="/images/next-bas.svg" alt="icône contenu affiché" class="icon-next">
+                                    <img src="/images/next-haut-green.svg" alt="icône contenu affiché" class="icon-next2">
+                                </a>
+                            </li>
+
+                            <div class="visa-affaires collapse">
+                                <div class="col col-md">
+                                    <div class="pdf-box"><a href="#">Document 1</a></div>
+                                    <div class="pdf-box"><a href="#">Document 2</a></div>
+                                </div>
+                            </div>
+                            <!-- End liste des documents -->
+
+                            <li>
+                                <a href="#" class="d-flex" data-toggle="collapse" data-target=".doc-officiels">
+                                    <img src="/images/communique.svg" alt="icône Documents complémentaires" class="icon">
+                                    <div>Documents complémentaires</div>
+                                    <img src="/images/next-bas.svg" alt="icône contenu affiché" class="icon-next">
+                                    <img src="/images/next-haut-green.svg" alt="icône contenu affiché" class="icon-next2">
+                                </a>
+                            </li>
+                            <div class="doc-officiels collapse">
+                                <div class="col col-md">
+                                    {% for listedoccument in visa.doccumentsSupplementaire %}
+                                        <div class="pdf-box"><a href="#">{{ listedoccument.titre }}</a></div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </ul>
+                    </div>
+
+                </div>
+            </div>
+            <div class="tab-pane" id="tarifs" role="tabpanel">
+                <!-- Visa tourisme -->
+                <div class="table-responsive on-desktop">
+                    {% for type in visa.typeVisa %}
+                        <table class="table table-striped table-tarifs table-borderless">
+                            <thead>
+                            <tr class="main-title"><th colspan="7">Visa {{type.categorieVisa.titre}}</th></tr>
+                            <tr class="table-tarifs-title">
+                                <th scope="col">Nombre entrée</th>
+                                <th scope="col">Validité du visa</th>
+                                <th scope="col">Durée du séjour</th>
+                                <th scope="col">Délai d'obtention</th>
+                                <th scope="col">Frais consulaire</th>
+                                <th scope="col">Frais d'édition</th>
+                                <th scope="col">Prix total TTC</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                                {% for visaType in type.categorieVisa.visaType %}
+                                    <tr>
+                                        <td>1</td>
+                                        <td>{{visaType.validite}} mois</td>
+                                        <td>{{visaType.dureSejour}} jours</td>
+                                        <td>{{visaType.delaiObtention}} jours</td>
+                                        <td>{{visaType.fraisConsulaire}}€</td>
+                                        <td>{{visaType.fraisEdition}}€</td>
+                                        <td class="price-box">
+                                            A partir de
+                                            <a href="formulaire-visa-classique.html" class="price">126€ <img src="/images/next-green.svg" alt="voir tarifs" class="icon"></a>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    {% endfor %}
+                </div>
+                <div class="table-responsive on-mobile">
+                    {% for type in visa.typeVisa %}
+                        <table class="table table-striped table-tarifs table-borderless">
+                            <thead>
+                                <tr class="main-title"><th>Visa {{type.categorieVisa.titre}}</th></tr>
+                                <tr class="table-tarifs-title">
+                                    <th>Infos Visas</th>
+                                    <th>Détails<br>tarifaires</th>
+                                    <th>Total TTC</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for visaType in type.categorieVisa.visaType %}
+                                    <tr>
+                                        <td>
+                                            <div>Simple entrée</div>
+                                            <div> 
+                                                <div><img src="/images/right-chevron.svg" alt="Voir à droite">Validité {{visaType.validite}} mois</div>
+                                                <div><img src="/images/right-chevron.svg" alt="Voir à droite">{{visaType.delaiObtention}} jours de traitement</div>
+                                                <div><img src="/images/right-chevron.svg" alt="Voir à droite">Séjour de {{visaType.dureSejour}} jours</div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div>Frais consulaires: <span>{{visaType.fraisConsulaire}}€</span></div>
+                                            <div>Frais d'édition: <span>{{visaType.fraisEdition}}€</span></div>
+                                        </td>
+                                        <td class="price-box">
+                                            A partir de
+                                            <a href="formulaire-visa-classique.html" class="price">165€ <img src="/images/next-green.svg" alt="voir tarifs" class="icon"></a>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class=" tabs-with-icon tabs-center step-1">
+    <div id="avis" class="container">
+        <nav>
+            <div class="nav nav-tabs nav-fill" role="tablist">
+                <a class="nav-item nav-link active" id="nav-avis-tab" data-toggle="tab" href="#nav-avis" role="tab" aria-controls="nav-avis" aria-selected="false"><span class="wrap-for-border">Avis clients</span></a>
+                <a class="nav-item nav-link" id="nav-mode-expedition-tab" data-toggle="tab" href="#nav-mode-expedition" role="tab" aria-controls="nav-mode-expedition" aria-selected="false"><span class="wrap-for-border"><p class="on-desktop">Modes d'expédition</p><p class="on-mobile">Expédition</p></span></a>
+                <a class="nav-item nav-link" id="nav-service-detail-tab" data-toggle="tab" href="#nav-service-detail" role="tab" aria-controls="nav-service-detail" aria-selected="false"><span class="wrap-for-border"><p class="on-desktop">Notre service en détail</p><p class="on-mobile">Notre service</p></span></a>
+                <a class="nav-item nav-link on-desktop" id="nav-actus-tab" data-toggle="tab" href="#nav-actus" role="tab" aria-controls="nav-actus" aria-selected="false"><span class="wrap-for-border on-desktop">Actualités visa {{ visa.pays.titre}}</span></a>
+            </div>
+        </nav>
+        <div class="tab-content">
+            <div class="tab-pane fade show active" id="nav-avis" role="tabpanel" aria-labelledby="nav-avis-tab">
+                <div class="tab-wrapper">
+                    <!--Caroussel d'avis vérifiés-->
+                    <div id="avis-verifies" class="tab-pane"  role="tabpanel">
+                        <div class="container small-container">
+                            <div class="owl-carousel owl-theme">
+                                <div class="avisClient item">
+                                        <div class="d-flex justify-content-between "><img src="/images/navbar/reviews-4stars.svg" alt=" avis 4 étoiles"><p>2 hours ago</p></div>
+                                        <h4>Première réservation tout était ok</h4>
+                                        <p>Première réservation via cette agence et pas déçue. Nous avons passé un séjour m...</p>
+                                        <p>Laetitia</p>
+                                </div>
+
+                                <div class="avisClient item">
+                                        <div class="d-flex justify-content-between"><img src="/images/navbar/reviews-3stars.svg" alt=" avis 3 étoiles"><p>4 hours ago</p></div>
+                                        <h4>Excellente agence</h4>
+                                        <p>Excellente agence, le séjour répondait parfaitement à nos attentes.</p>
+                                        <p>Corine Leger</p>
+                                </div>
+                                <div class="avisClient item">
+                                        <div class="d-flex justify-content-between"><img src="/images/navbar/reviews-2stars.svg" alt=" avis 2 étoiles"><p>8 hours ago</p></div>
+                                        <h4>Très bonne organisation sachant q...</h4>
+                                        <p>Très bonne organisation sachant que mon mari est handicapé nous n’avons ...</p>
+                                        <p>Leonora</p>
+                                </div>
+                                <div class="avisClient item">
+                                    <div class="d-flex justify-content-between"><img src="/images/navbar/reviews-3stars.svg" alt=" avis 3 étoiles"><p>4 hours ago</p></div>
+                                        <h4>Excellente agence</h4>
+                                        <p>Excellente agence, le séjour répondait parfaitement à nos attentes.</p>
+                                        <p>Corine Leger</p>
+                                </div>
+                                <div class="avisClient item">
+                                    <div class="d-flex justify-content-between "><img src="/images/navbar/reviews-4stars.svg" alt=" avis 4 étoiles"><p>2 hours ago</p></div>
+                                        <h4>Première réservation tout était ok</h4>
+                                        <p>Première réservation via cette agence et pas déçue. Nous avons passé un séjour m...</p>
+                                        <p>Laetitia</p>
+                                </div>
+                                <div class="avisClient item">
+                                        <div class="d-flex justify-content-between "><img src="/images/navbar/reviews-2stars.svg" alt=" avis 2 étoiles"><p>8 hours ago</p></div>
+                                        <h4>Très bonne organisation sachant q...</h4>
+                                        <p>Très bonne organisation sachant que mon mari est handicapé nous n’avons ...</p>
+                                        <p>Leonora</p>
+                                </div>
+                            </div>
+                        </div>	
+                    <!--Carroussel d'avis vérifiés-->
+                    </div>
+                </div>
+            </div>
+
+            <div class="tab-pane fade" id="nav-mode-expedition" role="tabpanel" aria-labelledby="nav-mode-expedition-tab">
+                <div class="row">
+                    <div class="col-12 col-md-6">
+                        <h4 class="title-yellow">Expédition par courrier :</h4>
+                        <p>Nous assurons les expéditions en fonctions de vos spécifications lors de votre commande : </p>
+                        <ul>
+                            <li>Livraison par courrier suivi en France, Suisse, la Belgique et autres pays d’Europe
+                                limitrophes.</li>
+                            <li>Livraison par courrier recommandé en en France, Suisse, la Belgique et autres pays d’Europe limitrophes.</li>
+                            <li>Livraison par Chronopost en France, Suisse, la Belgique et autres pays d’Europe limitrophes.</li>
+                            <li>Livraison dans le monde entier par DHL international</li>
+                        </ul>
+                        <h4 class="title-yellow">Enlèvement par coursier en Ile-de-France : </h4>
+                        <ul>
+                            <li>Nos coursiers peuvent effectuer les enlèvements de vos dossiers de demande visas sur toute l’Ile de France. L’heure de passage devra être convenue par éléphone avec un conseiller Visa-en-ligne.com</li>
+                        </ul>
+                    </div>
+
+                    <div class="col-12 col-md-6">
+                        <h4 class="title-yellow">Livraison par coursier en Ile de France : </h4>
+                        <ul>
+                            <li>Nos coursiers peuvent effectuer vos livraisons de visas sur toute l’Ile de France. L’heure de passage devra être convenue par téléphone avec un conseiller Visa-en-ligne.com</li>
+                        </ul>
+                        <h4 class="title-yellow">Livraison par coursier à l’aéroport Parisien :</h4>
+                        <ul>
+                            <li>La livraison par coursier peut être effectuée du lundi au Dimanche à l’aéroport de Orly et de Roissy Charles de Gaulle, ainsi que les jours fériés jusqu’à 14 heures.</li>
+                        </ul>
+                        <h4 class="title-yellow">Remise à l’agence :</h4>
+                        <ul>
+                            <li>Vous pouvez demander une remise en main propre à l’agence. Cette remise à l’agence est gratuite.</li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="tab-pane fade" id="nav-service-detail" role="tabpanel" aria-labelledby="nav-service-detail-tab">
+                <div class="tab-wrapper">
+                </div>
+            </div>
+
+            <div class="tab-pane fade" id="nav-actus" role="tabpanel" aria-labelledby="nav-actus-tab">
+                <div class="actu-wrapper row">
+                    <div class="col-12 col-md-12 col-lg-9">
+                        <!-- Actu 1-->
+                        <div class="actu-box">
+                            <p class="actu-info">
+                                <img src="/images/pen-black.svg" alt="icône crayon" class="icon">
+                                <span class="text-primary">Le 03/04/2019 |</span>
+                                Visa-en-ligne.com
+                            </p>
+                            <div class="actu-card">
+                                <a href="actualite-focus.html"><h3 class="actu-card-title">Ouverture économique et tourisme</h3></a>
+                                <p class="actu-card-description">Lorem ipsum dolor sit amet consectetur adipisicing elit. Commodi eius incidunt, distinctio cum enim quis ex, provident blanditiis unde, saepe totam modi. Officiis, aut? Quaerat quidem a natus fugiat magni.</p>
+                            </div>
+                        </div>
+
+                        <!-- Actu 2-->
+                        <div class="actu-box">
+                            <p class="actu-info">
+                                <img src="/images/pen-black.svg" alt="icône crayon" class="icon">
+                                <span class="text-primary">Le 03/04/2019 |</span>
+                                Visa-en-ligne.com
+                            </p>
+                            <div class="actu-card">
+                                    <a href="actualite-focus.html"><h3 class="actu-card-title">Ouverture économique et tourisme</h3></a>
+                                <p class="actu-card-description">Lorem ipsum dolor sit amet consectetur adipisicing elit. Commodi eius incidunt, distinctio cum enim quis ex, provident blanditiis unde, saepe totam modi. Officiis, aut? Quaerat quidem a natus fugiat magni.</p>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

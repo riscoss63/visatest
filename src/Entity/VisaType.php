@@ -88,6 +88,11 @@ class VisaType
      */
     private $eVisa;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\CarteTourisme", inversedBy="typeVisa")
+     */
+    private $carteTourisme;
+
     public function __construct()
     {
         $this->demandes = new ArrayCollection();
@@ -282,6 +287,18 @@ class VisaType
     public function setEVisa(?EVisa $eVisa): self
     {
         $this->eVisa = $eVisa;
+
+        return $this;
+    }
+
+    public function getCarteTourisme(): ?CarteTourisme
+    {
+        return $this->carteTourisme;
+    }
+
+    public function setCarteTourisme(?CarteTourisme $carteTourisme): self
+    {
+        $this->carteTourisme = $carteTourisme;
 
         return $this;
     }

@@ -86,6 +86,12 @@ class InfosEntrepriseType extends AbstractType
                 ],
                 'label'     => 'Taux Tva (en %) '
             ])
+            ->add('cnil', TextType::class, [
+                'attr'      => [
+                    'class'     => 'form-control'
+                ],
+                'label'     => 'Numéro CNIL '
+            ])
             ->add('submit', SubmitType::class, [
                 'attr'  => [
                     'class'     => 'mt-3 form-control btn btn-primary'

@@ -36,13 +36,13 @@
     width: 557px;
     height: 341px;
     border-radius: 6px;
-    background: url(images/banner/home-1.jpg) no-repeat;
+    background: url(/images/banner/home-1.jpg) no-repeat;
     background-size: cover; }
 
 .banner-img-left {
   width: 158px;
   height: auto;
-  background: url(images/banner/image-gauche.jpg) no-repeat;
+  background: url(/images/banner/image-gauche.jpg) no-repeat;
   background-position: -47px;
   background-size: cover;
   flex-grow: 1;
@@ -59,7 +59,7 @@
 .banner-img-right {
   width: 158px;
   height: auto;
-  background: url(images/banner/image-droite.jpg) no-repeat;
+  background: url(/images/banner/image-droite.jpg) no-repeat;
   background-position: -282px;
   background-size: cover;
   flex-grow: 1;

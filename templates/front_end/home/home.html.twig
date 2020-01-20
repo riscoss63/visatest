@@ -4,288 +4,703 @@
     {{ parent() }}
     <link rel="stylesheet" type="text/css" href="{{ asset('/frontend/css/style-home.css') }}">
 {% endblock %}
-
+    {% block header %}
+        {% include "/front_end/home/__header.html.twig" %}
+    {% endblock %}
 {% block body %}
-    <!--Début navigation-->
-    <div id="navigation">
-        <nav class="top-navbar navbar navbar-expand-lg">
-            <div class="container">
-                <button class="navbar-toggler navbar-toggler-right burger-menu" type="button" data-toggle="collapse" data-target="#submenu-mobile" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-bar"></span>
-                    <span class="navbar-toggler-bar"></span>
-                    <span class="navbar-toggler-bar"></span>
-                </button>
+    <div class="banner-wrapper">
+        <div class="banner-img-left on-tablet-desktop"></div>
 
-                <div class="navbar-search on-tablet-desktop">
-                    <p class="search-title">Visas et E-visas vers plus de 70 destinations</p>
-                    <div class="search-box">
-                        <div>
-                            <img src="/images/navbar/localisation.svg" alt="icones localisation" class="localisation-icon">
-                        </div>
-                        <div class="select-type border-select">
-                            <select id="statut" class="form-line">
-                                <option selected>Visa</option>
-                                <option>E-visa</option>
-                            </select>
-                        </div>
-
-                        <!-- A dynamiser : Input text avec recherche dynamique -->
-                        <div class="select-pays border-select">
-                            <input type="text" class="form-control" placeholder="Trouver un pays">
-                        </div>
-
-                        <div>
-                            <img src="/images/navbar/search.svg" alt="icones recherche" class="research-icon">
-                        </div>
-                    </div>
-                </div>
-                <div>
-                    <a href="index.html"><img src="/images/logo-vectorized.svg" alt="Logo visaenligne.com" class="top-navbar-logo"></a>
-                    <!--<svg viewBox="0 0 16 16">
-                        <use xlink:href="/images/logo.svg" ></use>
-                    </svg>-->
-                </div>
-                <div id="onglets-avis">
-                    <div class="navbar-icons-right on-tablet-desktop">
-                        <ul class="navbar-nav ml-auto">
-                            <li class="nav-item">
-                                <a class="nav-link top-navbar-icon" href="espace-reserve/login.html"><img src="/images/navbar/people.svg" alt="Icone me connecter" class="login-icon">Me connecter</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link top-navbar-icon" href="faq.html"><img src="/images/navbar/faq.svg" alt="Icone questions fréquentes" class="faq-icon">Questions fréquentes</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link top-navbar-icon" href="nous-contacter.html"><img src="/images/navbar/nous-contacter.svg" alt="Icone nous contacter">Nous contacter</a>
-                            </li>
-                        </ul>
-                    </div>
-                    <a href="#avis" class="navbar-reviews">
-                        <p>Avis clients</p>
-                        <img src="/images/navbar/reviews.svg" alt="avis">
-                    </a>
-                </div>
-                <div class="on-mobile">
-                    <a href="listing-destinations.html"><img src="/images/navbar/search.svg" alt="icones recherche" class="research-icon ml-0">
-                    </a></div>
-            </div>
-        </nav>
-        <div class="submenu on-tablet-desktop">
-            <div class="submenu-container" id="submenu-desktop">
-                <div class="row">
-                    <div class="col-12 col-md-2 submenu-link">
-                        <a href="#" data-toggle="collapse" data-target=".submenu-visa">Visa</a>
-
-                        <div class="submenu-collapse submenu-visa collapse" data-parent="#submenu-desktop">
-                            <div class="row">
-                                <div class="col-4">
-                                    <p class="submenu-collapse-title">Afrique</p>
-                                    <ul>
-                                        <li><a href="listing-destinations.html">Afrique du Nord</a></li>
-                                        <li><a href="listing-destinations.html">Afrique de l'est</a></li>
-                                        <li><a href="listing-destinations.html">Afrique centrale</a></li>
-                                        <li><a href="listing-destinations.html">Afrique de l'ouest</a></li>
-                                        <li><a href="listing-destinations.html">Afrique australe</a></li>
-                                    </ul>
-                                </div>
-
-                                <div class="col-4">
-                                    <p class="submenu-collapse-title">Asie</p>
-                                    <ul>
-                                        <li><a href="listing-destinations.html">Asie centrale</a></li>
-                                        <li><a href="listing-destinations.html">Asie du sud est</a></li>
-                                        <li><a href="listing-destinations.html">Extrême-Orient</a></li>
-                                        <li><a href="listing-destinations.html">Moyen-Orient</a></li>
-                                        <li><a href="listing-destinations.html">Sous continent indien</a></li>
-                                    </ul>
-                                </div>
-
-                                <div class="col-4">
-                                    <p class="submenu-collapse-title">Australie</p>
-                                    <ul>
-                                        <li><a href="page-visa-classique.html">Australie</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-12 col-md-2 submenu-link">
-                        <a href="#" data-toggle="collapse" data-target=".submenu-evisa">E-visa</a>
-
-                        <div class="submenu-collapse submenu-evisa collapse" data-parent="#submenu-desktop">
-                            <div class="row">
-                                <div class="col-4">
-                                    <p class="submenu-collapse-title">Afrique</p>
-                                    <ul>
-                                        <li><a href="listing-destinations.html">Afrique du Nord</a></li>
-                                        <li><a href="listing-destinations.html">Afrique de l'est</a></li>
-                                        <li><a href="listing-destinations.html">Afrique centrale</a></li>
-                                        <li><a href="listing-destinations.html">Afrique de l'ouest</a></li>
-                                        <li><a href="listing-destinations.html">Afrique australe</a></li>
-                                    </ul>
-                                </div>
-
-                                <div class="col-4">
-                                    <p class="submenu-collapse-title">Asie</p>
-                                    <ul>
-                                        <li><a href="listing-destinations.html">Asie centrale</a></li>
-                                        <li><a href="listing-destinations.html">Asie du sud est</a></li>
-                                        <li><a href="listing-destinations.html">Extrême-Orient</a></li>
-                                        <li><a href="listing-destinations.html">Moyen-Orient</a></li>
-                                        <li><a href="listing-destinations.html">Sous continent indien</a></li>
-                                    </ul>
-                                </div>
-
-                                <div class="col-4">
-                                    <p class="submenu-collapse-title">Australie</p>
-                                    <ul>
-                                        <li><a href="listing-destinations.html">Australie</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-12 col-md-2 submenu-link">
-                        <a href="page-assurance.html">Assurance</a>
-                    </div>
-                    <div class="col-12 col-md-2 submenu-link">
-                        <a href="page-cuba.html">Carte tourisme Cuba</a>
-                    </div>
-                    <div class="col-12 col-md-2 submenu-link">
-                        <a href="invitation-russie.html">Voucher Russie</a>
-                    </div>
-                    <div class="col-12 col-md-2 submenu-link">
-                        <a href="">Legalisation</a>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-    </div>
-    <!--Fin navigation-->
-
-    <!--Début navigation mobile-->
-    <div class="submenu-mobile collapse" id="submenu-mobile">
-        <div class="close mr-2 mt-2" data-toggle="collapse" data-target="#submenu-mobile" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <img src="/images/close.svg" alt="icône fermer le sous-menu" class="icon">
-        </div>
-        <div class="submenu-container">
-            <div class="background-tabs">
+        <div class="tabs-home">
+            <div class="tabs-border-top">
                 <div class="nav-tabs-navigation">
                     <div class="nav-tabs-wrapper">
-                        <ul class="nav nav-tabs" role="tablist">
-                            <li class="nav-item">
-                                <a class="nav-link active" data-toggle="tab" href="#home" role="tab" aria-selected="false">Menu</a>
+                        <ul class="nav nav-tabs nav-tabs-two" role="tablist">
+                            <li class="nav-item nav-item-smaller">
+                                <a class="nav-link active" data-toggle="tab" href="#visa" role="tab" aria-selected="true">
+                                    <div><img src="images/banner/tampon.svg" alt="icône de visa" class="tabs-icon svg"></div>
+                                    Visa
+                                </a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link" data-toggle="tab" href="#top-destinations" role="tab" aria-selected="false">Top destinations</a>
+                            <li class="nav-item nav-item-bigger">
+                                <a class="nav-link" data-toggle="tab" href="#cuba" role="tab" aria-selected="false">
+                                    <div><img src="images/banner/havana.svg" alt="icône havana cuba" class="tabs-icon svg"></div>
+                                    Carte de tourisme Cuba
+                                </a>
+                            </li>
+                            <li class="nav-item nav-item-smaller">
+                                <a class="nav-link" data-toggle="tab" href="#assurance" role="tab" aria-selected="false">
+                                    <div><img src="images/banner/bouclier.svg" alt="icône d'assurance" class="tabs-icon svg"></div>
+                                    Assurance
+                                </a>
                             </li>
                         </ul>
                     </div>
                 </div>
+
                 <div class="tab-content">
-                    <div class="tab-pane active" id="home" role="tabpanel">
-                        <div class="submenu-link">
-                            <a href="#" data-toggle="collapse" data-target=".submenu-mobile-visa">Visa<span class="float-right"><img src="/image/arrow-down.svg" class="icon" alt="ouvrir le sous-menu"></span></a>
 
-                            <div class="mt-3 submenu-mobile-visa collapse">
-                                <p class="text-primary mb-0">Afrique</p>
-                                <div class="ml-2 mb-2">
-                                    <div><a href="page-visa-classique.html">Afrique du Nord</a></div>
-                                    <div><a href="page-visa-classique.html">Afrique de l'est</a></div>
-                                    <div><a href="page-visa-classique.html">Afrique centrale</a></div>
-                                    <div><a href="page-visa-classique.html">Afrique de l'ouest</a></div>
-                                    <div><a href="page-visa-classique.html">Afrique australe</a></div>
+                    <div class="tab-pane active" id="visa" role="tabpanel">
+                        <form>
+                            <div class="form-check-wrapper">
+                                <div class="form-check form-check-inline">
+                                    <label class="form-radio">
+                                            <span class="d-flex justify-content-between">
+                                                <span class="radio-title">Visa classique</span>
+                                            </span>
+                                        <input type="radio" checked="checked" name="radio">
+                                        <span class="checkmark"></span>
+                                    </label>
                                 </div>
-
-                                <p class="text-primary mb-0">Asie</p>
-                                <div class="ml-2 mb-2">
-                                    <div><a href="page-visa-classique.html">Asie centrale</a></div>
-                                    <div><a href="page-visa-classique.html">Asie du sud est</a></div>
-                                    <div><a href="page-visa-classique.html">Extrême-Orient</a></div>
-                                    <div><a href="page-visa-classique.html">Moyen-Orient</a></div>
-                                    <div><a href="page-visa-classique.html">Sous continent indien</a></div>
-                                </div>
-
-                                <p class="text-primary mb-0">Australie</p>
-                                <div class="ml-2 mb-2">
-                                    <div><a href="page-visa-classique.html">Australie</a></div>
+                                <div class="form-check form-check-inline">
+                                    <label class="form-radio">
+                                            <span class="d-flex justify-content-between">
+                                                <span class="radio-title">E-visa</span>
+                                            </span>
+                                        <input type="radio" name="radio">
+                                        <span class="checkmark"></span>
+                                    </label>
                                 </div>
                             </div>
-                        </div>
-                        <div class="submenu-link">
-                            <a href="#" data-toggle="collapse" data-target=".submenu-mobile-evisa">E-visa<span class="float-right"><img src="/image/arrow-down.svg" class="icon" alt="ouvrir le sous-menu"></span></a>
+                            <!-- A dynamiser : Input text avec recherche dynamique -->
+                            <div class="form-group">
+                                <input type="text" class="form-control localisation-input" id="pays" placeholder="Pays de destination">
+                            </div>
 
-                            <div class="mt-3 submenu-mobile-evisa collapse">
-                                <p class="text-primary mb-0">Afrique</p>
-                                <div class="ml-2 mb-2">
-                                    <div><a href="page-evisa.html">Afrique du Nord</a></div>
-                                    <div><a href="page-evisa.html">Afrique de l'est</a></div>
-                                    <div><a href="page-evisa.html">Afrique centrale</a></div>
-                                    <div><a href="page-evisa.html">Afrique de l'ouest</a></div>
-                                    <div><a href="page-evisa.html">Afrique australe</a></div>
+                            <div class="form-group selectField">
+                                <select class="form-control" id="choisir-visa">
+                                    <option>Choisir un visa</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group selectField">
+                                <select class="form-control" id="nombre-voyageurs">
+                                    <option>Nombre de voyageurs</option>
+                                </select>
+                            </div>
+
+                            <div>
+                                <a href="#" class="btn btn-primary btn-next">Etape suivante
+                                    <img src="images/btn-send.svg" alt="icône" class="icon-next">
+                                </a>
+                            </div>
+                        </form>
+                    </div>
+
+                    <div class="tab-pane" id="cuba" role="tabpanel">
+
+                        <form>
+                            <div class="form-group">
+                                <select class="form-control" id="cuba-mode-reception">
+                                    <option>Mode de recéption de vos cartes</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <select class="form-control" id="cuba-nombre-voyageurx">
+                                    <option>Nombre de voyageurs à Cuba</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group form-row">
+                                <div class="col">
+                                    <select class="form-control" id="cuba-date-entree">
+                                        <option>Date entrée à Cuba</option>
+                                    </select>
                                 </div>
 
-                                <p class="text-primary mb-0">Asie</p>
-                                <div class="ml-2 mb-2">
-                                    <div><a href="page-evisa.html">Asie centrale</a></div>
-                                    <div><a href="page-evisa.html">Asie du sud est</a></div>
-                                    <div><a href="page-evisa.html">Extrême-Orient</a></div>
-                                    <div><a href="page-evisa.html">Moyen-Orient</a></div>
-                                    <div><a href="page-evisa.html">Sous continent indien</a></div>
-                                </div>
-
-                                <p class="text-primary mb-0">Australie</p>
-                                <div class="ml-2 mb-2">
-                                    <div><a href="page-evisa.html">Australie</a></div>
+                                <div class="col">
+                                    <select class="form-control" id="cuba-date-sortie">
+                                        <option>Date sortie de Cuba</option>
+                                    </select>
                                 </div>
                             </div>
-                        </div>
-                        <div class="submenu-link">
-                            <a href="page-cuba.html">Carte tourisme Cuba</a>
-                        </div>
-                        <div class="submenu-link">
-                            <a href="invitation-russie.html">Invitation tourisme Russie</a>
-                        </div>
-                        <div class="submenu-link">
-                            <a href="invitation-russie.html">Invitation affaires Russie</a>
-                        </div>
-                        <div class="submenu-link">
-                            <a href="page-assurance.html">Assurance</a>
-                        </div>
-                        <div class="submenu-link">
-                            <a href="">Legalisation</a>
-                        </div>
-                        <div class="submenu-link">
-                            <a href="faq.html">Questions fréquentes</a>
-                        </div>
-                        <div class="submenu-link">
-                            <a href="nous-connaitre.html">Nous connaître</a>
-                        </div>
-                        <div class="submenu-link">
-                            <a href="#">CGV</a>
-                        </div>
-                        <div class="submenu-link">
-                            <a href="#">Mentions légales</a>
-                        </div>
-                        <div class="submenu-link">
-                            <a href="#">Politique de confidentialité</a>
-                        </div>
 
+                            <div>
+                                <a href="#" class="btn btn-primary btn-next">Etape suivante
+                                    <img src="images/btn-send.svg" alt="icône" class="icon-next">
+                                </a>
+                            </div>
+                        </form>
 
                     </div>
-                    <div class="tab-pane" id="top-destinations" role="tabpanel">
-                        <p>Top destinations</p>
+
+                    <div class="tab-pane" id="assurance" role="tabpanel">
+                        <form>
+                            <div class="form-group">
+                                <select class="form-control" id="assurance-pays-destination">
+                                    <option>Pays de destination</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <select class="form-control" id="assurance-duree">
+                                    <option>Durée de l'assurance</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <select class="form-control" id="assurance-nombre-voyageurs">
+                                    <option>Nombre de voyageurs à assurer</option>
+                                </select>
+                            </div>
+
+                            <div>
+                                <a href="#" class="btn btn-primary btn-next">Etape suivante
+                                    <img src="images/btn-send.svg" alt="icône" class="icon-next">
+                                </a>
+                            </div>
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="img-home on-tablet-desktop"></div>
+
+        <div class="best-boxes on-tablet-desktop mb-3">
+            <p class="best-boxes-title">Le meilleur du visa</p>
+            <div class="box-wrapper">
+                <div class="box">
+                    <div class="box-img"><img src="images/footer/clients-satisfaits.svg" alt="icône clients satisfaits"></div>
+                    <p>98% de clients satisfaits</p>
+                </div>
+                <div class="box">
+                    <div class="box-img"><img src="images/footer/demarche-securisee.svg" alt="icône Démarche 100% sécurisée"></div>
+                    <p>Démarche 100% sécurisée</p>
+                </div>
+                <div class="box">
+                    <div class="box-img box-img-smaller"><img src="images/jours-ouvres-colored.svg" alt="icône Délai d'obtention express"></div>
+                    <p>Délai d'obtention express</p>
+                </div>
+                <div class="box">
+                    <div class="box-img"><img src="images/footer/simplicite-fiabilite.svg" alt="icône Simplicité et fiabilité"></div>
+                    <p>Suivi en temps réel</p>
+                </div>
+                <div class="box">
+                    <div class="box-img"><img src="images/footer/assistance-a-votre-ecoute.svg" alt="icône assistance à votre écoute"></div>
+                    <p>Simplicité et fiabilité</p>
+                </div>
+                <div class="box">
+                    <div class="box-img img-bigger"><img src="images/footer/suivi-temps-reel.svg" alt="icône Suivi en temps réel"></div>
+                    <p>Service client à votre écoute</p>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="banner-img-right on-tablet-desktop"></div>
+
+    </div>
+
+    <div class="destinations-cards">
+    <h1 class="page-title"><span class="text-primary">Vos visas</span> vers plus de 50 destinations</h1>
+
+    <div class="destinations-tabs">
+        <div class="tabs-simple">
+            <div class="nav-tabs-navigation">
+                <div class="nav-tabs-wrapper">
+                    <ul class="nav nav-tabs nav-tabs-home" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active" data-toggle="tab" href="#visa-classique" role="tab" aria-selected="true"><h2>Visa classique</h2></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="tab" href="#evisa" role="tab" aria-selected="false"><h2>E-visa électronique</h2></a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="tab-content">
+                <div class="tab-pane active" id="visa-classique" role="tabpanel">
+                    <div class="container small-container">
+                        <div class="row justify-content-between">
+                            {% for visaclassic in visaClassics %}
+                                <div class="destination-wrapper">
+                                    <div class="destination-img">
+                                        <img src="{{ vich_uploader_asset(visaclassic, 'imageFile') }}" alt="" class="img-fluid">
+                                    </div>
+                                    <div class="destination-card">
+                                        <div class="row">
+                                            <div class="destination-info col-7">
+                                                <div class="d-flex align-items-center justify-content-between">
+                                                    <h3 class="destination-title">Visa {{ visaclassic.pays.titre}}</h3>
+                                                </div>
+                                                <div class="destination-jours-ouvres"><span><img src="images/chronometre.svg" alt="icônes jours ouvrés" class="icon">
+                                                    {% for type in visaclassic.typeVisa|sort((a, b) => a.delaiObtention <=> b.delaiObtention) %}
+                                                        {% if loop.first %}
+                                                            {{type.delaiObtention}} Jour(s)
+                                                        {% endif %}  
+                                                    {% endfor %}
+                                                </span></div>
+                                                <div class="categorie-visa">
+                                                    <p class="categorie-visa-title">Catégories de visa :</p>
+                                                    <p class="categorie-visa-description"> 
+                                                        {% for type in visaclassic.typeVisa %}
+                                                            {{type.categorieVisa.titre}},
+                                                        {% endfor %} 
+                                                    </p>
+                                                </div>
+                                            </div>
+
+                                            <div class="destination-price col-5">
+                                                <div>
+                                                    <p class="destination-price-small">A partir de</p>
+                                                    <p class="price">
+                                                        {% for type in visaclassic.typeVisa|sort((a, b) => a.fraisConsulaire <=> b.fraisConsulaire) %}
+                                                            {% if loop.first %}
+                                                                {{type.fraisConsulaire}} € TTC
+                                                            {% endif %}  
+                                                        {% endfor %}
+                                                    </p>
+                                                    <a href="{{ path('visa_classic_show', {slug : visaclassic.slug})}}" class="destination-price-icon btn btn-primary">
+                                                        <span class="btn-label"><img src="images/plus-white.svg"  alt="icone plus d'infos" class="price-icon svg"></span>
+                                                        infos
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            {% endfor %}
+						</div>                       
+                        <div class="text-center">
+                            <div class="btn-see">
+                                <a href="listing-destinations.html"><img src="images/right-chevron.svg" alt="icône voir toutes les destinations" class="icon">Voir toutes <span>les destinations</span></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-pane" id="evisa" role="tabpanel">
+                    <div class="container small-container">
+
+                        <div class="row justify-content-between">
+                            {% for evisa in evisas %}
+                                <div class="destination-wrapper">
+                                    <div class="destination-img">
+                                        <img src="{{ vich_uploader_asset(evisa, 'imageFile') }}" alt="" class="img-fluid">
+                                    </div>
+                                    <div class="destination-card">
+                                        <div class="row">
+                                            <div class="destination-info col-7">
+                                                <div class="d-flex align-items-center justify-content-between">
+                                                    <h3 class="destination-title">Visa {{ evisa.pays.titre}}</h3>
+                                                </div>
+                                                <div class="destination-jours-ouvres"><span><img src="images/chronometre.svg" alt="icônes jours ouvrés" class="icon">
+                                                    {% for type in evisa.typeVisa|sort((a, b) => a.delaiObtention <=> b.delaiObtention) %}
+                                                        {% if loop.first %}
+                                                            {{type.delaiObtention}} Jour(s)
+                                                        {% endif %}  
+                                                    {% endfor %}
+                                                </span></div>
+                                                <div class="categorie-visa">
+                                                    <p class="categorie-visa-title">Catégories de visa :</p>
+                                                    <p class="categorie-visa-description"> 
+                                                        {% for type in evisa.typeVisa %}
+                                                            {{type.categorieVisa.titre}},
+                                                        {% endfor %} 
+                                                    </p>
+                                                </div>
+                                            </div>
+
+                                            <div class="destination-price col-5">
+                                                <div>
+                                                    <p class="destination-price-small">A partir de</p>
+                                                    <p class="price">
+                                                        {% for type in evisa.typeVisa|sort((a, b) => a.fraisConsulaire <=> b.fraisConsulaire) %}
+                                                            {% if loop.first %}
+                                                                {{type.fraisConsulaire}} € TTC
+                                                            {% endif %}  
+                                                        {% endfor %}
+                                                    </p>
+                                                    <a href="{{ path('evisa_show', {slug : evisa.slug})}}" class="destination-price-icon btn btn-primary">
+                                                        <span class="btn-label"><img src="images/plus-white.svg"  alt="icone plus d'infos" class="price-icon svg"></span>
+                                                        infos
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                        <div class="text-center">
+                            <div class="btn-see">
+                                <a href="listing-destinations.html"><img src="images/right-chevron.svg" alt="icône voir toutes les destinations" class="icon">Voir toutes <span>les destinations</span></a>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div>
-                <a href="#" class="btn btn-black btn-block"><img src="/image/navbar/people.svg" class="icon" alt="icône me connecter">Me connecter</a>
-            </div>
-            <div>
-                <a href="nous-contacter.html" class="btn btn-black btn-block"><img src="/image/phone-white.svg" class="icon" alt="icône nous contacter">Nous contacter</a>
+        </div>
+    </div>
+</div>
+
+<div class="actus-cards on-desktop">
+    <h3 class="page-title"><span class="text-primary">Informations</span> et actualités</h3>
+
+    <div class="container small-container">
+
+        <div class="row justify-content-between">
+
+            {% for actualite in actualites %}
+                <div class="destination-wrapper">
+                    <div class="destination-img">
+                        <img src="{{ vich_uploader_asset(actualite, 'imageFile') }}" alt="paysage" class="img-fluid">
+                    </div>
+                    <div class="destination-card">
+                        <div>
+                            <div>
+                                <h3 class="destination-title"><a href="actualite-focus.html">{{ actualite.titre }}</a></h3>
+                                <p class="actu-date"><span class="text-primary">Le {{ actualite.dateCreation|date("m/d/Y")}} |</span> Visa-en-ligne.com</p>
+                            </div>
+                            <p>{{ actualite.contenu|striptags|slice(0,310)|raw }}...</p>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+
+        </div>
+        <div class="text-center">
+            <div class="btn-see">
+                <a href="listing-actualites.html" class="home-link">
+                    <img src="images/right-chevron.svg" alt="icône voir toutes les actualités" class="icon">Voir toutes <span>les actualités</span>
+                </a>
             </div>
         </div>
     </div>
-    <!--Fin navigation mobile-->
+</div>
+
+<div class="actus-cards on-mobile">
+    <h3 class="page-title"><span class="text-primary">Informations</span> et actualités</h3>
+
+    <div class="container small-container">
+
+        <div class="owl-carousel owl-theme">
+
+            <div class="destination-wrapper item">
+				<div class="destination-img">
+					<img src="images/pays-img/actu-1.jpg" alt="paysage" class="img-fluid">
+				</div>
+				<div class="destination-card">
+					<div>
+						<div>
+							<h3 class="destination-title"><a href="actualite-focus.html">Cuba lutte contre Ebola</a></h3>
+							<p class="actu-date"><span class="text-primary">Le 09/03/2019 |</span> Visa-en-ligne.com</p>
+						</div>
+						<p>Loin d’être aussi riche et développé que d’autres pays du continent Américain ou Européen, Cuba a engagé de vraies mesures de solidarité en faveur des pays d’Afrique les plus sévèrement touchés par l’épidemie du virus Ebola. Alors que la plupart des pays développés restent dans l’attentisme.</p>
+					</div>
+				</div>
+			</div>
+            <div class="destination-wrapper item">
+                    <div class="destination-img">
+                        <img src="images/pays-img/actu-2.jpg" alt="paysage" class="img-fluid">
+                    </div>
+                    <div class="destination-card">
+                        <div>
+                            <div>
+                                <h3 class="destination-title"><a href="actualite-focus.html">Ouverture économique et tourisme</a></h3>
+                                <p class="actu-date"><span class="text-primary">Le 09/03/2019 |</span> Visa-en-ligne.com</p>
+                            </div>
+                            <p>Alors que les liens diplomatiques entre la Havane et
+                                Washington étaient rompus depuis la mise en place en février 1962 d’un embargo économique, commercial et financier, Barack Obama et Raul Castro ont annoncé le 17 décembre dernier la reprise des échanges entre les deux nations</p>
+                        </div>
+                    </div>
+            </div>
+            <div class="destination-wrapper item">
+                	<div class="destination-img">
+                        <img src="images/pays-img/actu-3.jpg" alt="paysage" class="img-fluid">
+                    </div>
+                    <div class="destination-card">
+                        <div>
+                            <div>
+                                <h3 class="destination-title"><a href="actualite-focus.html">Ouverture économique et tourisme</a></h3>
+                                <p class="actu-date"><span class="text-primary">Le 09/03/2019 |</span> Visa-en-ligne.com</p>
+                            </div>
+                            <p>Alors que les liens diplomatiques entre la Havane et
+                                Washington étaient rompus depuis la mise en place en février 1962 d’un embargo économique, commercial et financier, Barack Obama et Raul Castro ont annoncé le 17 décembre dernier la reprise des échanges entre les deux nations</p>
+                        </div>
+                    </div>
+            </div>
+        </div>
+        <div class="text-center">
+            <div class="btn-see">
+                <a href="listing-actualites.html" class="home-link">
+                    <img src="images/right-chevron.svg" alt="icône voir toutes les actualités" class="icon">Voir toutes <span>les actualités</span>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="how">
+    <h1 class="page-title"><span class="text-primary">Comment</span> ça marche ?</h1>
+
+    <div class="destinations-tabs">
+        <div class="tabs-simple">
+            <div class="nav-tabs-navigation">
+                <div class="nav-tabs-wrapper">
+                    <ul class="nav nav-tabs nav-tabs-home" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active" data-toggle="tab" href="#how-visa-classique" role="tab" aria-selected="true"><h2>Visa classique</h2></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="tab" href="#how-evisa-electronique" role="tab" aria-selected="false"><h2>E-visa électronique</h2></a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="tab-content">
+                <div class="tab-pane active" id="how-visa-classique" role="tabpanel">
+
+                    <div class="container small-container">
+                        <div class="step-container">
+                            <div class="step-wrapper">
+                                <div class="step">
+                                    <span class="step-icon step-icon--smaller"><img src="images/steps/1.svg" alt="icône étape 1"></span>
+                                </div>
+                                <div class="step-content">
+                                    <p class="step-title">Etape 1</p>
+                                    <p class="step-description">Complétez le formulaire de commande de visa en ligne et effectuez votre paiement sécurisé.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="step-container">
+                            <div class="step-wrapper">
+                                <div class="step">
+                                    <span class="step-icon"><img src="images/steps/2.svg" alt="icône étape 2"></span>
+                                </div>
+                                <div class="step-content">
+                                    <p class="step-title">Etape 2</p>
+                                    <p class="step-description">Adressez-nous votre dossier de demande de visa avec les documents requis selon le pays de destination.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="step-container">
+                            <div class="step-wrapper">
+                                <div class="step">
+                                    <span class="step-icon"><img src="images/steps/visa-3.svg" alt="icône étape 3"></span>
+                                </div>
+                                <div class="step-content">
+                                    <p class="step-title">Etape 3</p>
+                                    <p class="step-description">Votre demande est traitée par les autorités consulaires. Le délai est variable selon le pays de destination.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="step-container">
+                            <div class="step-wrapper">
+                                <div class="step">
+                                    <span class="step-icon step-icon--bigger"><img src="images/steps/expedition.svg" alt="icône étape 4"></span>
+                                </div>
+                                <div class="step-content">
+                                    <p class="step-title">Etape 4</p>
+                                    <p class="step-description">Vous recevez votre visa à votre adresse. Vous êtes prêt à voyager.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="tab-pane" id="how-evisa-electronique" role="tabpanel">
+
+                    <div class="container container small-container">
+                        <div class="step-container">
+                            <div class="step-wrapper">
+                                <div class="step">
+                                    <span class="step-icon step-icon--smaller"><img src="images/steps/1.svg" alt="icône étape 1"></span>
+                                </div>
+                                <div class="step-content">
+                                    <p class="step-title">Etape 1</p>
+                                    <p class="step-description">Complétez le formulaire de commande de E-visa en ligne et effectuez votre paiement sécurisé.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="step-container">
+                            <div class="step-wrapper">
+                                <div class="step">
+                                    <span class="step-icon"><img src="images/steps/2.svg" alt="icône étape 2"></span>
+                                </div>
+                                <div class="step-content">
+                                    <p class="step-title">Etape 2</p>
+                                    <p class="step-description">Renseignez vos informations nécessaires pour l’obtention de votre E-visa.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="step-container">
+                            <div class="step-wrapper">
+                                <div class="step">
+                                    <span class="step-icon step-icon--bigger"><img src="images/steps/expedition.svg" alt="icône étape 3"></span>
+                                </div>
+                                <div class="step-content">
+                                    <p class="step-title">Etape 3</p>
+                                    <p class="step-description">Recevez votre E-visa par email à votre adresse email.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="step-container">
+                            <div class="step-wrapper">
+                                <div class="step">
+                                    <span class="step-icon"><img src="images/steps/evisa-4.svg" alt="icône étape 4"></span>
+                                </div>
+                                <div class="step-content">
+                                    <p class="step-title">Etape 4</p>
+                                    <p class="step-description">Validez votre visa en présentant votre passeport ainsi que votre E-visa à votre arrivée.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+			<div class=" text-center container small-container how-mentions">
+				<p>Visa-en-ligne.com est un <b>service dédié aux formalités de voyage</b> et aux formalités administratives à l’international. L’expertise de visa-en-ligne.com vous permet d’éviter les déplacements et les attentes longues et fastidieuses au sein des amabassades et consulats. Nos services interviennent en délai normal et urgent et vous assure un suivi de commande en temps réel.</p>
+			</div>
+
+			<div class=" text-center btn-see">
+				<a href="listing-destinations.html" class="home-link"><img src="images/right-chevron.svg" alt="icône commander en ligne" class="icon">Commander <span>en ligne</span></a>
+			</div>   
+        </div>
+    </div>
+</div>
+
+
+<div class="avis-clients" id="avis">
+    <h1 class="page-title"><span class="text-primary">Nos clients</span> disent de nous</h1>
+
+    <div class="destinations-tabs">
+        <div class="tabs-simple">
+            <div class="nav-tabs-navigation">
+                <div class="nav-tabs-wrapper">
+                    <ul class="nav nav-tabs nav-tabs-home" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active" data-toggle="tab" href="#trustpilot" role="tab" aria-selected="true"><h2>Trustpilot</h2></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="tab" href="#avis-verifies" role="tab" aria-selected="false"><h2>Avis vérifiés</h2></a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="tab-content">
+                <div class="tab-pane active" id="trustpilot" role="tabpanel">
+                    <div class="container small-container">
+                        <!-- TrustBox widget - Carousel 
+                        <div class="trustpilot-widget"
+                             data-locale="fr-FR"
+                             data-template-id="53aa8912dec7e10d38f59f36"
+                             data-businessunit-id="5c755d9f21b6b80001a9f874"
+                             data-style-height="130px" data-style-width="100%"
+                             data-theme="light" data-stars="1,2,3,4,5">
+                            <a href="https://fr.trustpilot.com/review/evisa-application.com" target="_blank" rel="noopener">Trustpilot</a>
+                        </div>
+                        End TrustBox widget -->
+						<div class="avisClient">
+								 <div class="d-flex justify-content-between "><img src="images/navbar/reviews-4stars.svg" alt=" avis 4 étoiles"><p>4 mars</p></div>
+								 <h4>The only application was very...</h4>
+								 <p>The only application was very straight forward and easy to use.</p>
+								 <p>Charles GRIMAUDO</p>
+								 <a href="https://fr.trustpilot.com/review/evisa-application.com" target="_blank" rel="noopener"><img src="images/star-trupsilot.svg" alt="Etoile Trupsilot">Trustpilot</a>
+							</div>
+
+                    </div>
+                </div>
+				<!--Caroussel d'avis vérifiés-->
+				<div id="avis-verifies" class="tab-pane"  role="tabpanel">
+				  <div class="container small-container">
+					<div class="owl-carousel owl-theme">
+					 		<div class="avisClient item">
+								 <div class="d-flex justify-content-between "><img src="images/navbar/reviews-4stars.svg" alt=" avis 4 étoiles"><p>2 hours ago</p></div>
+								 <h4>Première réservation tout était ok</h4>
+								 <p>Première réservation via cette agence et pas déçue. Nous avons passé un séjour m...</p>
+								 <p>Laetitia</p>
+							</div>
+
+							<div class="avisClient item">
+								 <div class="d-flex justify-content-between"><img src="images/navbar/reviews-3stars.svg" alt=" avis 3 étoiles"><p>4 hours ago</p></div>
+								 <h4>Excellente agence</h4>
+								 <p>Excellente agence, le séjour répondait parfaitement à nos attentes.</p>
+								 <p>Corine Leger</p>
+							</div>
+							<div class="avisClient item">
+								 <div class="d-flex justify-content-between"><img src="images/navbar/reviews-2stars.svg" alt=" avis 2 étoiles"><p>8 hours ago</p></div>
+								 <h4>Très bonne organisation sachant q...</h4>
+								 <p>Très bonne organisation sachant que mon mari est handicapé nous n’avons ...</p>
+								 <p>Leonora</p>
+							</div>
+							<div class="avisClient item">
+								<div class="d-flex justify-content-between"><img src="images/navbar/reviews-3stars.svg" alt=" avis 3 étoiles"><p>4 hours ago</p></div>
+								 <h4>Excellente agence</h4>
+								 <p>Excellente agence, le séjour répondait parfaitement à nos attentes.</p>
+								 <p>Corine Leger</p>
+							</div>
+							<div class="avisClient item">
+								<div class="d-flex justify-content-between "><img src="images/navbar/reviews-4stars.svg" alt=" avis 4 étoiles"><p>2 hours ago</p></div>
+								 <h4>Première réservation tout était ok</h4>
+								 <p>Première réservation via cette agence et pas déçue. Nous avons passé un séjour m...</p>
+								 <p>Laetitia</p>
+							</div>
+							<div class="avisClient item">
+								 <div class="d-flex justify-content-between "><img src="images/navbar/reviews-2stars.svg" alt=" avis 2 étoiles"><p>8 hours ago</p></div>
+								 <h4>Très bonne organisation sachant q...</h4>
+								 <p>Très bonne organisation sachant que mon mari est handicapé nous n’avons ...</p>
+								 <p>Leonora</p>
+							</div>
+						</div>
+					</div>	
+				<!--Carroussel d'avis vérifiés-->
+		        </div>
+			
+				<div class="text-center">
+					<div class="btn-see">
+						<a href="#"><img src="images/right-chevron.svg" alt="icône voir tous les avis" class="icon">Voir tous <span>les avis</span></a>
+					</div>
+				</div>
+			</div>
+   		</div>
+	</div>
+</div>
+	<div class="top-footer">
+    	<div class="top-footer-brand"></div>
+    	<p class="title-segpr">De nombreuses bonnes raisons d'utiliser Visa-en-ligne.com</p>
+		<div class="top-footer-container full-width-mobile">
+			<div class="row">
+				<div class="top-footer-box">
+					<div><img src="images/footer/clients-satisfaits.svg" alt="icône clients satisfaits"></div>
+					<p>98% de clients <span class="breakline">satisfaits</span></p>
+				</div>
+				<div class="top-footer-box">
+					<div><img src="images/footer/demarche-securisee.svg" alt="icône Démarche 100% sécurisée"></div>
+					<p>Démarche 100% <span class="breakline">sécurisée</span></p>
+				</div>
+				<div class="top-footer-box on-tablet-desktop">
+					<div><img src="images/footer/assistance-a-votre-ecoute.svg" alt="icône assistance à votre écoute"></div>
+					<p>Une assistance <span class="breakline">à votre écoute</span></p>
+				</div>
+				<div class="top-footer-box">
+					<div><img src="images/footer/suivi-temps-reel.svg" alt="icône Suivi en temps réel" class="icon--bigger"></div>
+					<p>Suivi en temps <span class="breakline">réel</span></p>
+				</div>
+				<div class="top-footer-box">
+					<div><img src="images/footer/simplicite-fiabilite.svg" alt="icône Simplicité et fiabilité" class="icon--bigger"></div>
+					<p>Simplicité et <span class="breakline">fiabilité</span></p>
+				</div>
+			</div>	
+   		</div>
+	</div>
+    
+	
 
 {% endblock %}

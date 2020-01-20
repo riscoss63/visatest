@@ -18,6 +18,22 @@ vich_uploader:
             delete_on_update: true
             delete_on_remove: true
 
+        evisa:
+            uri_prefix: /images/evisa
+            upload_destination: '%kernel.project_dir%/public/images/evisa'
+
+            inject_on_load: false
+            delete_on_update: true
+            delete_on_remove: true
+
+        actualite:
+            uri_prefix: /images/actualite
+            upload_destination: '%kernel.project_dir%/public/images/actualite'
+
+            inject_on_load: false
+            delete_on_update: true
+            delete_on_remove: true
+
         doccuments_officiel:
             uri_prefix: /pdf/doccuments_officiel
             upload_destination: '%kernel.project_dir%/public/pdf/doccuments_officiel'

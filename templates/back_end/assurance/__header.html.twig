@@ -1,0 +1,11 @@
+<nav class="nav">
+
+    <a class="nav-link {% if app.request.attributes.get('_route') == 'edit_partenaire_assurance' %} active {% endif %}" href="{{ path('edit_partenaire_assurance')}}"><i class="fa fa-building"></i>Infos Entreprise</a>
+
+    <a class="nav-link {% if app.request.attributes.get('_route') == 'show_assurance' %} active {% endif %}" href="{{ path('show_assurance')}}"><i class="fa fa-flag"></i>Assurances</a>
+
+    <a class="nav-link {% if app.request.attributes.get('_route') == 'edit_page_assurance' %} active {% endif %}" href="{{ path('edit_page_assurance')}}"><i class="fa fa-shipping-fast"></i> Page Assurance</a>
+
+    <a class="nav-link {% if app.request.attributes.get('_route') == 'show_demandes_assurance' %} active {% endif %}" href="{{ path('show_demandes_assurance')}}" ><i class="fa fa-check"><span></span></i>Gestion des demandes</a>
+
+</nav>

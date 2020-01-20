@@ -97,7 +97,7 @@ hr.dashed {
   margin-bottom: 60px;
 }
 .container-fluid {
-  width: 80%;
+  width: 80% !important;
 }
 .modal-body {
   margin-bottom: 40px;
@@ -135,7 +135,7 @@ hr.dashed {
   left: 0;
   width: 1em;
   height: 1em;
-  background: url(images/check.svg);
+  background: url(/images/check.svg);
 }
 /*** End colors, fonts and other global settings ***/
 
@@ -333,7 +333,7 @@ span.btn-label {
 			}
 			select{
 				width:100%;
-				background: #f9f9f9 url(images/arrow-down.svg) no-repeat 320px 5px/20px auto;
+				background: #f9f9f9 url(/images/arrow-down.svg) no-repeat 320px 5px/20px auto;
 				&:not(.classic-select){
 					color:#495057;
 				}
@@ -405,7 +405,7 @@ span.btn-label {
 }
 /*** End Buttons ***/
 .choice {
-  background: url("images/next-bas.svg") no-repeat;
+  background: url("/images/next-bas.svg") no-repeat;
   background-size: 13px auto;
   background-position: right 14px;
 	margin-left:2px;
@@ -517,7 +517,7 @@ form select:not(.classic-select ) {
   border: none;
   -webkit-appearance: none;
   -moz-appearance: none;
-  background: #fff url(images/arrow-down.svg) no-repeat 320px 5px/20px auto;
+  background: #fff url(/images/arrow-down.svg) no-repeat 320px 5px/20px auto;
   overflow: hidden;
 }
 
@@ -544,17 +544,17 @@ form select:not(.classic-select ) {
 }
 .localisation-input{
   font-family: "Open Sans", sans-serif;
-  background: #fff url(images/localisation-black.svg) no-repeat 10px 10px/12px auto;
+  background: #fff url(/images/localisation-black.svg) no-repeat 10px 10px/12px auto;
   /*
   background-color: #fff;
-  background-image: url(images/localisation-black.svg);
+  background-image: url(/images/localisation-black.svg);
   background-repeat: no-repeat;
   background-position: 10px 10px;
   background-size: 12px auto;
    */
   padding-left: 30px;
   &.gray-variant{
-    background-image: url(images/localisation-gray.svg);
+    background-image: url(/images/localisation-gray.svg);
     &::-webkit-input-placeholder {
       /* Chrome/Opera/Safari */
       color: #a6a6a6;
@@ -614,7 +614,7 @@ form select:not(.classic-select ) {
   }
   /* Create the checked radio button with icon */
   input:checked ~ .checkmark {
-    background: transparent url(images/puce-checked-verte.svg) no-repeat;
+    background: transparent url(/images/puce-checked-verte.svg) no-repeat;
     height: 22px;
     width: 23px;
   }
@@ -626,9 +626,9 @@ form select:not(.classic-select ) {
     border-radius: 50%;
     height: 21px;
     width: 21px;
-    background: url("images/fake-radio.png");
+    background: url("/images/fake-radio.png");
     &:hover {
-      background: url("images/fake-radio.png");
+      background: url("/images/fake-radio.png");
     }
   }
   /* Show the green checkmark (dot/circle) when checked */
@@ -928,7 +928,7 @@ nav.tabs-with-icon-container {
       font-family: 'Lato', sans-serif;
       font-size: 24px;
 	  font-weight:lighter;
-	  img[src="images/plus-circle-green.svg"]{
+	  img[src="/images/plus-circle-green.svg"]{
 			display:none;
 	  }	
       &.active, &:hover {
@@ -938,10 +938,10 @@ nav.tabs-with-icon-container {
 			border-bottom:0;
 			position: relative;
 			color: $green-lighter;
-			img[src="images/plus-circle.svg"]{
+			img[src="/images/plus-circle.svg"]{
 				display:none;
 			}	
-		  	img[src="images/plus-circle-green.svg"]{
+		  	img[src="/images/plus-circle-green.svg"]{
 			  	display:inline;
 		  	}
 	  }
@@ -957,7 +957,7 @@ nav.tabs-with-icon-container {
       &:hover:after, &.active:after {
         /*border: 9.5px solid transparent;
         border-top-color: #fff;*/
-        content:url("images/souligne.svg");
+        content:url("/images/souligne.svg");
         position: absolute;
         left: 0.5px;
         bottom: -20px;
@@ -1100,12 +1100,12 @@ nav.tabs-with-icon-container {
       position: absolute;
       right: 55px;
       top: 6px;
-      background: url(images/plus.svg) no-repeat;
+      background: url(/images/plus.svg) no-repeat;
     }
     &[aria-expanded="true"] {
       color: $green-lighter;
       .icon-collapse {
-        background: url(images/minus-colored.svg) no-repeat;
+        background: url(/images/minus-colored.svg) no-repeat;
       }
     }
   }
@@ -1929,7 +1929,7 @@ footer.fixed-bottom{
     position: absolute;
     width: 174px;
     height: 68px;
-    background: url(images/footer/logo-visa-en-ligne.svg) no-repeat;
+    background: url(/images/footer/logo-visa-en-ligne.svg) no-repeat;
     top: 0;
     margin-top: -21px;
     left: 50%;
@@ -2035,7 +2035,7 @@ footer {
   .icon-france {
     width: 130px;
     height: 130px;
-    background: url(images/footer/carte-de-france.svg) no-repeat;
+    background: url(/images/footer/carte-de-france.svg) no-repeat;
     position: relative;
     span {
       position: absolute;
@@ -2543,7 +2543,7 @@ footer {
 				width:100%;
 				margin-right: 0;
 			select{
-				background: #f9f9f9 url(images/arrow-down.svg) no-repeat 250px 8px/20px auto;
+				background: #f9f9f9 url(/images/arrow-down.svg) no-repeat 250px 8px/20px auto;
 				}
 			}
 			.select2 {

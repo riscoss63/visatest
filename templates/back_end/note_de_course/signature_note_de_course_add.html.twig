@@ -1,0 +1,33 @@
+{% extends "back_end/base.html.twig" %}
+
+
+{% block contenu %}
+    {{ form(form) }}
+    <div class="signature mt-2" style="border: dotted 1px #000; height: 50vh; width: 80vw;"></div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('/backend/jsignature/libs/jSignature.min.js') }}"></script>
+
+    <script>
+        $(document).ready(function(e){
+            $(".signature").jSignature();
+
+            var signature = $(".signature").jSignature("getData");
+            var signatureExistant = $(".champ_signature").val();
+            if ($.isEmptyObject(signatureExistant)){
+                $(".champ_signature").val(signature);
+            }
+            else{
+                $(".signature").jSignature("setData", "{{ course.signature }}");
+            }
+        });
+
+        $(document).on("click", ".btn-enregistrer-signature", function(e){
+            var signature = $(".signature").jSignature("getData");
+            $(".champ_signature").val(signature);            
+        });
+    </script>
+{% endblock %}
+

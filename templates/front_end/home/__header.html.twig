@@ -1,0 +1,250 @@
+    <!--Début navigation-->
+    <div id="navigation">
+        <nav class="top-navbar navbar navbar-expand-lg">
+            <div class="container">
+                <button class="navbar-toggler navbar-toggler-right burger-menu" type="button" data-toggle="collapse" data-target="#submenu-mobile" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-bar"></span>
+                    <span class="navbar-toggler-bar"></span>
+                    <span class="navbar-toggler-bar"></span>
+                </button>
+
+                <div class="navbar-search on-tablet-desktop">
+                    <p class="search-title">Visas et E-visas vers plus de 70 destinations</p>
+                    <div class="search-box">
+                        <div>
+                            <img src="/images/navbar/localisation.svg" alt="icones localisation" class="localisation-icon">
+                        </div>
+                        <div class="select-type border-select">
+                            <select id="statut" class="form-line">
+                                <option selected>Visa</option>
+                                <option>E-visa</option>
+                            </select>
+                        </div>
+
+                        <!-- A dynamiser : Input text avec recherche dynamique -->
+                        <div class="select-pays border-select">
+                            <input type="text" class="form-control" placeholder="Trouver un pays">
+                        </div>
+
+                        <div>
+                            <img src="/images/navbar/search.svg" alt="icones recherche" class="research-icon">
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <a href="{{ path('home')}}"><img src="/images/logo-vectorized.svg" alt="Logo visaenligne.com" class="top-navbar-logo"></a>
+                    <!--<svg viewBox="0 0 16 16">
+                        <use xlink:href="/images/logo.svg" ></use>
+                    </svg>-->
+                </div>
+                <div id="onglets-avis">
+                    <div class="navbar-icons-right on-tablet-desktop">
+                        <ul class="navbar-nav ml-auto">
+                            <li class="nav-item">
+                                <a class="nav-link top-navbar-icon" href="{{ path('app_login')}}"><img src="/images/navbar/people.svg" alt="Icone me connecter" class="login-icon">Me connecter</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link top-navbar-icon" href="faq.html"><img src="/images/navbar/faq.svg" alt="Icone questions fréquentes" class="faq-icon">Questions fréquentes</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link top-navbar-icon" href="nous-contacter.html"><img src="/images/navbar/nous-contacter.svg" alt="Icone nous contacter">Nous contacter</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <a href="#avis" class="navbar-reviews">
+                        <p>Avis clients</p>
+                        <img src="/images/navbar/reviews.svg" alt="avis">
+                    </a>
+                </div>
+                <div class="on-mobile">
+                    <a href="listing-destinations.html"><img src="/images/navbar/search.svg" alt="icones recherche" class="research-icon ml-0">
+                    </a></div>
+            </div>
+        </nav>
+        <div class="submenu on-tablet-desktop">
+            <div class="submenu-container" id="submenu-desktop">
+                <div class="row">
+                    <div class="col-12 col-md-2 submenu-link">
+                        <a href="#" data-toggle="collapse" data-target=".submenu-visa">Visa</a>
+
+                        <div class="submenu-collapse submenu-visa collapse" data-parent="#submenu-desktop">
+                            <div class="row">
+                                
+                                {% for continent in continentsEvisa %}
+                                    <div class="col-4">
+                                            <p class="submenu-collapse-title">{{ continent.titre }}</p>
+                                        <ul>
+                                            {% for zone in continent.ZonesGeographique %}
+                                                <li><a href="listing-destinations.html">{{ zone.titre }}</a></li>
+                                            {% endfor %}
+                                        </ul>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-2 submenu-link">
+                        <a href="#" data-toggle="collapse" data-target=".submenu-evisa">E-visa</a>
+
+                        <div class="submenu-collapse submenu-evisa collapse" data-parent="#submenu-desktop">
+                            <div class="row">
+                                {% for continent in continentsVisaClassic %}
+                                    <div class="col-4">
+                                            <p class="submenu-collapse-title">{{ continent.titre }}</p>
+                                        <ul>
+                                            {% for zone in continent.ZonesGeographique %}
+                                                <li><a href="listing-destinations.html">{{ zone.titre }}</a></li>
+                                            {% endfor %}
+                                        </ul>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-2 submenu-link">
+                        <a href="page-assurance.html">Assurance</a>
+                    </div>
+                    <div class="col-12 col-md-2 submenu-link">
+                        <a href="{{ path('cuba_show')}}">Carte tourisme Cuba</a>
+                    </div>
+                    <div class="col-12 col-md-2 submenu-link">
+                        <a href="invitation-russie.html">Voucher Russie</a>
+                    </div>
+                    <div class="col-12 col-md-2 submenu-link">
+                        <a href="">Legalisation</a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <!--Fin navigation-->
+
+    <!--Début navigation mobile-->
+    <div class="submenu-mobile collapse" id="submenu-mobile">
+        <div class="close mr-2 mt-2" data-toggle="collapse" data-target="#submenu-mobile" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <img src="/images/close.svg" alt="icône fermer le sous-menu" class="icon">
+        </div>
+        <div class="submenu-container">
+            <div class="background-tabs">
+                <div class="nav-tabs-navigation">
+                    <div class="nav-tabs-wrapper">
+                        <ul class="nav nav-tabs" role="tablist">
+                            <li class="nav-item">
+                                <a class="nav-link active" data-toggle="tab" href="#home" role="tab" aria-selected="false">Menu</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" data-toggle="tab" href="#top-destinations" role="tab" aria-selected="false">Top destinations</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="tab-content">
+                    <div class="tab-pane active" id="home" role="tabpanel">
+                        <div class="submenu-link">
+                            <a href="#" data-toggle="collapse" data-target=".submenu-mobile-visa">Visa<span class="float-right"><img src="/images/arrow-down.svg" class="icon" alt="ouvrir le sous-menu"></span></a>
+
+                            <div class="mt-3 submenu-mobile-visa collapse">
+                                <p class="text-primary mb-0">Afrique</p>
+                                <div class="ml-2 mb-2">
+                                    <div><a href="page-visa-classique.html">Afrique du Nord</a></div>
+                                    <div><a href="page-visa-classique.html">Afrique de l'est</a></div>
+                                    <div><a href="page-visa-classique.html">Afrique centrale</a></div>
+                                    <div><a href="page-visa-classique.html">Afrique de l'ouest</a></div>
+                                    <div><a href="page-visa-classique.html">Afrique australe</a></div>
+                                </div>
+
+                                <p class="text-primary mb-0">Asie</p>
+                                <div class="ml-2 mb-2">
+                                    <div><a href="page-visa-classique.html">Asie centrale</a></div>
+                                    <div><a href="page-visa-classique.html">Asie du sud est</a></div>
+                                    <div><a href="page-visa-classique.html">Extrême-Orient</a></div>
+                                    <div><a href="page-visa-classique.html">Moyen-Orient</a></div>
+                                    <div><a href="page-visa-classique.html">Sous continent indien</a></div>
+                                </div>
+
+                                <p class="text-primary mb-0">Australie</p>
+                                <div class="ml-2 mb-2">
+                                    <div><a href="page-visa-classique.html">Australie</a></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="submenu-link">
+                            <a href="#" data-toggle="collapse" data-target=".submenu-mobile-evisa">E-visa<span class="float-right"><img src="/images/arrow-down.svg" class="icon" alt="ouvrir le sous-menu"></span></a>
+
+                            <div class="mt-3 submenu-mobile-evisa collapse">
+                                <p class="text-primary mb-0">Afrique</p>
+                                <div class="ml-2 mb-2">
+                                    <div><a href="page-evisa.html">Afrique du Nord</a></div>
+                                    <div><a href="page-evisa.html">Afrique de l'est</a></div>
+                                    <div><a href="page-evisa.html">Afrique centrale</a></div>
+                                    <div><a href="page-evisa.html">Afrique de l'ouest</a></div>
+                                    <div><a href="page-evisa.html">Afrique australe</a></div>
+                                </div>
+
+                                <p class="text-primary mb-0">Asie</p>
+                                <div class="ml-2 mb-2">
+                                    <div><a href="page-evisa.html">Asie centrale</a></div>
+                                    <div><a href="page-evisa.html">Asie du sud est</a></div>
+                                    <div><a href="page-evisa.html">Extrême-Orient</a></div>
+                                    <div><a href="page-evisa.html">Moyen-Orient</a></div>
+                                    <div><a href="page-evisa.html">Sous continent indien</a></div>
+                                </div>
+
+                                <p class="text-primary mb-0">Australie</p>
+                                <div class="ml-2 mb-2">
+                                    <div><a href="page-evisa.html">Australie</a></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="submenu-link">
+                            <a href="page-cuba.html">Carte tourisme Cuba</a>
+                        </div>
+                        <div class="submenu-link">
+                            <a href="invitation-russie.html">Invitation tourisme Russie</a>
+                        </div>
+                        <div class="submenu-link">
+                            <a href="invitation-russie.html">Invitation affaires Russie</a>
+                        </div>
+                        <div class="submenu-link">
+                            <a href="page-assurance.html">Assurance</a>
+                        </div>
+                        <div class="submenu-link">
+                            <a href="">Legalisation</a>
+                        </div>
+                        <div class="submenu-link">
+                            <a href="faq.html">Questions fréquentes</a>
+                        </div>
+                        <div class="submenu-link">
+                            <a href="nous-connaitre.html">Nous connaître</a>
+                        </div>
+                        <div class="submenu-link">
+                            <a href="#">CGV</a>
+                        </div>
+                        <div class="submenu-link">
+                            <a href="#">Mentions légales</a>
+                        </div>
+                        <div class="submenu-link">
+                            <a href="#">Politique de confidentialité</a>
+                        </div>
+
+
+                    </div>
+                    <div class="tab-pane" id="top-destinations" role="tabpanel">
+                        <p>Top destinations</p>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <a href="#" class="btn btn-black btn-block"><img src="/images/navbar/people.svg" class="icon" alt="icône me connecter">Me connecter</a>
+            </div>
+            <div>
+                <a href="nous-contacter.html" class="btn btn-black btn-block"><img src="/images/phone-white.svg" class="icon" alt="icône nous contacter">Nous contacter</a>
+            </div>
+        </div>
+        <div class="close mr-2 mt-2" data-toggle="collapse" data-target="#submenu-mobile" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <img src="/images/close.svg" alt="icône fermer le sous-menu" class="icon">
+        </div>
+    </div>
+    
+    <!--Fin navigation mobile-->

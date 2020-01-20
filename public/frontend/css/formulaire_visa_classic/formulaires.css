@@ -1,0 +1,1706 @@
+@charset "UTF-8";
+/*** 1. Colors, fonts and other global settings ***/
+.form-page {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  justify-content: flex-end; }
+
+.btn-outline-black {
+  border: 1px solid #000;
+  border-radius: 0;
+  font-size: 15px;
+  padding: 3px 0; }
+
+.grey {
+  color: #b4b4b4; }
+
+/*.top-navbar .container {
+  max-width: 1355px;
+}*/
+/*** 2. Navbar ***/
+.navbar-visa {
+  text-align: right; }
+  .navbar-visa .navbar-visa-img {
+    width: 37px;
+    height: auto;
+    margin-right: 9px; }
+  .navbar-visa .visa-title {
+    margin-bottom: 0;
+    font-family: "Roboto Condensed", sans-serif;
+    font-size: 23px;
+    letter-spacing: 0.015em;
+    text-transform: uppercase;
+    font-weight: 600; }
+  .navbar-visa .visa-description {
+    margin-bottom: 0;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 14px; }
+
+.navbar-visa-logo {
+  width: 100px;
+  height: auto; }
+
+.top-navbar {
+  position: relative; }
+  .top-navbar .btn-modal {
+    position: absolute;
+    right: 0;
+    bottom: -5px;
+    border-radius: 0;
+    border-top-left-radius: 4px;
+    background-color: #FFF;
+    text-align: center;
+    padding: 0 2px;
+    color: #1A1A1A;
+    font-size: 10px; }
+
+.modal-body .destination-card {
+  margin: 0 auto; }
+
+.modal-header {
+  border-bottom: 0; }
+
+.ssl-box {
+  color: #fff;
+  display: inline-block; }
+  .ssl-box .icon {
+    width: 57px;
+    margin-right: 22px;
+    vertical-align: middle; }
+  .ssl-box .icon-lock {
+    width: 15px;
+    height: auto;
+    margin-left: 5px;
+    margin-bottom: 7px; }
+  .ssl-box p {
+    display: inline-block;
+    font-size: 14px;
+    line-height: 22px;
+    width: 247px;
+    margin-bottom: 0;
+    vertical-align: middle;
+    vertical-align: -webkit-baseline-middle; }
+    .ssl-box p img {
+      width: 15px;
+      margin-left: 10px;
+      vertical-align: baseline;
+      margin-top: 1px; }
+
+.label-grey {
+  color: #979797;
+  font-size: 11px;
+  margin-bottom: 0; }
+
+/*** 3. Forms ***/
+.form-container {
+  margin-top: 55px;
+  margin-bottom: 100px;
+  position: inherit;
+  padding: 0; }
+
+@media (min-width: 1500px) {
+  .form-container {
+    width: calc(100% - 825px);
+    margin-left: 250px; } }
+.form-step {
+  font-family: 'Open Sans', 'sans-serif';
+  font-weight: 100;
+  /* intl-tel-input */ }
+  .form-step .iti__flag {
+    background-image: url("dist/intl-tel-input-16.0.0/build/img/flags.png"); }
+  @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+    .form-step .iti__flag {
+      background-image: url("dist/intl-tel-input-16.0.0/build/img/flags@2x.png"); } }
+  .form-step.livraison .form-group:nth-child(2), .form-step.livraison .form-group:nth-child(3) {
+    align-items: inherit; }
+  .form-step .small .icon {
+    margin-right: 5px; }
+  .form-step .form-group {
+    position: relative;
+    margin-bottom: 25px;
+    display: flex;
+    align-items: center; }
+    .form-step .form-group img.validation {
+      width: 31px;
+      position: absolute;
+      right: 0;
+      opacity: 0; }
+      .form-step .form-group img.validation.validated {
+        opacity: 1; }
+  .form-step .form-group select {
+    border: 1px solid #dddddd;
+    background-color: transparent;
+    border-radius: 5px;
+    height: 34px; }
+    .form-step .form-group select:focus {
+      outline: 0;
+      box-shadow: none; }
+  .form-step .form-title {
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 600;
+    font-size: 18px; }
+  .form-step .form-description {
+    color: #a6a6a6;
+    margin-bottom: 50px;
+    width: 80%; }
+  .form-step .form-label {
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 600;
+    font-size: 14px;
+    width: 32%;
+    margin-bottom: 0; }
+    .form-step .form-label.long-label {
+      white-space: nowrap;
+      width: auto;
+      margin-right: 35px; }
+  .form-step .form-subtitle {
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 600;
+    font-size: 14px;
+    margin-bottom: 40px; }
+  .form-step .multiple-country-select span.select2:nth-of-type(n+2), .form-step .multiple-country-select {
+    /*margin-top: 25px;*/
+    display: block; }
+  .form-step .russia-cities-form {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
+    align-items: center; }
+  .form-step .add-country, .form-step .add-city {
+    display: flex;
+    align-items: center;
+    margin: 10px 10px 0;
+    font-size: 12px;
+    color: #9a9a9a; }
+    .form-step .add-country .icon, .form-step .add-city .icon {
+      width: 14px;
+      margin-right: 7px; }
+  .form-step .multiple-city-group {
+    display: inherit; }
+    .form-step .multiple-city-group > div {
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      margin: 20px 0; }
+      .form-step .multiple-city-group > div input, .form-step .multiple-city-group > div span.select2, .form-step .multiple-city-group > div select {
+        width: 43%; }
+      .form-step .multiple-city-group > div > span, .form-step .multiple-city-group > div select {
+        margin-right: 35px; }
+      .form-step .multiple-city-group > div > input {
+        color: #c7c7c7;
+        border: 1px solid #ddd; }
+        .form-step .multiple-city-group > div > input::placeholder {
+          color: #c7c7c7; }
+  .form-step .civilite-wrapper {
+    width: 300px;
+    display: flex; }
+    .form-step .civilite-wrapper div {
+      width: 50%; }
+    .form-step .civilite-wrapper .btn.btn-check-civilite {
+      margin-top: 0;
+      height: 35px;
+      line-height: 34px;
+      font-size: 14px;
+      font-weight: bold; }
+      .form-step .civilite-wrapper .btn.btn-check-civilite:focus, .form-step .civilite-wrapper .btn.btn-check-civilite.focus {
+        box-shadow: none; }
+      .form-step .civilite-wrapper .btn.btn-check-civilite:active, .form-step .civilite-wrapper .btn.btn-check-civilite:focus {
+        outline: 0;
+        box-shadow: none; }
+      .form-step .civilite-wrapper .btn.btn-check-civilite.active {
+        border-color: #cccc00;
+        color: #cccc00; }
+
+.float-right.price {
+  position: absolute;
+  right: 0;
+  margin-right: 81px; }
+
+.btn-check-civilite {
+  border-radius: 0;
+  padding: 0; }
+
+.label-wrapper-nationality, .tab-contents .label-wrapper p {
+  margin-bottom: 0; }
+
+.label-wrapper.date .icon {
+  vertical-align: middle;
+  width: 25px;
+  height: 18px; }
+  .label-wrapper.date .icon path {
+    fill: #000; }
+
+.label-wrapper.assures .float-right {
+  text-align: right; }
+
+.label-wrapper-contact > * {
+  cursor: pointer; }
+
+.form-control {
+  background-color: transparent;
+  border: 0;
+  font-size: 12px;
+  height: 38px; }
+
+.form-radio {
+  font-size: 13px;
+  margin-bottom: 37px; }
+
+.traveler-box {
+  margin-bottom: 20px; }
+
+.traveler-box-title {
+  font-size: 17px;
+  font-weight: 600;
+  margin-bottom: 0; }
+
+.traveler-icon {
+  width: 15px;
+  height: auto; }
+
+.traveler-box-name {
+  font-size: 12px; }
+
+.traveler-box-taux {
+  color: #a6a6a6;
+  font-size: 13px;
+  margin-bottom: 15px; }
+
+.address-infos {
+  width: 70%;
+  background-color: #f9f9f9;
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  padding: 10px 0;
+  margin-top: 50px;
+  margin-bottom: 50px; }
+  .address-infos .address-infos-title {
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 600;
+    font-size: 15px; }
+  .address-infos .address-infos-description {
+    margin-bottom: 5px; }
+
+.form-step-7 {
+  width: 80%; }
+  .form-step-7 .form-group {
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: flex-start; }
+    .form-step-7 .form-group .form-label {
+      margin-top: 10px;
+      margin-bottom: 30px;
+      font-family: 'Open Sans','sans-serif';
+      font-size: 12px;
+      text-align: left; }
+  .form-step-7 .input-width {
+    border: 1px solid #ddd; }
+  .form-step-7 .form-control::placeholder {
+    color: #ddd; }
+  .form-step-7 p {
+    width: 100%; }
+  .form-step-7 .birthdate-wrapper {
+    width: 90%;
+    margin-left: 10px;
+    flex-flow: row wrap; }
+    .form-step-7 .birthdate-wrapper .birthdate {
+      border: 0;
+      display: flex; }
+      .form-step-7 .birthdate-wrapper .birthdate .form-label {
+        width: 100%; }
+      .form-step-7 .birthdate-wrapper .birthdate .form-control {
+        width: 65px;
+        border: 1px solid #ddd;
+        margin-right: 18px; }
+        .form-step-7 .birthdate-wrapper .birthdate .form-control::placeholder {
+          text-align: center; }
+
+/** 3.1. Inputs fields **/
+.input-group {
+  border: 1px solid #dddddd;
+  border-radius: 0.25rem; }
+
+.form-step-3 .input-width {
+  border: 0; }
+.form-step-3 .jours {
+  font-family: 'Open Sans', 'sans-serif';
+  font-size: 14px;
+  height: 38px;
+  background-color: #e8e8e8; }
+.form-step-3 p {
+  margin: auto; }
+
+.input-width {
+  width: 230px;
+  border: 1px solid #ddd;
+  border-radius: 0.25rem; }
+
+.input-width-duree {
+  width: 195px;
+  margin-left: 35px; }
+
+.btn-check input {
+  opacity: 0;
+  width: 0; }
+
+.range {
+  cursor: pointer; }
+
+.range-box {
+  margin: 0;
+  display: flex;
+  align-items: center;
+  width: 160px; }
+  .range-box img {
+    width: 27px;
+    height: 27px; }
+  .range-box input {
+    width: 69px;
+    margin: 0 15px;
+    font-weight: 600;
+    font-size: 22px;
+    font-family: 'Open Sans', sans-serif; }
+    .range-box input[type=text] {
+      border: 0;
+      background-color: #fbfbfb; }
+
+.date-group {
+  display: flex;
+  position: relative; }
+  .date-group .date-icon {
+    width: 28px;
+    margin-right: 7px;
+    margin-top: 7px; }
+
+.input-group-text {
+  background-color: transparent; }
+
+.date .input-group-text {
+  border: 0;
+  position: relative; }
+  .date .input-group-text input {
+    border-right: 0; }
+  .date .input-group-text .input-icon {
+    position: absolute;
+    right: -40px;
+    top: 5px; }
+  .date .input-group-text .icon {
+    width: 20px;
+    margin-right: 0; }
+
+/** 3.2. Select2 **/
+/*.selection{
+	display:block;
+	width: 220px;
+}*/
+span.flag-icon.flag-icon-squared {
+  margin-right: 10px; }
+
+.select2 span.select2-selection.select2-selection--single {
+  border: 1px solid #dddddd;
+  border-radius: 4px;
+  height: 38px; }
+.select2.select2-container--default .select2-selection--single .select2-selection__rendered {
+  width: 303px;
+  line-height: 36px; }
+.select2.select2-container--default .select2-selection--single .select2-selection__arrow {
+  top: 5px;
+  right: 5px; }
+
+/** 3.3. Tables **/
+.table-form {
+  width: 60%;
+  margin-bottom: 0; }
+  .table-form.table-borderless tr:not(:last-child) {
+    border: none; }
+  .table-form.table-assurance {
+    width: 80%; }
+    .table-form.table-assurance .price {
+      color: #CCCC00; }
+    .table-form.table-assurance tr:first-child td {
+      padding-bottom: 25px; }
+    .table-form.table-assurance .form-radio {
+      height: 25px;
+      line-height: 25px; }
+  .table-form td {
+    vertical-align: middle;
+    padding-left: 0;
+    border: none; }
+  .table-form tr:first-child td {
+    padding-top: 0; }
+  .table-form tr:not(:last-child) {
+    border-top: none;
+    border-bottom: 1px solid #f2f2f2; }
+  .table-form .price {
+    color: #000;
+    font-weight: 600;
+    text-align: right;
+    font-size: 16px; }
+
+table .form-radio {
+  margin-bottom: 0; }
+
+/** 3.4. Buttons **/
+.btn-submit {
+  margin: 75px 32% 0 32%; }
+
+.btn-next {
+  position: relative;
+  color: #fff !important; }
+  .btn-next .icon {
+    position: absolute;
+    right: 14px;
+    top: 11px;
+    width: 25px;
+    height: 19px;
+    margin-right: 0; }
+
+.form-step-1 .range-box {
+  margin: 0 70px; }
+
+/*** 4. Progress bar and steps ***/
+.progress {
+  height: 4px;
+  background-color: #f2f2f2;
+  overflow: initial;
+  margin-bottom: 95px;
+  width: 80%;
+  font-size: 0.9rem; }
+  .progress .progress-bar {
+    background-color: #e7e200;
+    position: relative; }
+  .progress .progress-bar-circle {
+    position: absolute;
+    right: 0;
+    top: -21px;
+    width: 42px;
+    height: 42px;
+    border-radius: 50px;
+    background-color: #e7e200;
+    text-align: center;
+    vertical-align: middle;
+    line-height: 42px;
+    font-weight: bold; }
+
+.progress-steps {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  margin-top: 13px;
+  margin-left: -50px; }
+  .progress-steps .step {
+    width: 23px;
+    height: 23px;
+    margin: 0 5px;
+    border-radius: 50px;
+    background-color: #f2f2f2;
+    text-indent: -9999px; }
+    .progress-steps .step.active {
+      text-indent: inherit;
+      width: auto;
+      padding: 3px 10px;
+      border-radius: 10px;
+      background-color: #dfda00;
+      color: #fff;
+      font-size: 12px;
+      font-family: 'Open Sans';
+      font-weight: 600; }
+
+.form-step {
+  margin-left: 0;
+  width: 100%; }
+
+.help-background {
+  margin-left: 0;
+  width: 80%; }
+
+span.previous-arrow {
+  font-size: 12px;
+  color: #b2b2b2;
+  cursor: pointer;
+  position: absolute;
+  left: 30px; }
+  span.previous-arrow > img {
+    width: 30px;
+    margin-right: 5px; }
+
+/*** 5. Panel right ***/
+.panel-right {
+  padding-right: 0;
+  padding-left: 0;
+  margin: 0;
+  max-height: 1500px; }
+  .panel-right .destination-price .price {
+    font-size: 18px;
+    text-align: center; }
+  .panel-right .special-code {
+    height: 50px;
+    width: 160px;
+    background: url("images/form-code-promo.svg") no-repeat;
+    background-size: contain;
+    position: relative; }
+    .panel-right .special-code input {
+      position: absolute;
+      width: 74px;
+      z-index: 1;
+      right: 28px;
+      height: 23px;
+      bottom: 15px;
+      padding: 0;
+      border: none; }
+    .panel-right .special-code a {
+      position: absolute;
+      right: 6px;
+      font-family: 'Segoe UI Black';
+      font-size: 12px;
+      color: #bfbfbf !important;
+      bottom: 20px; }
+  .panel-right .tabs {
+    height: 100%;
+    margin-top: 10px; }
+    .panel-right .tabs .tab-button-outer #tab-button {
+      border: 0; }
+      .panel-right .tabs .tab-button-outer #tab-button li {
+        display: block;
+        /*&:first-child {
+          width: 252px;
+        }*/ }
+        .panel-right .tabs .tab-button-outer #tab-button li:first-child {
+          width: 60%; }
+        .panel-right .tabs .tab-button-outer #tab-button li:last-child {
+          width: 40%; }
+        .panel-right .tabs .tab-button-outer #tab-button li a {
+          padding: 8px;
+          background-color: #fff;
+          color: #adadad;
+          text-align: left;
+          border: 0;
+          cursor: pointer;
+          font-family: 'Open Sans', sans-serif;
+          font-weight: 600;
+          font-size: 15px; }
+          .panel-right .tabs .tab-button-outer #tab-button li a.active {
+            background-color: #f9f9f9;
+            border: 1px solid #f9f9f9;
+            color: #000;
+            border-radius: 5px 5px 0 0; }
+    .panel-right .tabs .tab-content {
+      min-height: 661px;
+      background-color: #f9f9f9; }
+      .panel-right .tabs .tab-content #tab01 {
+        padding: 45px 45px 0; }
+      .panel-right .tabs .tab-content #tab02 {
+        padding: 45px 19px; }
+      .panel-right .tabs .tab-content .label-wrapper {
+        display: flex;
+        justify-content: space-between;
+        margin: auto;
+        font-size: 14px;
+        padding-bottom: 25px; }
+      .panel-right .tabs .tab-content .label {
+        font-family: 'Open Sans', sans-serif;
+        font-weight: 100; }
+        .panel-right .tabs .tab-content .label.label-quantity {
+          margin-right: 100px; }
+      .panel-right .tabs .tab-content .delete-order ~ .label-wrapper:not(:nth-last-child(-n+1)) {
+        padding: 25px 0;
+        font-size: 14px;
+        border-top: 1px solid #eee;
+        margin-bottom: inherit; }
+      .panel-right .tabs .tab-content .label-wrapper.date + .date {
+        border: none !important; }
+      .panel-right .tabs .tab-content .label-price {
+        font-family: 'Open Sans', sans-serif;
+        font-weight: 600;
+        font-size: 17px; }
+      .panel-right .tabs .tab-content .total {
+        font-family: 'Roboto Condensed', sans-serif;
+        font-weight: 600;
+        text-transform: uppercase;
+        font-size: 25px; }
+      .panel-right .tabs .tab-content .total-price {
+        color: #dad500; }
+      .panel-right .tabs .tab-content .coordonnes.step-6.collapse.show {
+        padding-bottom: 25px;
+        margin-left: 25px; }
+      .panel-right .tabs .tab-content .coordonnes.collapse.show {
+        padding-bottom: 25px; }
+      .panel-right .tabs .tab-content .label-wrapper-total {
+        margin-top: 30px; }
+      .panel-right .tabs .tab-content .delete-order img {
+        width: 15px;
+        margin-right: 10px; }
+      .panel-right .tabs .tab-content .label-wrapper.delete-order {
+        justify-content: flex-end;
+        color: #dad500;
+        padding-bottom: 25px;
+        cursor: pointer; }
+
+/*** 6. Votre sélection ***/
+.selection-title {
+  font-family: 'Roboto condensed', sans-serif;
+  font-size: 15px;
+  font-weight: 600;
+  margin-bottom: 15px; }
+
+.selection-description {
+  font-size: 12px;
+  margin-bottom: 5px; }
+  .selection-description img {
+    width: 15px;
+    margin-right: 7px; }
+
+.selection .destination-price {
+  justify-content: flex-start; }
+
+.selection-ranking {
+  text-align: center;
+  width: 100%;
+  display: block; }
+  .selection-ranking .ranking-stars {
+    justify-content: center; }
+  .selection-ranking .star-icon {
+    width: 15px;
+    height: auto; }
+
+/*** 7. Bloc avis (à dynamiser) ***/
+.bloc-avis {
+  margin-top: 100px;
+  position: absolute;
+  left: 20px; }
+
+.logo-allianz {
+  width: 100px;
+  height: auto;
+  margin-left: 10px; }
+
+/*** 8. Tabs with icon ***/
+/*.tabs-with-icon.tabs-center {
+  margin: 90px 90px 0px 90px;
+}*/
+/*** 9. Checkout ***/
+.paiement-bloc {
+  border: 1px solid #dddddd;
+  border-radius: 5px;
+  padding: 25px 38px;
+  margin: 25px 0;
+  width: 80%; }
+  .paiement-bloc .form-radio {
+    position: relative;
+    margin-bottom: 0; }
+    .paiement-bloc .form-radio:nth-of-type(2) {
+      margin-top: 50px; }
+  .paiement-bloc .paiement-cheque, .paiement-bloc .paiement-cartes {
+    font-weight: bold; }
+  .paiement-bloc .paiement-cheque img, .paiement-bloc .paiement-cartes img {
+    position: absolute;
+    left: 182px;
+    bottom: -11px; }
+  .paiement-bloc .paiement-cheque img {
+    width: 90px;
+    height: auto; }
+  .paiement-bloc .paiement-cartes img {
+    width: 175px;
+    height: auto; }
+
+/*** 10. Success page ***/
+.success-page {
+  display: flex;
+  align-items: center;
+  justify-content: center; }
+  .success-page .container {
+    margin-top: 100px;
+    width: 900px;
+    font-size: 13px; }
+  .success-page .documents, .success-page .infos {
+    width: 60%; }
+  .success-page .image {
+    margin-left: 300px; }
+  .success-page .contenu {
+    align-items: flex-end;
+    justify-content: space-between;
+    width: 100%;
+    margin-top: 100px; }
+  .success-page .success-title {
+    font-size: 17px;
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 600;
+    margin-bottom: 25px; }
+  .success-page p {
+    line-height: 30px; }
+  .success-page .pdf-box {
+    font-size: 15px;
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 600;
+    margin-bottom: 20px; }
+    .success-page .pdf-box img {
+      width: 46px;
+      vertical-align: middle; }
+  .success-page .description-grey {
+    color: #a6a6a6; }
+  .success-page .success-small-description {
+    font-weight: 600;
+    margin-top: 25px;
+    margin-bottom: 100px; }
+
+/*** 11. Contribution ***/
+.contribution {
+  max-width: 378px;
+  margin: auto;
+  font-family: 'Roboto Condensed', sans-serif;
+  font-weight: 600; }
+  .contribution h3 {
+    font-size: 23px; }
+  .contribution h4 {
+    font-size: 20px; }
+
+.contributions-btn {
+  margin-top: 30px; }
+  .contributions-btn .btn-check {
+    width: 100%;
+    font-size: 13px; }
+
+.contribution-btn-submit {
+  margin-top: 25px; }
+  .contribution-btn-submit .btn {
+    border-radius: 0;
+    height: 33px;
+    line-height: 35px; }
+
+.modal-contribution .modal-content {
+  padding: 20px 0; }
+
+/*** 12. Footer ***/
+footer {
+  height: 70px;
+  font-family: 'Roboto condensed';
+  font-weight: 300;
+  background-color: #FFF;
+  color: #979797;
+  font-size: 14px;
+  border-top: 1px solid #f2f2f2;
+  padding: 10px 0;
+  margin: 0 10px; }
+  footer .row {
+    justify-content: space-around;
+    margin: 0;
+    padding: 0; }
+  footer p {
+    margin-bottom: 0; }
+  footer .select-lang {
+    background-color: transparent;
+    color: #979797;
+    border: 0; }
+
+/*Perso des datapickers*/
+.ui-state-highlight {
+  color: #CCCC00; }
+
+/******Spécifités formulaire Evisa *********/
+.form-evisa .birthdate, .form-cuba .birthdate, .form-invit-touristique .birthdate, .form-assurance .birthdate {
+  border: 0;
+  display: flex; }
+  .form-evisa .birthdate .form-label, .form-cuba .birthdate .form-label, .form-invit-touristique .birthdate .form-label, .form-assurance .birthdate .form-label {
+    width: 100%; }
+  .form-evisa .birthdate .form-control, .form-cuba .birthdate .form-control, .form-invit-touristique .birthdate .form-control, .form-assurance .birthdate .form-control {
+    width: 65px;
+    border: 1px solid #ddd;
+    margin-right: 15px; }
+    .form-evisa .birthdate .form-control::placeholder, .form-cuba .birthdate .form-control::placeholder, .form-invit-touristique .birthdate .form-control::placeholder, .form-assurance .birthdate .form-control::placeholder {
+      text-align: center;
+      color: #ddd; }
+
+.form-evisa .form-step-2 .form-title, .form-cuba .form-step-2 .form-title, .form-invit-touristique .form-step-2 .form-title, .form-assurance .form-step-3 .form-title {
+  margin-bottom: 25px; }
+.form-evisa .form-step-2 > .form-group, .form-cuba .form-step-2 > .form-group, .form-invit-touristique .form-step-2 > .form-group, .form-assurance .form-step-3 > .form-group {
+  display: flex;
+  flex-flow: row nowrap; }
+  .form-evisa .form-step-2 > .form-group > div a, .form-cuba .form-step-2 > .form-group > div a, .form-invit-touristique .form-step-2 > .form-group > div a, .form-assurance .form-step-3 > .form-group > div a {
+    width: 100px; }
+  .form-evisa .form-step-2 > .form-group .form-label, .form-cuba .form-step-2 > .form-group .form-label, .form-invit-touristique .form-step-2 > .form-group .form-label, .form-assurance .form-step-3 > .form-group .form-label {
+    margin: 0; }
+.form-evisa .form-step-2 .modal, .form-cuba .form-step-2 .modal, .form-invit-touristique .form-step-2 .modal, .form-assurance .form-step-3 .modal {
+  width: 80%; }
+  .form-evisa .form-step-2 .modal .form-group:nth-child(9) .input-width, .form-cuba .form-step-2 .modal .form-group:nth-child(9) .input-width, .form-invit-touristique .form-step-2 .modal .form-group:nth-child(9) .input-width, .form-assurance .form-step-3 .modal .form-group:nth-child(9) .input-width {
+    border: 0; }
+  .form-evisa .form-step-2 .modal .form-group:nth-child(9) .date .input-group-text .input-icon, .form-cuba .form-step-2 .modal .form-group:nth-child(9) .date .input-group-text .input-icon, .form-invit-touristique .form-step-2 .modal .form-group:nth-child(9) .date .input-group-text .input-icon, .form-assurance .form-step-3 .modal .form-group:nth-child(9) .date .input-group-text .input-icon {
+    right: 15px; }
+  .form-evisa .form-step-2 .modal .form-group:nth-child(11) .input-width, .form-evisa .form-step-2 .modal .form-group:nth-child(10) .input-width, .form-cuba .form-step-2 .modal .form-group:nth-child(11) .input-width, .form-cuba .form-step-2 .modal .form-group:nth-child(10) .input-width, .form-invit-touristique .form-step-2 .modal .form-group:nth-child(11) .input-width, .form-invit-touristique .form-step-2 .modal .form-group:nth-child(10) .input-width, .form-assurance .form-step-3 .modal .form-group:nth-child(11) .input-width, .form-assurance .form-step-3 .modal .form-group:nth-child(10) .input-width {
+    border: 0;
+    width: 280px;
+    justify-content: space-between; }
+.form-evisa .form-step-2 .icon, .form-cuba .form-step-2 .icon, .form-invit-touristique .form-step-2 .icon, .form-assurance .form-step-3 .icon {
+  display: inline;
+  margin-right: 0; }
+.form-evisa .form-step-2 .icon2, .form-cuba .form-step-2 .icon2, .form-invit-touristique .form-step-2 .icon2, .form-assurance .form-step-3 .icon2 {
+  width: 19px;
+  display: none; }
+.form-evisa .form-step-2 .btn-suppr, .form-cuba .form-step-2 .btn-suppr, .form-invit-touristique .form-step-2 .btn-suppr, .form-assurance .form-step-3 .btn-suppr {
+  visibility: hidden; }
+.form-evisa .form-step-2 .btn-edit:hover, .form-evisa .form-step-2 .btn-edit:focus, .form-evisa .form-step-2 .btn-edit:active, .form-cuba .form-step-2 .btn-edit:hover, .form-cuba .form-step-2 .btn-edit:focus, .form-cuba .form-step-2 .btn-edit:active, .form-invit-touristique .form-step-2 .btn-edit:hover, .form-invit-touristique .form-step-2 .btn-edit:focus, .form-invit-touristique .form-step-2 .btn-edit:active, .form-assurance .form-step-3 .btn-edit:hover, .form-assurance .form-step-3 .btn-edit:focus, .form-assurance .form-step-3 .btn-edit:active {
+  color: #cccc00; }
+  .form-evisa .form-step-2 .btn-edit:hover .icon2, .form-evisa .form-step-2 .btn-edit:focus .icon2, .form-evisa .form-step-2 .btn-edit:active .icon2, .form-cuba .form-step-2 .btn-edit:hover .icon2, .form-cuba .form-step-2 .btn-edit:focus .icon2, .form-cuba .form-step-2 .btn-edit:active .icon2, .form-invit-touristique .form-step-2 .btn-edit:hover .icon2, .form-invit-touristique .form-step-2 .btn-edit:focus .icon2, .form-invit-touristique .form-step-2 .btn-edit:active .icon2, .form-assurance .form-step-3 .btn-edit:hover .icon2, .form-assurance .form-step-3 .btn-edit:focus .icon2, .form-assurance .form-step-3 .btn-edit:active .icon2 {
+    display: inline; }
+  .form-evisa .form-step-2 .btn-edit:hover .icon, .form-evisa .form-step-2 .btn-edit:focus .icon, .form-evisa .form-step-2 .btn-edit:active .icon, .form-cuba .form-step-2 .btn-edit:hover .icon, .form-cuba .form-step-2 .btn-edit:focus .icon, .form-cuba .form-step-2 .btn-edit:active .icon, .form-invit-touristique .form-step-2 .btn-edit:hover .icon, .form-invit-touristique .form-step-2 .btn-edit:focus .icon, .form-invit-touristique .form-step-2 .btn-edit:active .icon, .form-assurance .form-step-3 .btn-edit:hover .icon, .form-assurance .form-step-3 .btn-edit:focus .icon, .form-assurance .form-step-3 .btn-edit:active .icon {
+    display: none; }
+.form-evisa .form-step-2 .btn-edit:focus ~ .btn-suppr, .form-evisa .form-step-2 .btn-edit:active ~ .btn-suppr, .form-cuba .form-step-2 .btn-edit:focus ~ .btn-suppr, .form-cuba .form-step-2 .btn-edit:active ~ .btn-suppr, .form-invit-touristique .form-step-2 .btn-edit:focus ~ .btn-suppr, .form-invit-touristique .form-step-2 .btn-edit:active ~ .btn-suppr, .form-assurance .form-step-3 .btn-edit:focus ~ .btn-suppr, .form-assurance .form-step-3 .btn-edit:active ~ .btn-suppr {
+  visibility: visible; }
+
+.form-evisa .form-step-6 .table-form, .form-cuba .form-step-6 .table-form {
+  margin-left: 10px;
+  margin-bottom: 10px; }
+  .form-evisa .form-step-6 .table-form .price, .form-cuba .form-step-6 .table-form .price {
+    color: #cccc00;
+    font-weight: 600; }
+.form-evisa .form-step-6 form .form-group:nth-child(2), .form-cuba .form-step-6 form .form-group:nth-child(2) {
+  flex-flow: row wrap; }
+  .form-evisa .form-step-6 form .form-group:nth-child(2) p.form-label, .form-cuba .form-step-6 form .form-group:nth-child(2) p.form-label {
+    width: 100%;
+    margin-bottom: 10px; }
+  .form-evisa .form-step-6 form .form-group:nth-child(2) tr, .form-cuba .form-step-6 form .form-group:nth-child(2) tr {
+    border: 0; }
+.form-evisa .form-step-7 .form-group, .form-cuba .form-step-7 .form-group {
+  flex-flow: row wrap; }
+  .form-evisa .form-step-7 .form-group .form-label, .form-cuba .form-step-7 .form-group .form-label {
+    font-size: 14px;
+    margin-bottom: 0; }
+
+.form-invit-touristique .form-step-5 .multiple-country-select {
+  margin-top: 0; }
+.form-invit-touristique .form-step-7 .table-form {
+  margin-left: 10px;
+  margin-bottom: 10px; }
+  .form-invit-touristique .form-step-7 .table-form .price {
+    color: #cccc00;
+    font-weight: 600; }
+.form-invit-touristique .form-step-7 form .form-group:nth-child(2) {
+  flex-flow: row wrap; }
+  .form-invit-touristique .form-step-7 form .form-group:nth-child(2) p.form-label {
+    width: 100%;
+    margin-bottom: 10px; }
+  .form-invit-touristique .form-step-7 form .form-group:nth-child(2) tr {
+    border: 0; }
+.form-invit-touristique .form-step-8 .form-group {
+  flex-flow: row wrap; }
+  .form-invit-touristique .form-step-8 .form-group .form-label {
+    font-size: 14px; }
+
+.form-invit-affaires .form-step-1 .input-width {
+  border: 0; }
+.form-invit-affaires .form-step-1 .jours {
+  font-family: 'Open Sans', 'sans-serif';
+  font-size: 14px;
+  height: 38px;
+  background-color: #e8e8e8; }
+.form-invit-affaires .form-step-1 p {
+  margin: auto; }
+.form-invit-affaires .form-step-2 {
+  width: 80%; }
+  .form-invit-affaires .form-step-2 .form-group:nth-child(9) .input-width {
+    border: 0; }
+  .form-invit-affaires .form-step-2 .form-group:nth-child(9) .date .input-group-text .input-icon {
+    right: 15px; }
+  .form-invit-affaires .form-step-2 .form-group:nth-child(11) .input-width, .form-invit-affaires .form-step-2 .form-group:nth-child(10) .input-width {
+    border: 0;
+    width: 280px;
+    justify-content: space-between; }
+  .form-invit-affaires .form-step-2 .upload .input-width {
+    display: inline-block;
+    position: relative;
+    overflow: hidden;
+    height: 38px; }
+    .form-invit-affaires .form-step-2 .upload .input-width input[type=file] {
+      left: 0;
+      top: 0;
+      opacity: 0;
+      position: absolute; }
+    .form-invit-affaires .form-step-2 .upload .input-width .btn-upload {
+      width: 80px;
+      background-color: #cccc00;
+      border: 0;
+      color: #fff;
+      padding: 2px 10px;
+      border-radius: 4px;
+      position: absolute;
+      top: 5px;
+      left: 5px; }
+  .form-invit-affaires .form-step-2 .form-label .text-primary {
+    font-style: oblique;
+    font-weight: 100; }
+.form-invit-affaires .birthdate {
+  border: 0;
+  display: flex; }
+  .form-invit-affaires .birthdate .form-label {
+    width: 100%; }
+  .form-invit-affaires .birthdate .form-control {
+    width: 65px;
+    border: 1px solid #ddd;
+    margin-right: 15px; }
+    .form-invit-affaires .birthdate .form-control::placeholder {
+      text-align: center;
+      color: #ddd; }
+.form-invit-affaires .form-step-3 .form-control {
+  border: 1px solid #ddd; }
+.form-invit-affaires .form-step-5 .multiple-country-select {
+  margin-top: 0; }
+.form-invit-affaires .form-step-7 .table-form {
+  margin-left: 10px;
+  margin-bottom: 10px; }
+  .form-invit-affaires .form-step-7 .table-form .price {
+    color: #cccc00;
+    font-weight: 600; }
+.form-invit-affaires .form-step-7 form .form-group:nth-child(2) {
+  flex-flow: row wrap; }
+  .form-invit-affaires .form-step-7 form .form-group:nth-child(2) p.form-label {
+    width: 100%;
+    margin-bottom: 10px; }
+  .form-invit-affaires .form-step-7 form .form-group:nth-child(2) tr {
+    border: 0; }
+
+@media screen and (max-width: 1024px) {
+  .form-evisa .form-title, .form-cuba .form-title, .form-invit-touristique .form-title, .form-assurance .form-title {
+    margin-left: 20px;
+    font-size: 16px; }
+  .form-evisa .form-step-4 td, .form-cuba .form-step-4 td, .form-invit-touristique .form-step-4 td, .form-assurance .form-step-4 td {
+    padding-left: 0;
+    padding-right: 0; }
+  .form-evisa .form-step-4 .form-radio, .form-cuba .form-step-4 .form-radio, .form-invit-touristique .form-step-4 .form-radio, .form-assurance .form-step-4 .form-radio {
+    font-size: 12px;
+    line-height: 1.9;
+    padding-left: 26px; }
+  .form-evisa .form-step-4 .form-group .form-control, .form-cuba .form-step-4 .form-group .form-control, .form-invit-touristique .form-step-4 .form-group .form-control, .form-assurance .form-step-4 .form-group .form-control {
+    width: 303px;
+    margin-left: 15px; }
+  .form-evisa .form-step-4 .multiple-city-group > div > input, .form-cuba .form-step-4 .multiple-city-group > div > input, .form-invit-touristique .form-step-4 .multiple-city-group > div > input, .form-assurance .form-step-4 .multiple-city-group > div > input {
+    border: 0;
+    border-bottom: 1px solid #ddd; }
+  .form-evisa .form-step-4 .multiple-city-group span.select2, .form-cuba .form-step-4 .multiple-city-group span.select2, .form-invit-touristique .form-step-4 .multiple-city-group span.select2, .form-assurance .form-step-4 .multiple-city-group span.select2 {
+    padding-left: 15px;
+    margin-right: 35px; }
+    .form-evisa .form-step-4 .multiple-city-group span.select2 .select2-container--default .select2-selection--single .select2-selection__arrow, .form-cuba .form-step-4 .multiple-city-group span.select2 .select2-container--default .select2-selection--single .select2-selection__arrow, .form-invit-touristique .form-step-4 .multiple-city-group span.select2 .select2-container--default .select2-selection--single .select2-selection__arrow, .form-assurance .form-step-4 .multiple-city-group span.select2 .select2-container--default .select2-selection--single .select2-selection__arrow {
+      right: 20px; }
+  .form-evisa .form-step-8, .form-cuba .form-step-8, .form-invit-touristique .form-step-8, .form-assurance .form-step-8 {
+    /*width:90%;*/ }
+    .form-evisa .form-step-8 .form-label, .form-cuba .form-step-8 .form-label, .form-invit-touristique .form-step-8 .form-label, .form-assurance .form-step-8 .form-label {
+      width: 100%;
+      padding-left: 20px;
+      margin-bottom: 10px; }
+    .form-evisa .form-step-8 .table-form, .form-cuba .form-step-8 .table-form, .form-invit-touristique .form-step-8 .table-form, .form-assurance .form-step-8 .table-form {
+      width: 90%;
+      margin: 0 auto; }
+  .form-evisa .birthdate, .form-cuba .birthdate, .form-invit-touristique .birthdate, .form-assurance .birthdate {
+    flex-flow: row wrap;
+    margin-bottom: 30px; }
+    .form-evisa .birthdate .form-label, .form-cuba .birthdate .form-label, .form-invit-touristique .birthdate .form-label, .form-assurance .birthdate .form-label {
+      width: 100%;
+      margin-bottom: 15px;
+      color: #adadad;
+      font-weight: 100;
+      font-size: 12px; }
+    .form-evisa .birthdate .form-control, .form-cuba .birthdate .form-control, .form-invit-touristique .birthdate .form-control, .form-assurance .birthdate .form-control {
+      width: 85px;
+      padding: 0 5px;
+      margin: 0 8px 0 0;
+      border: 0;
+      border-radius: 0;
+      border-bottom: 1px solid #ddd; }
+      .form-evisa .birthdate .form-control::placeholder, .form-cuba .birthdate .form-control::placeholder, .form-invit-touristique .birthdate .form-control::placeholder, .form-assurance .birthdate .form-control::placeholder {
+        color: #adadad;
+        text-align: center; }
+
+  .form-evisa .form-step-2 .modal, .form-cuba .form-step-2 .modal, .form-invit-touristique .form-step-2 .modal, .form-assurance .form-step-3 .modal {
+    width: 100%; }
+  .form-evisa .form-step-2 form, .form-cuba .form-step-2 form, .form-invit-touristique .form-step-2 form, .form-assurance .form-step-3 form {
+    position: relative; }
+  .form-evisa .form-step-2 span.form-label, .form-cuba .form-step-2 span.form-label, .form-invit-touristique .form-step-2 span.form-label, .form-assurance .form-step-3 span.form-label {
+    margin-left: 5px;
+    margin-bottom: 50px;
+    font-size: 16px; }
+  .form-evisa .form-step-2 > .form-group, .form-cuba .form-step-2 > .form-group, .form-invit-touristique .form-step-2 > .form-group, .form-assurance .form-step-3 > .form-group {
+    margin-left: 20px; }
+  .form-evisa .form-step-2 .form-group, .form-cuba .form-step-2 .form-group, .form-invit-touristique .form-step-2 .form-group, .form-assurance .form-step-3 .form-group {
+    position: inherit;
+    width: 280px;
+    margin-right: 20px;
+    justify-content: center;
+   /*&:first-child{
+  	 margin-left:20px;
+   }*/ }
+    .form-evisa .form-step-2 .form-group .form-label, .form-cuba .form-step-2 .form-group .form-label, .form-invit-touristique .form-step-2 .form-group .form-label, .form-assurance .form-step-3 .form-group .form-label {
+      width: 100%;
+      margin-bottom: 0;
+      font-family: 'Open Sans','sans-serif';
+      font-size: 12px;
+      text-align: left;
+      color: #adadad;
+      font-weight: 100; }
+    .form-evisa .form-step-2 .form-group p.form-label, .form-cuba .form-step-2 .form-group p.form-label, .form-invit-touristique .form-step-2 .form-group p.form-label, .form-assurance .form-step-3 .form-group p.form-label {
+      color: #000;
+      font-weight: 600; }
+  .form-evisa .form-step-2 .form-group-animated, .form-cuba .form-step-2 .form-group-animated, .form-invit-touristique .form-step-2 .form-group-animated, .form-assurance .form-step-3 .form-group-animated {
+    margin-bottom: 40px; }
+    .form-evisa .form-step-2 .form-group-animated label[for="telephone"], .form-cuba .form-step-2 .form-group-animated label[for="telephone"], .form-invit-touristique .form-step-2 .form-group-animated label[for="telephone"], .form-assurance .form-step-3 .form-group-animated label[for="telephone"] {
+      color: #adadad;
+      width: 70%;
+      font-family: 'Roboto','sans-serif';
+      font-weight: 300;
+      cursor: text;
+      position: absolute;
+      top: 10px;
+      left: 0px;
+      margin-left: 85px;
+      transition: all .2s ease-out 0s;
+      padding-left: 20px;
+      background: url("images/phone-grey.svg") no-repeat left, top;
+      background-size: 20px; }
+  .form-evisa .form-step-2 .flag-text, .form-cuba .form-step-2 .flag-text, .form-invit-touristique .form-step-2 .flag-text, .form-assurance .form-step-3 .flag-text {
+    color: #adadad;
+    font-weight: 100; }
+  .form-evisa .form-step-2 .form-check, .form-cuba .form-step-2 .form-check, .form-invit-touristique .form-step-2 .form-check, .form-assurance .form-step-3 .form-check {
+    margin-left: 20px; }
+  .form-evisa .form-step-2 .form-control, .form-cuba .form-step-2 .form-control, .form-invit-touristique .form-step-2 .form-control, .form-assurance .form-step-3 .form-control {
+    padding-left: 0; }
+    .form-evisa .form-step-2 .form-control:focus::placeholder, .form-cuba .form-step-2 .form-control:focus::placeholder, .form-invit-touristique .form-step-2 .form-control:focus::placeholder, .form-assurance .form-step-3 .form-control:focus::placeholder {
+      color: #CCCC00; }
+
+  .form-evisa .form-step-6 .logo-allianz, .form-cuba .form-step-6 .logo-allianz {
+    margin-right: 20px; }
+  .form-evisa .form-step-6 .form-description, .form-cuba .form-step-6 .form-description {
+    margin: 10px auto;
+    width: 90%; }
+  .form-evisa .form-step-6 p.form-label, .form-cuba .form-step-6 p.form-label {
+    padding-left: 20px;
+    width: 100%;
+    font-size: 13px; }
+  .form-evisa .form-step-6 .table-form, .form-cuba .form-step-6 .table-form {
+    width: 90%;
+    margin: 0 auto; }
+  .form-evisa .form-step-7 .form-group-animated .form-label, .form-cuba .form-step-7 .form-group-animated .form-label {
+    top: 2px; }
+
+  .form-invit-touristique .form-step-7 .logo-allianz {
+    margin-right: 20px; }
+  .form-invit-touristique .form-step-7 .form-description {
+    margin: 10px auto;
+    width: 90%; }
+  .form-invit-touristique .form-step-7 p.form-label {
+    padding-left: 20px;
+    width: 100%;
+    font-size: 13px; }
+  .form-invit-touristique .form-step-7 .table-form {
+    width: 90%;
+    margin: 0 auto; }
+  .form-invit-touristique .form-step-8 .form-group-animated .form-label {
+    top: 2px; }
+
+  .form-invit-affaires .form-step-1 span.form-label {
+    margin-bottom: 50px;
+    font-size: 16px;
+    text-align: center;
+    width: 100%; }
+  .form-invit-affaires .form-step-1 .form-group {
+    width: 100%;
+    margin-left: 0px;
+    flex-flow: column nowrap;
+    justify-content: center;
+    align-items: center; }
+    .form-invit-affaires .form-step-1 .form-group .form-control {
+      margin-right: 15px;
+      margin-left: 15px;
+      padding: 0;
+      width: 75px; }
+      .form-invit-affaires .form-step-1 .form-group .form-control::placeholder {
+        text-align: center;
+        font-size: 12px;
+        color: #adadad; }
+      .form-invit-affaires .form-step-1 .form-group .form-control:focus::placeholder {
+        color: #CCCC00; }
+    .form-invit-affaires .form-step-1 .form-group .form-label {
+      width: 45%;
+      margin: 0;
+      font-size: 14px; }
+    .form-invit-affaires .form-step-1 .form-group .input-width {
+      margin-top: 10px; }
+    .form-invit-affaires .form-step-1 .form-group .jours {
+      font-weight: 600;
+      background-color: transparent; }
+    .form-invit-affaires .form-step-1 .form-group #order-duration {
+      border: 0;
+      margin-top: 10px;
+      background-color: #fbfbfb;
+      border-radius: 0.25rem; }
+  .form-invit-affaires .form-step-1 .date {
+    margin-left: 0;
+    border-bottom: 0;
+    justify-content: center;
+    align-items: center; }
+  .form-invit-affaires .form-step-2, .form-invit-affaires .form-step-3 {
+    width: 100%; }
+    .form-invit-affaires .form-step-2 .upload .input-width, .form-invit-affaires .form-step-3 .upload .input-width {
+      border-bottom: 1px solid #dddddd;
+      border-radius: 0; }
+    .form-invit-affaires .form-step-2 form, .form-invit-affaires .form-step-3 form {
+      position: relative; }
+    .form-invit-affaires .form-step-2 span.form-label, .form-invit-affaires .form-step-3 span.form-label {
+      margin-left: 5px;
+      margin-bottom: 50px;
+      font-size: 16px; }
+    .form-invit-affaires .form-step-2 > .form-group, .form-invit-affaires .form-step-3 > .form-group {
+      margin-left: 20px; }
+    .form-invit-affaires .form-step-2 .form-group, .form-invit-affaires .form-step-3 .form-group {
+      position: inherit;
+      width: 320px;
+      margin-right: 20px;
+      margin-left: 20px;
+      justify-content: center; }
+      .form-invit-affaires .form-step-2 .form-group .form-label, .form-invit-affaires .form-step-3 .form-group .form-label {
+        width: 100%;
+        margin-bottom: 0;
+        font-family: 'Open Sans','sans-serif';
+        font-size: 12px;
+        text-align: left;
+        color: #adadad;
+        font-weight: 100; }
+      .form-invit-affaires .form-step-2 .form-group p.form-label, .form-invit-affaires .form-step-3 .form-group p.form-label {
+        color: #000;
+        font-weight: 600; }
+      .form-invit-affaires .form-step-2 .form-group:first-child, .form-invit-affaires .form-step-3 .form-group:first-child {
+        margin-left: 20px; }
+    .form-invit-affaires .form-step-2 .birthdate, .form-invit-affaires .form-step-3 .birthdate {
+      flex-flow: row wrap; }
+      .form-invit-affaires .form-step-2 .birthdate .form-control, .form-invit-affaires .form-step-3 .birthdate .form-control {
+        border: 0;
+        border-bottom: 1px solid #ddd;
+        width: 90px; }
+      .form-invit-affaires .form-step-2 .birthdate .form-label, .form-invit-affaires .form-step-3 .birthdate .form-label {
+        flex: 1 1 100%; }
+    .form-invit-affaires .form-step-2 .form-group-animated, .form-invit-affaires .form-step-3 .form-group-animated {
+      margin-bottom: 40px; }
+      .form-invit-affaires .form-step-2 .form-group-animated label[for="telephone"], .form-invit-affaires .form-step-3 .form-group-animated label[for="telephone"] {
+        color: #adadad;
+        width: 70%;
+        font-family: 'Roboto','sans-serif';
+        font-weight: 300;
+        cursor: text;
+        position: absolute;
+        top: 10px;
+        left: 0px;
+        margin-left: 85px;
+        transition: all .2s ease-out 0s;
+        padding-left: 20px;
+        background: url("images/phone-grey.svg") no-repeat left, top;
+        background-size: 20px; }
+    .form-invit-affaires .form-step-2 .flag-text, .form-invit-affaires .form-step-3 .flag-text {
+      color: #adadad;
+      font-weight: 100; }
+    .form-invit-affaires .form-step-2 .form-check, .form-invit-affaires .form-step-3 .form-check {
+      margin-left: 20px; }
+    .form-invit-affaires .form-step-2 .form-control, .form-invit-affaires .form-step-3 .form-control {
+      padding-left: 0; }
+      .form-invit-affaires .form-step-2 .form-control:focus::placeholder, .form-invit-affaires .form-step-3 .form-control:focus::placeholder {
+        color: #CCCC00; } }
+/*----- Mobile et tablette -----*/
+@media screen and (max-width: 1024px) {
+  .panel-right {
+    display: none; }
+
+  .top-navbar {
+    padding: .5rem .5rem; }
+    .top-navbar > .container {
+      padding: 0; }
+    .top-navbar .navbar-visa {
+      text-align: left;
+      width: 250px; }
+      .top-navbar .navbar-visa .visa-description {
+        font-size: 10px; }
+    .top-navbar .navbar-visa-logo {
+      width: 70px; }
+      .top-navbar .navbar-visa-logo img {
+        width: 70px; }
+
+  .form-container {
+    margin-left: 0;
+    margin-right: 0;
+    margin-bottom: 0;
+    max-width: 100%;
+    flex: 0 0 100%; }
+
+  .input-group {
+    border: 0;
+    border-bottom: 1px solid #dddddd;
+    border-radius: 0; }
+
+  .range-box {
+    margin: 0 auto; }
+
+  .form-step {
+    margin-bottom: 140px; }
+    .form-step .civilite-wrapper {
+      width: 265px; }
+
+  .select2 span.select2-selection.select2-selection--single {
+    border: 0;
+    border-radius: 0;
+    border-bottom: 1px solid #dddddd; }
+
+  .form-step-3 span.form-label {
+    margin-bottom: 50px;
+    font-size: 16px;
+    text-align: center;
+    width: 100%; }
+  .form-step-3 .form-group {
+    width: 100%;
+    margin-left: 0px;
+    flex-flow: column nowrap;
+    justify-content: center;
+    align-items: center; }
+    .form-step-3 .form-group .form-control {
+      margin-right: 15px;
+      margin-left: 15px;
+      padding: 0;
+      width: 75px; }
+      .form-step-3 .form-group .form-control::placeholder {
+        text-align: center;
+        font-size: 12px;
+        color: #adadad; }
+      .form-step-3 .form-group .form-control:focus::placeholder {
+        color: #CCCC00; }
+    .form-step-3 .form-group .form-label {
+      width: 45%;
+      margin: 0;
+      font-size: 14px; }
+    .form-step-3 .form-group .input-width {
+      margin-top: 10px; }
+    .form-step-3 .form-group .jours {
+      font-weight: 600;
+      background-color: transparent; }
+    .form-step-3 .form-group #order-duration {
+      border: 0;
+      margin-top: 10px;
+      background-color: #fbfbfb;
+      border-radius: 0.25rem; }
+  .form-step-3 .date {
+    margin-left: 0;
+    border-bottom: 0;
+    justify-content: center;
+    align-items: center; }
+
+  .table-form {
+    width: 100%; }
+
+  .form-step-1 .form-group, .form-step-2 .form-group {
+    width: 100%;
+    flex-flow: wrap;
+    margin-left: 0px; }
+    .form-step-1 .form-group .form-label, .form-step-2 .form-group .form-label {
+      width: 100%;
+      text-align: center; }
+    .form-step-1 .form-group .range-box, .form-step-2 .form-group .range-box {
+      margin: 0px; }
+
+  .form-group-animated .form-label {
+    color: #adadad;
+    width: 100%;
+    cursor: text;
+    font-weight: 100;
+    position: absolute;
+    top: 10px;
+    left: 0px;
+    transition: all .2s ease-out 0s; }
+
+  .form-step-8 form, .form-evisa .form-step-7 form, .form-cuba .form-step-7 form, .form-invit-affaires .form-step-3 form, .form-invit-affaires .form-step-8 form, .form-assurance .form-step-5 form {
+    position: relative; }
+  .form-step-8 span.form-label, .form-evisa .form-step-7 span.form-label, .form-cuba .form-step-7 span.form-label, .form-invit-affaires .form-step-3 span.form-label, .form-invit-affaires .form-step-8 span.form-label, .form-assurance .form-step-5 span.form-label {
+    margin-left: 20px;
+    margin-bottom: 50px;
+    font-size: 16px; }
+  .form-step-8 .form-group, .form-evisa .form-step-7 .form-group, .form-cuba .form-step-7 .form-group, .form-invit-affaires .form-step-3 .form-group, .form-invit-affaires .form-step-8 .form-group, .form-assurance .form-step-5 .form-group {
+    position: inherit;
+    margin-left: 20px;
+    margin-right: 20px;
+    justify-content: center;
+    width: 320px; }
+    .form-step-8 .form-group .form-label, .form-evisa .form-step-7 .form-group .form-label, .form-cuba .form-step-7 .form-group .form-label, .form-invit-affaires .form-step-3 .form-group .form-label, .form-invit-affaires .form-step-8 .form-group .form-label, .form-assurance .form-step-5 .form-group .form-label {
+      width: 320px;
+      margin-bottom: 0;
+      font-family: 'Open Sans','sans-serif';
+      font-size: 12px;
+      text-align: left; }
+  .form-step-8 .form-group-animated, .form-evisa .form-step-7 .form-group-animated, .form-cuba .form-step-7 .form-group-animated, .form-invit-affaires .form-step-3 .form-group-animated, .form-invit-affaires .form-step-8 .form-group-animated, .form-assurance .form-step-5 .form-group-animated {
+    margin-bottom: 40px; }
+    .form-step-8 .form-group-animated label[for="telephone"], .form-evisa .form-step-7 .form-group-animated label[for="telephone"], .form-cuba .form-step-7 .form-group-animated label[for="telephone"], .form-invit-affaires .form-step-3 .form-group-animated label[for="telephone"], .form-invit-affaires .form-step-8 .form-group-animated label[for="telephone"], .form-assurance .form-step-5 .form-group-animated label[for="telephone"] {
+      color: #adadad;
+      width: 70%;
+      font-family: 'Roboto','sans-serif';
+      font-weight: 300;
+      cursor: text;
+      position: absolute;
+      top: 10px;
+      left: 0px;
+      margin-left: 85px;
+      transition: all .2s ease-out 0s;
+      padding-left: 20px;
+      background: url("images/phone-grey.svg") no-repeat left, top;
+      background-size: 20px; }
+    .form-step-8 .form-group-animated .iti, .form-evisa .form-step-7 .form-group-animated .iti, .form-cuba .form-step-7 .form-group-animated .iti, .form-invit-affaires .form-step-3 .form-group-animated .iti, .form-invit-affaires .form-step-8 .form-group-animated .iti, .form-assurance .form-step-5 .form-group-animated .iti {
+      width: 335px; }
+  .form-step-8 .form-check, .form-evisa .form-step-7 .form-check, .form-cuba .form-step-7 .form-check, .form-invit-affaires .form-step-3 .form-check, .form-invit-affaires .form-step-8 .form-check, .form-assurance .form-step-5 .form-check {
+    margin-left: 20px; }
+  .form-step-8 .form-control, .form-evisa .form-step-7 .form-control, .form-cuba .form-step-7 .form-control, .form-invit-affaires .form-step-3 .form-control, .form-invit-affaires .form-step-8 .form-control, .form-assurance .form-step-5 .form-control {
+    width: 320px;
+    margin-left: 0;
+    border: 0;
+    border-bottom: 1px solid #ddd;
+    padding-left: 0; }
+    .form-step-8 .form-control:focus::placeholder, .form-evisa .form-step-7 .form-control:focus::placeholder, .form-cuba .form-step-7 .form-control:focus::placeholder, .form-invit-affaires .form-step-3 .form-control:focus::placeholder, .form-invit-affaires .form-step-8 .form-control:focus::placeholder, .form-assurance .form-step-5 .form-control:focus::placeholder {
+      color: #CCCC00; }
+
+  .step-9 {
+    margin: 0 20px; }
+    .step-9 .label {
+      color: #cccc00;
+      margin: 10px 0;
+      font-size: 14px; }
+      .step-9 .label img {
+        width: 20px;
+        margin: 0 2px; }
+    .step-9 .special-code {
+      width: 32%; }
+      .step-9 .special-code .form-control {
+        background-color: #f8f8f8;
+        padding: 0;
+        height: 25px; }
+      .step-9 .special-code a {
+        color: #fff;
+        font-size: 14px;
+        font-weight: 600;
+        background-color: #cccc00;
+        border-radius: 2px;
+        margin-left: 8px;
+        padding: 3px;
+        height: 22px;
+        line-height: 1.3;
+        text-align: center; }
+    .step-9 .black, .step-9 .green {
+      font-family: 'Roboto Condensed', 'sans-serif';
+      font-size: 24px;
+      font-weight: 600; }
+    .step-9 .black {
+      padding-left: 35px; }
+    .step-9 .green {
+      color: #CCCC00; }
+
+  .form-step-9 div.form-label, .form-evisa .form-step-8 div.form-label, .form-cuba .form-step-8 div.form-label, .form-assurance .form-step-6 div.form-label {
+    padding-left: 5px;
+    margin-bottom: 20px;
+    width: 100%; }
+  .form-step-9 label.form-label, .form-evisa .form-step-8 label.form-label, .form-cuba .form-step-8 label.form-label, .form-assurance .form-step-6 label.form-label {
+    text-align: center;
+    line-height: 2;
+    background-color: #f8f8f8;
+    font-size: 18px;
+    padding: 5px 0;
+    margin: 10px 20px 30px 20px;
+    border-radius: 6px;
+    width: 320px; }
+  .form-step-9 table, .form-evisa .form-step-8 table, .form-cuba .form-step-8 table, .form-assurance .form-step-6 table {
+    width: 90%;
+    padding: 0;
+    margin: 0 auto; }
+  .form-step-9 td, .form-evisa .form-step-8 td, .form-cuba .form-step-8 td, .form-assurance .form-step-6 td {
+    padding-bottom: 10px;
+    font-size: 12px; }
+  .form-step-9 thead, .form-evisa .form-step-8 thead, .form-cuba .form-step-8 thead, .form-assurance .form-step-6 thead {
+    font-weight: bold;
+    font-size: 12px; }
+  .form-step-9 .label-quantity, .form-step-9 .label-price, .form-evisa .form-step-8 .label-quantity, .form-evisa .form-step-8 .label-price, .form-cuba .form-step-8 .label-quantity, .form-cuba .form-step-8 .label-price, .form-assurance .form-step-6 .label-quantity, .form-assurance .form-step-6 .label-price {
+    text-align: center; }
+  .form-step-9 .label-total, .form-evisa .form-step-8 .label-total, .form-cuba .form-step-8 .label-total, .form-assurance .form-step-6 .label-total {
+    text-align: right;
+    padding-right: 20px; }
+  .form-step-9 .cta .btn-submit, .form-evisa .form-step-8 .cta .btn-submit, .form-cuba .form-step-8 .cta .btn-submit, .form-assurance .form-step-6 .cta .btn-submit {
+    text-transform: uppercase;
+    height: 50px; }
+    .form-step-9 .cta .btn-submit a, .form-evisa .form-step-8 .cta .btn-submit a, .form-cuba .form-step-8 .cta .btn-submit a, .form-assurance .form-step-6 .cta .btn-submit a {
+      font-size: 20px;
+      font-family: 'Roboto Condensed','sans-serif';
+      font-weight: 400;
+      height: 100%; }
+    .form-step-9 .cta .btn-submit .btn-next .icon, .form-evisa .form-step-8 .cta .btn-submit .btn-next .icon, .form-cuba .form-step-8 .cta .btn-submit .btn-next .icon, .form-assurance .form-step-6 .cta .btn-submit .btn-next .icon {
+      top: 15px; }
+
+  .form-step-4 .form-group, .form-step-5 .form-group, .form-step-6 .form-group {
+    width: 90%;
+    flex-flow: wrap; }
+    .form-step-4 .form-group .form-label, .form-step-5 .form-group .form-label, .form-step-6 .form-group .form-label {
+      width: 100%;
+      padding-left: 12px;
+      font-size: 16px;
+      text-align: left; }
+    .form-step-4 .form-group .form-control, .form-step-5 .form-group .form-control, .form-step-6 .form-group .form-control {
+      margin-left: 15px;
+      margin-right: 20px;
+      padding-left: 0;
+      padding-right: 0;
+      width: 90%; }
+  .form-step-4 .form-group-animated .form-label, .form-step-5 .form-group-animated .form-label, .form-step-6 .form-group-animated .form-label {
+    font-size: 12px; }
+  .form-step-4 .table-form tr, .form-step-5 .table-form tr, .form-step-6 .table-form tr {
+    border-bottom: 0; }
+
+  .form-step-5 td, .form-step-6 td {
+    padding-left: 0;
+    padding-right: 0; }
+  .form-step-5 .form-radio, .form-step-6 .form-radio {
+    font-size: 12px;
+    line-height: 1.9;
+    padding-left: 26px; }
+  .form-step-5 .form-control, .form-step-6 .form-control {
+    width: 90%; }
+
+  .form-step-1 .btn-submit {
+    width: 100%;
+    margin-left: 0;
+    position: fixed;
+    bottom: 0;
+    text-transform: uppercase;
+    height: 50px; }
+    .form-step-1 .btn-submit a {
+      width: 100%;
+      border-radius: 0;
+      font-family: 'Roboto Condensed','sans-serif';
+      font-weight: 400;
+      font-size: 20px;
+      height: 100%;
+      line-height: 2.5; }
+    .form-step-1 .btn-submit .btn-next .icon {
+      top: 15px; }
+
+  .cta {
+    width: 100%;
+    height: 50px;
+    position: fixed;
+    bottom: 0px;
+    margin-left: 0;
+    z-index: 900; }
+    .cta .btn-precedent {
+      width: 30%;
+      margin: 0; }
+      .cta .btn-precedent a:hover, .cta .btn-precedent a:active, .cta .btn-precedent a:focus {
+        background-color: #CCCC00; }
+      .cta .btn-precedent .previous-arrow {
+        color: #FFF; }
+      .cta .btn-precedent .icon {
+        margin-right: 5px; }
+      .cta .btn-precedent .btn-primary {
+        background-color: #dad500;
+        border-radius: 0;
+        border: none;
+        color: #fff; }
+      .cta .btn-precedent a {
+        width: 100%;
+        font-size: 13px;
+        text-align: right;
+        padding: 5px; }
+      .cta .btn-precedent .icon {
+        right: 54px; }
+    .cta .btn-submit {
+      width: 100%;
+      margin: 0;
+      text-transform: uppercase;
+      height: 50px; }
+      .cta .btn-submit a {
+        font-size: 20px;
+        font-family: 'Roboto Condensed','sans-serif';
+        font-weight: 400;
+        line-height: 2.5;
+        width: 100%;
+        border-radius: 0;
+        height: 100%; }
+      .cta .btn-submit .btn-next .icon {
+        top: 15px; }
+
+  .multiple-country-select {
+    width: 303px;
+    margin: 20px auto;
+    /*border:1px solid #fbfbfb;*/ }
+
+  .form-step-7 .form-group {
+    margin-left: 10px; }
+    .form-step-7 .form-group .qte {
+      text-align: center; }
+    .form-step-7 .form-group .input-width:not(.classic-select) {
+      border: 0; }
+    .form-step-7 .form-group .form-control {
+      width: 100%;
+      border: 0;
+      border-radius: 0;
+      border-bottom: 1px solid #ddd;
+      /*margin-left:10px;
+      margin-right:10px;
+      padding-left: 2px;
+      padding-right:0;*/ }
+      .form-step-7 .form-group .form-control:focus, .form-step-7 .form-group .form-control:active {
+        border-bottom: 1px solid #cccc00; }
+      .form-step-7 .form-group .form-control .form-group-animated.form-label {
+        font-family: 'Open Sans','sans-serif';
+        font-weight: 100; }
+  .form-step-7 .birthdate-wrapper span.form-label.on-mobile {
+    color: #000;
+    margin-left: 10px;
+    margin-top: 30px;
+    margin-bottom: 15px;
+    font-weight: 100; }
+  .form-step-7 .birthdate-wrapper .birthdate {
+    flex-flow: row wrap;
+    margin-left: 10px;
+    margin-bottom: 30px; }
+    .form-step-7 .birthdate-wrapper .birthdate .form-label {
+      width: 100%;
+      margin-bottom: 15px;
+      color: #adadad;
+      font-weight: 100;
+      font-size: 12px; }
+    .form-step-7 .birthdate-wrapper .birthdate .form-control {
+      width: 85px;
+      padding: 0 5px;
+      margin: 0 10px;
+      border: 0;
+      border-radius: 0;
+      border-bottom: 1px solid #ddd; }
+      .form-step-7 .birthdate-wrapper .birthdate .form-control::placeholder {
+        color: #adadad;
+        text-align: center; }
+  .form-step-7 .description {
+    margin: 10px; }
+  .form-step-7 .form-description {
+    width: 95%; }
+  .form-step-7 .range-box {
+    width: 150px;
+    justify-content: center;
+    align-items: center; }
+    .form-step-7 .range-box input[type="text"] {
+      width: 60px;
+      margin: 10px;
+      padding: 0; }
+
+  .paiement-bloc {
+    width: 90%;
+    margin: 0 auto;
+    border: 0;
+    padding: 0; }
+    .paiement-bloc .paiement-cartes img {
+      width: 105px;
+      bottom: 0px; }
+
+  .form-group {
+    display: block; }
+    .form-group .form-label {
+      width: 32%;
+      text-align: center;
+      font-size: 16px;
+      display: block;
+      margin: 0px auto 20px auto; }
+
+  .input-width {
+    width: 100%;
+    border: 0; }
+
+  .input-width-duree {
+    width: 50%;
+    margin-left: 0;
+    margin-right: 60px; }
+
+  .form-group {
+    margin-left: 20px;
+    margin-right: 20px;
+    justify-content: center; }
+    .form-group .form-control {
+      border: 0;
+      border-radius: 0;
+      border-bottom: 1px solid #dddddd;
+      color: #000; }
+      .form-group .form-control:focus {
+        border-color: #ddcc00;
+        outline: 0;
+        box-shadow: none; }
+
+  .table-form.table-assurance {
+    width: 95%; }
+    .table-form.table-assurance div:first-child {
+      margin: 5px; }
+    .table-form.table-assurance tr {
+      border: 0; }
+    .table-form.table-assurance td {
+      width: 100%;
+      padding: 0px 5px 20px 5px;
+      border: 0; }
+    .table-form.table-assurance .price {
+      color: #cccc00; }
+
+  .progress {
+    width: 95%;
+    margin-bottom: 45px;
+    margin-left: 5px;
+    margin-right: 5px;
+    left: 18px; }
+    .progress .progress-bar-circle {
+      position: absolute;
+      top: -30px;
+      width: 25px;
+      height: 0;
+      border-radius: 0;
+      text-align: center;
+      line-height: 42px;
+      font-weight: bold;
+      color: #e7e200; }
+    .progress .progress-steps {
+      display: none; }
+
+  .success-page .documents, .success-page .infos {
+    width: 100%; }
+  .success-page .contenu {
+    margin-top: 50px;
+    margin-left: 0; }
+
+  .modal-dialog {
+    width: 300px;
+    margin: 0 auto; }
+
+  .modal-contribution .modal-content {
+    width: 100%;
+    margin: 0 auto; }
+    .modal-contribution .modal-content h3, .modal-contribution .modal-content h4 {
+      font-family: 'Open Sans', 'sans-serif';
+      font-weight: bold;
+      text-align: center;
+      font-size: 14px;
+      margin: 0 5px 20px 5px; }
+    .modal-contribution .modal-content .contributions-btn {
+      width: 200px;
+      margin: 0 auto; }
+      .modal-contribution .modal-content .contributions-btn div {
+        padding: 0; }
+      .modal-contribution .modal-content .contributions-btn > div {
+        max-width: 100%;
+        flex: 0 0 100%; }
+      .modal-contribution .modal-content .contributions-btn .btn-check {
+        height: 40px;
+        line-height: 2.6;
+        padding: 0; }
+    .modal-contribution .modal-content .contribution-btn-submit .btn {
+      width: 200px;
+      margin: 0 auto; }
+
+  footer {
+    width: 100%;
+    margin: 0;
+    margin-bottom: 50px; }
+    footer .row {
+      justify-content: space-between;
+      margin: 0 5px;
+      width: 95%; } }

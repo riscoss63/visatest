@@ -31,7 +31,7 @@
                             <div class="col-12 mt-4">
                                 <a href=""><img src=" {{ asset("/backend/images/logo-visa-en-ligne.png")}} " /> </a>
                             </div>
-                            <div class="col-12 mt-5">
+                            <div class="col-12 my-5">
                                 <ul class="nav flex-column">
                                     <li class="nav-item">
                                         <a class="nav-link 
@@ -41,7 +41,7 @@
                                         <a class="nav-link {% if app.request.attributes.get('_route') == 'service' %} active {% endif %}" href="#"><i class=" fa fa-briefcase "> </i> Service</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link menu-l" href="#"><i class="fa fa-users"> </i> Clients</a>
+                                        <a class="nav-link menu-l {% if app.request.attributes.get('_route') == 'show_clients' %} active {% endif %}" href="{{ path('show_clients') }}"><i class="fa fa-users"> </i> Clients</a>
                                     </li>
                                     <li class="nav-item">
                                         <a class="nav-link menu-l {% if app.request.attributes.get('_route') == 'liste_zone' %} active {% endif %}" href="{{ path('liste_zone') }}"><i class="fa fa-globe"> </i> Zones</a>
@@ -50,22 +50,16 @@
                                         <a class="nav-link menu-l {% if app.request.attributes.get('_route') == 'show_pays' %} active {% endif %}" href="{{ path('show_pays') }}" ><i class="fa fa-flag"> </i> Pays</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link menu-l" href="#"><i class="fa fa-bicycle"> </i> Notes de courses</a>
+                                        <a class="nav-link menu-l {% if app.request.attributes.get('_route') == 'show_liste_notes_de_course' %} active {% endif %}" href="{{ path('show_liste_notes_de_course') }}"><i class="fa fa-bicycle"> </i> Notes de courses</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link menu-l" href="#"><i class="fa fa-shipping-fast"> </i> Tarifs transport/livraison</a>
+                                        <a class="nav-link menu-l {% if app.request.attributes.get('_route') == 'home_edit' %} active {% endif %}" href="{{ path('home_edit') }}"><i class="fa fa-tags"> </i> Page accueil </a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link menu-l" href="#"><i class="fa fa-shield-alt"></i> Tarifs assurances</a>
+                                        <a class="nav-link menu-l {% if app.request.attributes.get('_route') == 'show_actualite' %} active {% endif %}" href="{{ path('show_actualite') }}"><i class="fa fa-layer-group"> </i> Pages additionnelles</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link menu-l" href="{{ path('home_edit') }}"><i class="fa fa-tags"> </i> Page accueil</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link menu-l" href="#"><i class="fa fa-layer-group"> </i> Pages additionnelles</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link menu-l" href="#"><i class="fa fa-question-circle"> </i> Foire aux questions</a>
+                                        <a class="nav-link menu-l {% if app.request.attributes.get('_route') == 'show_questions_reponses' %} active {% endif %}" href="{{ path('show_questions_reponses') }}"><i class="fa fa-question-circle"> </i>  Foire aux questions</a>
                                     </li>
                                     <li class="nav-item">
                                         <a class="nav-link menu-l {% if app.request.attributes.get('_route') == 'infos_entreprise_evisa' %} active {% endif %}" href="{{ path('infos_entreprise_evisa')}}"><i class="fa"> EV </i> E-visa</a>
@@ -74,13 +68,13 @@
                                         <a class="nav-link menu-l {% if app.request.attributes.get('_route') == 'show_pays_visa_classic' %} active {% endif %}" href="{{ path('show_pays_visa_classic')}}"><i class="fa"> VC </i> Visa classic</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link menu-l" href="#"><i class="fa"> CT </i> Carte de tourisme</a>
+                                        <a class="nav-link menu-l {% if app.request.attributes.get('_route') == 'show_pays_carte_tourisme' %} active {% endif %}" href="{{ path('show_pays_carte_tourisme')}}"><i class="fa"> CT </i>  Carte de tourisme</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link menu-l" href="#"><i class="fa"> IV </i> Invitations</a>
+                                        <a class="nav-link menu-l" href="#"><i class="fa"> IV </i>  Invitations</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link menu-l" href="#"><i class="fa"> AS </i> Assurances</a>
+                                        <a class="nav-link menu-l {% if app.request.attributes.get('_route') == 'show_assurance' %} active {% endif %}" href="{{ path('show_assurance')}}"><i class="fa"> AS </i> Assurances</a>
                                     </li>
                                     <li class="nav-item">
                                         <a class="nav-link menu-l" href="#"><i class="fa fa-at"> </i> Personnalisation des emails</a>
@@ -93,13 +87,13 @@
                         </div>
                     </div>
                     <div class="col-10">
-                        <div class="row  sticky-top" style="background-color: #282733;">
+                        <div class="row align-items-baseline sticky-top" style="background-color: #282733;">
                             <div class="col-9">
                                 {% block menu_header %}{% endblock %}
                             </div>
-                            <div class="col-3">
+                            <div class="col-3 text-white">
                                 {% if app.user %}
-                                    Bienvenue, {{ app.user.prenom }}, <a href="{{ path('app_logout') }}">Logout</a>
+                                   <p> Bienvenue, {{ app.user.prenom }}  <a href="{{ path('app_logout') }}">Logout</a></p>
                                 {% endif %}                                
                             </div>
                         </div>

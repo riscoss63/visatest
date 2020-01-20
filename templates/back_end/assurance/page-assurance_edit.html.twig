@@ -1,0 +1,15 @@
+{% extends "back_end/base.html.twig" %}
+
+{% block menu_header %}
+    {% include "back_end/assurance/__header.html.twig" %}
+{% endblock %}
+
+{% block contenu %}
+<div class="row">
+        <h5 class=" m-auto col-8"><i class="fa fa-users-cog"></i> Gestion page assurance</h5>
+        <div class="col-3 float-right">
+            <a href="{{path('show_volet_infos_assurance')}}" class="btn btn-primary petite-taille"><i class="fas fa-plus-circle"></i> Modifier volet d'informations </a>
+        </div>
+    </div>
+{{ form(form)}}
+{% endblock %}

@@ -5,6 +5,7 @@ namespace App\Form\Backend\VisaClassic;
 use App\Entity\Pays;
 use App\Entity\VisaClassic;
 use App\Form\Backend\MetaType;
+use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
@@ -53,10 +54,7 @@ class VisaClassicType extends AbstractType
                 'asset_helper' => true,
                 'label'     =>false
             ])
-            ->add('communique', TextType::class, [
-                'attr'      => [
-                    'class'     => 'form-control'
-                ],
+            ->add('communique', CKEditorType::class, [
                 'label'     => 'Communiqué sous image d\'illustration'
             ])
             ->add('submit', SubmitType::class, [

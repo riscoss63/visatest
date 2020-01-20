@@ -1,0 +1,20 @@
+ <style>
+   .modal{
+       margin-top: 35px;
+       overflow-y: auto;
+       max-width : 1100px
+   } 
+ </style>
+        
+<div class="row">
+    <h5 class=" m-auto col-8"><i class="fa fa-users-cog"></i>Réception dossier</h5>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        {{ form_start(form, {'action': path('edit_voyageur_assurance', {'id': id}), 'method': 'POST'}) }}
+            {{ form(form) }}
+        {{ form_end(form)}}
+    </div> 
+</div>
+    

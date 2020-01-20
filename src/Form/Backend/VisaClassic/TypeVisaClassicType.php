@@ -10,6 +10,7 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -20,6 +21,7 @@ class TypeVisaClassicType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        $categories=$options['categories'];
         $builder
             ->add('active', CheckboxType::class, [
                 'attr' => [
@@ -29,6 +31,7 @@ class TypeVisaClassicType extends AbstractType
             ])
             ->add('categorieVisa', EntityType::class, [
                 'class'     => CategorieVisa::class,
+                'choices'   =>  $categories
             ])
 
             ->add('titre', TextType::class, [
@@ -99,6 +102,7 @@ class TypeVisaClassicType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => VisaType::class,
+            'categories' => null
         ]);
     }
 }

@@ -22,7 +22,7 @@ class VoletInfo
     private $titre;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="text", nullable=true)
      */
     private $contenu;
 
@@ -35,6 +35,16 @@ class VoletInfo
      * @ORM\ManyToOne(targetEntity="App\Entity\EVisa", inversedBy="voletInfos")
      */
     private $eVisa;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\CarteTourisme", inversedBy="voletsInfos")
+     */
+    private $carteTourisme;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\PageAssurance", inversedBy="voletInfo")
+     */
+    private $pageAssurance;
 
     public function getId(): ?int
     {
@@ -88,4 +98,29 @@ class VoletInfo
 
         return $this;
     }
+
+    public function getCarteTourisme(): ?CarteTourisme
+    {
+        return $this->carteTourisme;
+    }
+
+    public function setCarteTourisme(?CarteTourisme $carteTourisme): self
+    {
+        $this->carteTourisme = $carteTourisme;
+
+        return $this;
+    }
+
+    public function getPageAssurance(): ?PageAssurance
+    {
+        return $this->pageAssurance;
+    }
+
+    public function setPageAssurance(?PageAssurance $pageAssurance): self
+    {
+        $this->pageAssurance = $pageAssurance;
+
+        return $this;
+    }
+
 }

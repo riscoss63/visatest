@@ -153,4 +153,9 @@ class Departemente
     {
         return ''.$this->code.'  '.$this->nom  ;
     }
+
+    public function getTitre()
+    {
+        return $this->nom;
+    }
 }

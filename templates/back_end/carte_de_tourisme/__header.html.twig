@@ -1,0 +1,11 @@
+<nav class="nav">
+
+    <a class="nav-link {% if app.request.attributes.get('_route') == 'infos_entreprise_carte_tourisme' %} active {% endif %}" href="{{ path('infos_entreprise_carte_tourisme')}}"><i class="fa fa-building"></i>Infos Entreprise</a>
+
+    <a class="nav-link {% if app.request.attributes.get('_route') == 'show_pays_carte_tourisme' %} active {% endif %}" href="{{ path('show_pays_carte_tourisme')}}"><i class="fa fa-flag"></i>Pays carte de tourisme</a>
+
+    <a class="nav-link {% if app.request.attributes.get('_route') == 'liste_transport_carte_tourisme' %} active {% endif %}" href="{{ path('liste_transport_carte_tourisme')}}"><i class="fa fa-shipping-fast"></i> Tarifs transport/livraison</a>
+
+    <a class="nav-link {% if app.request.attributes.get('_route') == 'show_demandes_carte_tourisme' %} active {% endif %}" href="{{ path('show_demandes_carte_tourisme')}}" ><i class="fa fa-check"><span></span></i>Gestion des demandes</a>
+
+</nav>

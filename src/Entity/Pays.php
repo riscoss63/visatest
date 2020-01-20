@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -40,6 +42,27 @@ class Pays
      * @ORM\OneToOne(targetEntity="App\Entity\EVisa", mappedBy="pays", cascade={"persist", "remove"})
      */
     private $eVisa;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\CategorieVisa", mappedBy="pays")
+     */
+    private $categorieVisas;
+
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\CarteTourisme", mappedBy="pays", cascade={"persist", "remove"})
+     */
+    private $carteTourisme;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Assurance", mappedBy="pays")
+     */
+    private $assurances;
+
+    public function __construct()
+    {
+        $this->categorieVisas = new ArrayCollection();
+        $this->assurances = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -118,6 +141,86 @@ class Pays
         $newPays = null === $eVisa ? null : $this;
         if ($eVisa->getPays() !== $newPays) {
             $eVisa->setPays($newPays);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|CategorieVisa[]
+     */
+    public function getCategorieVisas(): Collection
+    {
+        return $this->categorieVisas;
+    }
+
+    public function addCategorieVisa(CategorieVisa $categorieVisa): self
+    {
+        if (!$this->categorieVisas->contains($categorieVisa)) {
+            $this->categorieVisas[] = $categorieVisa;
+            $categorieVisa->setPays($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCategorieVisa(CategorieVisa $categorieVisa): self
+    {
+        if ($this->categorieVisas->contains($categorieVisa)) {
+            $this->categorieVisas->removeElement($categorieVisa);
+            // set the owning side to null (unless already changed)
+            if ($categorieVisa->getPays() === $this) {
+                $categorieVisa->setPays(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getCarteTourisme(): ?CarteTourisme
+    {
+        return $this->carteTourisme;
+    }
+
+    public function setCarteTourisme(?CarteTourisme $carteTourisme): self
+    {
+        $this->carteTourisme = $carteTourisme;
+
+        // set (or unset) the owning side of the relation if necessary
+        $newPays = null === $carteTourisme ? null : $this;
+        if ($carteTourisme->getPays() !== $newPays) {
+            $carteTourisme->setPays($newPays);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Assurance[]
+     */
+    public function getAssurances(): Collection
+    {
+        return $this->assurances;
+    }
+
+    public function addAssurance(Assurance $assurance): self
+    {
+        if (!$this->assurances->contains($assurance)) {
+            $this->assurances[] = $assurance;
+            $assurance->setPays($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAssurance(Assurance $assurance): self
+    {
+        if ($this->assurances->contains($assurance)) {
+            $this->assurances->removeElement($assurance);
+            // set the owning side to null (unless already changed)
+            if ($assurance->getPays() === $this) {
+                $assurance->setPays(null);
+            }
         }
 
         return $this;

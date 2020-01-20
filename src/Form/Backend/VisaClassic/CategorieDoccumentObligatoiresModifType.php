@@ -3,6 +3,7 @@
 namespace App\Form\Backend\VisaClassic;
 
 use App\Entity\DoccumentObligatoire;
+use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -21,10 +22,7 @@ class CategorieDoccumentObligatoiresModifType extends AbstractType
                 'label'     => 'Titre du menu',
                 'required'  => true,
             ])
-            ->add('contenu', TextType::class, [
-                'attr'      => [
-                    'class'     => 'form-control'
-                ],
+            ->add('contenu', CKEditorType::class, [
                 'label'     => 'Information sur le document',
                 'required'  => false,
             ])

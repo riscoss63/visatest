@@ -54,4 +54,18 @@ class TransportRepository extends ServiceEntityRepository
             'typeVisa'     => 'visa_classic'
         ]);
     }
+
+    public function findEvisa()
+    {
+        return $this->findBy([
+            'typeVisa'     => 'evisa'
+        ]);
+    }
+
+    public function findCarteTourisme()
+    {
+        return $this->findBy([
+            'typeVisa'    => 'carte_tourisme'
+        ]);
+    }
 }
