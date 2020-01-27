@@ -1,0 +1,233 @@
+{% extends "base.html.twig" %}
+{% block stylesheets %}
+    {{parent()}}
+    <link rel="stylesheet" type="text/css" href="{{ asset('/frontend/css/espace-reserve-style.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('/frontend/css/menu.css') }}">
+{% endblock %}
+
+
+{% block header %}
+{% include "/front_end/espace_client/__header.html.twig" %}
+<div class="section-push-left">
+{% include "/front_end/espace_client/__mobile_header.htmL.twig" %}
+{% endblock %}
+{% block body %}
+
+    
+
+    <main class="list-container">
+
+        <p>{{client.demandes|length}} commande(s) effectuée(s) dont {{commandesEnCours|length}} commande(s) en cours</p>
+
+        {% for commande in commandes %}
+            <section class="list-container_order">
+                <div class="on-tablet-desktop order-date text-right">Enregistrée le {{commande.dateCreation|date('d/m/Y \\à\\ H\\h\\ i')}}</div>
+                <div class="order">
+                    <div class="order-container">
+                        <img src="/images/drapeau/drapeau-inde.png" alt="Drapeau de l'Inde" class="on-tablet-desktop">
+                        <div class="order-infos row">
+                            <div class="on-tablet-desktop col-md-4 info">
+                                <h2 class="order-title">  
+                                    {% if commande.visaType.visaClassic is defined and commande.visaType.visaClassic is not null %}
+                                        Visa {{commande.visaType.visaClassic.pays.titre}}
+                                    {% elseif  commande.visaType.eVisa is defined and commande.visaType.eVisa is not null%}
+                                        Evisa {{commande.visaType.eVisa.pays.titre}}
+                                    {% elseif commande.visaType.carteTourisme is defined and commande.visaType.carteTourisme is not null %}
+                                        Carte de tourisme {{commande.visaType.carteTourisme.pays.titre}}
+                                    {% elseif commande.assurance is defined and commande.assurance is not null %}
+                                        Assurance
+                                    {% endif %}
+                                </h2>
+
+                                <div class="visa-info-icons">
+                                    <div class="mb-15">
+                                        <span><img src="/images/types-visas/tourisme-black.svg" class="icon" alt="Icône tourisme"></span><strong>
+                                            {% if commande.visaType is defined and commande.visaType is not null %}
+                                                {{commande.visaType.categorieVisa.titre}}
+                                            {% endif %}
+                                            
+                                        </strong>
+                                    </div>
+                                    <div class="mb-15">
+                                        <span><img src="/images/voyageur.svg" class="icon" alt="Icône d'un voyageur"></span><strong>{{commande.voyageurs|length}} voyageurs</strong>
+                                    </div>
+                                    <div><span><img src="/images/jours-ouvres.svg" class="icon" alt="Icône de durée de jours ouvrés"></span>
+                                        <strong>
+                                            {% if commande.visaType is defined and commande.visaType is not null %}
+                                                {{commande.visaType.delaiObtention}} jours ouvrés
+                                            {% endif %}
+                                        </strong>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="on-mobile country-img col-12">
+                                <img src="/images/drapeau/drapeau-inde.png" alt="Drapeau de l'Inde">
+                                <div class="info">
+                                    <h2 class="order-title">
+                                        {% if commande.visaType.visaClassic is defined and commande.visaType.visaClassic is not null %}
+                                        Visa {{commande.visaType.visaClassic.pays.titre}} {{commande.visaType.categorieVisa.titre}} - {{commande.visaType.typeEntre}}
+                                        {% elseif  commande.visaType.eVisa is defined and commande.visaType.eVisa is not null%}
+                                            Evisa {{commande.visaType.eVisa.pays.titre}} {{commande.visaType.categorieVisa.titre}} - {{commande.visaType.typeEntre}}
+                                        {% elseif commande.visaType.carteTourisme is defined and commande.visaType.carteTourisme is not null %}
+                                            Carte de tourisme {{commande.visaType.carteTourisme.pays.titre}} - {{commande.visaType.categorieVisa.titre}} - {{commande.visaType.typeEntre}}
+                                        {% elseif commande.assurance is defined and commande.assurance is not null %}
+                                            Assurance
+                                        {% endif %}
+                                    </h2>
+                                    <h3 class="order-title">
+                                        Ref. <span class="text-primary">{{commande.reference}}</span><span class="order-date ml-1">{{commande.dateCreation|date('d/m/Y \\à\\ H\\h\\ i')}}</span>
+                                    </h3>
+                                </div>
+                                <div class="text-primary price">{{commande.total}}€</div>
+                            </div>
+
+                            <div class="on-tablet-desktop col-md-4 visa-info">
+                                <h3 class="order-title on-tablet-desktop">Ref. {{commande.reference}}</h3>
+
+                                <div>
+                                    <div class="mb-15">
+                                        <span class="icon-check"><img src="/images/check.svg" class="icon" alt="icône coche validé"></span> <strong>Nombre d'entrées :</strong> 
+                                        {% if commande.visaType %}
+                                            {{commande.visaType.typeEntre}}
+                                        {% endif %}
+                                        
+                                    </div>
+                                    <div class="mb-15">
+                                        <span class="icon-check"><img src="/images/check.svg" class="icon" alt="icône coche validé"></span> <strong>Validité :</strong> 
+                                            {% if commande.visaType %}
+                                                {{commande.visaType.validite}} jours
+                                            {% endif %} 
+                                    </div>
+                                    <div>
+                                        <span class="icon-check"><img src="/images/check.svg" class="icon" alt="icône coche validé"></span><strong>Durée de séjour :</strong> 
+                                            {% if commande.visaType %}
+                                                {{commande.visaType.dureSejour}} jours
+                                            {% endif %}  
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="on-mobile col-12 visa-info-icons">
+                                <div>
+                                    <div class="mb-15">
+                                        <span class="icon-check"><img src="/images/check.svg" class="icon" alt="icône coche validé"></span> <strong>Validité :</strong> 
+                                            {% if commande.visaType %}
+                                                {{commande.visaType.validite}} jours
+                                            {% endif %} 
+                                    </div>
+                                    <div class="mb-15">
+                                        <span class="icon-check"><img src="/images/check.svg" class="icon" alt="icône coche validé"></span><strong>Durée de séjour :</strong> 
+                                            {% if commande.visaType %}
+                                                {{commande.visaType.dureSejour}} jours
+                                            {% endif %}  
+                                    </div>
+                                    <div>
+                                        <span class="icon-check"><img src="/images/check.svg" class="icon" alt="icône coche validé"></span> <strong>Délai :</strong> 
+                                            {% if commande.visaType is defined and commande.visaType is not null %}
+                                                {{commande.visaType.delaiObtention}} jours ouvrés
+                                            {% endif %}
+                                    </div>
+                                </div>
+
+                                <div class="date">
+                                    <div><img src="/images/voyageur.svg" class="icon" alt="Icône d'un voyageur">{{commande.voyageurs|length}} voyageurs</div>
+                                    <div><img src="/images/depart.svg" class="icon icon--bigger" alt="icône date de départ"> <strong>Départ :</strong> {{commande.entre|date('d/m/Y')}} </div>
+                                    <div><img src="/images/arrivee.svg" class="icon icon--bigger" alt="icône date d'arrivée"> <strong>Arrivée :</strong> {{commande.sortie|date('d/m/Y')}} </div>
+                                </div>
+                            </div>
+
+                            <div class="on-tablet-desktop col-12 col-md-4 price-container">
+                                <div class="order-title pricing"><strong>Prix TTC</strong></div>
+
+                                <div class="price"><strong>{{commande.total}} €</strong></div>
+                                <!-- Bouton assurance si il n'en a pas -->
+                                {% if commande.assurance is defined and commande.assurance is not null %}
+                                    <a href="#" class="order-insurance on-tablet-desktop btn-order-insurance">
+                                        <img src="/images/assurance.svg" class="icon no-insurance" alt="Icône commander une assurance">
+                                        
+                                        
+                                        <span class="text-left">Commander <br>une assurance</span>
+                                    </a>
+                                {% else %}
+                                    <div class="order-insurance on-tablet-desktop validated">
+                                        <span><img src="/images/check.svg" class="svg icon" alt="Icône coche validée"></span>
+                                        <span class="text-left">Assurance</span>
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="order-footer">
+                        <div class="order-infos row">
+                            <div class="col-6 col-md-4 text-center">
+                                <p><strong>Mode d'expédition</strong></p>
+                                {{commande.transport.titre}}
+                            </div>
+                            <div class="col-12 col-md-4 date on-tablet-desktop">
+                                <div class="mb-15">
+                                    <span><img src="/images/depart.svg" class="icon" alt="icône date de départ"></span> <span class="date-title">Départ</span> {{commande.entre|date('d/m/Y')}}
+                                </div>
+                                <div>
+                                    <span><img src="/images/arrivee.svg" class="icon" alt="icône date d'arrivée"></span> <span class="date-title">Arrivée</span> {{commande.sortie|date('d/m/Y')}}
+                                </div>
+                            </div>
+                            <div class="col-6 col-md-4">
+                                <div class="text-right">
+                                    <a href="
+                                        {% if commande.visaType.visaClassic %}
+                                            {{path('visa_classic_commande', {id : commande.id})}}
+                                        {% endif %}
+                                    " class="btn btn-primary"><span class="btn-primary_bigger">Suivre</span>ma commande</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        {% endfor %}
+
+        {{ knp_pagination_render(commandes) }}
+    </main>
+</div>
+
+<footer class="on-mobile fixed-bottom order-main-footer">
+    <nav>
+        <ul>
+            <li>
+                <a href="mes-commandes.html" class="active">
+                    <img src="/images/mes-commandes-green.svg" alt="Icône mes commandes" class="icone-footer">
+                    Mes commandes
+                </a>
+            </li>
+            <li>
+                <a href="listing-destinations.html">
+                   <img src="/images/nouvelle-commande-mobile.svg" alt="Icône nouvelle commande" class="icone-footer">
+                    Commander
+                </a>
+                <!--<ul class="dropdown-menu" role="menu">
+                    <div class="close-header"><a href="#" class="btn-close">X</a></div>
+                    <li><a href="page-visa-classique.html">Visa</a></li>
+                    <li><a href="page-evisa.html">E-visa</a></li>
+                    <li><a href="page-cuba.html">Carte de tourisme Cuba</a></li>
+                    <li><a href="invitation-russie.html">Invitation tourisme</a></li>
+                    <li><a href="page-assurance.html">Assurance</a></li>
+                    <li><a href="#">Légalisation</a></li>
+				</ul>-->
+            </li>
+            <li>
+                <a href="coordonnees.html">
+                    <img src="/images/coordonnees.svg" alt="Icône mes coordonnées" class="icone-footer">
+                    Mes infos
+                </a>
+            </li>
+            <li>
+                <a href="mes-factures.html">
+                    <img src="/images/factures-mobile.svg" alt="Icône mes factures" class="icone-footer">
+                    Factures
+                </a>
+            </li>
+        </ul>
+    </nav>
+</footer>
+{% endblock %}

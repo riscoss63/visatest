@@ -62,7 +62,7 @@ class Course
     private $realiser;
 
     /**
-     * @ORM\Column(type="text", length=65535, nullable=true)
+     * @ORM\Column(type="text", nullable=true)
      */
     private $signature;
 
@@ -85,6 +85,11 @@ class Course
      * @ORM\OneToOne(targetEntity="App\Entity\Demande", inversedBy="course", cascade={"persist", "remove"})
      */
     private $demande;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="coursesLivraison")
+     */
+    private $client;
 
     public function getId(): ?int
     {
@@ -263,4 +268,17 @@ class Course
 
         return $this;
     }
+
+    public function getClient(): ?User
+    {
+        return $this->client;
+    }
+
+    public function setClient(?User $client): self
+    {
+        $this->client = $client;
+
+        return $this;
+    }
+
 }

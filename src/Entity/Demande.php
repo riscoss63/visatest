@@ -29,7 +29,7 @@ class Demande
     private $etat;
 
     /**
-     * @ORM\Column(type="date")
+     * @ORM\Column(type="datetime")
      */
     private $dateCreation;
 
@@ -89,18 +89,34 @@ class Demande
     private $expedition;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\CarteTourisme", inversedBy="demandes")
-     */
-    private $carteTourisme;
-
-    /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Assurance", inversedBy="demande")
      */
     private $assurance;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Voyageurs", mappedBy="demande")
+     */
+    private $voyageurs;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $total;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $dateRecuperation;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $dateEnvoi;
+
     public function __construct()
     {
         $this->fraisComplementaire = new ArrayCollection();
+        $this->voyageurs = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -318,18 +334,6 @@ class Demande
         return $this;
     }
 
-    public function getCarteTourisme(): ?CarteTourisme
-    {
-        return $this->carteTourisme;
-    }
-
-    public function setCarteTourisme(?CarteTourisme $carteTourisme): self
-    {
-        $this->carteTourisme = $carteTourisme;
-
-        return $this;
-    }
-
     public function getAssurance(): ?Assurance
     {
         return $this->assurance;
@@ -338,6 +342,73 @@ class Demande
     public function setAssurance(?Assurance $assurance): self
     {
         $this->assurance = $assurance;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Voyageurs[]
+     */
+    public function getVoyageurs(): Collection
+    {
+        return $this->voyageurs;
+    }
+
+    public function addVoyageur(Voyageurs $voyageur): self
+    {
+        if (!$this->voyageurs->contains($voyageur)) {
+            $this->voyageurs[] = $voyageur;
+            $voyageur->setDemande($this);
+        }
+
+        return $this;
+    }
+
+    public function removeVoyageur(Voyageurs $voyageur): self
+    {
+        if ($this->voyageurs->contains($voyageur)) {
+            $this->voyageurs->removeElement($voyageur);
+            // set the owning side to null (unless already changed)
+            if ($voyageur->getDemande() === $this) {
+                $voyageur->setDemande(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getTotal(): ?int
+    {
+        return $this->total;
+    }
+
+    public function setTotal(?int $total): self
+    {
+        $this->total = $total;
+
+        return $this;
+    }
+
+    public function getDateRecuperation(): ?\DateTimeInterface
+    {
+        return $this->dateRecuperation;
+    }
+
+    public function setDateRecuperation(?\DateTimeInterface $dateRecuperation): self
+    {
+        $this->dateRecuperation = $dateRecuperation;
+
+        return $this;
+    }
+
+    public function getDateEnvoi(): ?\DateTimeInterface
+    {
+        return $this->dateEnvoi;
+    }
+
+    public function setDateEnvoi(\DateTimeInterface $dateEnvoi): self
+    {
+        $this->dateEnvoi = $dateEnvoi;
 
         return $this;
     }

@@ -1,0 +1,98 @@
+{% extends "base.html.twig" %}
+{% block header %}
+    {% include "/front_end/home/__header.html.twig" %}
+{% endblock %}
+
+{% block body %}
+    <div class="row faq">
+        <div class="col-12 col-lg-5 col-xl-4 infos-in-tabs tabs-faq">
+            <div class="tabs-border-top">
+                <h1 class="page-title on-mobile">Foire aux <span class="title-segblk text-primary">questions</span></h1>
+                <div class="nav-tabs-navigation">
+                    <div class="nav-tabs-wrapper">
+                        <ul class="nav nav-tabs nav-tabs-two" role="tablist">
+                            {% for categorie in categories %}
+                                <li class="nav-item">
+                                    <a class="nav-link {% if loop.first %} active {% endif %}" data-toggle="tab" href="#infos-{{categorie.titre|replace({' ': ''})}}" role="tab" aria-selected="{% if loop.first %} true {% else %} false {% endif %}">{{categorie.titre}}</a>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="tab-content">
+                    {% for categorie in categories %}
+                        <div class="tab-pane {% if loop.first %} active {% endif %}" id="infos-{{categorie.titre|replace({' ': ''})}}" role="tabpanel">
+
+                            <div class="row on-desktop">
+                                <div class="links-anchors">
+                                    <ul>
+                                        {% for sujet in categorie.sujets %}
+                                            <li id="{{sujet.titre|replace({' ': ''})}}">
+                                                <a class="{% if loop.first %} active {% endif %}"><img src="/images/search-black.svg" alt="icône recherche" class="icon">{{sujet.titre}}</a>
+                                            </li>
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div class="on-mobile-tablet">
+                                <div class="links-anchors full-width-mobile">
+                                    <ul>
+                                        {% for sujet in categorie.sujets %}
+                                            <li>
+                                                <a data-toggle="collapse" data-target=".{{sujet.titre|replace({' ': ''})}}" aria-expanded="{% if loop.first %} true {% else %} false {% endif %}">{{sujet.titre}}
+                                                    <img src="/images/arrow-down.svg" alt="icône contenu affiché" class="links-anchor-active icon"></a>
+                                                <div class="{{sujet.titre|replace({' ': ''})}} collapse {% if loop.first %} show {% endif %}">
+                                                    {% for questionReponse in sujet.questionsReponses %}
+                                                        <div>
+                                                            <h4 class="title-collapse" data-toggle="collapse" aria-expanded="{% if loop.first %} true {% else %} false {% endif %}" data-target=".collapse{{sujet.id}}">{{questionReponse.question}}<span class="icon-collapse"></span></h4>
+                                                            <div class="collapse collapse{{sujet.id}} {% if loop.first %} show {% endif %}">
+                                                                <p>{{questionReponse.reponse}}</p>
+                                                            </div>
+                                                        </div>
+                                                    {% endfor %}
+                                                </div>
+                                            </li>
+                                        {% endfor %}
+                                        
+                                    </ul>
+                                </div>
+
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+
+        <div class="on-desktop col-lg-7 col-xl-8">
+            <h1 class="page-title">Foire aux <span class="title-segblk text-primary">questions</span></h1>
+            {% for categorie in categories %}
+                <div class="row" id="{{categorie.titre|replace({' ': ''})}}-content">
+                    {% for sujet in categorie.sujets %}
+                        <div class="tabs-content" id="{{sujet.titre|replace({' ': ''})}}-content">
+                        {% set first = loop.first %}
+                            {% for questionReponse in sujet.questionsReponses %}
+                                <div class="row-with-margins">
+                                    <h4 class="title-collapse" data-toggle="collapse" aria-expanded="{% if loop.first %}true{% else %}false{% endif %}" data-target=".collapse0{{questionReponse.id}}">{{questionReponse.question}}<span class="icon-collapse"></span></h4>
+                                    <div class="collapse collapse0{{questionReponse.id}} {% if loop.first %}show{% endif %}">
+                                        <p>{{questionReponse.reponse}}</p>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    {% endfor %}  
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}
+{% block javascripts %}
+<script src="{{ asset('/frontend/dist/js/jquery.min.js') }}"></script>
+<script src="{{ asset('/frontend/dist/js/bootstrap.min.js') }}"></script>
+<script src="{{ asset('/frontend/js/owl.carousel.js') }}"></script>
+
+<script src="{{ asset('/frontend/js/simplebar.min.js') }}"></script>
+<script src="{{ asset('/frontend/js/main.js') }}"></script>
+{% endblock %}

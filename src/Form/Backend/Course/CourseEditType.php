@@ -30,6 +30,20 @@ class CourseEditType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
+            ->add('nom', TextType::class, [
+                'attr'      => [
+                    'class'     => 'form-control',
+                    'placeholder'   => 'Si le client n\'existe pas, sinon laissez se champ vide'
+                ],
+                'required'  => false
+            ])
+            ->add('prenom', TextType::class, [
+                'attr'      => [
+                    'class'     => 'form-control',
+                    'placeholder'   => 'Si le client n\'existe pas, sinon laissez se champ vide'
+                ],
+                'required'  => false
+            ])
             ->add('dateEnlevement', DateTimeType::class, [
                 'label'     => 'Date de livraison/enlevement'
             ])
@@ -61,7 +75,15 @@ class CourseEditType extends AbstractType
                 'choice_label' => 'prenom',
                 'attr' => [
                     'class' => 'form-control',
-                    'placeholder'   => 'Ville'
+                ],
+                'required'      => false
+            ])
+            ->add('client', EntityType::class, [
+                'class'     => User::class,
+                'choices' => $this->userRepository->findClients(),
+                'choice_label' => 'prenom',
+                'attr' => [
+                    'class' => 'form-control',
                 ],
                 'required'      => false
             ])
@@ -78,7 +100,7 @@ class CourseEditType extends AbstractType
             ])
         ;
     }
-
+    
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([

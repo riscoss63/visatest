@@ -64,6 +64,10 @@ class CourseController extends AbstractController
             $course->setRealiser(true);
             $manager->persist($course);
             $manager->flush();
+
+            $this->addFlash('success', 'Course signé ');
+
+            return $this->redirectToRoute('show_liste_notes_de_course');
         }
 
         return $this->render('/back_end/note_de_course/signature_note_de_course_add.html.twig', [
@@ -87,6 +91,8 @@ class CourseController extends AbstractController
             $manager->persist($course);
             $manager->flush();
 
+            $this->addFlash('success', 'Course éditer ');
+
             return $this->redirectToRoute('show_liste_notes_de_course');
         }
 
@@ -100,22 +106,90 @@ class CourseController extends AbstractController
     /**
      * @Route("/add/course", name="add_course")
      */
-    public function courseAdd(Request $request, EntityManagerInterface $manager) :Response
+    public function courseAdd(Request $request, EntityManagerInterface $manager, \Swift_Mailer $mailer) :Response
     {
         $course = new Course;
 
+        $reference = random_bytes(5);
+        $reference=bin2hex($reference);
+    
         $form = $this->createForm(CourseEditType::class, $course);
         $form->handleRequest($request);
 
         if($form->isSubmitted() AND $form->isValid())
         {
-            $manager->persist($course);
-            $manager->flush();
+            $client = $form->get('client')->getData();
+            $course->setReference(\strtoupper($reference));
+            $course->setNom($client->getNom());
+            $course->setPrenom($client->getPrenom());
+            $coursier = $course->getCoursier();
 
+            $mailCoursier = $request->get('mail_coursier');
+            $mailClient = $request->get('mail_client');
+            if($mailCoursier == true)
+            {
+                $message= (new \Swift_Message('Course visa en ligne'))
+                    ->setFrom('sghairipro63@gmail.com')
+                    ->setTo($coursier->getEmail())
+                    ->setBody(
+                        $this->renderView(
+                            'back_end/emails/course.html.twig',
+                            [
+                                'coursier'   => $coursier,
+                                'client'        => $client,
+                                'course'        => $course
+                            ]
+                        ),
+                        'text/html'
+                );
+                $mailer->send($message);
+            }
+            if($mailClient == true)
+            {
+                $message= (new \Swift_Message('Course visa en ligne'))
+                    ->setFrom('sghairipro63@gmail.com')
+                    ->setTo($coursier->getEmail())
+                    ->setBody(
+                        $this->renderView(
+                            'back_end/emails/course_client.html.twig',
+                            [
+                                'coursier'   => $coursier,
+                                'client'        => $client,
+                                'course'        => $course
+                            ]
+                        ),
+                        'text/html'
+                );
+                $mailer->send($message);
+            }
+
+            $manager->persist($course);
+            $manager->flush();            
+
+            $this->addFlash('success', 'Course ajouter ');
+
+            return $this->redirectToRoute('show_liste_notes_de_course');
         }
 
         return $this->render('/back_end/note_de_course/note_de_course_add.html.twig', [
             'form'      => $form->createView(),
         ]);
+    }
+
+    /**
+     * @Route("/del-{id}", name="del_course", options={"expose"=true})
+     */
+    public function courseDel($id, EntityManagerInterface $manager)
+    {
+        $course = $this->getDoctrine()->getRepository(Course::class)->find($id);
+        
+        if($course)
+        {
+            $manager->remove($course);
+            $manager->flush();
+        }
+        
+
+        return $this->redirectToRoute('show_liste_notes_de_course');
     }
 }

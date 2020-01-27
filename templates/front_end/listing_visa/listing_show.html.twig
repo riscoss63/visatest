@@ -1,0 +1,426 @@
+{% extends "base.html.twig" %}
+{% block header %}
+    {% include "/front_end/home/__header.html.twig" %}
+{% endblock %}
+
+{% block body %}
+    <div class="container">
+        {# <div class="breadcrumb-page on-desktop">
+            <div><a href="index.html">Accueil</a> / <a href="listing-destinations.html"><span class="last">Pays</span></a></div>
+        </div> #}
+
+        <div class="listing-wrapper">
+            <h1 class="page-title mb-4">{{pays|length}} destinations pour <span class="title-segblk text-primary">vos visas</span></h1>
+            <div class="page-description">
+                <p>Vous trouverez ci-dessous les {{pays|length}} destinations pour lesquels nous assurons l’obtention de visas classiques, de e-visas ou visas électroniques. Nous mettons à votre disposition sur chaque page Pays des informations nécessaires à la constitution de vos demandes de visas ainsi que les tarifs TTC. Ces informations peuvent faire l’objet de modification à tout moment. Nous nous efforçons au quotidien de mettre à jour ces informations pour vous garantir la meilleure base de données actualisée existante sur les formalités d’obtention du visa pour chaque pays.</p>
+            </div>
+
+            <div class="listing-search">
+                <form>
+
+                    <div class="input-group mb-3">
+                        <div class="choice">
+                            {{form_start(form)}} 
+                            {{form_widget(form.visa)}}
+                        </div>
+                        <!--<span class="bar">|</span>-->
+                        <img id="separation-bar" class="on-desktop" src="/images/barre-separation.svg" alt="barre de séparation">
+                        {{form_widget(form.q)}}
+                        <a href="" class="input-group-append">
+                           <span class="input-group-text on-desktop"><img src="/images/search-white.svg" class="icon" alt="icône recherche"></span>
+						   <span class="input-group-text on-mobile"><img src="/images/search-grey.svg" class="icon" alt="icône recherche"></span>
+                        </a>
+                        {{form_end(form)}}
+                    </div>
+                </form>
+            </div>
+
+            <div class="listing">
+                {% for zone in zones %}
+                    <div class="destination">
+                        <h2 class="page-title mb-4"><span class="title-segblk text-primary">{{zone.titre}}</h2>
+                        {% for pays in zone.pays %}
+                            
+                            {% set visaClassic = pays.visaClassic %}
+                            <div class="row destination-wrapper-listing">
+                                <div class="destination-img"><img src="{% for visaClassic in pays.visaClassic %}{{ vich_uploader_asset(visaClassic, 'imageFile') }} {% endfor %}" alt="image" class="img-fluid"></div>
+                                <div class= "destination-card">
+                                    <div class="row flex-wrap">
+                                        <div class="destination-info on-desktop">
+                                            <div class="d-flex justify-content-between">
+                                                <h3 class="destination-title">Visa {{pays.titre}}</h3>
+                                                <div class="ranking-stars d-flex align-items-center">
+                                                    <div>
+                                                        <img src="/images/star-green.svg" alt="icone étoile avis" class="star-icon star-filled">
+                                                        <img src="/images/star-green.svg" alt="icone étoile avis" class="star-icon star-filled">
+                                                        <img src="/images/star-green.svg" alt="icone étoile avis" class="star-icon star-filled">
+                                                        <img src="/images/star-green.svg" alt="icone étoile avis" class="star-icon star-filled">
+                                                        <img src="/images/star-green.svg" alt="icone étoile avis" class="star-icon star-filled">
+                                                    </div>
+                                                    <a href="#" class="ranking-stars-title">12 avis</a>
+                                                </div>
+                                            </div>
+                                            <div class="destination-jours-ouvres"><span><img src="/images/chronometre.svg" alt="icônes jours ouvrés" class="icon">
+                                                {% for type in pays.visaClassic.typeVisa|sort((a, b) => a.delaiObtention <=> b.delaiObtention) %}
+                                                    {% if loop.first %}
+                                                        {{type.delaiObtention}} jours ouvrés</span></div>
+                                                    {% endif %}  
+                                                {% endfor %} 
+                                            <div class="categorie-visa row">
+                                                <div class="col-12 col-md-5">
+                                                    <p class="categorie-visa-title">Catégories de visas:</p>
+                                                </div>
+                                                <div class="col-12 col-md-4">
+                                                    <p>Tourisme</p>
+                                                    <p>Long séjour OA</p>
+                                                </div>
+                                                <div class="col-12 col-md-3">
+                                                        <p>Affaires</p>
+                                                        <p>Visa culturel</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="  destination-info flex-column on-mobile">
+                                            <h3 class="destination-title">Visa Russie</h3>
+                                            <div class="destination-jours-ouvres"><span><img src="/images/chronometre.svg" alt="icônes jours ouvrés" class="icon">7 jours ouvrés</span></div>
+                                            <div class="categorie-visa">
+                                                
+                                                    <p class="categorie-visa-title">Catégories de visas:</p>
+                                                    <p>Tme, Affaires, transit, Médical, Etudes, Stage,</p>
+                                                </div>
+                                            
+                                            <div class="ranking-stars d-flex align-items-center">
+                                                    <div>
+                                                        <img src="/images/star-green.svg" alt="icone étoile avis" class="star-icon star-filled">
+                                                        <img src="/images/star-green.svg" alt="icone étoile avis" class="star-icon star-filled">
+                                                        <img src="/images/star-green.svg" alt="icone étoile avis" class="star-icon star-filled">
+                                                        <img src="/images/star-green.svg" alt="icone étoile avis" class="star-icon star-filled">
+                                                        <img src="/images/star-green.svg" alt="icone étoile avis" class="star-icon star-filled">
+                                                    </div>
+                                                    <a href="#" class="ranking-stars-title">12 avis</a>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class=" destination-price flex-column justify-content-center --hidden align-items-center">
+                                        
+                                                <p class="destination-price-small">A partir de</p>
+                                                <p class="price">129€ TTC</p>
+                                            
+                                                <a href="page-evisa.html" class="destination-price-icon btn btn-primary d-flex align-items-center">
+                                                            <span class="btn-label"><img src="/images/plus-white.svg"  alt="icone plus d'infos" class="price-icon "></span>
+                                                            infos
+                                                </a>
+                                                
+                                            
+                                        
+                                        </div>
+                                    
+                                    </div>
+                                    <div class="avis-container">
+                                        <div class="d-inline-flex">
+                                            <span class="communique-title">Dernier avis</span>
+                                            <div class="ranking-stars">
+                                                <div>
+                                                        <img src="/images/star-green.svg" alt="icone étoile avis" class="star-icon star-filled">
+                                                        <img src="/images/star-green.svg" alt="icone étoile avis" class="star-icon star-filled">
+                                                        <img src="/images/star-green.svg" alt="icone étoile avis" class="star-icon star-filled">
+                                                        <img src="/images/star-green.svg" alt="icone étoile avis" class="star-icon star-filled">
+                                                        <img src="/images/star-green.svg" alt="icone étoile avis" class="star-icon star-filled">
+                                                </div>
+                                            </div>
+                                            <span class="communique-title">:</span>
+                                        </div>
+                                        <p class="d-inline">Attente téléphonique parfois longue mais service disponible :plus réactifs par mail, sinon service fiable, prix modérés un gain de temps et certainement d’argent assuré quand on est loin de Paris</p>
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                        {% endfor %}
+                        
+                    </div>
+                {% endfor %}
+                <!--Europe de l'Est-->
+                <div class="destination">
+                    <h2 class="page-title mb-4"><span class="title-segblk text-primary">Europe</span> de l'Est</h2>
+                    <div class="row destination-wrapper-listing">
+                        <div class="destination-img"><img src="/images/pays-img/russie.jpg" alt="image de la Russie" class="img-fluid"></div>
+                        <div class= "destination-card">
+                            <div class="row flex-wrap">
+                                <div class="destination-info on-desktop">
+                                    <div class="d-flex justify-content-between">
+                                        <h3 class="destination-title">Visa Russie</h3>
+                                        <div class="ranking-stars d-flex align-items-center">
+                                            <div>
+												<img src="/images/star-green.svg" alt="icone étoile avis" class="star-icon star-filled">
+												<img src="/images/star-green.svg" alt="icone étoile avis" class="star-icon star-filled">
+												<img src="/images/star-green.svg" alt="icone étoile avis" class="star-icon star-filled">
+												<img src="/images/star-green.svg" alt="icone étoile avis" class="star-icon star-filled">
+												<img src="/images/star-green.svg" alt="icone étoile avis" class="star-icon star-filled">
+                                            </div>
+                                            <a href="#" class="ranking-stars-title">12 avis</a>
+                                        </div>
+                                    </div>
+                                    <div class="destination-jours-ouvres"><span><img src="/images/chronometre.svg" alt="icônes jours ouvrés" class="icon">7 jours ouvrés</span></div>
+                                    <div class="categorie-visa row">
+                                        <div class="col-12 col-md-5">
+                                            <p class="categorie-visa-title">Catégories de visas:</p>
+                                        </div>
+                                        <div class="col-12 col-md-4">
+                                            <p>Tourisme</p>
+                                            <p>Long séjour OA</p>
+                                        </div>
+                                        <div class="col-12 col-md-3">
+                                                <p>Affaires</p>
+                                                <p>Visa culturel</p>
+                                        </div>
+                                    </div>
+                                </div>
+								<div class="  destination-info flex-column on-mobile">
+                                    <h3 class="destination-title">Visa Russie</h3>
+                                    <div class="destination-jours-ouvres"><span><img src="/images/chronometre.svg" alt="icônes jours ouvrés" class="icon">7 jours ouvrés</span></div>
+                                    <div class="categorie-visa">
+                                        
+                                            <p class="categorie-visa-title">Catégories de visas:</p>
+                                      		<p>Tme, Affaires, transit, Médical, Etudes, Stage,</p>
+                                        </div>
+                                    
+									<div class="ranking-stars d-flex align-items-center">
+                                            <div>
+												<img src="/images/star-green.svg" alt="icone étoile avis" class="star-icon star-filled">
+												<img src="/images/star-green.svg" alt="icone étoile avis" class="star-icon star-filled">
+												<img src="/images/star-green.svg" alt="icone étoile avis" class="star-icon star-filled">
+												<img src="/images/star-green.svg" alt="icone étoile avis" class="star-icon star-filled">
+												<img src="/images/star-green.svg" alt="icone étoile avis" class="star-icon star-filled">
+                                            </div>
+                                            <a href="#" class="ranking-stars-title">12 avis</a>
+                                    </div>
+								</div>
+                                
+                                <div class=" destination-price flex-column justify-content-center --hidden align-items-center">
+								
+                                        <p class="destination-price-small">A partir de</p>
+                                        <p class="price">129€ TTC</p>
+                                       
+										<a href="page-evisa.html" class="destination-price-icon btn btn-primary d-flex align-items-center">
+													<span class="btn-label"><img src="/images/plus-white.svg"  alt="icone plus d'infos" class="price-icon "></span>
+													infos
+										</a>
+										
+									
+                                  
+                                </div>
+							
+                            </div>
+                            <div class="avis-container">
+                                <div class="d-inline-flex">
+                                    <span class="communique-title">Dernier avis</span>
+                                    <div class="ranking-stars">
+                                         <div>
+												<img src="/images/star-green.svg" alt="icone étoile avis" class="star-icon star-filled">
+												<img src="/images/star-green.svg" alt="icone étoile avis" class="star-icon star-filled">
+												<img src="/images/star-green.svg" alt="icone étoile avis" class="star-icon star-filled">
+												<img src="/images/star-green.svg" alt="icone étoile avis" class="star-icon star-filled">
+												<img src="/images/star-green.svg" alt="icone étoile avis" class="star-icon star-filled">
+                                          </div>
+                                    </div>
+                                    <span class="communique-title">:</span>
+                                </div>
+                                <p class="d-inline">Attente téléphonique parfois longue mais service disponible :plus réactifs par mail, sinon service fiable, prix modérés un gain de temps et certainement d’argent assuré quand on est loin de Paris</p>
+                            </div>
+							
+                        </div>
+                    </div>
+                </div>
+                <!--Fin Europe de l'Est-->
+
+                <!--Afrique de l'Est-->
+                <div class="destination">
+                    <h2 class="page-title mb-4"><span class="title-segblk text-primary">Afrique</span> de l'Est</h2>
+                    <div class="row destination-wrapper-listing">
+                        <div class="destination-img"><img src="/images/pays-img/russie.jpg" alt="image de la Russie" class="img-fluid"></div>
+                        <div class="destination-card ">
+                            <div class="row flex-wrap">
+                                <div class="destination-info on-desktop">
+                                    <div class="d-flex justify-content-between">
+                                        <h3 class="destination-title">Visa Russie</h3>
+                                        <div class="ranking-stars d-flex align-items-center">
+                                            <div>
+												<img src="/images/star-green.svg" alt="icone étoile avis" class="star-icon star-filled">
+												<img src="/images/star-green.svg" alt="icone étoile avis" class="star-icon star-filled">
+												<img src="/images/star-green.svg" alt="icone étoile avis" class="star-icon star-filled">
+												<img src="/images/star-green.svg" alt="icone étoile avis" class="star-icon star-filled">
+												<img src="/images/star-green.svg" alt="icone étoile avis" class="star-icon star-filled">
+                                            </div>
+                                            <a href="#" class="ranking-stars-title">12 avis</a>
+                                        </div>
+                                    </div>
+                                    <div class="destination-jours-ouvres"><span><img src="/images/chronometre.svg" alt="icônes jours ouvrés" class="icon">7 jours ouvrés</span></div>
+                                    <div class="categorie-visa row">
+                                        <div class="col-12 col-md-5">
+                                            <p class="categorie-visa-title">Catégories de visas:</p>
+                                        </div>
+                                        <div class="col-12 col-md-4">
+                                            <p>Tourisme</p>
+                                            <p>Long séjour OA</p>
+                                        </div>
+                                        <div class="col-12 col-md-3">
+                                                <p>Affaires</p>
+                                                <p>Visa culturel</p>
+                                        </div>
+                                    </div>
+                                </div>
+								<div class="destination-info flex-column on-mobile">
+                                    <h3 class="destination-title">Visa Russie</h3>
+                                    <div class="destination-jours-ouvres"><span><img src="/images/chronometre.svg" alt="icônes jours ouvrés" class="icon">7 jours ouvrés</span></div>
+                                    <div class="categorie-visa">
+                                        
+                                            <p class="categorie-visa-title">Catégories de visas:</p>
+                                      		<p>Tme, Affaires, transit, Médical, Etudes, Stage,</p>
+                                        </div>
+                                    
+									<div class="ranking-stars d-flex align-items-center">
+                                            <div>
+												<img src="/images/star-green.svg" alt="icone étoile avis" class="star-icon star-filled">
+												<img src="/images/star-green.svg" alt="icone étoile avis" class="star-icon star-filled">
+												<img src="/images/star-green.svg" alt="icone étoile avis" class="star-icon star-filled">
+												<img src="/images/star-green.svg" alt="icone étoile avis" class="star-icon star-filled">
+												<img src="/images/star-green.svg" alt="icone étoile avis" class="star-icon star-filled">
+                                            </div>
+                                            <a href="#" class="ranking-stars-title">12 avis</a>
+                                    </div>
+								</div>
+                                
+                                <div class="destination-price flex-column justify-content-center --hidden align-items-center">
+								
+                                        <p class="destination-price-small">A partir de</p>
+                                        <p class="price">129€ TTC</p>
+                                       
+										<a href="page-evisa.html" class="destination-price-icon btn btn-primary d-flex align-items-center">
+													<span class="btn-label"><img src="/images/plus-white.svg"  alt="icone plus d'infos" class="price-icon "></span>
+													infos
+										</a>
+										
+									
+                                  
+                                </div>
+							
+                            </div>
+                            <div class="avis-container">
+                                <div class="d-inline-flex">
+                                    <span class="communique-title">Dernier avis</span>
+                                    <div class="ranking-stars">
+                                         <div>
+												<img src="/images/star-green.svg" alt="icone étoile avis" class="star-icon star-filled">
+												<img src="/images/star-green.svg" alt="icone étoile avis" class="star-icon star-filled">
+												<img src="/images/star-green.svg" alt="icone étoile avis" class="star-icon star-filled">
+												<img src="/images/star-green.svg" alt="icone étoile avis" class="star-icon star-filled">
+												<img src="/images/star-green.svg" alt="icone étoile avis" class="star-icon star-filled">
+                                          </div>
+                                    </div>
+                                    <span class="communique-title">:</span>
+                                </div>
+                                <p class="d-inline">Attente téléphonique parfois longue mais service disponible :plus réactifs par mail, sinon service fiable, prix modérés un gain de temps et certainement d’argent assuré quand on est loin de Paris</p>
+                            </div>
+							
+                        </div>
+                    </div>
+                </div>
+                <!--Fin Afrique de l'Est-->
+
+                <!--Asie du Sud-Est-->
+                <div class="destination">
+                    <h2 class="page-title mb-4"><span class="title-segblk text-primary">Asie</span> du Sud-Est</h2>
+                    <div class="row destination-wrapper-listing">
+                        <div class="destination-img"><img src="/images/pays-img/russie.jpg" alt="image de la Russie" class="img-fluid"></div>
+                        <div class="destination-card ">
+                            <div class="row flex-wrap">
+                                <div class="destination-info on-desktop">
+                                    <div class="d-flex justify-content-between">
+                                        <h3 class="destination-title">Visa Russie</h3>
+                                        <div class="ranking-stars d-flex align-items-center">
+                                            <div>
+												<img src="/images/star-green.svg" alt="icone étoile avis" class="star-icon star-filled">
+												<img src="/images/star-green.svg" alt="icone étoile avis" class="star-icon star-filled">
+												<img src="/images/star-green.svg" alt="icone étoile avis" class="star-icon star-filled">
+												<img src="/images/star-green.svg" alt="icone étoile avis" class="star-icon star-filled">
+												<img src="/images/star-green.svg" alt="icone étoile avis" class="star-icon star-filled">
+                                            </div>
+                                            <a href="#" class="ranking-stars-title">12 avis</a>
+                                        </div>
+                                    </div>
+                                    <div class="destination-jours-ouvres"><span><img src="/images/chronometre.svg" alt="icônes jours ouvrés" class="icon">7 jours ouvrés</span></div>
+                                    <div class="categorie-visa row">
+                                        <div class="col-12 col-md-5">
+                                            <p class="categorie-visa-title">Catégories de visas:</p>
+                                        </div>
+                                        <div class="col-12 col-md-4">
+                                            <p>Tourisme</p>
+                                            <p>Long séjour OA</p>
+                                        </div>
+                                        <div class="col-12 col-md-3">
+                                                <p>Affaires</p>
+                                                <p>Visa culturel</p>
+                                        </div>
+                                    </div>
+                                </div>
+								<div class=" destination-info flex-column on-mobile">
+                                    <h3 class="destination-title">Visa Russie</h3>
+                                    <div class="destination-jours-ouvres"><span><img src="/images/chronometre.svg" alt="icônes jours ouvrés" class="icon">7 jours ouvrés</span></div>
+                                    <div class="categorie-visa">
+                                        
+                                            <p class="categorie-visa-title">Catégories de visas:</p>
+                                      		<p>Tme, Affaires, transit, Médical, Etudes, Stage,</p>
+                                        </div>
+                                    
+									<div class="ranking-stars d-flex align-items-center">
+                                            <div>
+												<img src="/images/star-green.svg" alt="icone étoile avis" class="star-icon star-filled">
+												<img src="/images/star-green.svg" alt="icone étoile avis" class="star-icon star-filled">
+												<img src="/images/star-green.svg" alt="icone étoile avis" class="star-icon star-filled">
+												<img src="/images/star-green.svg" alt="icone étoile avis" class="star-icon star-filled">
+												<img src="/images/star-green.svg" alt="icone étoile avis" class="star-icon star-filled">
+                                            </div>
+                                            <a href="#" class="ranking-stars-title">12 avis</a>
+                                    </div>
+								</div>
+                                
+                                <div class="destination-price flex-column justify-content-center --hidden align-items-center">
+								
+                                        <p class="destination-price-small">A partir de</p>
+                                        <p class="price">129€ TTC</p>
+                                       
+										<a href="page-evisa.html" class="destination-price-icon btn btn-primary d-flex align-items-center">
+													<span class="btn-label"><img src="/images/plus-white.svg"  alt="icone plus d'infos" class="price-icon "></span>
+													infos
+										</a>
+										
+									
+                                  
+                                </div>
+							
+                            </div>
+                            <div class="avis-container">
+                                <div class="d-inline-flex">
+                                    <span class="communique-title">Dernier avis</span>
+                                    <div class="ranking-stars">
+                                         <div>
+												<img src="/images/star-green.svg" alt="icone étoile avis" class="star-icon star-filled">
+												<img src="/images/star-green.svg" alt="icone étoile avis" class="star-icon star-filled">
+												<img src="/images/star-green.svg" alt="icone étoile avis" class="star-icon star-filled">
+												<img src="/images/star-green.svg" alt="icone étoile avis" class="star-icon star-filled">
+												<img src="/images/star-green.svg" alt="icone étoile avis" class="star-icon star-filled">
+                                          </div>
+                                    </div>
+                                    <span class="communique-title">:</span>
+                                </div>
+                                <p class="d-inline">Attente téléphonique parfois longue mais service disponible :plus réactifs par mail, sinon service fiable, prix modérés un gain de temps et certainement d’argent assuré quand on est loin de Paris</p>
+                            </div>
+							
+                        </div>
+                    </div>
+                </div>
+                <!--Fin Asie du Sud-Est-->
+            </div>
+        </div>
+	</div>
+{% endblock %}

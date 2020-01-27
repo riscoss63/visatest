@@ -39,6 +39,9 @@ class HomeController extends AbstractController
         {
             $manager->persist($home);
             $manager->flush();
+
+            $this->addFlash('success', 'Accueil modifier');
+
         }
 
         return $this->render('back_end\home\home_edit.html.twig', [

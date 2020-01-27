@@ -69,11 +69,6 @@ class CarteTourisme
     private $notreService;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Demande", mappedBy="carteTourisme")
-     */
-    private $demandes;
-
-    /**
      * @ORM\OneToMany(targetEntity="App\Entity\Actualite", mappedBy="carteTourisme")
      */
     private $actualites;
@@ -82,7 +77,6 @@ class CarteTourisme
     {
         $this->typeVisa = new ArrayCollection();
         $this->voletsInfos = new ArrayCollection();
-        $this->demandes = new ArrayCollection();
         $this->actualites = new ArrayCollection();
     }
 
@@ -252,37 +246,6 @@ class CarteTourisme
     public function getTitre() : ?string
     {
         return $this->getPays()->getTitre();
-    }
-
-    /**
-     * @return Collection|Demande[]
-     */
-    public function getDemandes(): Collection
-    {
-        return $this->demandes;
-    }
-
-    public function addDemande(Demande $demande): self
-    {
-        if (!$this->demandes->contains($demande)) {
-            $this->demandes[] = $demande;
-            $demande->setCarteTourisme($this);
-        }
-
-        return $this;
-    }
-
-    public function removeDemande(Demande $demande): self
-    {
-        if ($this->demandes->contains($demande)) {
-            $this->demandes->removeElement($demande);
-            // set the owning side to null (unless already changed)
-            if ($demande->getCarteTourisme() === $this) {
-                $demande->setCarteTourisme(null);
-            }
-        }
-
-        return $this;
     }
 
     /**

@@ -101,6 +101,11 @@ class Transport
      */
     private $suivi;
 
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $aeroport;
+
     public function __construct()
     {
         $this->tarifTransports = new ArrayCollection();
@@ -318,6 +323,23 @@ class Transport
         $this->suivi = $suivi;
 
         return $this;
+    }
+
+    public function getAeroport(): ?bool
+    {
+        return $this->aeroport;
+    }
+
+    public function setAeroport(?bool $aeroport): self
+    {
+        $this->aeroport = $aeroport;
+
+        return $this;
+    }
+
+    public function __toString()
+    {
+        return $this->titre;
     }
 
 }

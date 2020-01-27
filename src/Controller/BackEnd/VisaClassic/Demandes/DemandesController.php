@@ -6,6 +6,7 @@ use App\Entity\Course;
 use App\Entity\Demande;
 use App\Entity\EtatDossier;
 use App\Entity\ReceptionDossier;
+use App\Entity\User;
 use App\Form\Backend\VisaClassic\CompletReceptionType;
 use App\Form\Backend\VisaClassic\DemandeType;
 use App\Form\Backend\VisaClassic\EtatDossierType;
@@ -143,9 +144,13 @@ class DemandesController extends AbstractController
     public function receptionDossierShow(Request $request, EntityManagerInterface $manager) : Response
     {    
         $referenceType=$request->request->get('reference');
-        $demande = $this->getDoctrine()->getRepository(Demande::class)->findOneBy([
-            'reference'     => $referenceType
-        ]);
+        if($referenceType)
+        {
+            $demande = $this->getDoctrine()->getRepository(Demande::class)->findOneBy([
+                'reference'     => $referenceType
+            ]);
+        }
+        
 
         if($demande)
         {
@@ -204,6 +209,29 @@ class DemandesController extends AbstractController
         {
             $demande->setEtat('encours');
 
+            $transport = $demande->getTransport();
+            if($transport->coursier())
+            {
+                $random = random_int(10, 15);
+                $reference = random_bytes($random);
+                $reference=bin2hex($reference);
+                //coursier par défaut
+                $coursier = $this->getDoctrine()->getRepository(User::class)->findOneBy([
+                    'roles'     => '%ROLE_COURSIER%'
+                ]);
+                $course = new Course;
+                $course->setNom($demande->getClient()->getNom());
+                $course->setPrenom($demande->getClient()->getPrenom());
+                $course->setAdresse($demande->getAdresse());
+                $course->setCodePostal($demande->getCodepostal());
+                $course->setVille($demande->getVille());
+                $course->setRealiser(false);
+                $course->setCoursier($coursier);
+                $course->setLivraison(true);
+                $course->setDemande($demande);
+                $course->setReference($reference);
+                $manager->persist($course);
+            }
             $manager->persist($receptionDossier);
             $manager->flush();
 

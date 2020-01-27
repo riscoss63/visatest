@@ -4,14 +4,40 @@
 {% block contenu %}
 
     <div class="row">
-        <h5 class=" m-auto col-8"><i class="fa fa-users-cog"></i> Ajouter une note de course</h5>
-        <div class="col-3 float-right">
-            <a href="{{path('add_course')}}" class="btn btn-primary petite-taille"><i class="fas fa-plus-circle"></i> Ajouter une Course </a>
+        <h5 class=" m-auto col-6"><i class="fa fa-users-cog"></i> Ajouter une note de course</h5>
+        <div class="col-6 text-right">
+            <a href="{{path('show_liste_notes_de_course')}}" type="button" class="btn btn-danger btn-elevate btn-icon-sm mx-2 "><i class="fa fa-chevron-left"></i> Retour à la liste de notes de course</a> 
         </div>
     </div>
     <div class="row">
         <div class="col-12">
-            {{ form(form) }}
+            {{ form_start(form) }}
+                <label for="mail_coursier">Adresser un mail au coursier</label>
+                <input type="checkbox" id="mail_coursier" name="mail_coursier" value="1" checked="checked">
+                <label for="mail_client">Adresser un mail au client</label>
+                <input type="checkbox" id="mail_client" name="mail_client" value="1" checked="checked">
+
+            {{ form_end(form) }}
+
         </div> 
     </div>
+{% endblock %}
+{% block javascripts %}
+<script src="{{ asset('/frontend/js/intlTelInput.js') }}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.9/js/select2.min.js"></script>
+<script src="{{ asset('/frontend/js/forms.js') }}"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>           
+<script>
+    $( function() {
+        $( "#date_entree" ).datepicker();
+        $( "#date_entree" ).datepicker( "option", "dateFormat", "dd/mm/yy" );
+
+        
+    });
+    $( function() {
+        $( "#date_sortie" ).datepicker();
+        $( "#date_sortie" ).datepicker( "option", "dateFormat", "dd/mm/yy" );
+    });
+</script>
+
 {% endblock %}

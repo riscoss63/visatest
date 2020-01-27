@@ -1,0 +1,30 @@
+@font-face {
+  font-family: 'Segoe UI Black';
+  font-style: normal;
+  font-weight: normal;
+  src: local("Segoe UI Black"), url('segoeuiblack/segoeuiblack.eot'), url('segoeuiblack/segoeuiblack.woff') format("woff"), url('segoeuiblack/segoeuiblack.ttf') format("truetype");
+}
+
+
+@font-face {
+  font-family: 'Segoe Print';
+  font-style: normal;
+  font-weight: normal;
+  src: local("Segoe Print"), url('segoeprint/segoeprint.eot'), url('segoeprint/segoeprint.woff') format("woff"), url('segoeprint/segoeprint.ttf') format("truetype");
+}
+
+
+.title-segpr {
+  font-family: 'Segoe Print', sans-serif;
+  font-weight: bold;
+}
+
+.title-segpr-regular {
+  font-family: 'Segoe Print', sans-serif;
+  font-size: 18px;
+  margin-bottom: 35px;
+}
+
+.title-segblk {
+  font-family: 'Segoe UI Black', sans-serif;
+}

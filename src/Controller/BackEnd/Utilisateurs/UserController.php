@@ -98,7 +98,7 @@ class UserController extends AbstractController
      * Modifier un User grâce a son id
      * @Route("/utilisateur-{id}", name="modif_user", options={"expose"=true})
      */
-    public function utilisateurEdit(Request $request, $id, EntityManagerInterface $manager, UserPasswordEncoderInterface $encoder) : Response
+    public function utilisateurEdit(Request $request, $id, EntityManagerInterface $manager, UserPasswordEncoderInterface $encoder, \Swift_Mailer $mailer) : Response
     {
         $this->denyAccessUnlessGranted('SHOW', $this->serviceUsers);
 
@@ -114,14 +114,30 @@ class UserController extends AbstractController
             if($password != null)
             {
                 $user->setPassword($encoder->encodePassword($user, $password));
+
+                $message= (new \Swift_Message('Modification de votre compte : visa en ligne'))
+                    ->setFrom('sghairipro63@gmail.com')
+                    ->setTo($user->getEmail())
+                    ->setBody(
+                        $this->renderView(
+                            'back_end/emails/mdp_modifier.html.twig',
+                            [
+                                'mdp'   => $password,
+                                'client'        => $user
+                            ]
+                        ),
+                        'text/html'
+                );
+                $mailer->send($message);
             }
-            $user->setPassword($user->getPassword());
 
             //On modifie da date de modification
             $user->setDateModif(new \DateTime("now"));
             
             $manager->persist($user);
             $manager->flush();
+
+            $this->addFlash('success', 'Utilisateur Modifier');
             
         }   
         return $this->render('back_end\utilisateurs\edit_utilisateur.html.twig', [
@@ -133,7 +149,7 @@ class UserController extends AbstractController
      * Création d'un nouveau utilisateur
      * @Route("/utilisateur/add", name="add_user")
      */
-    public function utilisateurAdd(Request $request, EntityManagerInterface $manager, UserPasswordEncoderInterface $encoder) : Response
+    public function utilisateurAdd(Request $request, EntityManagerInterface $manager, UserPasswordEncoderInterface $encoder, \Swift_Mailer $mailer) : Response
     {
         $this->denyAccessUnlessGranted('SHOW', $this->serviceUsers);
         //On crée un nouveau User
@@ -153,9 +169,27 @@ class UserController extends AbstractController
             //On modifie da date de modification
             $user->setDateCreation(new \DateTime("now"));
 
+            //mail
+            $message= (new \Swift_Message('Création de compte : Visa en ligne'))
+                ->setFrom('sghairipro63@gmail.com')
+                ->setTo($user->getEmail())
+                ->setBody(
+                    $this->renderView(
+                        'back_end/emails/add_user.html.twig',
+                        [
+                            'mdp'           => $password,
+                            'client'        => $user
+                        ]
+                    ),
+                    'text/html'
+            );
+            $mailer->send($message);
+
             //On enregistre dans la BD
             $manager->persist($user);
             $manager->flush();
+
+            $this->addFlash('success', 'Utilisateur ajouter');
 
             //On redirige sur la modification de cette user
             return $this->redirectToRoute('modif_user', [
@@ -167,4 +201,19 @@ class UserController extends AbstractController
         ]);
     }
 
+    /**
+     * Supprimer un user
+     * @Route("/del/user-{id}", name="del_user", options={"expose"=true})
+     */
+    public function userDel($id, EntityManagerInterface $manager) : Response
+    {
+        $user = $this->getDoctrine()->getRepository(User::class)->find($id);
+
+        $manager->remove($user);
+        $manager->flush();
+
+        $this->addFlash('success', 'Utilisateur supprimer');
+
+        return $this->redirectToRoute('show_users');
+    }
 }

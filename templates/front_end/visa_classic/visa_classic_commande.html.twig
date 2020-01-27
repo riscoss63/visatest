@@ -2,12 +2,14 @@
 {% block stylesheets %}
     {{ parent() }}
     <link rel="stylesheet" type="text/css" href="{{ asset('/frontend/css/formulaire_visa_classic/formulaires.css') }}">
-    <link rel="stylesheet" href="{{ asset('/frontend/css/formulaire_visa_classic/intlTelInput.css') }}">
+    <link rel="stylesheet" href="{{ asset('/frontend/intl-tel-input-16.0.0/build/css/intlTelInput.css') }}">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.9/css/select2.min.css" rel="stylesheet" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.3.0/css/flag-icon.min.css" rel="stylesheet" />
-
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <!-- TrustBox script -->
     <script type="text/javascript" src="{{ asset('/frontend/css/formulaire_visa_classic/tp.widget.bootstrap.min.js') }}" async></script>
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <!-- End TrustBox script -->
 {% endblock %}
 {% block header %}
@@ -19,7 +21,7 @@
                     <p class="visa-description">Système de demande de visa en ligne Chine</p>
                 </div>
                 <div class="navbar-visa-logo">
-                    <a href="index.html"><img src="/images/logo-vectorized.svg" alt="logo visa-en-ligne.com"></a>
+                    <a href="{{ path('home')}}"><img src="/images/logo-vectorized.svg" alt="logo visa-en-ligne.com"></a>
                 </div>
                 <div class="ssl-wrapper on-tablet-desktop">
                     <div class="ssl-box">
@@ -142,9 +144,9 @@
                 <div class="form-group">
                     <label class="form-label">Nombre de voyageurs</label>
                     <div class="range-box">
-                        <div class="range" data-dir="dwn"><img src="/images/btn-minus.svg" alt="bouton moins"></div>
+                        <div class="range moindevoyageur" ><img src="/images/btn-minus.svg" alt="bouton moins"></div>
                         <input type="text" id="nbvoyageurs" name="nbvoyageurs" class="form-control text-center" value="1">
-                        <div class="range" data-dir="up"><img src="/images/btn-plus.svg" alt="bouton moins"></div>
+                        <div class="range plusdevoyageur" ><img src="/images/btn-plus.svg" alt="bouton moins"></div>
                     </div>
                 </div>
 
@@ -158,13 +160,13 @@
                 <div class="form-group flex-wrap align-items-start">
                     <label class="form-label">Nationalité des voyageurs</label>
 					
-                    <div class="multiple-country-select">
-                        <select class="classic-select input-width selectpicker countrypicker" name="country"></select>
+                    <div class="multiple-country-select-nationalite">
+                        <select class="classic-select input-width selectpicker countrypicker" name="country" id="country_nationalite"></select>
 						
 							<a href="#" class="add-country"><img src="/images/plus-colored.svg" class="icon" alt="ajouter pays de destination">
 								Ajouter pays de nationalité	
 							</a>							
-							<a href="#" class="moins-country"><img src="/images/moins-colored.svg" class="icon" alt="enlever pays de destination"></a>
+							{# <a href="#" class="moins-country"><img src="/images/moins-colored.svg" class="icon" alt="enlever pays de destination"></a> #}
 						
                     </div>
                 </div>
@@ -181,72 +183,72 @@
         <!-- Step 3 - Dates -->
         <div class="form-step form-step-3" style="display: none">
 		
-				<span class="on-mobile form-label">Dates de séjour</span>
-                <div class="form-group">
-                    <label class="form-label">Date d'entrée</label>
+            <span class="on-mobile form-label">Dates de séjour</span>
+            <div class="form-group">
+                <label class="form-label">Date d'entrée</label>
 
-                    <div class="date-group input-width">
-                        <span class="on-desktop"><img src="/images/date-depart.svg" alt="date de départ" class="date-icon"></span>
-                        <div class="input-group date">
-							<div class="on-desktop">
-                            	<input type="date" class="form-control"/>
-							</div>
-							<div class="on-mobile">
-								<input type="tel" class="form-control" maxlength="2" placeholder="Jour (JJ)" />
-								<input type="tel" class="form-control" maxlength="2" placeholder="Mois (MM)" />
-								<input type="tel" class="form-control" maxlength="4" placeholder="Année (AAAA)" />
-							</div>
-                            <div class="input-group-append on-desktop">
-                                    <span class="input-group-text">
-                                        <span class="input-icon"><img src="/images/calendar.svg" alt="calendrier" class="icon"></span>
-                                    </span>
-                            </div>
+                <div class="date-group input-width">
+                    <span class="on-desktop"><img src="/images/date-depart.svg" alt="date de départ" class="date-icon"></span>
+                    <div class="input-group date">
+                        <div class="on-desktop">
+                            <input type="text" class="form-control date" name="date_entree" id="date_entree" required="true"/>
+                        </div>
+                        <div class="on-mobile">
+                            <input type="tel" class="form-control" maxlength="2" placeholder="Jour (JJ)" required="true"/>
+                            <input type="tel" class="form-control" maxlength="2" placeholder="Mois (MM)" required="true"/>
+                            <input type="tel" class="form-control" maxlength="4" placeholder="Année (AAAA)" required="true"/>
+                        </div>
+                        <div class="input-group-append on-desktop">
+                                <span class="input-group-text">
+                                    <span class="input-icon"><img src="/images/calendar.svg" alt="calendrier" class="icon"></span>
+                                </span>
                         </div>
                     </div>
                 </div>
+            </div>
 
-                <div class="form-group">
-                    <label class="form-label">Date de sortie</label>
+            <div class="form-group">
+                <label class="form-label">Date de sortie</label>
 
-                    <div class="date-group input-width">
-                        <span class="on-desktop"><img src="/images/date-sortie.svg" alt="date de sortie" class="date-icon"></span>
-                        <div class="input-group date" >
-                            <div class="on-desktop">
-                            	<input type="date" class="form-control">
-							</div>
-							<div class="on-mobile">
-								<input type="tel" class="form-control" maxlength="2" placeholder="Jour (JJ)" />
-								<input type="tel" class="form-control" maxlength="2" placeholder="Mois (MM)" />
-								<input type="tel" class="form-control" maxlength="4" placeholder="Année (AAAA)" />
-							</div>
-                            <div class="input-group-append on-desktop">
-                                    <span class="input-group-text">
-                                        <span class="input-icon"><img src="/images/calendar.svg" alt="calendrier" class="icon"></span>
-                                    </span>
-                            </div>
+                <div class="date-group input-width">
+                    <span class="on-desktop"><img src="/images/date-sortie.svg" alt="date de sortie" class="date-icon"></span>
+                    <div class="input-group date" >
+                        <div class="on-desktop">
+                            <input type="text" class="form-control date" name="date_sortie" id="date_sortie" required="true">
+                        </div>
+                        <div class="on-mobile">
+                            <input type="tel" class="form-control" maxlength="2" placeholder="Jour (JJ)" required="true"/>
+                            <input type="tel" class="form-control" maxlength="2" placeholder="Mois (MM)" required="true" />
+                            <input type="tel" class="form-control" maxlength="4" placeholder="Année (AAAA)" required="true"/>
+                        </div>
+                        <div class="input-group-append on-desktop">
+                                <span class="input-group-text">
+                                    <span class="input-icon"><img src="/images/calendar.svg" alt="calendrier" class="icon"></span>
+                                </span>
                         </div>
                     </div>
                 </div>
-				<!--Calculer le  nombre de jours du séjour-->
-				<div class="form-group ">
-                    <label class="form-label form-control-label required" for="order-duration">Durée du séjour</label>
-                    <div class="date-group input-width-duree">
-                       
-                        <div class="input-group date">
-                            <input id="order-duration" type="number" class="form-control" name="order-duration" max-length="4" required="required"/>
-                           	<div class="input-group-text jours"><p>jours</p></div>
-                        </div>
+            </div>
+            <!--Calculer le  nombre de jours du séjour-->
+            <div class="form-group ">
+                <label class="form-label form-control-label required" for="order-duration">Durée du séjour</label>
+                <div class="date-group input-width-duree">
+                    
+                    <div class="input-group date">
+                        <input id="order-duration" type="number" class="form-control" name="order-duration" max-length="4" required="true"/>
+                        <div class="input-group-text jours"><p>jours</p></div>
                     </div>
                 </div>
+            </div>
 
-                <div class="cta d-flex">
-					<div class="btn-precedent on-mobile">
-						<a href="#top" class="btn btn-primary previous-arrow d-flex flex-nowrap align-items-center"><img src="/images/retour-paiement-white.svg" alt="icône étape précédente" class="icon">Précédent</a>
-					</div>
-					<div class="btn-submit">
-						<a href="#top" class="btn btn-primary btn-next">Etape suivante <img src="/images/btn-send.svg" alt="icône étape suvante" class="icon"></a>
-					</div>
-				</div>
+            <div class="cta d-flex">
+                <div class="btn-precedent on-mobile">
+                    <a href="#top" class="btn btn-primary previous-arrow d-flex flex-nowrap align-items-center"><img src="/images/retour-paiement-white.svg" alt="icône étape précédente" class="icon">Précédent</a>
+                </div>
+                <div class="btn-submit">
+                    <a href="#top" class="btn btn-primary btn-next">Etape suivante <img src="/images/btn-send.svg" alt="icône étape suvante" class="icon"></a>
+                </div>
+            </div>
         </div>
 
         <!-- Step 4 - Pays de livraison -->
@@ -259,21 +261,27 @@
 					</div>
                 </div>
 				<div class=" form-group on-desktop">
-					<label class="form-label">Code postal et ville de livraison</label>
+					<label class="form-label">Code postal de livraison</label>
 					<div class="input-width">
-                        <input class="form-control" type="text">
+                        <input class="form-control" type="text" id="code_postal_livraison" required="true">
+					</div>
+                </div>
+                <div class=" form-group on-desktop">
+					<label class="form-label">Ville</label>
+					<div class="input-width">
+                        <input class="form-control" type="text" id="ville_livraison" required="true">
 					</div>
                 </div>
 				<div class="form-group form-group-animated on-mobile">
 					<label for="codePostal0" class="form-label">Code postal de livraison</label>
                     <div class="input-width">
-						<input id="codePostal0" class="form-control on-mobile" type="text" name="codePostal0">
+						<input id="codePostal0" class="form-control on-mobile" type="text" name="codePostal0" required="true">
                     </div>
                 </div>
 				<div class="form-group form-group-animated on-mobile">
 					<label for="ville0" class="form-label">Ville</label>
                     <div class="input-width">
-						<input id="ville0" class="form-control on-mobile" type="text" name="ville0">
+						<input id="ville0" class="form-control on-mobile" type="text" name="ville0" required="true">
                     </div>
                 </div>
 				<!-- N'afficher cette div que si le code postal correspond à un département de l'ile de France-->
@@ -282,21 +290,21 @@
 
                     <div>
                         <label class="form-radio">
-                            Le dossier sera adressé par courriel
-                            <input type="radio" checked="checked" name="radio">
+                            Le dossier sera adressé par courrier
+                            <input type="radio" name="radio_enlevement" checked="true" value="courrier">
                             <span class="checkmark"></span>
                         </label>
 
-                        <label class="form-radio">
+                        <label class="form-radio ile" style="display : none">
                             <p>Le dossier sera déposé à notre agence <span class="ml-4"><a href="#" class="small text-primary text-underline on-desktop">Adresse Google Maps</a></span></p>
-                            <input type="radio" name="radio">
+                            <input type="radio" name="radio_enlevement" value="agence">
                             <span class="checkmark"></span>
                         </label>
 
                         <!-- Afficher ci-dessous, ci l'utilisateur a ajouté un département en île de france -->
-                        <label class="form-radio">
-                            Enlèvement du dossier par un coursier<span class="on-desktop"> visa-en-ligne.com</span><span class="font-weight-bold ml-4">30€</span>
-                            <input type="radio" name="radio">
+                        <label class="form-radio ile" style="display : none">
+                            Enlèvement du dossier par un coursier<span class="on-desktop"> visa-en-ligne.com</span><span class="font-weight-bold ml-4 prix-coursier">30€</span>
+                            <input type="radio" name="radio_enlevement" value="coursier">
                             <span class="checkmark"></span>
                         </label>
                     </div>
@@ -318,83 +326,20 @@
                     <label class="form-label on-desktop">Choix du mode de livraison</label>
 					<label class="form-label on-mobile">Mode de livraison</label>
                     <table class="table table-form table-borderless">
-                      <tbody>
-                        <tr>
-                            <td>
-                                <label class="form-radio">
-									<span class="on-desktop">Lettre recommandée avec accusé de réception (3 à 5 jours ouvrés)</span>
-									<span class="on-mobile">Lettre recommandée avec AR (3 à 5 jours ouvrés)</span>
-                                	<input type="radio" name="mode-livraison">
-                                	<span class="checkmark"></span>
-                                </label>
-                            </td>
-                            <td class="price"><span>9€</span></td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <label class="form-radio">
-                                    Chronopost (24 heures en France métropolitaine)
-                                    <input type="radio" name="mode-livraison">
-                                    <span class="checkmark"></span>
-                                </label>
-                            </td>
-                            <td class="price"><span>26€</span></td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <label class="form-radio">
-                                    DHL (24 heures en France métropolitaine)
-                                    <input type="radio" name="mode-livraison">
-                                    <span class="checkmark"></span>
-                                </label>
-                            </td>
-                            <td class="price"><span>30€</span></td>
-                        </tr>
-						<tr>
-                            <td>
-                                <label class="form-radio">
-                                    Retrait à notre agence
-                                    <input type="radio" name="mode-livraison">
-                                    <span class="checkmark"></span>
-                                </label>
-                            </td>
-                            <td class="price"><span>0€</span></td>
-                        </tr>
-						<!--tr suivants à n'afficher que si le code postal correspond à un département de l'ile de France-->
-						<tr>
-                            <td>
-                                <label class="form-radio">
-                                    <span class="on-desktop">Par un coursier visa-en-ligne.com</span>
-									<span class="on-mobile">Coursier visa-en-ligne.com</span>
-                                    <input type="radio" name="mode-livraison">
-                                    <span class="checkmark"></span>
-                                </label>
-                            </td>
-                            <td class="price"><span>30€</span></td>
-                        </tr>
-						<tr>
-                            <td>
-                                <label class="form-radio">
-                                    <span class="on-desktop">Par un coursier à l'aéroport - Du lundi au samedi<br><span class="grey">Aéroport de Roissy et Orly - De 8h30 à 18h00</span></span>
-									<span class="on-mobile">Coursier à l'aéroport - Du lundi au vendredi<br><span class="grey">Aéroport de Roissy et Orly - De 8h30 à 18h00</span></span>
-									
-                                    <input type="radio" name="mode-livraison">
-                                    <span class="checkmark"></span>
-                                </label>
-                            </td>
-                            <td class="price"><span>120€</span></td>
-                        </tr>
-						<tr>
-                            <td>
-                                <label class="form-radio">
-                                    <span class="on-desktop">Par un coursier à l'aéroport - Dimanche et jours fériés<br><span class="grey">Aéroport de Roissy et Orly - De 8h30 à 20h00</span></span>
-									<span class="on-mobile">Coursier à l'aéroport - Week-end, jours fériés<br><span class="grey">Aéroport de Roissy et Orly - De 8h30 à 20h00</span></span>
-                                    <input type="radio" name="mode-livraison">
-                                    <span class="checkmark"></span>
-                                </label>
-                            </td>
-                            <td class="price"><span>120€</span></td>
-                        </tr>
+                        <tbody>
+                            {% for transport in transports %}
+                                <tr>
+                                    <td>
+                                        <label class="form-radio">
+                                            <span class="on-desktop">{{ transport.titre}} {% if transport.informations %}({{transport.informations}}){% endif %}</span>
+                                            <span class="on-mobile">{{ transport.titre}} {% if transport.informations %}({{transport.informations}}){% endif %}</span>
+                                            <input type="radio" name="mode-livraison" {% if loop.first %} checked="checked"{% endif %} value="{{ transport.titre }}" >
+                                            <div class="checkmark"></div>
+                                        </label>
+                                    </td>
+                                    <td class="price"><p>{{ transport.tarif }}€</p<</td>
+                                </tr>
+                            {% endfor %}
                         </tbody>
                     </table>
                 </div>
@@ -442,7 +387,7 @@
                     <label class="form-label">Adresse email</label>
 
                     <div class="input-width">
-                        <input class="form-control" type="email">
+                        <input class="form-control" type="email" id="email" required="true">
                     </div>
                 </div>
                 <div class="cta d-flex">
@@ -473,93 +418,38 @@
                 <div class="form-group">
                     <table class="table table-form table-assurance">
                         <tbody>
-                        <tr>
-                            <td>
-                                <label class="form-radio">
-                                    <span class="font-weight-bold">J'ai déjà une assurance voyage</span>
-                                    <input type="radio" checked="checked" name="souscrire-assurance">
-                                    <span class="checkmark"></span>
-                                </label>
-                            </td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <label class="form-radio">
-                                    Assurance voyage 15 jours
-                                    <input type="radio" name="radio">
-                                    <span class="checkmark"></span>
-                                </label>
-                            </td>
-                            <td class="quantite on-desktop">
-                                <div class="range-box">
-                                    <div class="range" data-dir="dwn"><img src="/images/btn-minus.svg" alt="bouton moins"></div>
-                                    <input type="text" class="form-control text-center" value="1">
-                                    <div class="range" data-dir="up"><img src="/images/btn-plus.svg" alt="bouton moins"></div>
-                                </div>
-                            </td>
-                            <td class="price">
-                                60€
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <label class="form-radio">
-                                    Assurance voyage 30 jours
-                                    <input type="radio" name="radio">
-                                    <span class="checkmark"></span>
-                                </label>
-                            </td>
-                            <td class="quantite on-desktop">
-                                <div class="range-box">
-                                    <div class="range" data-dir="dwn"><img src="/images/btn-minus.svg" alt="bouton moins"></div>
-                                    <input type="text" class="form-control text-center" value="1">
-                                    <div class="range" data-dir="up"><img src="/images/btn-plus.svg" alt="bouton moins"></div>
-                                </div>
-                            </td>
-                            <td class="price">
-                                70€
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <label class="form-radio">
-                                    Assurance voyage 45 jours
-                                    <input type="radio" name="radio">
-                                    <span class="checkmark"></span>
-                                </label>
-                            </td>
-                            <td class="quantite on-desktop">
-                                <div class="range-box">
-                                    <div class="range" data-dir="dwn"><img src="/images/btn-minus.svg" alt="bouton moins"></div>
-                                    <input type="text" class="form-control text-center" value="1">
-                                    <div class="range" data-dir="up"><img src="/images/btn-plus.svg" alt="bouton moins"></div>
-                                </div>
-                            </td>
-                            <td class="price">
-                                85€
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <label class="form-radio">
-                                    Assurance voyage 3 mois
-                                    <input type="radio" name="radio">
-                                    <span class="checkmark"></span>
-                                </label>
-                            </td>
-                            <td class="quantite on-desktop">
-                                <div class="range-box">
-                                    <div class="range" data-dir="dwn"><img src="/images/btn-minus.svg" alt="bouton moins"></div>
-                                    <input type="text" class="form-control text-center" value="1">
-                                    <div class="range" data-dir="up"><img src="/images/btn-plus.svg" alt="bouton moins"></div>
-                                </div>
-                            </td>
-                            <td class="price">
-                                100€
-                            </td>
-                        </tr>
+                            <tr>
+                                <td>
+                                    <label class="form-radio">
+                                        <span class="font-weight-bold">J'ai déjà une assurance voyage</span>
+                                        <input type="radio" checked="checked" name="radioassurance" value="noassurance">
+                                        <span class="checkmark"></span>
+                                    </label>
+                                </td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            {% for assurance in assurances %}
+                                <tr>
+                                    <td>
+                                        <label class="form-radio">
+                                            Assurance voyage {{assurance.duree}} jours
+                                            <input type="radio" name="radioassurance" value="{{ assurance.duree}} ">
+                                            <span class="checkmark"></span>
+                                        </label>
+                                    </td>
+                                    <td class="quantite on-desktop">
+                                        <div class="range-box">
+                                            <div class="range" data-dir="dwn"><img src="/images/btn-minus.svg" alt="bouton moins"></div>
+                                            <input type="text" class="form-control text-center" id="{{assurance.duree}}" value="1" name="nbassurance">
+                                            <div class="range" data-dir="up"><img src="/images/btn-plus.svg" alt="bouton moins"></div>
+                                        </div>
+                                    </td>
+                                    <td class="price">
+                                        <span class="{{ assurance.duree}}">{{assurance.tarif}}</span>€
+                                    </td>
+                                </tr>
+                            {% endfor %}
                         </tbody>
                     </table>
                 </div>
@@ -681,7 +571,7 @@
                 <div class=" form-group on-desktop">
                     <label  class="form-label ">Nom</label>
                     <div class="input-width">
-                        <input class="form-control on-desktop" type="text">
+                        <input class="form-control on-desktop" type="text" name="nom">
                     </div>
                 </div>
 				<div class="form-group form-group-animated on-mobile">
@@ -694,7 +584,7 @@
                 <div class=" form-group on-desktop">
                     <label  class="form-label ">Prénom</label>
                     <div class="input-width">
-                        <input class="form-control on-desktop" type="text">
+                        <input class="form-control on-desktop" type="text" name="prenom">
                     </div>
                 </div>
 				<div class="form-group form-group-animated on-mobile">
@@ -707,7 +597,7 @@
                 <div class=" form-group on-desktop">
                     <label  class="form-label ">Adresse de livraison</label>
                     <div class="input-width">
-                        <input class="form-control on-desktop" type="text">
+                        <input class="form-control on-desktop" type="text" name="adresse">
                     </div>
                 </div>
 				<div class="form-group form-group-animated on-mobile">
@@ -720,7 +610,7 @@
                 <div class=" form-group on-desktop">
                     <label  class="form-label ">Code Postal</label>
                     <div class="input-width">
-                        <input class="form-control on-desktop" type="text">
+                        <input class="form-control on-desktop" type="text" name="codePostal">
                     </div>
                 </div>
 				<div class="form-group form-group-animated on-mobile">
@@ -734,7 +624,7 @@
                 <div class=" form-group on-desktop">
                     <label  class="form-label ">Ville</label>
                     <div class="input-width">
-                        <input class="form-control on-desktop" type="text">
+                        <input class="form-control on-desktop" type="text" name="ville">
                     </div>
                 </div>
 				<div class="form-group form-group-animated on-mobile">
@@ -747,7 +637,7 @@
                 <div class=" form-group on-desktop">
                     <label  class="form-label ">Téléphone</label>
                     <div class="input-width">
-                        <input class="form-control on-desktop" type="tel" id="phone">
+                        <input class="form-control on-desktop" type="tel" id="phone" name="telephone">
                     </div>
                 </div>
 				<div class="form-group form-group-animated on-mobile">
@@ -786,43 +676,44 @@
 
         <!-- Step 9 - Paiement -->
         <div class="form-step form-step-9" style="display: none">
+            <div class="on-mobile">
 				<label class="form-label">Récapitulatif de la commande</label>
 				<table class="table table-form">
-                <tbody>
-					<thead>
-						<tr>
-							<td>Désignation</td>
-							<td>Quantité</td>
-							<td>P.U.</td>
-							<td>Total</td>
-						</tr>
-					</thead>
-					<tr>
-						<td>Carte de tourisme</td>
-						<td class="label label-quantity">2</td>
-						<td class="label-price">35€</td>
-						<td class="label-total">70€</td>
-					</tr>        
-                    <tr>
-						<td>Enlèvement coursier 92</td>
-						<td class="label label-quantity">1</td>
-						<td class="label-price">30€</td>
-						<td class="label-total">30€</td>
-					</tr>
-					<tr>
-						<td>Livraison coursier 92</td>
-						<td class="label label-quantity">1</td>
-						<td class="label-price">30€</td>
-						<td class="label-total">30€</td>
-					</tr> 
-					<tr>
-						<td>Assurance voyage</td>
-						<td class="label label-quantity">1</td>
-						<td class="label-price">30€</td>
-						<td class="label-total">30€</td>
-					</tr>
-				</tbody>
-			</table>
+                    <tbody>
+                        <thead>
+                            <tr>
+                                <td>Désignation</td>
+                                <td>Quantité</td>
+                                <td>P.U.</td>
+                                <td>Total</td>
+                            </tr>
+                        </thead>
+                        <tr>
+                            <td>Visa classic {{typeVisa.visaClassic.pays.titre}} : {{typeVisa.categorieVisa.titre}}</td>
+                            <td class="label label-quantity quantite-voyageur">1</td>
+                            <td class="label-price prix-visa">35€</td>
+                            <td class="label-total prix-total">70€</td>
+                        </tr>        
+                        <tr>
+                            <td class="enlevement-sortie">Enlèvement par courrier</td>
+                            <td class="label label-quantity">1</td>
+                            <td class="label-price tarif-enlevement">0€</td>
+                            <td class="label-total tarif-enlevement">0€</td>
+                        </tr>
+                        <tr>
+                            <td class="livraison-sortie">Livraison coursier 92</td>
+                            <td class="label label-quantity">1</td>
+                            <td class="label-price livraison-tarif">30€</td>
+                            <td class="label-total livraison-tarif">30€</td>
+                        </tr> 
+                        <tr>
+                            <td>Assurance voyage</td>
+                            <td class="label label-quantity assurance-quantite">1</td>
+                            <td class="label-price assurance-prix">30€</td>
+                            <td class="label-total assurance-total">30€</td>
+                        </tr>
+                    </tbody>
+			    </table>
 		
 				<div class="label-wrapper step-9 d-flex flex-column">
 					<div class="label d-flex title-segpr-regular"><img src="/images/communique.svg" alt="Symbole code promo">Code promo<img src="/images/next-bas-green.svg" alt="Icone bas">
@@ -835,7 +726,7 @@
 						<span class="black">Total</span><span class="green">70€</span>
 					</div>
 				</div>
-			</form>
+			</div>
 
         	<form>
                 <label class="form-label">Sélectionnez le mode de paiement</label>
@@ -891,7 +782,7 @@
         <div class="tabs">
             <div class="tab-button-outer">
                 <ul id="tab-button" class="nav nav-tabs">
-                    <li class="nav-item"><a data-toggle="tab" role="tab" href="#tab01" class="nav-link active" aria-selected="true">Commande de visa Inde</a></li>
+                    <li class="nav-item"><a data-toggle="tab" role="tab" href="#tab01" class="nav-link active" aria-selected="true">Commande de visa {{ typeVisa.visaClassic.pays.titre }}</a></li>
                     <li class="nav-item"><a data-toggle="tab" role="tab" href="#tab02" class="nav-link">Voir ma sélection</a></li>
                 </ul>
             </div>
@@ -899,21 +790,25 @@
             <div class="tab-content">
                 <div id="tab01" class="tab-contents tab-pane fade active show">
                     <div class="label-wrapper">
-                        <div class="label">Voyageurs</div>
-                        <div class="label label-quantity">x1</div>
-                        <div class="label-price">200€</div>
+                        <div class="label">Voyageur(s)</div>
+                        <div class="label label-quantity quantite-voyageur">x1</div>
+                        <div class="label-price prix-visa-type">{{typeVisa.fraisConsulaire + typeVisa.fraisEdition}}</div>
                     </div>
 
                     <div class="label-wrapper step-5" style="display: none">
-                        <div class="label">Enlèvement coursier 92</div>
-                        <div class="label-price">0€</div>
+                        <div class="label enlevement-sortie">Enlèvement par courrier</div>
+                        <div class="label-price tarif-enlevement">0€</div>
                     </div>
 
                     <div class="label-wrapper step-6" style="display: none">
-                        <div class="label">Livraison lettre RAR</div>
-                        <div class="label-price">9€</div>
+                        <div class="label livraison-sortie">Livraison lettre RAR</div>
+                        <div class="label-price livraison-tarif" id="tarif-livraison">9€</div>
                     </div>
-
+                    <div class="label-wrapper step-8" style="display: none">
+                        <div class="label">Assurance voyage</div>
+                        <div class="label label-quantity assurance-quantite">x1</div>
+                        <div class="label-price assurance-total">60€</div>
+                    </div>
                     <div class="label-wrapper">
                         <div class="total">Total</div>
                         <div class="total-price">
@@ -935,9 +830,8 @@
 
                     <div class="label-wrapper assures step-3" style="display: none">
                         <div class="label">Nationalité</div>
-                        <div class="float-right">
-                            <p class="label">Française</p>
-                            <p class="label">Suisse</p>
+                        <div class="float-right natio">
+                            <p class="label"> France </p>
                         </div>
                     </div>
 
@@ -945,7 +839,7 @@
                         <div class="label"><img src="/images/date-depart-black.svg" alt="Date de départ" class="icon">Date d'entrée</div>
                         <div class="float-right">
                             <div>
-                                <p class="label">15/06/2019</p>
+                                <p class="label" id="affichage_entree"></p>
                             </div>
                         </div>
                     </div>
@@ -953,7 +847,7 @@
                         <div class="label"><img src="/images/date-sortie-black.svg" alt="date de sortie" class="icon">Date de sortie</div>
                         <div class="float-right">
                             <div>
-                                <p class="label">15/06/2019</p>
+                                <p class="label"  id="affichage_sortie"></p>
                             </div>
                         </div>
                     </div>
@@ -962,7 +856,7 @@
                         <div class="label">Adresse email</div>
                         <div class="float-right">
                             <div>
-                                <p class="label text-underline">tran07@gmail.com</p>
+                                <p class="label text-underline mail-show">tran07@gmail.com</p>
                             </div>
                         </div>
                     </div>
@@ -976,9 +870,9 @@
                     <div class="label-wrapper step-9 coordonnees-parent">
                         <div class="coordonnes collapse">
                             <div>
-                                <p>John Doe</p>
-                                <p>Adresse - Code postal Ville</p>
-                                <p>Numéro de tel</p>
+                                <p><span class="prenomChange">John</span><span class="nomChange"> Doe</span></p>
+                                <p><span class="adresseChange">Adresse</span> - <span class="postalChange">Code postal</span> <span class="villeChange">Ville</span></p>
+                                <p><span class="numChange">Numéro de tel</span></p>
                             </div>
                         </div>
                     </div>
@@ -990,17 +884,17 @@
                         </div>
 
                         <div class="col-7 destination-info mr-0">
-                            <h1 class="selection-title">Visa Inde - tourisme</h1>
-                            <div class="selection-description"><span><img src="/images/right-chevron.svg" alt="icône coche valide" class="icon">Simple entrée</span></div>
-                            <div class="selection-description"><span><img src="/images/right-chevron.svg" alt="icône coche valide" class="icon">Durée de séjour maxi</span></div>
-                            <div class="selection-description"><span><img src="/images/right-chevron.svg" alt="icône coche valide" class="icon">Temps de traitement</span></div>
-                            <div class="selection-description"><span><img src="/images/right-chevron.svg" alt="icône coche valide" class="icon">Validité du visa</span></div>
+                            <h1 class="selection-title">Visa {{ typeVisa.visaClassic.pays.titre }} - {{typeVisa.categorieVisa.titre}}</h1>
+                            <div class="selection-description"><span><img src="/images/right-chevron.svg" alt="icône coche valide" class="icon">{{typeVisa.typeEntre}} entrée</span></div>
+                            <div class="selection-description"><span><img src="/images/right-chevron.svg" alt="icône coche valide" class="icon">Durée de séjour maxi : {{typeVisa.dureSejour}}j</span></div>
+                            <div class="selection-description"><span><img src="/images/right-chevron.svg" alt="icône coche valide" class="icon">Temps de traitement : {{ typeVisa.delaiObtention }}j </span></div>
+                            <div class="selection-description"><span><img src="/images/right-chevron.svg" alt="icône coche valide" class="icon">Validité du visa : {{ typeVisa.validite}}j </span></div>
                         </div>
 
                         <div class="col-5 destination-price">
                             <div class="w-100">
                                 <div>
-                                    <p class="price">129€ <small>TTC</small></p>
+                                    <p id="price-visa-ttc" class="price">{{typeVisa.fraisConsulaire + typeVisa.fraisEdition}}</p>€ <small>TTC</small>
                                 </div>
                                 <div class="selection-ranking">
                                     <div class="ranking-stars">
@@ -1052,9 +946,21 @@
     </footer>
 {% endblock %}
 {% block javascripts %}
-{{ parent() }}
 <script src="{{ asset('/frontend/js/intlTelInput.js') }}"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.9/js/select2.min.js"></script>
 <script src="{{ asset('/frontend/js/forms.js') }}"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>           
+<script>
+    $( function() {
+        $( "#date_entree" ).datepicker();
+        $( "#date_entree" ).datepicker( "option", "dateFormat", "dd/mm/yy" );
+
+        
+    });
+    $( function() {
+        $( "#date_sortie" ).datepicker();
+        $( "#date_sortie" ).datepicker( "option", "dateFormat", "dd/mm/yy" );
+    });
+</script>
 
 {% endblock %}

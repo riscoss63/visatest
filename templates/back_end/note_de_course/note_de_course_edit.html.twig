@@ -8,13 +8,28 @@
 </style>
 
 <div class="row">
-    <h5 class=" m-auto col-8"><i class="fa fa-users-cog"></i>Réception dossier</h5>
+    <h5 class=" m-auto col-8"><i class="fa fa-users-cog"></i>Course</h5>
 </div>
 
 <div class="row">
     <div class="col-12">
         {{ form_start(form, {'action': path('edit_course', {'id': id}), 'method': 'POST'}) }}
-            {{ form(form) }}
+            {{ form_row(form.livraison) }}
+            {{ form_row(form.enlevement) }}
+            {{ form_row(form.dateEnlevement) }}
+            {{ form_row(form.nom) }}
+            {{ form_row(form.prenom) }}
+            {{ form_row(form.adresse) }}
+            {{ form_row(form.codePostal) }}
+            {{ form_row(form.ville) }}
+            {{ form_row(form.coursier) }}
+            {{ form_row(form.client) }}
+            
+            <label for="mail_coursier">Adresser un mail au coursier</label>
+            <input type="checkbox" id="mail_coursier" name="mail_coursier" value="1" checked="checked">
+            <label for="mail_client">Adresser un mail au client</label>
+            <input type="checkbox" id="mail_client" name="mail_client" value="1" checked="checked">
+            {{ form_row(form.submit)}}
         {{ form_end(form)}}
     </div> 
 </div>

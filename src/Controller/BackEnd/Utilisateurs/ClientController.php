@@ -48,7 +48,7 @@ class ClientController extends AbstractController
                 $userAdmin;
                 
                 $jsonUsers=$serializer->serialize($userAdmin, 'json', [
-                    AbstractNormalizer::ATTRIBUTES      => ['id', 'username', 'nom', 'prenom', 'valide', 'roles', 'dateCreation', 'dateModif']
+                    AbstractNormalizer::ATTRIBUTES      => ['id', 'username', 'nom', 'prenom', 'valide', 'roles', 'dateCreation', 'dateModif', 'premium']
                 ]);
             }
         }
@@ -86,6 +86,7 @@ class ClientController extends AbstractController
             $manager->persist($client);
             $manager->flush();
 
+            $this->addFlash('success', 'Client ajouter');
             return $this->redirectToRoute('show_clients');
         }
 
@@ -120,6 +121,7 @@ class ClientController extends AbstractController
             $manager->persist($client);
             $manager->flush();
 
+            $this->addFlash('success', 'Client modifier');
             return $this->redirectToRoute('show_clients');
         }
 

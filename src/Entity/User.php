@@ -7,9 +7,12 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
+ * @UniqueEntity(fields="email", message="Cette adresse mail existe déja.")
  */
 class User implements UserInterface
 {
@@ -67,12 +70,12 @@ class User implements UserInterface
     private $premium = false;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Services", mappedBy="users", cascade={"persist"})
+     * @ORM\ManyToMany(targetEntity="App\Entity\Services", mappedBy="users", cascade={"persist", "remove"})
      */
     private $services;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\AdressesIp", mappedBy="user", cascade={"persist"})
+     * @ORM\OneToMany(targetEntity="App\Entity\AdressesIp", mappedBy="user", cascade={"persist", "remove"})
      */
     private $ips;
 
@@ -82,7 +85,7 @@ class User implements UserInterface
     private $ipsAutoriser = [];
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Demande", mappedBy="client")
+     * @ORM\OneToMany(targetEntity="App\Entity\Demande", mappedBy="client", cascade={"persist", "remove"})
      */
     private $demandes;
 
@@ -117,9 +120,19 @@ class User implements UserInterface
     private $telephone;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Course", mappedBy="coursier")
+     * @ORM\OneToMany(targetEntity="App\Entity\Course", mappedBy="coursier", cascade={"persist", "remove"})
      */
     private $courses;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $resetToken;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Course", mappedBy="client")
+     */
+    private $coursesLivraison;
 
     public function __construct()
     {
@@ -132,6 +145,7 @@ class User implements UserInterface
         $this->demandes = new ArrayCollection();
         $this->voyageurs = new ArrayCollection();
         $this->courses = new ArrayCollection();
+        $this->coursesLivraison = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -504,6 +518,49 @@ class User implements UserInterface
             // set the owning side to null (unless already changed)
             if ($course->getCoursier() === $this) {
                 $course->setCoursier(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getResetToken(): ?string
+    {
+        return $this->resetToken;
+    }
+
+    public function setResetToken(?string $resetToken): self
+    {
+        $this->resetToken = $resetToken;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Course[]
+     */
+    public function getCoursesLivraison(): Collection
+    {
+        return $this->coursesLivraison;
+    }
+
+    public function addCoursesLivraison(Course $coursesLivraison): self
+    {
+        if (!$this->coursesLivraison->contains($coursesLivraison)) {
+            $this->coursesLivraison[] = $coursesLivraison;
+            $coursesLivraison->setClient($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCoursesLivraison(Course $coursesLivraison): self
+    {
+        if ($this->coursesLivraison->contains($coursesLivraison)) {
+            $this->coursesLivraison->removeElement($coursesLivraison);
+            // set the owning side to null (unless already changed)
+            if ($coursesLivraison->getClient() === $this) {
+                $coursesLivraison->setClient(null);
             }
         }
 

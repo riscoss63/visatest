@@ -17,8 +17,8 @@
                     <tr>
                         <th data-field="reference" data-formatter="referenceFormatter" data-sortable="true">Référence</th>
                         <th data-field="dateEnlevement.timestamp" data-formatter="dateFormatter" data-sortable="true">Date / heure de RDV</th>
-                        <th data-field="nomlieu" data-formatter="nomlieuFormatter" data-sortable="true">Nom / Lieu </th>
-                        <th data-field="coursier.prenom"data-sortable="true">Coursier </th>
+                        <th data-field="coursier.prenom" data-sortable="true">Coursier </th>
+                        <th data-field="client" data-formatter="clientFormatter" data-sortable="true">Client </th>
                         <th data-field="edit" data-formatter="actionsFormatter">Réalisation</th>
                     </tr>
                 </thead>
@@ -36,10 +36,17 @@
             return '<a href="'+Routing.generate('edit_course', {'id' : row.id})+'" title="Modifier" rel="modal:open">'+value+' </a>';
         }
 
-        function nomlieuFormatter(value, row, index) {
-            return row["nom"]+ ' ' + row["prenom"] + '<br/>'+
-                   row["adresse"] + '<br/>' + 
-                   row["codePostal"] + ' ' + row["ville"];
+        function clientFormatter(value, row, index) {
+            if(row["client"]) {
+                return  row["client"]["nom"] + ' ' + row["client"]["prenom"]+
+                        row["adresse"] + '<br/>' + 
+                        row["codePostal"] + ' ' + row["ville"];
+            }
+            else{
+                return  row["nom"]+ ' ' + row["prenom"] + '<br/>'+
+                        row["adresse"] + '<br/>' + 
+                        row["codePostal"] + ' ' + row["ville"];
+            }
         }
 
         function actionsFormatter(value, row, index){
@@ -50,9 +57,11 @@
             }
             else 
             {
-                realisation = ' Signer '
+                realisation = ' Signer';
+
             }
-            return '<a href="'+Routing.generate('add_signature_course', {'id' : row.id})+'" title="Modifier"><i class="far fa-edit"></i> '+realisation+' </a>';
+            return  '<a href="'+Routing.generate('add_signature_course', {'id' : row.id})+'" title="Modifier"><i class="far fa-edit"></i> '+realisation+' </a>'+
+                    '<a href="'+Routing.generate('del_course', {'id' : row.id})+'" title="Supprimer"><i class="fas fa-trash"></i></a>';
         }
 
         function booleanFormatter(value, row, index) {

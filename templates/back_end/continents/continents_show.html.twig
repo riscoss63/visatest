@@ -3,8 +3,9 @@
 {% block contenu %}
 
     <div class="row">
-        <h5 class=" m-auto col-8"><i class="fa fa-flag"></i>  Liste des continents   </h5>
-        <div class="col-3 float-right">
+        <h5 class=" m-auto col-6"><i class="fa fa-flag"></i>  Liste des continents   </h5>
+        <div class="col-6 text-right">
+            <a id="" href="{{path('liste_zone')}}" type="button" class="btn btn-danger btn-elevate btn-icon-sm mx-2 "><i class="fa fa-chevron-left"></i> Retour à la liste des zones</a>
             <a href="{{path('add_continent')}}" class="btn btn-primary petite-taille"><i class="fas fa-plus-circle"></i> Nouveau continent </a>
         </div>
     </div>
@@ -15,7 +16,7 @@
                 <thead>
                     <tr>
                         <th data-field="titre" >Titre</th>
-                        <th data-field="zoneGeographique.titre" >Zone</th>
+                        <th data-field="zonesGeographique" data-formatter="zonesFormatter" >Zones</th>
                         <th data-field="valide" data-formatter="booleanFormatter" data-align="center" data-sortable="true">Actif</th>
                         <th data-field="edit" data-formatter="actionsFormatter">Editer</th>
                     </tr>
@@ -44,18 +45,18 @@
             }
         }
 
-        // function listePaysFormatter(value, row, index){
-        //     if (row["zoneGeographique"].length > 0){
-        //         var listeZone = [];
-        //         $.each(row["zoneGeographique"], function(idx, elt){
-        //             txt = "<span class='kt-badge kt-badge--info kt-badge--lg kt-badge--inline kt-badge--pill kt-badge--rounded'>" +
-        //                 elt["titre"] + "</span>";
-        //             listeZone.push(txt);
-        //         });
-        //         return listeZone.join(" ");
-        //     }
-        //     return "<span class='kt-badge kt-badge--lg kt-badge--warning kt-badge--inline kt-badge--pill kt-badge--rounded'>Aucune Zone paramétré</span>";
-        // }
+        function zonesFormatter(value, row, index){
+            if (row["zonesGeographique"].length > 0){
+                var listeZone = [];
+                $.each(row["zonesGeographique"], function(idx, elt){
+                    txt = "<span class='kt-badge kt-badge--info kt-badge--lg kt-badge--inline kt-badge--pill kt-badge--rounded'>" +
+                        elt["titre"] + "</span>";
+                    listeZone.push(txt);
+                });
+                return listeZone.join(" ");
+            }
+            return "<span class='kt-badge kt-badge--lg kt-badge--warning kt-badge--inline kt-badge--pill kt-badge--rounded'>Aucune Zone paramétré</span>";
+        }
 
         // function dateFormatter(value, row, index) {
         //     var date = new Date(value*1000);

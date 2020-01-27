@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>{% block email_title %}{% endblock %}</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <style>
+        	body {
+        		margin: 0px;
+        		padding: 0px;
+        	}
+        	
+        	body>table {
+        	}
+        	
+        	table {
+        	}
+        </style>
+    </head>
+    <body>
+    	<table width="100%" cellspacing="0" cellpadding="0">
+    		<tr>
+                <td><img src="{{ absolute_url(asset('backend/images/logo-visa-en-ligne.jpg')) }}"></td>
+    		</tr>
+    		<tr>
+    			<td>
+    				{% block email_body %}
+    					{# le corps dois comporter un tableau de la forme suivante #}
+                    	<table style="border-collapse: collapse;" width="600" cellspacing="0" cellpadding="0">
+                    		<tr>
+                    			<td>
+                    			</td>
+                    		</tr>
+                    	</table>
+    				{% endblock %}
+    			</td>
+    		</tr>
+    	</table>
+    </body>
+</html>

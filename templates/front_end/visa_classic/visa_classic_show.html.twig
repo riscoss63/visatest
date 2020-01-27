@@ -167,7 +167,7 @@
 	</div>
 </div>
 
-<div class="infos-in-tabs full-width-mobile container-fluid">
+<div class="infos-in-tabs full-width-mobile container-fluid" id="avis">
     <div class="tabs-simple">
         <div class="nav-tabs-navigation">
             <div class="nav-tabs-wrapper">
@@ -692,32 +692,21 @@
             <div class="tab-pane fade" id="nav-actus" role="tabpanel" aria-labelledby="nav-actus-tab">
                 <div class="actu-wrapper row">
                     <div class="col-12 col-md-12 col-lg-9">
-                        <!-- Actu 1-->
-                        <div class="actu-box">
-                            <p class="actu-info">
-                                <img src="/images/pen-black.svg" alt="icône crayon" class="icon">
-                                <span class="text-primary">Le 03/04/2019 |</span>
-                                Visa-en-ligne.com
-                            </p>
-                            <div class="actu-card">
-                                <a href="actualite-focus.html"><h3 class="actu-card-title">Ouverture économique et tourisme</h3></a>
-                                <p class="actu-card-description">Lorem ipsum dolor sit amet consectetur adipisicing elit. Commodi eius incidunt, distinctio cum enim quis ex, provident blanditiis unde, saepe totam modi. Officiis, aut? Quaerat quidem a natus fugiat magni.</p>
-                            </div>
-                        </div>
 
-                        <!-- Actu 2-->
-                        <div class="actu-box">
-                            <p class="actu-info">
-                                <img src="/images/pen-black.svg" alt="icône crayon" class="icon">
-                                <span class="text-primary">Le 03/04/2019 |</span>
-                                Visa-en-ligne.com
-                            </p>
-                            <div class="actu-card">
-                                    <a href="actualite-focus.html"><h3 class="actu-card-title">Ouverture économique et tourisme</h3></a>
-                                <p class="actu-card-description">Lorem ipsum dolor sit amet consectetur adipisicing elit. Commodi eius incidunt, distinctio cum enim quis ex, provident blanditiis unde, saepe totam modi. Officiis, aut? Quaerat quidem a natus fugiat magni.</p>
+                        {% for actualite in visa.actualites %}
+                            <div class="actu-box">
+                                <p class="actu-info">
+                                    <img src="/images/pen-black.svg" alt="icône crayon" class="icon">
+                                    <span class="text-primary">Le {{actualite.dateModification|date("d/m/Y")}} |</span>
+                                    Visa-en-ligne.com
+                                </p>
+                                <div class="actu-card">
+                                    <a href="{{ path('actualite_show', {id: actualite.id })}}"><h3 class="actu-card-title">{{ actualite.titre }}</h3></a>
+                                    <p class="actu-card-description">{{actualite.meta.metaDescription}}</p>
+                                </div>
                             </div>
-                        </div>
-
+                        {% endfor %}
+                        
                     </div>
                 </div>
             </div>

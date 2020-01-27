@@ -18,12 +18,12 @@
             <table id="table" data-toggle="table" data-url="{{ path('json_actualite')}}" data-pagination="true" data-search="true" data-pagination: "true">
                 <thead>
 
-                    <select id="type_duree" name="type_duree">
+                    {# <select id="type_duree" name="type_duree">
                         <option value="visa_classic"> Visa classic </option>
                         <option value="carte_tourisme"> Carte de tourisme </option>
                         <option value="e_visa"> E-visa </option>
                         <option value="invitation"> Invitation </option>
-                    </select>
+                    </select> #}
 
                     <tr>
                         <th data-field="id" data-sortable="true"> Id </th>
@@ -46,23 +46,24 @@
     <script>
 
          function actionsFormatter(value, row, index){
-            return '<a href="'+Routing.generate('edit_actualite', {'id' : row.id})+'" title="Modifier"><i class="far fa-edit"></i></a>';
+            return '<a href="'+Routing.generate('edit_actualite', {'id' : row.id})+'" title="Modifier"><i class="far fa-edit"></i></a>'+
+                    '<a href="'+Routing.generate('del_actualite', {'id' : row.id})+'" title="Supprimer"><i class="fas fa-trash"></i></a>';
         }
 
-        var $table = $('#table')
-        var $button = $('select')
+        {# var table = $('#table')
+        var button = $('select')
 
         $(function() {
-            $button.change(function () {
+            button.change(function () {
                 $( "select option:selected" ).each(function() {
-                    $table.bootstrapTable('filterBy', {
+                    table.bootstrapTable('filterBy', {
                         typeDuree: $( this ).val()
                     })
                     console.log($( this ).val())
                 });
                 
             })
-        })
+        }) #}
         
         function booleanFormatter(value, row, index) {
             if (value === true) {

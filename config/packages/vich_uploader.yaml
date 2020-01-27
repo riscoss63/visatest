@@ -57,3 +57,13 @@ vich_uploader:
             inject_on_load: false
             delete_on_update: true
             delete_on_remove: true
+
+        assurance:
+            uri_prefix: /pdf/demandes/assurance
+            upload_destination: '%kernel.project_dir%/public/pdf/demandes/assurance'
+            namer:
+                service: Vich\UploaderBundle\Naming\PropertyNamer
+                options: { property: 'titre'}
+            inject_on_load: false
+            delete_on_update: true
+            delete_on_remove: true

@@ -1,7 +1,5 @@
 var progressSteps = $('div.progress-steps div.step');
 
-$('#date1').date
-
 $(document).ready(function(){
     var submitButton = $(".form-step a.btn-next");
     var previousButton = $('.previous-arrow');
@@ -25,9 +23,6 @@ $(document).ready(function(){
         populateCitySelect();
     }
 
-    $('.addVoyageur').click(function(){
-        $('#accordeon').append($(".card:first").clone(true, true));
-    })
     submitButton.on('click', function(){
         goToNextScreen();
     });
@@ -39,7 +34,6 @@ $(document).ready(function(){
     addCountryButton.on('click', function () {
         addSelectCountryBelow(addCountryButton);
     });
-    
 
     addCityButton.on('click', function () {
         addSelectCityBelow(addCityButton);
@@ -53,8 +47,6 @@ $(document).ready(function(){
         $("label[for=codePostal0]").css("color", "#cccc00");
 		$("label[for=codePostal0]").css("transform", "translateY(-100%)");
     });
-	
-	
 	$("#ville0").focus(function(){
         $("label[for=ville0]").css("color", "#cccc00");
 		$("label[for=ville0]").css("transform", "translateY(-100%)");
@@ -62,6 +54,10 @@ $(document).ready(function(){
 	$("#numeroVol").focus(function(){
         $("label[for=numeroVol]").css("color", "#cccc00");
 		$("label[for=numeroVol]").css("transform", "translateY(-100%)");
+    });
+	$("#passeport").focus(function(){
+        $("label[for=passeport]").css("color", "#cccc00");
+		$("label[for=passeport]").css("transform", "translateY(-100%)");
     });
 	$("#jourVol").focus(function(){
         $("label[for=jourVol]").css("color", "#cccc00");
@@ -102,18 +98,7 @@ $(document).ready(function(){
 	$("#codePostal").focus(function(){
         $("label[for=codePostal]").css("color", "#cccc00");
 		$("label[for=codePostal]").css("transform", "translateY(-100%)");
-		
     });
-    $('#numero-passeport').focus(function(){
-        $("label[for=numero-passeport]").css("color","#cccc00");
-        $("label[for=numero-passeport]").css("transform","translateY(-100%)");
-    });
-
-    $('#date-expiration').focus(function(){
-        $("label[for=date-expiration]").css("color","#cccc00");
-        $("label[for=date-expiration]").css("transform","translateY(-100%)");
-    });
-
 	$("#ville").focus(function(){
         $("label[for=ville]").css("color", "#cccc00");
 		$("label[for=ville]").css("transform", "translateY(-100%)");
@@ -123,16 +108,22 @@ $(document).ready(function(){
 		$("label[for=telephone]").css("transform", "translate(-25%,-200%)");
 		$("label[for=telephone]").css("background", "url(images/phone-green.svg) no-repeat left, top");
     });
-
-    //  hide/show particulier-entreprise
-    $('#choix').on('change', function(){
-        if($(this).val()=== "Entreprise"){
-            $('#nomSociete').show()
-        }else{
-            $('#nomSociete').hide()
-        }
+	$("#nomEntreprise").focus(function(){
+        $("label[for=nomEntreprise]").css("color", "#cccc00");
+		$("label[for=nomEntreprise]").css("transform", "translateY(-100%)");
     });
-    
+	$("#adrEntreprise").focus(function(){
+        $("label[for=adrEntreprise]").css("color", "#cccc00");
+		$("label[for=adrEntreprise]").css("transform", "translateY(-100%)");
+    });
+	$("#profession").focus(function(){
+        $("label[for=profession]").css("color", "#cccc00");
+		$("label[for=profession]").css("transform", "translateY(-100%)");
+    });
+	$("#telEntreprise").focus(function(){
+        $("label[for=telEntreprise]").css("color", "#cccc00");
+		$("label[for=telEntreprise]").css("transform", "translateY(-100%)");
+	});
 });
 
 function populateCountrySelect() {
@@ -391,7 +382,7 @@ function populateCountrySelect() {
             return $country;
         }
 
-        $("[name='registration[pays]']").select2({
+        $("[name='country']").select2({
             templateSelection: formatCountry,
             templateResult: formatCountry,
             data: isoCountries

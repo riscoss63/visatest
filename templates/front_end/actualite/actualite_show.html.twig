@@ -1,0 +1,117 @@
+{% extends "base.html.twig" %}
+{% block header %}
+    {% include "/front_end/home/__header.html.twig" %}
+{% endblock %}
+
+{% block body %}
+    <div class="container actu-section">
+
+        <div class="row">
+            <div class="col-12 col-md-9">
+                <img src="{{ vich_uploader_asset(actualite, 'imageFile') }}" class="image-wrapped">
+                <h1 class="actu-title">{{ actualite.titre }}</h1>
+                <div class="actu-date mb-5">
+                    <img src="/images/pen-black.svg" alt="icône crayon" class="actu-icon">
+                    <span>{{ actualite.dateModification|date("d/m/Y")}}</span>
+                </div>
+                <!-- Editeur de texte - à dynamiser -->
+                <div class="actu-text">
+                    {{actualite.contenu|raw}}
+                </div>
+            </div>
+
+            <div class="col-12 col-md-3">
+                <div class="infos-in-tabs full-width-mobile">
+                    <div class="tabs-border-top">
+                        <div class="nav-tabs-navigation on-tablet-desktop">
+                            <div class="nav-tabs-wrapper">
+                            <ul class="nav nav-tabs nav-tabs-two" role="tablist">
+                                <li class="nav-item">
+                                    <a class="nav-link active" data-toggle="tab" href="#info-generales" role="tab" aria-selected="false">Actualités générales</a>
+                                    </li>
+                                <li class="nav-item">
+                                <a class="nav-link" data-toggle="tab" href="#actus" role="tab" aria-selected="true">Informations visa</a>
+                                </li>
+                            </ul>
+                            </div>
+                        </div>
+
+                        <div class="tab-content">
+                            <div class="tab-pane active" id="info-generales" role="tabpanel">
+
+                                <div>
+                                    <div class="links-anchors links-anchors-actu full-width-mobile">
+                                        <ul>
+                                            {% for actualiteGeneral in actualites_general %}
+                                                
+                                                
+                                                <li class="row">
+                                                    <div class="col-6 col-md-6">
+                                                        <a href="actualite-focus.html">
+                                                            <img src="{{ vich_uploader_asset(actualiteGeneral, 'imageFile') }}" class="img-fluid">
+                                                        </a>
+                                                    </div>
+                                                    <div class="col-6 col-md-6">
+                                                        <a href="{{path('actualite_show', {id: actualiteGeneral.id})}}">
+                                                            <h3>{{actualiteGeneral.titre}}</h3>
+                                                            <div class="actu-date">
+                                                                <img src="/images/pen-black.svg" alt="icône crayon" class="actu-icon">
+                                                                <span>{{actualiteGeneral.dateModification|date("d/m/Y")}}</span>
+                                                            </div>
+                                                        </a>
+                                                    </div>
+                                                </li>
+                                            {% endfor %}
+                                        </ul>
+                                    </div>
+
+                                    <div class="btn-see-actus full-width-mobile">
+                                        <a href="listing-actualites.html"><img src="/images/right-chevron.svg" alt="icône voir toutes les actualités" class="icon svg">Voir toutes <span>les actualités</span></a>
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                            <div class="tab-pane" id="actus" role="tabpanel">
+                                <div>
+                                    <div class="links-anchors links-anchors-actu full-width-mobile">
+                                        <ul>
+                                            {% for actualiteVisa in actualites %}
+                                                {% if actualiteVisa.visaClassic or actualiteVisa.evisa or actualiteVisa.carteTourisme %}
+                                                    <li class="row">
+                                                        <div class="col-6 col-md-6">
+                                                            <a href="{{path('actualite_show', {id: actualiteVisa.id})}}">
+                                                                <img src="{{ vich_uploader_asset(actualiteVisa, 'imageFile') }}" class="img-fluid">
+                                                            </a>
+                                                        </div>
+                                                        <div class="col-6 col-md-6">
+                                                            <a href="{{path('actualite_show', {id: actualiteVisa.id})}}">
+                                                                <h3>{{actualiteVisa.titre}}</h3>
+                                                                <div class="actu-date">
+                                                                    <img src="/images/pen-black.svg" alt="icône crayon" class="actu-icon">
+                                                                    <span>{{actualiteVisa.dateModification|date("d/m/Y")}}</span>
+                                                                </div>
+                                                            </a>
+                                                        </div>
+                                                    </li>
+                                                {% endif %}
+                                            {% endfor %}
+                                            
+                                        </ul>
+                                    </div>
+
+                                    <div class="btn-see-actus full-width-mobile">
+                                        <a href="listing-actualites.html"><img src="/images/right-chevron.svg" alt="icône voir toutes les actualités" class="icon svg">Voir toutes <span>les actualités</span></a>
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

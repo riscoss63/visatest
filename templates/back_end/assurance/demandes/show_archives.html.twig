@@ -1,0 +1,101 @@
+{% extends "back_end/base.html.twig" %}
+
+{% block menu_header %}
+    {% include "back_end/assurance/__header.html.twig" %}
+{% endblock %}
+
+
+{% block contenu %}
+
+    <div class="row">
+        <h5 class=" m-auto col-8"><i class="fa fa-users-cog"></i>Archives</h5>
+    </div>
+
+    <div class="row text-center my-5">
+        <div class="col-6">
+            <a href="{{path('show_demandes_visa_classic')}}" class="col-12 btn btn-secondary  petite-taille"> Demandes d'assurance </a>
+        </div>
+        <div class="col-6">
+            <a href="{{path('archives_demandes_assurance')}}" class="col-12 btn btn-secondary  petite-taille">  Archives </a>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-12">
+            <table data-toggle="table" data-url="{{ path('json_demandes_assurance', {etat : 'terminer'}) }}" data-pagination="true" data-search="false" data-pagination: "true" data-detail-view="true"
+  data-detail-formatter="detailFormatter">
+                <thead>
+                    <tr>
+                        <th data-field="demande" data-formatter="demandeFormatter" data-sortable="true" >Demande</th>
+                        <th data-field="dateCreation.timestamp" data-formatter="dateFormatter" data-sortable="true">Date de création</th>
+                        <th data-field="demande" data-formatter="" data-sortable="true">Paiement</th>
+                        <th data-field="prestations" data-formatter="prestationsFormatter" data-sortable="true">Prestations</th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block javascripts %}
+
+    {{ parent() }}
+    <script>
+
+        function detailFormatter(index, row) {
+            var html = []
+            var voyageurs = row["voyageurs"]
+            html.push('<div class="row mr-0">')
+            voyageurs.forEach(function(voyageur){
+
+                html.push('<div class="col-3 m-1 text-center bg-dark text-white rounded"><strong>' + voyageur.nom + ' ' + voyageur.prenom +'</strong><br/> 100% <br/> <a href="'+Routing.generate('send_assurance', {'id' : voyageur.id})+'" title="Modifier" rel="modal:open"><i class="fas fa-upload"></i> Envoyer</a> </div>');
+            })
+            html.push('</div>')
+            return html.join('')
+        };
+
+        function demandeFormatter(value, row, index) {
+            return 'Réference : <strong>'+row["reference"]+'</strong><br/>  '+
+                    '<strong>' + row["client"]["email"] + '</strong>';
+        }
+
+        function prestationsFormatter(value, row, index) {
+            var urgent = '';
+            if(row["urgent"] === true)
+            {
+                urgent = 'URGENT';
+            }
+            return '<strong>'+row["quantiteVisa"]+'</strong> assurances<br/> <strong>'+row["assurance"]["duree"]+ '</strong> jour(s) <strong> ' +urgent+ '</strong>';
+        }
+
+        function actionsFormatter(value, row, index){
+            return '<a href="'+Routing.generate('send_assurance', {'id' : row["assurance"]["id"]})+'" title="Modifier" rel="modal:open"><i class="fas fa-upload"></i> Envoyer</a>';
+        }
+
+        function booleanFormatter(value, row, index) {
+            if (value === true) {
+                return '<i class="fa fa-check text-success text-center"></i>';
+            }
+            else {
+                return '<i class="fa fa-times text-danger text-center"></i>';
+            }
+        }
+
+        function dateFormatter(value, row, index) {
+            var date = new Date(value*1000);
+            return `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`;
+        }
+
+        // function libelleFormatter(value, row,index){
+        //     libelleZone = "";
+        //     if (row["pays"]["zoneGeographique"]){
+        //         return row["pays"]["titre"] + "<br /><small>" + row["pays"]["zoneGeographique"]["titre"] + "</small>";
+        //     }
+        //     return row["pays"]["titre"];
+        // }
+
+        
+    </script>
+    
+{% endblock %}

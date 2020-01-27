@@ -22,7 +22,9 @@ class HomeController extends AbstractController
         $home = $this->getDoctrine()->getRepository(Home::class)->find(1);
         $evisa = $this->getDoctrine()->getRepository(EVisa::class)->findAll();
         $visaClassic = $this->getDoctrine()->getRepository(VisaClassic::class)->findAll();
-        $actualites = $this->getDoctrine()->getRepository(Actualite::class)->findAll();
+        $actualites = $this->getDoctrine()->getRepository(Actualite::class)->findBy([], [
+            'dateModification' => 'desc'
+        ]);
         $continents = $this->getDoctrine()->getRepository(Continent::class)->findAll();
 
         

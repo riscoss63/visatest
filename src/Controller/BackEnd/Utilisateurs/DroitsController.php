@@ -79,6 +79,7 @@ class DroitsController extends AbstractController
         {
             $manager->persist($service);
             $manager->flush();
+            $this->addFlash('success', 'Accès modifier');
         }
         return $this->render('back_end\utilisateurs\droits\edit_service.html.twig', [
             'form'          =>$form->createView()
@@ -110,6 +111,8 @@ class DroitsController extends AbstractController
         {
             $manager->persist($user);
             $manager->flush();
+
+            $this->addFlash('success', 'Accès utilisateur modifier');
         }
 
         return $this->render('back_end\utilisateurs\droits\edit_access_user.html.twig', [
@@ -141,6 +144,7 @@ class DroitsController extends AbstractController
         {
             $manager->persist($user);
             $manager->flush();
+            $this->addFlash('success', 'Adresse ip utilisateur modifier');
         }
         return $this->render('back_end\utilisateurs\droits\edit_ip_users.html.twig', [
             'form'      =>$form->createView()

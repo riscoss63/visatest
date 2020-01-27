@@ -23,15 +23,7 @@ class RegistrationType extends AbstractType
                 'attr' => [
                     'class' => 'form-control',
                     'placeholder'   => 'Adresse mail'
-                ],
-                
-            ])
-            ->add('password', PasswordType::class, [
-                'attr' => [
-                    'class' => 'form-control',
-                    'placeholder'   => 'Mot de passe'
-                ],
-                
+                ],                
             ])
             ->add('nom', TextType::class, [
                 'attr' => [

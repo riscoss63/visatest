@@ -1,0 +1,22 @@
+{% extends "front_end/emails/base.html.twig" %}
+{% block email_title %}Attestation assurance{% endblock %}
+{% block email_body %}
+	<table style="border-collapse: collapse;" width="600" cellspacing="0" cellpadding="0">
+		<tr>
+			<td>
+				<p>
+					Bonjour {{ client.prenom }} {{ client.nom }},
+				</p>
+				<p>
+					Vous trouverez en pièce jointe l'attestation d'assurance pour <strong>{{voyageur.nom}} {{ voyageur.prenom }} </strong>:
+				</p>
+				<p>
+					Visa-en-ligne vous souhaite une excellente journée.
+				</p>
+				<p>
+					<strong>Visa-en-ligne</strong>
+				</p>
+			</td>
+		</tr>
+	</table>
+{% endblock %}

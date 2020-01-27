@@ -23,7 +23,7 @@
                         <th data-field="nom" data-sortable="true">Nom</th>
                         <th data-field="prenom" data-sortable="true">Prenom</th>
                         <th data-field="valide" data-formatter="booleanFormatter" data-align="center" data-sortable="true">Actif</th>
-                        <th data-field="roles" data-sortable="true">Profil</th>
+                        <th data-field="roles" data-formatter="rolesFormatter" data-sortable="true">Profil</th>
                         <th data-field="dateCreation.timestamp" data-formatter="dateFormatter" data-sortable="true">Date de création</th>
                         <th data-field="dateModif.timestamp" data-formatter="dateFormatter" data-sortable="true">Date de modification</th>
                         <th data-field="edit" data-formatter="actionsFormatter">Editer</th>
@@ -58,31 +58,34 @@
             return `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`;
         }
 
-        // function rolesFormatter(value, row, index) {
-        //     switch (row.roles) {
-        //         case "ROLE_SUPERADMIN":
-        //             return "Super administrateur"
-        //             break;
-                
-        //         case "ROLE_COURSIER":
-        //             return "Coursier"
-        //             break;
-
-        //         case "ROLE_ADMIN":
-        //             return "Administrateur secondaire"
-        //             break;
-
-        //         case "ROLE_REDACTEUR":     
-        //             return "Rédacteur"
-        //             break;    
-        //         case "ROLE_USER":
-        //             return "null"
-        //             break;      
+        function rolesFormatter(value, row, index) {
+            var roles = row["roles"];
+            for(var i in roles)
+            {
+                switch (roles[i]) {
+                case "ROLE_SUPERADMIN":
+                    return "Super administrateur"
+                    break;
             
-        //         default:
-        //             break;
-        //     }
-        // }
+                case "ROLE_COURSIER":
+                    return "Coursier"
+                    break;
+
+                case "ROLE_ADMIN":
+                    return "Administrateur secondaire"
+                    break;
+                case "ROLE_REDACTEUR":     
+                    return "Rédacteur"
+                    break;    
+                case "ROLE_USER":
+                    return "null"
+                    break;      
+        
+                default:
+                    break;
+                }
+            }
+        }
     </script>
     
 {% endblock %}

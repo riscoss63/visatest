@@ -3,6 +3,7 @@
 namespace App\Controller\BackEnd\Actualites;
 
 use App\Entity\Actualite;
+use App\Entity\Continent;
 use App\Form\Backend\Actualite\ActualiteType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -44,7 +45,7 @@ class ActualiteController extends AbstractController
     /**
      * @Route("/show", name="show_actualite")
      */
-    public function actualiteShow() : Response
+    public function actualiteList() : Response
     {
         return $this->render('/back_end/actualite/actualite_show.html.twig');
     }
@@ -93,6 +94,80 @@ class ActualiteController extends AbstractController
 
         return $this->render('/back_end/actualite/actualite_edit.html.twig', [
             'form'      => $form->createView()
+        ]);
+    }
+
+    /**
+     * @Route("/del/actualite-{id}", name="del_actualite", options={"expose"=true})
+     */
+    public function actualiteDel($id, EntityManagerInterface $manager)
+    {
+        $actualite = $this->getDoctrine()->getRepository(Actualite::class)->find($id);
+
+        if($actualite)
+        {
+            $manager->remove($actualite);
+            $manager->flush();
+        }
+
+        return $this->redirectToRoute('show_actualite');
+    }
+    
+    /**
+     * @Route("/actualite-{id}", name="actualite_show")
+     */
+    public function actualiteShow($id) : Response
+    {
+        $continents = $this->getDoctrine()->getRepository(Continent::class)->findAll();
+
+        
+        $visasClassics=[];
+        $eVisas=[];
+        
+        foreach ($continents as $continent) 
+        {
+            $zones = $continent->getZonesGeographique();
+            foreach($zones as $zone)
+            {
+                $plusieursPays = $zone->getPays();
+
+                foreach ($plusieursPays as $pays) 
+                {
+                    $visaClassicc=$pays->getVisaClassic();
+                    $evisaa = $pays->getEVisa();
+                    $zoneAdd=$pays->getZoneGeographique();
+                    if($visaClassicc)
+                    {
+                        $visasClassics[] = $continent;
+                    }
+                    if($evisaa)
+                    {
+                        $eVisas[] = $continent;
+                    }
+
+                }
+
+            }
+
+        }
+
+        $actualites = $this->getDoctrine()->getRepository(Actualite::class)->findAll();
+        $actualitesGeneral = [];
+        foreach ($actualites as $actualite) 
+        {
+            
+            if(!$actualite->getVisaClassic() AND !$actualite->getEvisa() AND !$actualite->getCarteTourisme())
+            {
+                $actualitesGeneral[] = $actualite;
+            }
+        }
+        $actualite = $this->getDoctrine()->getRepository(Actualite::class)->find($id);
+        return $this->render('/front_end/actualite/actualite_show.html.twig', [
+            'actualite'     => $actualite,
+            'actualites'    => $actualites,
+            'actualites_general'       => $actualitesGeneral,
+            'continentsVisaClassic'    => $visasClassics,
+            'continentsEvisa'          => $eVisas,
         ]);
     }
 }

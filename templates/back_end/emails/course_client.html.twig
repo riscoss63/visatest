@@ -1,0 +1,37 @@
+{% extends "front_end/emails/base.html.twig" %}
+
+{% block email_title %}Course visa-en-ligne{% endblock %}
+
+{% block email_body %}
+	<table style="border-collapse: collapse;" width="600" cellspacing="0" cellpadding="0">
+        <tr>
+            <td>
+                <p>
+                    Bonjour {{ client.nom }} {{ client.prenom }},
+                </p>
+                <p>
+                    <strong>Nom client </strong> : {{ client.nom }} {{ client.prenom }}<br />
+                    <strong>Téléphone </strong> : {{ client.telephone }}<br />
+                    {% if course.enlevement == true %}
+                    <strong>Date/heure d'enlèvement </strong> : {{ course.dateEnlevement | date("d/m/Y H:i") }}<br />
+                    <strong>Adresse d'enlèvement </strong> : <br />
+                    <p align="center">
+                        {{ course.adresse }} <br />
+                        {{ course.codePostal }} {{ course.ville }}
+                    </p>
+                    {% else %}
+                        <strong>Date/heure de livraison </strong> : {{ course.dateEnlevement | date("d/m/Y H:i") }} <br />
+                        <strong>Adresse de livraison </strong> : <br />
+                        <p align="center">
+                            {{ course.adresse }} <br />
+                            {{ course.codePostal }} {{ course.ville }}
+                        </p>
+                    {% endif %}
+                </p>
+                <p>
+                    <strong>Visa-en-ligne</strong>
+                </p>
+            </td>
+        </tr>
+    </table>
+{% endblock %}

@@ -1,0 +1,74 @@
+<header id="navigation">
+        <div class="header-informations row m-0">
+            <a class="col-3 navbar-brand on-mobile" href="index.html">
+                <img src="/images/logo-vectorized.svg" alt="Logo visaenligne.com" class="top-navbar-logo">
+            </a>
+
+            <div class="col-7 header-informations_name">
+                <p class="header-informations_name-title">
+                    <img src="/images/people.svg" class="icon" alt="Icône bonhomme">
+                    {{client.nom|capitalize }} {{client.prenom|capitalize }}
+                </p>
+                <a href="{{path('app_logout')}}" class="header-informations_logout">
+                    <img src="/images/deconnexion.svg" class="icon" alt="Icône de déconnexion">
+                    <span>Me déconnecter</span>
+                </a>
+            </div>
+
+            <div class="col-2">
+                <button class="on-mobile header-informations_toggle navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"><img src="/images/menu-mobile.svg" alt="Icône menu mobile" class="icon"></span>
+                </button>
+            </div>
+        </div>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="nav navbar-nav-mobile">
+                <li class="active">
+                    <a href="mes-commandes.html">
+                        <div class="align-icon">
+                            <div class="navbar-nav_icon"><img src="/images/mes-commandes.svg" alt="Icône mes commandes"></div>Mes commandes
+                        </div>
+                    </a>
+                </li>
+                <li>
+                    <a href="listing-destinations.html">
+                        <div class="align-icon">
+                            <div class="navbar-nav_icon"><img src="/images/nouvelle-commande.svg" alt="Icône nouvelle commande"></div>Nouvelle commande
+                        </div>
+                    </a>
+                    <!--<ul class="dropdown-menu" role="menu">
+                        <div class="close-header"><a href="#" class="btn-close">X</a></div>
+                        <li><a href="#">Visa</a></li>
+                        <li><a href="#">E-visa</a></li>
+                        <li><a href="#">Carte de tourisme Cuba</a></li>
+                        <li><a href="#">Invitation tourisme</a></li>
+                        <li><a href="#">Assurance</a></li>
+                        <li><a href="#">Légalisation</a></li>
+                    </ul>-->
+                </li>
+                <li>
+                    <a href="coordonnees.html">
+                        <div class="align-icon">
+                            <div class="navbar-nav_icon"><img src="/images/coordonnees.svg" alt="Icône mes coordonnées"></div>Mes coordonnées
+                        </div>
+                    </a>
+                </li>
+                <li>
+                    <a href="code-dacces.html">
+                        <div class="align-icon">
+                            <div class="navbar-nav_icon"><img src="/images/code-dacces.svg" alt="Icône mes codes d'accès"></div>Mes codes d'accès
+                        </div>
+                    </a>
+                </li>
+                <li>
+                    <a href="mes-factures.html">
+                        <div class="align-icon">
+                            <div class="navbar-nav_icon"><img src="/images/mes-factures.svg" alt="Icône mes factures"></div>Mes factures
+                        </div>
+                    </a>
+                </li>
+                <li class="navbar-nav-mobile_logout"><a href="#"><span><img src="/images/deconnexion.svg" class="icon" alt="Icône de déconnexion"></span><span>Me déconnecter</span></a></li>
+            </ul>
+        </div>
+    </header>

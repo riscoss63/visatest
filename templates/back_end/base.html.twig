@@ -23,6 +23,21 @@
     </head>
 
     <body>
+        {% block flash %}
+            <div class="messages">
+                {% for type, messages in app.flashes %}
+                    {% for message in messages %}
+                        {# Bootstrap alert, see http://getbootstrap.com/components/#alerts #}
+                        <div class="alert alert-{{ type }} fade show m-0" role="alert">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            <p>{{ message }}</p>
+                        </div>
+                    {% endfor %}
+                {% endfor %}
+            </div>
+        {% endblock %}
         {% block header %}
             <div class="container-fluid">
                 <div class="row">
@@ -34,11 +49,7 @@
                             <div class="col-12 my-5">
                                 <ul class="nav flex-column">
                                     <li class="nav-item">
-                                        <a class="nav-link 
-                                            {% if (app.request.attributes.get('_route') == 'show_users' or app.request.attributes.get('_route') == 'show_acces' or app.request.attributes.get('_route') == 'show_acces_user')%} 
-                                                active 
-                                            {% endif %}" href="{{ path('show_users')}}"><i class="fa fa-users-cog"></i> Utilisateurs</a>
-                                        <a class="nav-link {% if app.request.attributes.get('_route') == 'service' %} active {% endif %}" href="#"><i class=" fa fa-briefcase "> </i> Service</a>
+                                        <a class="nav-link menu-l {% if (app.request.attributes.get('_route') == 'show_users' or app.request.attributes.get('_route') == 'show_acces' or app.request.attributes.get('_route') == 'show_acces_user' or app.request.attributes.get('_route') == 'show_access_ip_users')%}active{% endif %}" href="{{ path('show_users')}}"><i class="fa fa-users-cog"></i>Utilisateurs</a>
                                     </li>
                                     <li class="nav-item">
                                         <a class="nav-link menu-l {% if app.request.attributes.get('_route') == 'show_clients' %} active {% endif %}" href="{{ path('show_clients') }}"><i class="fa fa-users"> </i> Clients</a>
@@ -91,9 +102,9 @@
                             <div class="col-9">
                                 {% block menu_header %}{% endblock %}
                             </div>
-                            <div class="col-3 text-white">
+                            <div class="col-3 text-white mt-3">
                                 {% if app.user %}
-                                   <p> Bienvenue, {{ app.user.prenom }}  <a href="{{ path('app_logout') }}">Logout</a></p>
+                                   <p> Bienvenue, {{ app.user.prenom }}  <a href="{{ path('app_logout') }}">Déconnecter</a></p>
                                 {% endif %}                                
                             </div>
                         </div>

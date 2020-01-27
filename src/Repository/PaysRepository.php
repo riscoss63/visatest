@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Data\SearchData;
 use App\Entity\Pays;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
@@ -47,4 +48,17 @@ class PaysRepository extends ServiceEntityRepository
         ;
     }
     */
+
+    /**
+     * Récupere les produits en liens avec la recherche
+     */
+    public function findSearch(SearchData $search) : array
+    {
+        // $query = $this
+        //     ->createQueryBuilder('p')
+        //     ->join
+        // ;
+        //https://www.youtube.com/watch?v=4uYpFjfUUbc
+        return $this->findAll();
+    }
 }

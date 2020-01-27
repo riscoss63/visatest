@@ -1,0 +1,336 @@
+{% extends "base.html.twig" %}
+{% block header %}
+    {% include "/front_end/home/__header.html.twig" %}
+{% endblock %}
+
+{% block body %}
+<div class="container-fluid">
+    <div class="breadcrumb-page">
+        <div><a href="#">Accueil</a> / <a href="#"><span class="last">Assurance voyage et rapatriement</span></a></div>
+
+        <div class="on-mobile share-btn">
+            <a href="#"><img src="/images/share.svg" alt="icône de partage" class="icon">Partager</a>
+        </div>
+    </div>
+
+    <div class="country-infos">
+        <div class="row">
+            <div class="on-mobile col-12">
+                <div class="d-flex  justify-content-between infos-container-title">
+                    <h1>Assurance <span class="text-primary">voyage</span> et rapatriement</h1>
+                    <div class="ranking-stars">
+                        <div>
+                            <a href="#avis">
+                                <img src="/images/star-green.svg" alt="icone étoile avis" class="star-icon star-filled svg">
+                                <img src="/images/star-green.svg" alt="icone étoile avis" class="star-icon star-filled svg">
+                                <img src="/images/star-green.svg" alt="icone étoile avis" class="star-icon star-filled svg">
+                                <img src="/images/star-green.svg" alt="icone étoile avis" class="star-icon star-filled svg">
+                                <img src="/images/star-green.svg" alt="icone étoile avis" class="star-icon star-filled svg">
+                            </a>
+                        </div>
+                        <a href="#avis" class="ranking-stars-title">12 avis</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="photo-container col-12 col-md-6">
+                <div class="photo-box">
+                    <img src="{{ vich_uploader_asset(pageAssurance, 'imageFile') }}" alt="photo client assurance">
+                    <div class="country-like">
+                        <div class="like-icon">
+                            <a href="#"><img src="/images/heart.svg" alt="icône like visa inde" class="icon"></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="photo-content on-tablet-desktop">
+                    <div class="social-media">
+                        <ul>
+                            <li><a href="#"><img src="/images/social-media/twitter.svg" class="icon svg" alt="logo twitter"></a></li>
+                            <li><a href="#"><img src="/images/social-media/google-plus.svg" class="icon svg" alt="logo google plus"></a></li>
+                            <li><a href="#"><img src="/images/social-media/facebook.svg" class="icon svg" alt="logo facebook"></a></li>
+                            <li><a href="#"><img src="/images/social-media/pinterest.svg" class="icon svg" alt="logo pinterest"></a></li>
+                        </ul>
+                    </div>
+                    <div class="card communique">
+                        <div class="card-body">
+                            <span class="communique-title"><img src="/images/communique.svg" alt="icone communiqué" class="communique-icon"> Communiqué :</span>{{ pageAssurance.communique|raw }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="infos-container col-12 col-md-6">
+                <div class="d-flex flex-wrap align-items-center justify-content-between infos-container-title on-tablet-desktop">
+                    <h1 class="title-segblk">Assurance <span class="text-primary">voyage</span> et rapatriement</h1>
+                     <div class="ranking-stars d-flex flex-row align-items-center">
+                        <div>
+                            <a href="#avis">
+                                <img src="/images/star-green.svg" alt="icone étoile avis" class="star-icon star-filled svg">
+                                <img src="/images/star-green.svg" alt="icone étoile avis" class="star-icon star-filled svg">
+                                <img src="/images/star-green.svg" alt="icone étoile avis" class="star-icon star-filled svg">
+                                <img src="/images/star-green.svg" alt="icone étoile avis" class="star-icon star-filled svg">
+                                <img src="/images/star-green.svg" alt="icone étoile avis" class="star-icon star-filled svg">
+                            </a>
+                        </div>
+                        <a href="#avis" class="ranking-stars-title">12 avis</a>
+                    </div>
+                </div>
+                <div class="info-tabs">
+                    <p class="title-segpr-regular">Sélectionner une <span class="text-primary">assurance :</span></p>
+
+                    <div class="tabs-with-icon">
+                        <nav class="tabs-with-icon-container">
+                            <div class="tabs-with-icon-nav nav nav-tabs nav-fill" id="nav-tab" role="tablist">
+                                <a class="nav-item nav-link active" id="nav-assurance1-tab" data-toggle="tab" href="#nav-assurance1" role="tab" aria-controls="nav-assurance1" aria-selected="true">
+                                    <span class="wrap-for-border on-desktop">Assurance voyage - de 1 mois</span>
+									<span class="wrap-for-border on-mobile">- de 1 mois</span>
+                                </a>
+                                <a class="nav-item nav-link" id="nav-assurance2-tab" data-toggle="tab" href="#nav-assurance2" role="tab" aria-controls="nav-assurance2" aria-selected="false">
+                                   <span class="wrap-for-border on-desktop">Assurance voyage + de 1 mois</span>
+									<span class="wrap-for-border on-mobile"> + de 1 mois</span>
+                                </a>
+                            </div>
+                        </nav>
+                        <div class="tab-content" id="nav-tabContent">
+                            <div class="tab-pane fade show active" id="nav-assurance1" role="tabpanel" aria-labelledby="nav-assurance1-tab">
+                                <div class="tab-wrapper">
+									<div class="row flex-wrap justify-content-between">
+										<div>
+											<a href="#" class="text-primary display-invits on-desktop" data-toggle="modal" data-target="#travelDurationModal">Afficher toutes les durées d'assurance <img src="/images/plus-circle-colored.svg" alt="Icone pour afficher toutes les assurances" class="icon"></a>
+											{% for assurance in assurances %}
+                                                {% if assurance.typeDuree == '-1_mois' %}
+                                                    <div class="d-flex justify-content-between">
+                                                        <div class="d-flex flex-column">
+                                                            <label class="form-radio">
+                                                                <div class="d-flex justify-content-between">
+                                                                    <span class="radio-title">Assurance voyage {{assurance.duree}} jours</span>
+                                                                </div>
+                                                                <div class="on-mobile">
+                                                                    <a href="formulaire-assurance.html" class="btn btn-secondary">Commander</a>
+                                                                </div>
+                                                                <input type="radio" name="radio">
+                                                                <span class="checkmark"></span>
+                                                            </label>
+                                                        </div>          
+                                                        
+                                                        <div>
+                                                            <span class="radio-price">{{assurance.tarif}}€ <small>TTC</small></span>
+                                                        </div>
+                                                    </div>
+                                                {% endif %}
+                                            {% endfor %}
+                                            
+											<!--<div class="d-flex justify-content-between">
+												<div class="d-flex flex-column">-->
+												<!--60 jours-->
+													<!--<label class="form-radio">
+														<div class="d-flex justify-content-between">
+															<span class="radio-title">Assurance voyage 60 jours</span>
+														</div>
+														<div class="on-mobile">
+															<a href="formulaires/assurance/formulaire-assurance.html" class="btn btn-primary">Commander</a>
+														</div>
+														<input type="radio" name="radio">
+														<span class="checkmark"></span>
+													</label>
+												</div>          
+												<div class="on-mobile">
+													<ul>
+														<li>
+															<div class="table-content-flex">
+																<img src="/images/right-chevron.svg" alt="description visa tourisme" class="table-content-mobile-icon">
+																<span>Validité 3 mois</span>
+															</div>
+														</li>
+														<li>
+															<div class="table-content-flex">
+																<img src="/images/right-chevron.svg" alt="description visa tourisme" class="table-content-mobile-icon">
+																<span>7 jours de traitement</span>
+															</div>
+														</li>
+														<li>
+															<div class="table-content-flex">
+																<img src="/images/right-chevron.svg" alt="description visa tourisme" class="table-content-mobile-icon">
+																<span>Séjour de 30 jours maxi</span>
+															</div>
+														</li>
+													</ul>
+												</div>
+												<div>
+													<span class="radio-price">95€ <small>TTC</small></span>
+												</div>
+											</div>-->
+										</div> 
+										<div class="help help-left">
+											<div class="help-background">Vous pouvez consulter les garanties d’assurance concernant les frais médicaux et les rapatriements : <a href="#" data-toggle="modal" data-target="#modal-assurance" class="text-primary help-link">Garantie d’assistance et de
+												rapatriement</a>
+												<img src="/images/allianz.png" alt="Logo Allianz">
+											</div>
+
+										</div>
+									</div>
+								</div> 
+                                <div class="text-center on-tablet-desktop">
+                                    <a href="formulaire-assurance.html" class="btn btn-primary btn-next">Etape suivante
+                                        <img src="/images/btn-send.svg" alt="icône" class="icon-next">
+                                    </a>
+                                </div>
+                            </div>
+							<div class="tab-pane fade" id="nav-assurance2" role="tabpanel" aria-labelledby="nav-assurance2-tab">
+							    <a href="#" class="text-primary display-invits on-desktop" data-toggle="modal" data-target="#travelDurationModal">Afficher toutes les durées d'assurance <img src="/images/plus-circle-colored.svg" alt="Icone pour afficher toutes les assurances" class="icon"></a>
+                                    {% for assurance in assurances %}
+                                        {% if assurance.typeDuree == '+1_mois' %}
+                                            <div class="d-flex justify-content-between">
+                                                <div class="d-flex flex-column">
+                                                    <label class="form-radio">
+                                                        <div class="d-flex justify-content-between">
+                                                            <span class="radio-title">Assurance voyage {{assurance.duree}} jours</span>
+                                                        </div>
+                                                        <div class="on-mobile">
+                                                            <a href="formulaire-assurance.html" class="btn btn-secondary">Commander</a>
+                                                        </div>
+                                                        <input type="radio" name="radio">
+                                                        <span class="checkmark"></span>
+                                                    </label>
+                                                </div>          
+                                                
+                                                <div>
+                                                    <span class="radio-price">{{assurance.tarif}}€ <small>TTC</small></span>
+                                                </div>
+                                            </div>
+                                        {% endif %}
+                                    {% endfor %}
+							</div>
+						</div>
+						
+					</div>
+				</div>
+
+			</div>
+		</div>
+
+        <div class="col-12">
+                <div class="card communique on-mobile">
+                    <div class="card-body">
+                        <span class="communique-title"><img src="/images/communique.svg" alt="icone communiqué" class="communique-icon"> Communiqué :</span>
+                        {{pageAssurance.communique|raw}}
+                    </div>
+                </div>
+            </div>
+    </div>
+</div>
+
+<div class="infos-in-tabs full-width-mobile container-fluid" id="avis">
+        <div class="tabs-simple">
+            <div class="nav-tabs-navigation">
+                <div class="nav-tabs-wrapper">
+                    <ul class="nav nav-tabs" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active" data-toggle="tab" href="#type-visa" role="tab" aria-selected="true"><div>Infos <span class="on-desktop">Assurance Voyage</span></div></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="tab" href="#avis-verifies" role="tab" aria-selected="false"><div>Avis</div></a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="tab-content">
+                <div class="tab-pane active" id="type-visa" role="tabpanel">
+
+                    <div class="row on-tablet-desktop">
+                        <div class="col-md-3 links-anchors to-stick">
+                            <ul>
+                                {% for info in pageAssurance.voletInfo %}
+                                    <li>
+                                        <a href="#{{ info.titre }}" class="{% if loop.first %} active {% endif %}">{{ info.titre }}<img src="/images/next-green.svg" alt="icône contenu affiché" class="links-anchor-active icon-next"></a>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+
+                        </div>
+
+                        <div class="col-md-8">
+                            {% for info in pageAssurance.voletInfo %}
+                                <div id="{{ info.titre }}">
+                                    <div class=" row row-with-margins">
+                                        <div class="on-tablet-desktop">
+                                                <h3>{{ info.titre }}</h3>
+                                        </div>
+                                        {{ info.contenu}}
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+					
+                    <div class="on-mobile">
+                        <div class="links-anchors full-width-mobile">
+                            <ul>
+                                {% for info in pageAssurance.voletInfo %}
+                                    <li>
+                                        <a  class="d-flex align-items-start {% if loop.first %} active {% endif %}" data-toggle="collapse" data-target=".{{ info.titre }}" aria-expanded="true">{{ info.titre }}
+                                            <img src="/images/next-bas.svg" alt="icône contenu affiché" class="icon-next">
+                                            <img src="/images/next-haut-green.svg" alt="icône contenu affiché" class="icon-next2">
+                                        </a>
+                                    </li>
+                                    <div class="{{ info.titre }} collapse {% if loop.first %} show {% endif %}">
+                                        {{ info.contenu }}
+                                    </div>
+                                {% endfor %}
+                                <div class="restrictions collapse">Restrictions</div>
+                            </ul>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="tab-pane" id="avis-verifies" role="tabpanel">
+					<!--Caroussel d'avis vérifiés-->
+					<div class="container small-container">
+							<div class="owl-carousel owl-theme">
+								<div class="avisClient item">
+									 <div class="d-flex justify-content-between "><img src="/images/navbar/reviews-4stars.svg" alt=" avis 4 étoiles"><p>2 hours ago</p></div>
+									 <h4>Première réservation tout était ok</h4>
+									 <p>Première réservation via cette agence et pas déçue. Nous avons passé un séjour m...</p>
+									 <p>Laetitia</p>
+								</div>
+
+								<div class="avisClient item">
+									 <div class="d-flex justify-content-between"><img src="/images/navbar/reviews-3stars.svg" alt=" avis 3 étoiles"><p>4 hours ago</p></div>
+									 <h4>Excellente agence</h4>
+									 <p>Excellente agence, le séjour répondait parfaitement à nos attentes.</p>
+									 <p>Corine Leger</p>
+								</div>
+								<div class="avisClient item">
+									 <div class="d-flex justify-content-between"><img src="/images/navbar/reviews-2stars.svg" alt=" avis 2 étoiles"><p>8 hours ago</p></div>
+									 <h4>Très bonne organisation sachant q...</h4>
+									 <p>Très bonne organisation sachant que mon mari est handicapé nous n’avons ...</p>
+									 <p>Leonora</p>
+								</div>
+								<div class="avisClient item">
+									<div class="d-flex justify-content-between"><img src="/images/navbar/reviews-3stars.svg" alt=" avis 3 étoiles"><p>4 hours ago</p></div>
+									 <h4>Excellente agence</h4>
+									 <p>Excellente agence, le séjour répondait parfaitement à nos attentes.</p>
+									 <p>Corine Leger</p>
+								</div>
+								<div class="avisClient item">
+									<div class="d-flex justify-content-between "><img src="/images/navbar/reviews-4stars.svg" alt=" avis 4 étoiles"><p>2 hours ago</p></div>
+									 <h4>Première réservation tout était ok</h4>
+									 <p>Première réservation via cette agence et pas déçue. Nous avons passé un séjour m...</p>
+									 <p>Laetitia</p>
+								</div>
+								<div class="avisClient item">
+									 <div class="d-flex justify-content-between "><img src="/images/navbar/reviews-2stars.svg" alt=" avis 2 étoiles"><p>8 hours ago</p></div>
+									 <h4>Très bonne organisation sachant q...</h4>
+									 <p>Très bonne organisation sachant que mon mari est handicapé nous n’avons ...</p>
+									 <p>Leonora</p>
+								</div>
+							</div>
+						</div>	
+					<!--Carroussel d'avis vérifiés-->			
+                </div>
+            </div>
+        </div>
+</div>
+
+{% endblock %}

@@ -95,4 +95,20 @@ class PageDiversController extends AbstractController
             'form'      => $form->createView()
         ]);
     }
+
+    /**
+     * @Route("/del/page-divers-{id}", name="del_page_divers", options={"expose"=true})
+     */
+    public function pageDiversDel($id, EntityManagerInterface $manager)
+    {
+        $pageDivers = $this->getDoctrine()->getRepository(PageDivers::class)->find($id);
+
+        if($pageDivers)
+        {
+            $manager->remove($pageDivers);
+            $manager->flush();
+        }
+
+        return $this->redirectToRoute('show_page_divers');
+    }
 }

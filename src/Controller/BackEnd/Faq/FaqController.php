@@ -251,4 +251,52 @@ class FaqController extends AbstractController
         ]);
     }
 
+    /**
+     * @Route("/del/question-reponse-{id}", name="del_question_repose_faq", options={"expose"=true})
+     */
+    public function questionReponseDel($id, EntityManagerInterface $manager)
+    {
+        $questionReponse = $this->getDoctrine()->getRepository(QuestionReponseFaq::class)->find($id);
+
+        if($questionReponse)
+        {
+            $manager->remove($questionReponse);
+            $manager->flush();
+        }
+
+        return $this->redirectToRoute('show_questions_reponses');
+    }
+
+    /**
+     * @Route("/del/categorie-{id}", name="del_categorie_faq", options={"expose"=true})
+     */
+    public function categorieDel($id, EntityManagerInterface $manager)
+    {
+        $categorie = $this->getDoctrine()->getRepository(CategorieFaq::class)->find($id);
+
+        if($categorie)
+        {
+            $manager->remove($categorie);
+            $manager->flush();
+        }
+
+        return $this->redirectToRoute('show_categories_faq');
+    }
+
+    /**
+     * @Route("/del/sujet-{id}", name="del_sujet_faq", options={"expose"=true})
+     */
+    public function sujetDel($id, EntityManagerInterface $manager)
+    {
+        $sujet = $this->getDoctrine()->getRepository(SujetFaq::class)->find($id);
+        if($sujet)
+        {
+            $manager->remove($sujet);
+            $manager->flush();
+        }
+
+        return $this->redirectToRoute('show_sujets_faq');
+        
+    }
+
 }

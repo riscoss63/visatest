@@ -39,7 +39,8 @@
     <script>
 
          function actionsFormatter(value, row, index){
-            return '<a href="'+Routing.generate('edit_question_reponse', {'id' : row.id})+'" title="Modifier"><i class="far fa-edit"></i></a>';
+            return '<a href="'+Routing.generate('edit_question_reponse', {'id' : row.id})+'" title="Modifier"><i class="far fa-edit"></i></a>'+
+                    '<a href="'+Routing.generate('del_question_repose_faq', {'id' : row.id})+'" title="Supprimer"><i class="fas fa-trash"></i></a>';
         }
 
         var $table = $('#table')

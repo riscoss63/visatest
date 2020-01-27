@@ -347,7 +347,7 @@
 
         <div class="row justify-content-between">
 
-            {% for actualite in actualites %}
+            {% for actualite in actualites|slice(0,9) %}
                 <div class="destination-wrapper">
                     <div class="destination-img">
                         <img src="{{ vich_uploader_asset(actualite, 'imageFile') }}" alt="paysage" class="img-fluid">
@@ -367,7 +367,7 @@
         </div>
         <div class="text-center">
             <div class="btn-see">
-                <a href="listing-actualites.html" class="home-link">
+                <a href="{{path('actualites_show')}}" class="home-link">
                     <img src="images/right-chevron.svg" alt="icône voir toutes les actualités" class="icon">Voir toutes <span>les actualités</span>
                 </a>
             </div>

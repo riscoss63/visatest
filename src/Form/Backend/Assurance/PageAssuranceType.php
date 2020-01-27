@@ -11,6 +11,7 @@ use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Vich\UploaderBundle\Form\Type\VichFileType;
 
 class PageAssuranceType extends AbstractType
 {
@@ -23,8 +24,23 @@ class PageAssuranceType extends AbstractType
                 ]
             ]) 
             ->add('meta', MetaType::class)
+            ->add('imageFile', VichFileType::class, [
+                'required' => false,
+                'allow_delete' => true, 
+                'download_uri' => true,
+                'asset_helper' => true,
+                'label'         => 'Image communique',
+                'attr'      => [
+                    'class'     => 'form-control my-3'
+                ],
+            ])
             ->add('communique', CKEditorType::class)
-            ->add('submit', SubmitType::class)
+            ->add('submit', SubmitType::class, [
+                'attr'      => [
+                    'class'     =>  'form-control'
+                ]
+            ])
+            
         ;
     }
 

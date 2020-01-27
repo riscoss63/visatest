@@ -1,0 +1,200 @@
+{% extends "base.html.twig" %}
+{% block stylesheets %}
+    {{parent()}}
+    <link rel="stylesheet" type="text/css" href="{{ asset('/frontend/css/espace-reserve-style.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('/frontend/css/menu.css') }}">
+{% endblock %}
+
+{% block header %}
+    {% include "/front_end/espace_client/__header.html.twig" %}
+    <div class="section-push-left">
+    {% include "/front_end/espace_client/__mobile_header.htmL.twig" %}
+{% endblock %}
+
+{% block body %}
+<div class="evisa-recap">
+    <div class="on-mobile btn-retour">
+        <a href="mes-commandes.html" class="text-grey small"><span><img src="/images/back-arrow-grey.svg" class="icon" alt="icône retour"></span>Retour</a>
+    </div>
+    <div class="recap-container row m-0">
+        <div class="country-img col-12 col-md-5">
+            <img src="/images/drapeau/drapeau-inde.png" alt="Drapeau de l'Inde">
+            <div class="info">
+                <h2 class="order-title">Visa {{ commande.visaType.visaClassic.pays.titre }} <span class="on-mobile">{{commande.visaType.categorieVisa.titre}} - Entrée {{commande.visaType.typeEntre}}</span></h2>
+                <p class="text-grey on-tablet-desktop mb-0">Ref.{{commande.reference}}</p>
+                <h3 class="order-title on-mobile">
+                    Ref. <span class="text-primary">{{commande.reference}}</span><span class="order-date ml-1">{{commande.dateCreation|date('d/m/Y \\à\\ H\\h\\ i')}}</span>
+                </h3>
+            </div>
+            <div class="on-mobile text-primary price">{{commande.total}}€</div>
+        </div>
+        <div class="order-infos col-md-7 row on-tablet-desktop">
+            <div class="col-md-4">
+                <p>
+                    <img src="/images/tourisme.svg" class="icon" alt="Icône tourisme">
+                    {{commande.visaType.categorieVisa.titre}}
+                </p>
+                <p class="mb-0">
+                    <img src="/images/voyageur.svg" class="icon" alt="Icône d'un voyageur">
+                    {{commande.voyageurs|length}} voyageurs
+                </p>
+            </div>
+
+            <div class="col-md-5 date">
+                <p class="mb-25">
+                    <img src="/images/depart.svg" class="icon--bigger align-text-top" alt="icône date de départ">
+                    <span class="date-title">Départ</span> {{commande.entre|date('d/m/Y')}}
+                </p>
+                <p class="mb-0">
+                    <img src="/images/arrivee.svg" class="icon--bigger align-text-top" alt="icône date d'arrivée">
+                    <span class="date-title">Arrivée</span> {{commande.sortie|date('d/m/Y')}}
+                </p>
+            </div>
+
+            <div class="col-md-3 pr-0">
+                <p><strong>Mode d'expédition</strong></p>
+                {# <img src="/images/mode-expedition/chronopost.png" alt="Logo Chronopost" class="expedition-img chronopost"> #}
+                {{commande.transport.titre}}
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="on-tablet-desktop ml-4">
+    <a href="mes-commandes.html" class="text-grey btn-retour"><span><img src="/images/back-arrow-grey.svg" class="icon" alt="icône retour"></span>Retour</a>
+</div>
+
+<div class="step-container full-width-mobile row steps-5">
+    <div class="step-wrapper step-1">
+        <div class="step active">
+            <div class="icons">
+                <span class="step-number">1</span>
+                <span class="step-img">
+                        <img src="/images/steps/1.svg" alt="icône commande en ligne" class="grey">
+                        <img src="/images/steps/1-colored.svg" alt="icône commande en ligne" class="active">
+                </span>
+            </div>
+            <h2><strong>Commande</strong> en ligne</h2><br>
+        </div>
+        <div class="step-content">
+            <p>Effectuée le <span class="date">{{commande.dateCreation|date('d/m/Y')}}</span> à <span class="hour">{{commande.dateCreation|date('H \\h\\ i')}}</span></p>
+        </div>
+    </div>
+
+    <div class="step-wrapper step-2">
+        <div class="step {% if commande.receptionDossier is not null %} active {% endif %}">
+            <div class="icons">
+                <span class="step-number">2</span>
+                <span class="step-img">
+                        <img src="/images/steps/2.svg" alt="icône récéption et contrôle" class="grey">
+                        <img src="/images/steps/2-colored.svg" alt="icône récéption et contrôle" class="active">
+                        
+                        
+                </span>
+            </div>
+            <h2><strong>Réception</strong> et contrôle</h2>
+        </div>
+        {% if commande.receptionDossier is not null %}
+            <div class="step-content">
+                <p>Votre dossier a été reçu le <span class="date">{{commande.receptionDossier.dossierRecu|date('d/m/Y')}}</span> à <span class="hour">{{commande.receptionDossier.dossierRecu|date('H \\h\\ i')}}</span>.<br>
+                    Nous avons effectué le contrôle des pièces requises pour vos visas.</p>
+                {% if commande.receptionDossier.complet == true %}
+                    <div class="complete-file">
+                        <p>Votre dossier est complet.</p>
+                        <hr class="dashed text-grey">
+                        <p>Date de transmission au consulat <span class="country">{{commande.visaType.visaClassic.pays.titre}}</span> :</p>
+                        <span class="date big">{{commande.receptionDossier.depot|date('d/m/Y')}}</span>
+                    </div>
+
+                {% else %}
+                    <div class="incomplete-file">
+                        <p><strong>Votre dossier est incomplet.</strong><br>
+                            {% for etat in commande.receptionDossier.etatDossier %}
+                                {% if etat.manquant is not null or etat.nonConforme is not null %}
+                                    {% if etat.manquant is not null %}
+                                        La pièce suivante est <span class="document-state">manquante</span> :<br>
+                                        <span class="incorrect-document">{{etat.nom}}</span></p>
+                                    {% else %}
+                                        La pièce suivante est <span class="document-state">non conforme</span> :<br>
+                                        <span class="incorrect-document">{{etat.nom}}</span></p>
+                                    {% endif %}
+                                {% endif %}
+                            {% endfor %}
+                            
+                        <p>Nous restons dans l’attente de vos documents complémentaires pour traiter votre dossier.</p>
+                        <p>Merci :-)</p>
+                    </div>
+                {% endif %}
+                
+                
+            </div>
+        
+        {% endif %}
+        
+        
+    </div>
+
+    <div class="step-wrapper step-3">
+        <div class="step {% if commande.receptionDossier.complet == 1 %} active {% endif %}">
+            <div class="icons">
+                <span class="step-number">3</span>
+                <span class="step-img">
+                    <img src="/images/steps/visa-3.svg" alt="icône traitement au consulat" class="grey">
+                    <img src="/images/steps/visa-3-colored.svg" alt="icône traitement au consulat" class="active">
+                </span>
+            </div>
+            <h2><strong>Traitement</strong> au consulat</h2>
+        </div>
+        <div class="step-content">
+            <p>Votre demande de visa est en cours de traitement au niveau des autorités consulaires <span class="country">{{commande.visaType.visaClassic.pays.titre}}</span><br>
+                Le délai de traitement prévisionnel est de <span class="treatment-time">{{commande.visaType.delaiObtention}}</span> jours ouvrés</p>
+            <hr class="dashed text-grey">
+            <p>Date de récupération prévisionnelle :</p>
+            <span class="date big">{{commande.receptionDossier.depot|date_modify("+"~ commande.visaType.delaiObtention ~" day")|date("d/m/Y")}}</span>
+        </div>
+    </div>
+
+    <div class="step-wrapper step-4">
+        <div class="step {% if commande.dateRecuperation is not null %}active{% endif %}">
+        
+            <div class="icons">
+                <span class="step-number">4</span>
+                <span class="step-img">
+                        <img src="/images/steps/visa-approved.svg" alt="icône obtention de vos visas" class="grey">
+                        <img src="/images/steps/visa-approved-colored.svg" alt="icône obtention de vos visas" class="active">
+                </span>
+            </div>
+            <h2><strong>Obtention</strong> de vos visas</h2>
+        </div>
+        <div class="step-content">
+            <p>Vos passseports avec visas ont été récupérés le <span class="date">{{commande.dateRecuperation|date('d/m/Y')}}</span>.</p>
+            <p>Nous allons préparer l’expédition selon le mode de livraison que vous avez choisi.</p>
+        </div>
+    </div>
+
+    <div class="step-wrapper step-5">
+        <div class="step">
+            <div class="icons">
+                <span class="step-number">5</span>
+                <span class="step-img">
+                    <img src="/images/steps/expedition.svg" alt="icône expédition de vos visas" class="grey">
+                    <img src="/images/steps/expedition-colored.svg" alt="icône expédition de vos visas" class="active">
+                </span>
+            </div>
+            <h2><strong>Expédition</strong> de vos cartes</h2>
+        </div>
+        <div class="step-content">
+            <p>Envoi par <span class="shipping">{{commande.transport}}</span> le <span class="date">{{commande.dateEnvoi|date('d/m/Y')}}</span> à <span class="hour">{{commande.dateEnvoi|date('H \\h\\ i')}}</span></p>
+
+            <p class="transporter">Numéro de suivi : <strong><span class="tracking-code">{{commande.expedition.suivi}}</span></strong><br>
+                <a href="#" class="text-underline">Accéder au suivi du transporteur</a></p>
+
+            <p class="agency">Retrait à l’agence disponible à partir du <span class="date">14/05/2019</span></p>
+
+            <p class="courier">Livraison par coursier à votre adresse de livraison le <span class="date">14/05/2019</span></p>
+
+            <p class="courier-airport">Livraison par coursier à l’aéroport de <span class="airport">[Orly ou Roissy]</span> le <span class="date">14/05/2019</span></p>
+        </div>
+    </div>
+</div>
+{% endblock %}

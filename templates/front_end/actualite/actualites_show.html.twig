@@ -1,0 +1,34 @@
+{% extends "base.html.twig" %}
+{% block header %}
+    {% include "/front_end/home/__header.html.twig" %}
+{% endblock %}
+
+{% block body %}
+    <div class="actus-cards mt-5">
+        <h3 class="page-title text-center"><span class="text-primary">Informations</span> et actualités</h3>
+
+        <div class="container small-container">
+            <div class="row justify-content-between">
+                {% for actualite in actualites %}
+                    <div class="destination-wrapper">
+                        <a href="{{path('actualite_show', {id: actualite.id})}}">
+                            <div class="destination-img">
+                                <img src="{{ vich_uploader_asset(actualite, 'imageFile') }}"  class="img-fluid">
+                            </div>
+                            <div class="destination-card">
+                                <div>
+                                    <div>
+                                        <h3 class="destination-title"><a href="{{path('actualite_show', {id: actualite.id})}}">{{actualite.titre}}</a></h3>
+                                        <p class="actu-date"><span class="text-primary">Le {{actualite.dateModification|date('d/m/Y')}} |</span> Visa-en-ligne.com</p>
+                                    </div>
+                                    {{actualite.contenu}}
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                {% endfor %}
+            </div>
+            {{ knp_pagination_render(actualites) }}
+        </div>
+    </div>
+{% endblock %}

@@ -56,6 +56,16 @@ class Voyageurs
      */
     private $dateNaissance;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Demande", inversedBy="voyageurs")
+     */
+    private $demande;
+
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\AttestationAssurance", inversedBy="voyageurs", cascade={"persist", "remove"})
+     */
+    private $attestation;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -155,5 +165,34 @@ class Voyageurs
         $this->dateNaissance = $dateNaissance;
 
         return $this;
+    }
+
+    public function getDemande(): ?Demande
+    {
+        return $this->demande;
+    }
+
+    public function setDemande(?Demande $demande): self
+    {
+        $this->demande = $demande;
+
+        return $this;
+    }
+
+    public function getAttestation(): ?AttestationAssurance
+    {
+        return $this->attestation;
+    }
+
+    public function setAttestation(?AttestationAssurance $attestation): self
+    {
+        $this->attestation = $attestation;
+
+        return $this;
+    }
+
+    public function getTitre()
+    {
+        return $this->nom;
     }
 }

@@ -18,6 +18,16 @@ class CourseType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
+            ->add('nom', TextType::class, [
+                'attr'      => [
+                    'class'     => 'form-control'
+                ]
+            ])
+            ->add('prenom', TextType::class, [
+                'attr'      => [
+                    'class'     => 'form-control'
+                ]
+            ])
             ->add("signature", HiddenType::class, [
                 "label" => "Signature",
                 "attr" => ["class" => "champ_signature"],

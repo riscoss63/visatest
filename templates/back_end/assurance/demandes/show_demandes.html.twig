@@ -11,36 +11,18 @@
         <h5 class=" m-auto col-8"><i class="fa fa-users-cog"></i>Demandes</h5>
     </div>
 
-    <div class="row text-center mt-4">
-        <div class="col-4">
-            <a href="{{path('show_demandes_visa_classic')}}" class="col-12 btn btn-secondary  petite-taille"> Demandes de Visas </a>
+    <div class="row text-center my-5">
+        <div class="col-6">
+            <a href="{{path('show_demandes_visa_classic')}}" class="col-12 btn btn-secondary  petite-taille"> Demandes d'assurance </a>
         </div>
-        <div class="col-4">
-            <a href="{{path('show_demande_en_cours_visa_classic')}}" class="col-12 btn btn-secondary  petite-taille"> Commandes en cours </a>
-        </div>
-        <div class="col-4">
-            <a href="{{path('liste_reception_dossier')}}" class="col-12 btn btn-secondary  petite-taille">  Archives </a>
+        <div class="col-6">
+            <a href="{{path('archives_demandes_assurance')}}" class="col-12 btn btn-secondary  petite-taille">  Archives </a>
         </div>
     </div>
 
     <div class="row">
-        <div class="col-12 float-left mt-5">
-            <a href="{{path('liste_reception_dossier')}}" class="btn btn-primary petite-taille" rel="modal:open"><i class="fas fa-walking"></i>  assurance(s) voyages </a>
-        </div>
-        <div class="col-3 mt-5">
-            <a href="{{path('liste_reception_dossier')}}" class="col-12 btn btn-primary petite-taille" rel="modal:open"> Adresser Evisas </a>
-        </div>
-        <div class="col-3 mt-5">
-            <a href="{{path('liste_reception_dossier')}}" class="col-12 btn btn-primary petite-taille" rel="modal:open"> Commande spécifique </a>
-        </div>
-        <div class="col-3 mt-5">
-            <a href="{{path('liste_reception_dossier')}}" class="col-12 btn btn-primary petite-taille" rel="modal:open"> Rappel </a>
-        </div>
-        <div class="col-3 mt-5">
-            <a href="{{path('liste_reception_dossier')}}" class="col-12 btn btn-primary petite-taille" rel="modal:open"> Supprimer </a>
-        </div>
         <div class="col-12">
-            <table data-toggle="table" data-url="{{ path('json_demandes_assurance') }}" data-pagination="true" data-search="false" data-pagination: "true" data-detail-view="true"
+            <table data-toggle="table" data-url="{{ path('json_demandes_assurance', {etat : 'commande'}) }}" data-pagination="true" data-search="false" data-pagination: "true" data-detail-view="true"
   data-detail-formatter="detailFormatter">
                 <thead>
                     <tr>
@@ -48,8 +30,6 @@
                         <th data-field="dateCreation.timestamp" data-formatter="dateFormatter" data-sortable="true">Date de création</th>
                         <th data-field="demande" data-formatter="" data-sortable="true">Paiement</th>
                         <th data-field="prestations" data-formatter="prestationsFormatter" data-sortable="true">Prestations</th>
-                        <th data-field="transport.titre" data-sortable="true">Livraison</th>
-                        <th data-field="edit" data-formatter="actionsFormatter">Editer</th>
                     </tr>
                 </thead>
             </table>
@@ -65,11 +45,11 @@
 
         function detailFormatter(index, row) {
             var html = []
-            var voyageurs = row["client"]["voyageurs"]
+            var voyageurs = row["voyageurs"]
             html.push('<div class="row mr-0">')
             voyageurs.forEach(function(voyageur){
 
-                html.push('<div class="col-3 m-1 text-center bg-dark text-white rounded"><strong>' + voyageur.nom + ' ' + voyageur.prenom +'</strong><br/> 100% <br/> <a href="'+Routing.generate('edit_voyageur_evisa', {'id' : voyageur.id})+'" rel="modal:open">Détails</a> </div>');
+                html.push('<div class="col-3 m-1 text-center bg-dark text-white rounded"><strong>' + voyageur.nom + ' ' + voyageur.prenom +'</strong><br/> 100% <br/> <a href="'+Routing.generate('send_assurance', {'id' : voyageur.id})+'" title="Modifier" rel="modal:open"><i class="fas fa-upload"></i> Envoyer</a> </div>');
             })
             html.push('</div>')
             return html.join('')
@@ -86,11 +66,11 @@
             {
                 urgent = 'URGENT';
             }
-            return '<strong>'+row["quantiteVisa"]+'</strong> Visa '+row["assurance"]["pays"]["titre"]+ ' <strong> ' +urgent+ '</strong>';
+            return '<strong>'+row["quantiteVisa"]+'</strong> assurances<br/> <strong>'+row["assurance"]["duree"]+ '</strong> jour(s) <strong> ' +urgent+ '</strong>';
         }
 
         function actionsFormatter(value, row, index){
-            return '<a href="'+Routing.generate('edit_demandes_carte_tourisme', {'id' : row.id})+'" title="Modifier" rel="modal:open"><i class="far fa-edit"> Editer </i></a>';
+            return '<a href="'+Routing.generate('send_assurance', {'id' : row["assurance"]["id"]})+'" title="Modifier" rel="modal:open"><i class="fas fa-upload"></i> Envoyer</a>';
         }
 
         function booleanFormatter(value, row, index) {

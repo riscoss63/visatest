@@ -46,6 +46,7 @@ class Assurance
     public function __construct()
     {
         $this->demande = new ArrayCollection();
+
     }
 
     public function getId(): ?int
