@@ -196,4 +196,8 @@ class PageAssurance
         return $this;
     }
 
+    public function getTitre()
+    {
+        return $this->id;
+    }
 }

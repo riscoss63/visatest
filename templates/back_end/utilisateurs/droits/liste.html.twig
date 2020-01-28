@@ -21,7 +21,7 @@
                     <tr>
                         <th data-sortable="true" data-field="id">Id</th>
                         <th data-field="service" data-sortable="true">Service</th>
-                        <th data-field="droits.0" data-sortable="true">Roles</th>
+                        <th data-field="droits" data-formatter="rolesFormatter" data-sortable="true">Roles</th>
                         <th data-field="edit" data-formatter="actionsFormatter">Editer</th>
                     </tr>
                 </thead>
@@ -37,9 +37,41 @@
     <script>
 
         function actionsFormatter(value, row, index){
-            return '<a href="'+Routing.generate('edit_acces', {'id' : row.id})+'" title="Modifier"><i class="far fa-edit"></i></a>';
+            return '<a href="'+Routing.generate('edit_acces', {'id' : row.id})+'" title="Modifier" rel="modal:open"><i class="far fa-edit"></i></a>';
         }
+        
+        function rolesFormatter(value, row, index) {
+            var roles = row["droits"];
+            var txt =[];
 
+            for(var i in roles) {
+                switch (roles[i]) {
+                case "ROLE_SUPERADMIN":
+                    txt.push("Super administrateur, ") 
+                    break;
+            
+                case "ROLE_COURSIER":
+                    txt.push("Coursier, ")
+                    break;
+
+                case "ROLE_ADMIN":
+                    txt.push("Administrateur secondaire, ")
+                    break;
+                case "ROLE_REDACTEUR":     
+                    txt.push("Rédacteur, ") 
+                    break;    
+                case "ROLE_USER":
+                    txt.push("Utilisateur simple, ")
+                    break;      
+        
+                default:
+                    txt.push("Aucun droit n'est sélectionner")
+                    break;
+                }
+            }
+            return txt;
+            console.log(txt);
+        }
         
     </script>
     

@@ -18,19 +18,19 @@
                         <ul class="nav nav-tabs nav-tabs-two" role="tablist">
                             <li class="nav-item nav-item-smaller">
                                 <a class="nav-link active" data-toggle="tab" href="#visa" role="tab" aria-selected="true">
-                                    <div><img src="images/banner/tampon.svg" alt="icône de visa" class="tabs-icon svg"></div>
+                                    <div><img src="/images/banner/tampon.svg" alt="icône de visa" class="tabs-icon svg"></div>
                                     Visa
                                 </a>
                             </li>
                             <li class="nav-item nav-item-bigger">
                                 <a class="nav-link" data-toggle="tab" href="#cuba" role="tab" aria-selected="false">
-                                    <div><img src="images/banner/havana.svg" alt="icône havana cuba" class="tabs-icon svg"></div>
+                                    <div><img src="/images/banner/havana.svg" alt="icône havana cuba" class="tabs-icon svg"></div>
                                     Carte de tourisme Cuba
                                 </a>
                             </li>
                             <li class="nav-item nav-item-smaller">
                                 <a class="nav-link" data-toggle="tab" href="#assurance" role="tab" aria-selected="false">
-                                    <div><img src="images/banner/bouclier.svg" alt="icône d'assurance" class="tabs-icon svg"></div>
+                                    <div><img src="/images/banner/bouclier.svg" alt="icône d'assurance" class="tabs-icon svg"></div>
                                     Assurance
                                 </a>
                             </li>
@@ -81,7 +81,7 @@
 
                             <div>
                                 <a href="#" class="btn btn-primary btn-next">Etape suivante
-                                    <img src="images/btn-send.svg" alt="icône" class="icon-next">
+                                    <img src="/images/btn-send.svg" alt="icône" class="icon-next">
                                 </a>
                             </div>
                         </form>
@@ -118,7 +118,7 @@
 
                             <div>
                                 <a href="#" class="btn btn-primary btn-next">Etape suivante
-                                    <img src="images/btn-send.svg" alt="icône" class="icon-next">
+                                    <img src="/images/btn-send.svg" alt="icône" class="icon-next">
                                 </a>
                             </div>
                         </form>
@@ -147,7 +147,7 @@
 
                             <div>
                                 <a href="#" class="btn btn-primary btn-next">Etape suivante
-                                    <img src="images/btn-send.svg" alt="icône" class="icon-next">
+                                    <img src="/images/btn-send.svg" alt="icône" class="icon-next">
                                 </a>
                             </div>
                         </form>
@@ -163,27 +163,27 @@
             <p class="best-boxes-title">Le meilleur du visa</p>
             <div class="box-wrapper">
                 <div class="box">
-                    <div class="box-img"><img src="images/footer/clients-satisfaits.svg" alt="icône clients satisfaits"></div>
+                    <div class="box-img"><img src="/images/footer/clients-satisfaits.svg" alt="icône clients satisfaits"></div>
                     <p>98% de clients satisfaits</p>
                 </div>
                 <div class="box">
-                    <div class="box-img"><img src="images/footer/demarche-securisee.svg" alt="icône Démarche 100% sécurisée"></div>
+                    <div class="box-img"><img src="/images/footer/demarche-securisee.svg" alt="icône Démarche 100% sécurisée"></div>
                     <p>Démarche 100% sécurisée</p>
                 </div>
                 <div class="box">
-                    <div class="box-img box-img-smaller"><img src="images/jours-ouvres-colored.svg" alt="icône Délai d'obtention express"></div>
+                    <div class="box-img box-img-smaller"><img src="/images/jours-ouvres-colored.svg" alt="icône Délai d'obtention express"></div>
                     <p>Délai d'obtention express</p>
                 </div>
                 <div class="box">
-                    <div class="box-img"><img src="images/footer/simplicite-fiabilite.svg" alt="icône Simplicité et fiabilité"></div>
+                    <div class="box-img"><img src="/images/footer/simplicite-fiabilite.svg" alt="icône Simplicité et fiabilité"></div>
                     <p>Suivi en temps réel</p>
                 </div>
                 <div class="box">
-                    <div class="box-img"><img src="images/footer/assistance-a-votre-ecoute.svg" alt="icône assistance à votre écoute"></div>
+                    <div class="box-img"><img src="/images/footer/assistance-a-votre-ecoute.svg" alt="icône assistance à votre écoute"></div>
                     <p>Simplicité et fiabilité</p>
                 </div>
                 <div class="box">
-                    <div class="box-img img-bigger"><img src="images/footer/suivi-temps-reel.svg" alt="icône Suivi en temps réel"></div>
+                    <div class="box-img img-bigger"><img src="/images/footer/suivi-temps-reel.svg" alt="icône Suivi en temps réel"></div>
                     <p>Service client à votre écoute</p>
                 </div>
 
@@ -227,7 +227,7 @@
                                                 <div class="d-flex align-items-center justify-content-between">
                                                     <h3 class="destination-title">Visa {{ visaclassic.pays.titre}}</h3>
                                                 </div>
-                                                <div class="destination-jours-ouvres"><span><img src="images/chronometre.svg" alt="icônes jours ouvrés" class="icon">
+                                                <div class="destination-jours-ouvres"><span><img src="/images/chronometre.svg" alt="icônes jours ouvrés" class="icon">
                                                     {% for type in visaclassic.typeVisa|sort((a, b) => a.delaiObtention <=> b.delaiObtention) %}
                                                         {% if loop.first %}
                                                             {{type.delaiObtention}} Jour(s)
@@ -255,7 +255,7 @@
                                                         {% endfor %}
                                                     </p>
                                                     <a href="{{ path('visa_classic_show', {slug : visaclassic.slug})}}" class="destination-price-icon btn btn-primary">
-                                                        <span class="btn-label"><img src="images/plus-white.svg"  alt="icone plus d'infos" class="price-icon svg"></span>
+                                                        <span class="btn-label"><img src="/images/plus-white.svg"  alt="icone plus d'infos" class="price-icon svg"></span>
                                                         infos
                                                     </a>
                                                 </div>
@@ -268,7 +268,7 @@
 						</div>                       
                         <div class="text-center">
                             <div class="btn-see">
-                                <a href="listing-destinations.html"><img src="images/right-chevron.svg" alt="icône voir toutes les destinations" class="icon">Voir toutes <span>les destinations</span></a>
+                                <a href="listing-destinations.html"><img src="/images/right-chevron.svg" alt="icône voir toutes les destinations" class="icon">Voir toutes <span>les destinations</span></a>
                             </div>
                         </div>
                     </div>
@@ -289,7 +289,7 @@
                                                 <div class="d-flex align-items-center justify-content-between">
                                                     <h3 class="destination-title">Visa {{ evisa.pays.titre}}</h3>
                                                 </div>
-                                                <div class="destination-jours-ouvres"><span><img src="images/chronometre.svg" alt="icônes jours ouvrés" class="icon">
+                                                <div class="destination-jours-ouvres"><span><img src="/images/chronometre.svg" alt="icônes jours ouvrés" class="icon">
                                                     {% for type in evisa.typeVisa|sort((a, b) => a.delaiObtention <=> b.delaiObtention) %}
                                                         {% if loop.first %}
                                                             {{type.delaiObtention}} Jour(s)
@@ -317,7 +317,7 @@
                                                         {% endfor %}
                                                     </p>
                                                     <a href="{{ path('evisa_show', {slug : evisa.slug})}}" class="destination-price-icon btn btn-primary">
-                                                        <span class="btn-label"><img src="images/plus-white.svg"  alt="icone plus d'infos" class="price-icon svg"></span>
+                                                        <span class="btn-label"><img src="/images/plus-white.svg"  alt="icone plus d'infos" class="price-icon svg"></span>
                                                         infos
                                                     </a>
                                                 </div>
@@ -330,7 +330,7 @@
                         </div>
                         <div class="text-center">
                             <div class="btn-see">
-                                <a href="listing-destinations.html"><img src="images/right-chevron.svg" alt="icône voir toutes les destinations" class="icon">Voir toutes <span>les destinations</span></a>
+                                <a href="listing-destinations.html"><img src="/images/right-chevron.svg" alt="icône voir toutes les destinations" class="icon">Voir toutes <span>les destinations</span></a>
                             </div>
                         </div>
                     </div>
@@ -368,7 +368,7 @@
         <div class="text-center">
             <div class="btn-see">
                 <a href="{{path('actualites_show')}}" class="home-link">
-                    <img src="images/right-chevron.svg" alt="icône voir toutes les actualités" class="icon">Voir toutes <span>les actualités</span>
+                    <img src="/images/right-chevron.svg" alt="icône voir toutes les actualités" class="icon">Voir toutes <span>les actualités</span>
                 </a>
             </div>
         </div>
@@ -384,7 +384,7 @@
 
             <div class="destination-wrapper item">
 				<div class="destination-img">
-					<img src="images/pays-img/actu-1.jpg" alt="paysage" class="img-fluid">
+					<img src="/images/pays-img/actu-1.jpg" alt="paysage" class="img-fluid">
 				</div>
 				<div class="destination-card">
 					<div>
@@ -398,7 +398,7 @@
 			</div>
             <div class="destination-wrapper item">
                     <div class="destination-img">
-                        <img src="images/pays-img/actu-2.jpg" alt="paysage" class="img-fluid">
+                        <img src="/images/pays-img/actu-2.jpg" alt="paysage" class="img-fluid">
                     </div>
                     <div class="destination-card">
                         <div>
@@ -413,7 +413,7 @@
             </div>
             <div class="destination-wrapper item">
                 	<div class="destination-img">
-                        <img src="images/pays-img/actu-3.jpg" alt="paysage" class="img-fluid">
+                        <img src="/images/pays-img/actu-3.jpg" alt="paysage" class="img-fluid">
                     </div>
                     <div class="destination-card">
                         <div>
@@ -430,7 +430,7 @@
         <div class="text-center">
             <div class="btn-see">
                 <a href="listing-actualites.html" class="home-link">
-                    <img src="images/right-chevron.svg" alt="icône voir toutes les actualités" class="icon">Voir toutes <span>les actualités</span>
+                    <img src="/images/right-chevron.svg" alt="icône voir toutes les actualités" class="icon">Voir toutes <span>les actualités</span>
                 </a>
             </div>
         </div>
@@ -462,7 +462,7 @@
                         <div class="step-container">
                             <div class="step-wrapper">
                                 <div class="step">
-                                    <span class="step-icon step-icon--smaller"><img src="images/steps/1.svg" alt="icône étape 1"></span>
+                                    <span class="step-icon step-icon--smaller"><img src="/images/steps/1.svg" alt="icône étape 1"></span>
                                 </div>
                                 <div class="step-content">
                                     <p class="step-title">Etape 1</p>
@@ -474,7 +474,7 @@
                         <div class="step-container">
                             <div class="step-wrapper">
                                 <div class="step">
-                                    <span class="step-icon"><img src="images/steps/2.svg" alt="icône étape 2"></span>
+                                    <span class="step-icon"><img src="/images/steps/2.svg" alt="icône étape 2"></span>
                                 </div>
                                 <div class="step-content">
                                     <p class="step-title">Etape 2</p>
@@ -486,7 +486,7 @@
                         <div class="step-container">
                             <div class="step-wrapper">
                                 <div class="step">
-                                    <span class="step-icon"><img src="images/steps/visa-3.svg" alt="icône étape 3"></span>
+                                    <span class="step-icon"><img src="/images/steps/visa-3.svg" alt="icône étape 3"></span>
                                 </div>
                                 <div class="step-content">
                                     <p class="step-title">Etape 3</p>
@@ -498,7 +498,7 @@
                         <div class="step-container">
                             <div class="step-wrapper">
                                 <div class="step">
-                                    <span class="step-icon step-icon--bigger"><img src="images/steps/expedition.svg" alt="icône étape 4"></span>
+                                    <span class="step-icon step-icon--bigger"><img src="/images/steps/expedition.svg" alt="icône étape 4"></span>
                                 </div>
                                 <div class="step-content">
                                     <p class="step-title">Etape 4</p>
@@ -516,7 +516,7 @@
                         <div class="step-container">
                             <div class="step-wrapper">
                                 <div class="step">
-                                    <span class="step-icon step-icon--smaller"><img src="images/steps/1.svg" alt="icône étape 1"></span>
+                                    <span class="step-icon step-icon--smaller"><img src="/images/steps/1.svg" alt="icône étape 1"></span>
                                 </div>
                                 <div class="step-content">
                                     <p class="step-title">Etape 1</p>
@@ -528,7 +528,7 @@
                         <div class="step-container">
                             <div class="step-wrapper">
                                 <div class="step">
-                                    <span class="step-icon"><img src="images/steps/2.svg" alt="icône étape 2"></span>
+                                    <span class="step-icon"><img src="/images/steps/2.svg" alt="icône étape 2"></span>
                                 </div>
                                 <div class="step-content">
                                     <p class="step-title">Etape 2</p>
@@ -540,7 +540,7 @@
                         <div class="step-container">
                             <div class="step-wrapper">
                                 <div class="step">
-                                    <span class="step-icon step-icon--bigger"><img src="images/steps/expedition.svg" alt="icône étape 3"></span>
+                                    <span class="step-icon step-icon--bigger"><img src="/images/steps/expedition.svg" alt="icône étape 3"></span>
                                 </div>
                                 <div class="step-content">
                                     <p class="step-title">Etape 3</p>
@@ -552,7 +552,7 @@
                         <div class="step-container">
                             <div class="step-wrapper">
                                 <div class="step">
-                                    <span class="step-icon"><img src="images/steps/evisa-4.svg" alt="icône étape 4"></span>
+                                    <span class="step-icon"><img src="/images/steps/evisa-4.svg" alt="icône étape 4"></span>
                                 </div>
                                 <div class="step-content">
                                     <p class="step-title">Etape 4</p>
@@ -569,7 +569,7 @@
 			</div>
 
 			<div class=" text-center btn-see">
-				<a href="listing-destinations.html" class="home-link"><img src="images/right-chevron.svg" alt="icône commander en ligne" class="icon">Commander <span>en ligne</span></a>
+				<a href="listing-destinations.html" class="home-link"><img src="/images/right-chevron.svg" alt="icône commander en ligne" class="icon">Commander <span>en ligne</span></a>
 			</div>   
         </div>
     </div>
@@ -608,11 +608,11 @@
                         </div>
                         End TrustBox widget -->
 						<div class="avisClient">
-								 <div class="d-flex justify-content-between "><img src="images/navbar/reviews-4stars.svg" alt=" avis 4 étoiles"><p>4 mars</p></div>
+								 <div class="d-flex justify-content-between "><img src="/images/navbar/reviews-4stars.svg" alt=" avis 4 étoiles"><p>4 mars</p></div>
 								 <h4>The only application was very...</h4>
 								 <p>The only application was very straight forward and easy to use.</p>
 								 <p>Charles GRIMAUDO</p>
-								 <a href="https://fr.trustpilot.com/review/evisa-application.com" target="_blank" rel="noopener"><img src="images/star-trupsilot.svg" alt="Etoile Trupsilot">Trustpilot</a>
+								 <a href="https://fr.trustpilot.com/review/evisa-application.com" target="_blank" rel="noopener"><img src="/images/star-trupsilot.svg" alt="Etoile Trupsilot">Trustpilot</a>
 							</div>
 
                     </div>
@@ -622,38 +622,38 @@
 				  <div class="container small-container">
 					<div class="owl-carousel owl-theme">
 					 		<div class="avisClient item">
-								 <div class="d-flex justify-content-between "><img src="images/navbar/reviews-4stars.svg" alt=" avis 4 étoiles"><p>2 hours ago</p></div>
+								 <div class="d-flex justify-content-between "><img src="/images/navbar/reviews-4stars.svg" alt=" avis 4 étoiles"><p>2 hours ago</p></div>
 								 <h4>Première réservation tout était ok</h4>
 								 <p>Première réservation via cette agence et pas déçue. Nous avons passé un séjour m...</p>
 								 <p>Laetitia</p>
 							</div>
 
 							<div class="avisClient item">
-								 <div class="d-flex justify-content-between"><img src="images/navbar/reviews-3stars.svg" alt=" avis 3 étoiles"><p>4 hours ago</p></div>
+								 <div class="d-flex justify-content-between"><img src="/images/navbar/reviews-3stars.svg" alt=" avis 3 étoiles"><p>4 hours ago</p></div>
 								 <h4>Excellente agence</h4>
 								 <p>Excellente agence, le séjour répondait parfaitement à nos attentes.</p>
 								 <p>Corine Leger</p>
 							</div>
 							<div class="avisClient item">
-								 <div class="d-flex justify-content-between"><img src="images/navbar/reviews-2stars.svg" alt=" avis 2 étoiles"><p>8 hours ago</p></div>
+								 <div class="d-flex justify-content-between"><img src="/images/navbar/reviews-2stars.svg" alt=" avis 2 étoiles"><p>8 hours ago</p></div>
 								 <h4>Très bonne organisation sachant q...</h4>
 								 <p>Très bonne organisation sachant que mon mari est handicapé nous n’avons ...</p>
 								 <p>Leonora</p>
 							</div>
 							<div class="avisClient item">
-								<div class="d-flex justify-content-between"><img src="images/navbar/reviews-3stars.svg" alt=" avis 3 étoiles"><p>4 hours ago</p></div>
+								<div class="d-flex justify-content-between"><img src="/images/navbar/reviews-3stars.svg" alt=" avis 3 étoiles"><p>4 hours ago</p></div>
 								 <h4>Excellente agence</h4>
 								 <p>Excellente agence, le séjour répondait parfaitement à nos attentes.</p>
 								 <p>Corine Leger</p>
 							</div>
 							<div class="avisClient item">
-								<div class="d-flex justify-content-between "><img src="images/navbar/reviews-4stars.svg" alt=" avis 4 étoiles"><p>2 hours ago</p></div>
+								<div class="d-flex justify-content-between "><img src="/images/navbar/reviews-4stars.svg" alt=" avis 4 étoiles"><p>2 hours ago</p></div>
 								 <h4>Première réservation tout était ok</h4>
 								 <p>Première réservation via cette agence et pas déçue. Nous avons passé un séjour m...</p>
 								 <p>Laetitia</p>
 							</div>
 							<div class="avisClient item">
-								 <div class="d-flex justify-content-between "><img src="images/navbar/reviews-2stars.svg" alt=" avis 2 étoiles"><p>8 hours ago</p></div>
+								 <div class="d-flex justify-content-between "><img src="/images/navbar/reviews-2stars.svg" alt=" avis 2 étoiles"><p>8 hours ago</p></div>
 								 <h4>Très bonne organisation sachant q...</h4>
 								 <p>Très bonne organisation sachant que mon mari est handicapé nous n’avons ...</p>
 								 <p>Leonora</p>
@@ -665,7 +665,7 @@
 			
 				<div class="text-center">
 					<div class="btn-see">
-						<a href="#"><img src="images/right-chevron.svg" alt="icône voir tous les avis" class="icon">Voir tous <span>les avis</span></a>
+						<a href="#"><img src="/images/right-chevron.svg" alt="icône voir tous les avis" class="icon">Voir tous <span>les avis</span></a>
 					</div>
 				</div>
 			</div>
@@ -678,23 +678,23 @@
 		<div class="top-footer-container full-width-mobile">
 			<div class="row">
 				<div class="top-footer-box">
-					<div><img src="images/footer/clients-satisfaits.svg" alt="icône clients satisfaits"></div>
+					<div><img src="/images/footer/clients-satisfaits.svg" alt="icône clients satisfaits"></div>
 					<p>98% de clients <span class="breakline">satisfaits</span></p>
 				</div>
 				<div class="top-footer-box">
-					<div><img src="images/footer/demarche-securisee.svg" alt="icône Démarche 100% sécurisée"></div>
+					<div><img src="/images/footer/demarche-securisee.svg" alt="icône Démarche 100% sécurisée"></div>
 					<p>Démarche 100% <span class="breakline">sécurisée</span></p>
 				</div>
 				<div class="top-footer-box on-tablet-desktop">
-					<div><img src="images/footer/assistance-a-votre-ecoute.svg" alt="icône assistance à votre écoute"></div>
+					<div><img src="/images/footer/assistance-a-votre-ecoute.svg" alt="icône assistance à votre écoute"></div>
 					<p>Une assistance <span class="breakline">à votre écoute</span></p>
 				</div>
 				<div class="top-footer-box">
-					<div><img src="images/footer/suivi-temps-reel.svg" alt="icône Suivi en temps réel" class="icon--bigger"></div>
+					<div><img src="/images/footer/suivi-temps-reel.svg" alt="icône Suivi en temps réel" class="icon--bigger"></div>
 					<p>Suivi en temps <span class="breakline">réel</span></p>
 				</div>
 				<div class="top-footer-box">
-					<div><img src="images/footer/simplicite-fiabilite.svg" alt="icône Simplicité et fiabilité" class="icon--bigger"></div>
+					<div><img src="/images/footer/simplicite-fiabilite.svg" alt="icône Simplicité et fiabilité" class="icon--bigger"></div>
 					<p>Simplicité et <span class="breakline">fiabilité</span></p>
 				</div>
 			</div>	

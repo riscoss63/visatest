@@ -2,6 +2,7 @@
 namespace App\EventListener;
 
 use App\Entity\AdressesIp;
+use App\Repository\AdressesIpRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Security\Http\Event\InteractiveLoginEvent;
 use Symfony\Component\HttpFoundation\Request;
@@ -9,10 +10,12 @@ use Symfony\Component\HttpFoundation\Request;
 class LoginListener
 {
     private $manager;
+    private $repo;
 
-    public function __construct(EntityManagerInterface $manager)
+    public function __construct(EntityManagerInterface $manager, AdressesIpRepository $repo)
     {
         $this->manager = $manager;
+        $this->repo= $repo;
     }
 
     public function onSecurityInteractiveLogin(InteractiveLoginEvent $event)
@@ -22,12 +25,19 @@ class LoginListener
 
         //On récupere l'adresse ip et on la stock avec l'user
         $request= Request::createFromGlobals();
-        $ip = new AdressesIp;
-        $ip->setIp($request->getClientIp());
-        $user->addIp($ip);
+        $ips = $this->repo->findAll();
+        $anonymousIp=$request->getClientIp();
+        if(in_array("::1", $ips) === false)
+        {
+            $ip = new AdressesIp;
+            $ip->setIp($request->getClientIp());
+            $ip->setUpdatedAt(new \DateTime('now'));
+            $user->addIp($ip);
+            
+            //On enregistre dans la BD
+            $this->manager->persist($user);
+            $this->manager->flush();     
+        }
         
-        //On enregistre dans la BD
-        $this->manager->persist($user);
-        $this->manager->flush();     
     }
 }

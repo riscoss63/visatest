@@ -1,19 +1,35 @@
-{% extends "back_end/base.html.twig" %}
+ <style>
+   .modal{
+       margin-top: 35px;
+       max-width: 1100px;
+   } 
+ </style>
 
-{% block menu_header %}
-    {% include "back_end/utilisateurs/__header.html.twig" %}
-{% endblock %}
+ <div class="row justify-content-center mt-5">
+    <div class="col-10 text-center">
+        <h6 class="text-center my-5"> Modification autorisation par<strong> adresse ip</strong></h6>
+            {{form_start(form, {'action': path('edit_access_ip_user', {'id': id}), 'method': 'POST'})}}
 
-{% block contenu %}
+            
 
-    {{ form_start(form) }}
-        {{ form_row(form.nom)}}
-        {{ form_row(form.prenom)}}
-        {{ form_row(form.ipsAutoriser)}}
-    {{ form_end(form)}}
-{% endblock %}
+        {{ form_end(form, {'render_rest': false})}}
+    </div>
+</div>
 
-{% block javascripts %}
-    {{ parent() }}
-    
-{% endblock %}
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Adresse Ip</th>
+      <th scope="col">Derniere connexion</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for ip in ips %}
+        <tr>
+            <th scope="row">{{ip.ip}}</th>
+            <td>{{ip.updatedAt|date('d/m/Y')}}</td>
+        </tr>
+    {% endfor %}
+    </tr>
+  </tbody>
+</table>

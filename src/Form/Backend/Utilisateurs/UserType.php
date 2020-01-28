@@ -33,8 +33,8 @@ class UserType extends AbstractType
                     'Coursier'      => 'ROLE_COURSIER',
                     'Rédacteur'     => 'ROLE_REDACTEUR'
                 ],
-                'expanded'  => false,
-                'multiple'  => true,
+                'expanded'      => false,
+                'multiple'      => true,
                 'attr'      => [
                     'class'     => 'form-control'
                 ]

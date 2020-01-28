@@ -1,9 +1,36 @@
-{% extends "back_end/base.html.twig" %}
+ <style>
+   .modal{
+       margin-top: 35px;
+       max-width: 1100px;
+   } 
+ </style>
+ <div class="row justify-content-center mt-5">
+    <div class="col-10 text-center">
+        <h6 class="text-center my-5"> Modification <strong>Droit</strong></h6>
+            {{form_start(form, {'action': path('edit_acces', {'id': id}), 'method': 'POST'})}}
+            <div class="row form-group text-right align-items-center">
+                {{ form_label(form.service, 'Section', {'label_attr' : {'class': 'col-sm-2 col-form-label'}}) }}
+                <div class="input-group col-sm-10">
+                    {{ form_widget(form.service) }}
+                </div>
+            </div>
 
-{% block menu_header %}
-    {% include "back_end/utilisateurs/__header.html.twig" %}
-{% endblock %}
+            <div class="offset-lg-2 text-left">
+                {% for check in form.droits %}
+                    <div class="form-check">
+                        {{ form_widget(check)}}
+                        {{ form_label(check)}}
+                    </div>
+                {% endfor %}
+            </div>
+                
 
-{% block contenu %}
-    {{ form(form) }}
-{% endblock %}
+            <div class="row form-group text-right">
+                <div class="input-group col-sm-12">
+                    {{ form_widget(form.submit) }}
+                </div>
+            </div>
+            
+        {{ form_end(form)}}
+    </div>
+</div>

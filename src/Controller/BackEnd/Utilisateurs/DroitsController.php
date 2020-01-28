@@ -82,7 +82,8 @@ class DroitsController extends AbstractController
             $this->addFlash('success', 'Accès modifier');
         }
         return $this->render('back_end\utilisateurs\droits\edit_service.html.twig', [
-            'form'          =>$form->createView()
+            'form'          =>$form->createView(),
+            'id'            => $service->getId()
         ]);
 
     }
@@ -116,7 +117,8 @@ class DroitsController extends AbstractController
         }
 
         return $this->render('back_end\utilisateurs\droits\edit_access_user.html.twig', [
-            'form'  => $form->createView()
+            'form'  => $form->createView(),
+            'id'    => $user->getId()
         ]);
     }
 
@@ -136,7 +138,7 @@ class DroitsController extends AbstractController
     public function userAccessIpEdit(Request $request, $id, EntityManagerInterface $manager) : Response
     {
         $user = $this->getDoctrine()->getRepository(User::class)->find($id);
-
+        
         $form=$this->createForm(UserIpType::class, $user);
         $form->handleRequest($request);
 
@@ -147,7 +149,9 @@ class DroitsController extends AbstractController
             $this->addFlash('success', 'Adresse ip utilisateur modifier');
         }
         return $this->render('back_end\utilisateurs\droits\edit_ip_users.html.twig', [
-            'form'      =>$form->createView()
+            'form'      =>$form->createView(),
+            'id'    => $user->getId(),
+            'ips'   =>$user->getIps()
         ]);
     }
 }

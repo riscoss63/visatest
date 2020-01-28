@@ -9,27 +9,32 @@
 
     <div class="row">
         <h5 class=" m-auto col-8"><i class="fa fa-users-cog"></i>Liste des utilisateurs back office </h5>
-        <div class="col-3 float-right">
+        <div class="col-3 text-right pr-5">
             <a href="{{path('add_user')}}" class="btn btn-primary petite-taille"><i class="fas fa-plus-circle"></i> Nouveau utilisateur</a>
         </div>
     </div>
 
     <div class="row">
-        <div class="col-12">
+        <div class="col-12 pr-5">
             <table data-toggle="table" data-url="{{ path('json_users')}}" data-pagination="true" data-search="true" data-pagination: "true">
                 <thead>
                     <tr>
                         <th data-sortable="true" data-field="username">Login de connexion</th>
                         <th data-field="nom" data-sortable="true">Nom</th>
-                        <th data-field="prenom" data-sortable="true">Prenom</th>
+                        <th data-field="prenom" data-sortable="true">Prénom</th>
                         <th data-field="valide" data-formatter="booleanFormatter" data-align="center" data-sortable="true">Actif</th>
                         <th data-field="roles" data-formatter="rolesFormatter" data-sortable="true">Profil</th>
                         <th data-field="dateCreation.timestamp" data-formatter="dateFormatter" data-sortable="true">Date de création</th>
                         <th data-field="dateModif.timestamp" data-formatter="dateFormatter" data-sortable="true">Date de modification</th>
-                        <th data-field="edit" data-formatter="actionsFormatter">Editer</th>
+                        <th data-field="edit" data-formatter="actionsFormatter">Actions</th>
                     </tr>
                 </thead>
             </table>
+            <ul class="sticky-toolbar">
+                <li class="toolbar-items">
+                    <a href="{{path('add_user')}}" class="btn btn-primary"><i class="fas fa-plus-circle"></i> </a>
+                </li>
+            </ul>
         </div> 
     </div>
 
@@ -47,10 +52,10 @@
 
         function booleanFormatter(value, row, index) {
             if (value === true) {
-                return '<i class="fa fa-check text-success text-center"></i>';
+                return '<i class="fas fa-check text-success text-center"></i>';
             }
             else {
-                return '<i class="fa fa-times text-danger text-center"></i>';
+                return '<i class="fas fa-times text-danger text-center"></i>';
             }
         }
 
@@ -61,30 +66,35 @@
 
         function rolesFormatter(value, row, index) {
             var roles = row["roles"];
+            var txt =[];
             for(var i in roles)
             {
                 switch (roles[i]) {
                 case "ROLE_SUPERADMIN":
-                    return "Super administrateur"
+                    txt.push("Super administrateur, ") 
                     break;
             
                 case "ROLE_COURSIER":
-                    return "Coursier"
+                    txt.push("Coursier, ")
                     break;
 
                 case "ROLE_ADMIN":
-                    return "Administrateur secondaire"
+                    txt.push("Administrateur secondaire, ")
                     break;
                 case "ROLE_REDACTEUR":     
-                    return "Rédacteur"
+                    txt.push("Rédacteur, ") 
                     break;    
                 case "ROLE_USER":
-                    return "null"
+                    txt.push("Utilisateur simple, ")
                     break;      
         
                 default:
+                    txt.push("Aucun droit n'est sélectionner")
                     break;
+                }
             }
+            return txt;
+            console.log(txt);
         }
     }
     </script>

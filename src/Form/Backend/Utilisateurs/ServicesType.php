@@ -37,7 +37,7 @@ class ServicesType extends AbstractType
             ])
             ->add('service', TextType::class, [
                 'attr'      => [
-                    'class'     => 'form-control'
+                    'class'     => 'form-control '
                 ],
                 'disabled'      =>true,
             ])

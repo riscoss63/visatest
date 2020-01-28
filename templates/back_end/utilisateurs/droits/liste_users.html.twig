@@ -39,15 +39,15 @@
     <script>
 
         function actionsFormatter(value, row, index){
-            return '<a href="'+Routing.generate('edit_acces_user', {'id' : row.id})+'" title="Modifier"><i class="far fa-edit"></i></a>';
+            return '<a href="'+Routing.generate('edit_acces_user', {'id' : row.id})+'" title="Modifier" rel="modal:open"><i class="far fa-edit"></i></a>';
         }
 
         function booleanFormatter(value, row, index) {
             if (value === true) {
-                return '<i class="fa fa-check text-success text-center"></i>';
+                return '<i class="fas fa-check text-success text-center"></i>';
             }
             else {
-                return '<i class="fa fa-times text-danger text-center"></i>';
+                return '<i class="fas fa-times text-danger text-center"></i>';
             }
         }
 
@@ -58,32 +58,36 @@
 
         function rolesFormatter(value, row, index) {
             var roles = row["roles"];
+            var txt =[];
             for(var i in roles)
             {
                 switch (roles[i]) {
                 case "ROLE_SUPERADMIN":
-                    return "Super administrateur"
+                    txt.push("Super administrateur, ") 
                     break;
             
                 case "ROLE_COURSIER":
-                    return "Coursier"
+                    txt.push("Coursier, ")
                     break;
 
                 case "ROLE_ADMIN":
-                    return "Administrateur secondaire"
+                    txt.push("Administrateur secondaire, ")
                     break;
                 case "ROLE_REDACTEUR":     
-                    return "Rédacteur"
+                    txt.push("Rédacteur, ") 
                     break;    
                 case "ROLE_USER":
-                    return "null"
+                    txt.push("Utilisateur simple, ")
                     break;      
         
                 default:
+                    txt.push("Aucun droit n'est sélectionner")
                     break;
                 }
             }
-        }   
+            return txt;
+            console.log(txt);
+        }
     </script>
     
 {% endblock %}

@@ -53,21 +53,21 @@ class UserController extends AbstractController
         $this->denyAccessUnlessGranted('SHOW', $this->serviceUsers);
 
         //Pour éviter les soucis de relations entre les objets        
-        // $encoder = new JsonEncoder();
-        // $defaultContext = [
-        //     AbstractNormalizer::CIRCULAR_REFERENCE_HANDLER => function ($object, $format, $context) {
-        //         return $object->getNom();
-        //     },
-        // ];
-        // $normalizer = new ObjectNormalizer(null, null, null, null, null, null, $defaultContext);
+        $encoder = new JsonEncoder();
+        $defaultContext = [
+            AbstractNormalizer::CIRCULAR_REFERENCE_HANDLER => function ($object, $format, $context) {
+                return $object->getNom();
+            },
+        ];
+        $normalizer = new ObjectNormalizer(null, null, null, null, null, null, $defaultContext);
 
-        // $serializer = new Serializer([$normalizer], [$encoder]);
+        $serializer = new Serializer([$normalizer], [$encoder]);
 
 
         //On initialise l'encoder et le normalizer
-        $encoder = new JsonEncoder();
-        $normalizer = new ObjectNormalizer();
-        $serializer = new Serializer([$normalizer], [$encoder]);
+        // $encoder = new JsonEncoder();
+        // $normalizer = new ObjectNormalizer();
+        // $serializer = new Serializer([$normalizer], [$encoder]);
         
 
         //On récupe tous nos users du back-end
@@ -85,7 +85,7 @@ class UserController extends AbstractController
                 $userAdmin;
                 
                 $jsonUsers=$serializer->serialize($userAdmin, 'json', [
-                    AbstractNormalizer::ATTRIBUTES      => ['id', 'username', 'nom', 'prenom', 'valide', 'roles', 'dateCreation', 'dateModif']
+                    AbstractNormalizer::ATTRIBUTES      => ['id', 'username', 'nom', 'prenom', 'valide', 'roles', 'dateCreation', 'dateModif', 'ips' ]
                 ]);
             }
         }
