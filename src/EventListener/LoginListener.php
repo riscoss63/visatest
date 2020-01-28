@@ -25,9 +25,17 @@ class LoginListener
 
         //On récupere l'adresse ip et on la stock avec l'user
         $request= Request::createFromGlobals();
-        $ips = $this->repo->findAll();
+        $ips = $user->getIps();
+        $adressesIp = [];
+
+        foreach ($ips as $ip) 
+        {
+            $adressesIp[] = $ip->getIp();
+        }
+
         $anonymousIp=$request->getClientIp();
-        if(in_array($anonymousIp, $ips->getIp()) === false)
+        
+        if(in_array($anonymousIp, $adressesIp) === false)
         {
             $ip = new AdressesIp;
             $ip->setIp($request->getClientIp());
