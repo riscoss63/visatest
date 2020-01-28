@@ -57,10 +57,10 @@
         }
 
         function rolesFormatter(value, row, index) {
-            var roles = row["roles"];
+            var roles = row["droits"];
             var txt =[];
-            for(var i in roles)
-            {
+
+            for(var i in roles) {
                 switch (roles[i]) {
                 case "ROLE_SUPERADMIN":
                     txt.push("Super administrateur, ") 
