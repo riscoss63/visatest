@@ -27,7 +27,7 @@ class LoginListener
         $request= Request::createFromGlobals();
         $ips = $this->repo->findAll();
         $anonymousIp=$request->getClientIp();
-        if(in_array("::1", $ips) === false)
+        if(in_array($anonymousIp, $ips) === false)
         {
             $ip = new AdressesIp;
             $ip->setIp($request->getClientIp());
