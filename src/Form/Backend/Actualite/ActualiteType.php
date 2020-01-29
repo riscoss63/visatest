@@ -23,14 +23,20 @@ class ActualiteType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
+            ->add('slug', TextType::class, [
+                'attr'      => [
+                    'class'     => 'form-control',
+                    'placeholder'   => 'Par défaut la méta-titre est selectionner'
+                ]
+            ])
             ->add('actif', CheckboxType::class, [
                 'attr'      => [
-                    'class'     => 'form-control col-1'
+                    'class'     => 'form-control'
                 ]
             ])
             ->add('visaClassic', EntityType::class, [
                 'class'     => VisaClassic::class,
-                'placeholder'   => 'VisaClassic',
+                'placeholder'   => '--Sélection du service Visa classic--',
                 'required'      => false,
                 'attr'      => [
                     'class'     => 'form-control'
@@ -38,7 +44,7 @@ class ActualiteType extends AbstractType
             ])
             ->add('evisa', EntityType::class, [
                 'class'     => EVisa::class,
-                'placeholder'   => 'E-visa',
+                'placeholder'   => '--Sélection du service E-visa--',
                 'required'      => false,
                 'attr'      => [
                     'class'     => 'form-control'
@@ -46,7 +52,7 @@ class ActualiteType extends AbstractType
             ])
             ->add('carteTourisme', EntityType::class, [
                 'class'     => CarteTourisme::class,
-                'placeholder'   => 'Carte de tourisme',
+                'placeholder'   => '--Sélection du service Carte de tourisme--',
                 'required'      => false,
                 'attr'      => [
                     'class'     => 'form-control'
@@ -78,6 +84,7 @@ class ActualiteType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Actualite::class,
+            'csrf_protection'   => false
         ]);
     }
 }

@@ -19,16 +19,20 @@
                     {{ form_widget(form.titre) }}
                 </div>
             </div>
-            
+            {% for type in form.meta %}
             <div class="row form-group text-right">
-                {{ form_label(form.meta, 'Fiche méta', {'label_attr' : {'class': 'col-sm-2 col-form-label'}}) }}
+               {{ form_label(type, null , {'label_attr' : {'class': 'col-sm-2 col-form-label'}}) }}
                 <div class="input-group col-sm-10">
-                    {{ form_widget(form.meta) }}
+                    {{ form_widget(type) }}
                 </div>
             </div>
-            <h1>Signature</h1>
-            <div class="signature mt-2" style="border: dotted 1px #000; height: 50vh; width: 100%;"></div>
-
+            {% endfor %}
+            <div class="row form-group text-right">
+                {{ form_label(form.images, 'Image accueil', {'label_attr' : {'class': 'col-sm-2 col-form-label'}}) }}
+                <div class="input-group col-sm-10">
+                    {{ form_widget(form.images) }}
+                </div>
+            </div>
             <ul class="sticky-toolbar">
                 <li class="toolbar-items">
                     <button type="submit" class="btn btn-enregistrer"><i class="fas fa-save"></i> </a>

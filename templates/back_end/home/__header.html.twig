@@ -1,0 +1,7 @@
+<nav class="nav">
+
+    <a class="nav-link {% if app.request.attributes.get('_route') == 'slider_show' %} active {% endif %}" href="{{ path('slider_show')}}"><i class="fa fa-users-cog"></i>Images</a>
+
+    <a class="nav-link {% if app.request.attributes.get('_route') == 'home_edit' %} active {% endif %}" href="{{ path('home_edit')}}"><i class="fa fa-lock"></i>Page accueil</a>
+
+</nav>

@@ -43,6 +43,7 @@ class HomeType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Home::class,
+            'csrf_protection'       => false
         ]);
     }
 }

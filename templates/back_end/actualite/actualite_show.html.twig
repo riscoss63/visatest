@@ -26,10 +26,13 @@
                     </select> #}
 
                     <tr>
-                        <th data-field="id" data-sortable="true"> Id </th>
-                        <th data-field="titre" data-sortable="true"> Prix </th>
-                        <th data-field="actif" data-formatter="booleanFormatter" data-align="center" data-sortable="true">Actif</th>
-                        <th data-field="visa" data-formatter="visaFormatter" data-sortable="true"> Type de visa </th>
+                        <th data-field="titre" data-sortable="true"> Titre </th>
+                        <th data-field="meta.titre" data-sortable="true"> Titre Balise HTML </th>
+                        <th data-field="meta.metaDescription" data-align="center" data-sortable="true">Description Balise HTML</th>
+                        <th data-field="actif" data-formatter="booleanFormatter" data-sortable="true"> Active </th>
+                        <th data-field="slug" data-sortable="true"> URL simplifiée </th>
+                        <th data-field="dateCreation.timestamp" data-formatter="dateFormatter" data-sortable="true"> Date de création </th>
+                        <th data-field="dateModification.timestamp" data-formatter="dateFormatter" data-sortable="true"> Date de modification </th>
                         <th data-field="edit" data-formatter="actionsFormatter"> Editer </th>
                     </tr>
 
@@ -67,10 +70,10 @@
         
         function booleanFormatter(value, row, index) {
             if (value === true) {
-                return '<i class="fa fa-check text-success text-center"></i>';
+                return '<i class="fas fa-check text-success text-center"></i>';
             }
             else {
-                return '<i class="fa fa-times text-danger text-center"></i>';
+                return '<i class="fas fa-times text-danger text-center"></i>';
             }
         }
 
@@ -87,6 +90,10 @@
             return 'Aucun visa n\'est selectionner';
         }
         
+        function dateFormatter(value, row, index) {
+            var date = new Date(value*1000);
+            return `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()} à ${date.getHours()}h${date.getMinutes()}`;
+        }
     </script>
     
 {% endblock %}

@@ -135,3 +135,11 @@ strong {
     bottom: 101%;
     left: 20%;
 }
+
+div.vich-image  a  img {
+    width: 100% !important;
+}
+
+#actualite_actif {
+    font-size: 10px;
+}

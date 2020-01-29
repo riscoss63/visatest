@@ -18,11 +18,13 @@ class MetaType extends AbstractType
                 'attr'      => [
                     'class'     => 'form-control'
                 ],
+                'label'     => 'Balise HTML de titre'
             ])
             ->add('metaDescription', TextareaType::class, [
                 'attr'      => [
                     'class'     => 'form-control'
                 ],
+                'label'     => 'Balise META description'
             ])
         ;
     }

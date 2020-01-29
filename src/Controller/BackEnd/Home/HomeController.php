@@ -25,6 +25,10 @@ class HomeController extends AbstractController
     /**
      * Retourne la page d'accueil
      * @Route("/gestion/home-edit", name="home_edit")
+     *
+     * @param Request $request
+     * @param EntityManagerInterface $manager
+     * @return Response
      */
     public function homeEdit(Request $request, EntityManagerInterface $manager) : Response
     {
