@@ -2,5 +2,56 @@
 
 
 {% block contenu %}
-{{ form(form)}}
+{{ form_start(form)}}
+
+<div class="row">
+    <h5 class=" m-auto col-8"><i class="fa fa-globe"></i>  {% if app.request.attributes.get('_route') == 'edit_zone' %} Modification de zone {% else %} Ajout de zone  {% endif %}   </h5>
+    <div class="col-4 text-right pr-5">
+        <a href="{{path('liste_zone')}}" class="btn btn-retour"><i class="fas fa-chevron-left"></i> Retour </a>
+        <button type="submit" class="btn btn-enregistrer"><i class="fas fa-save"></i> Enregistrer </a>
+    </div>
+</div>
+
+<div class="row justify-content-center mt-5">
+    <div class="col-10 text-center">    
+                
+            <div class="row form-group text-right">
+                {{ form_label(form.titre, 'Libelle', {'label_attr' : {'class': 'col-sm-2 col-form-label'}}) }}
+                <div class="input-group col-sm-10">
+                    {{ form_widget(form.titre) }}
+                </div>
+            </div>
+            <div class="row form-group text-right">
+                {{ form_label(form.pays, 'Pays', {'label_attr' : {'class': 'col-sm-2 col-form-label'}}) }}
+                <div class="input-group col-sm-10">
+                    {{ form_widget(form.pays) }}
+                </div>
+            </div>
+            <div class="row form-group text-right">
+                {{ form_label(form.active, 'Actif', {'label_attr' : {'class': 'col-sm-2 col-form-label'}}) }}
+                <div class="input-group col-sm-10">
+                    {{ form_widget(form.active) }}
+                </div>
+            </div>
+            <ul class="sticky-toolbar">
+                <li class="toolbar-items">
+                    <a href="{{path('liste_zone')}}" class="btn btn-retour"><i class="fas fa-chevron-left"></i> </a>
+        
+                </li>
+                <li class="toolbar-items">
+                    <button type="submit" class="btn btn-enregistrer"><i class="fas fa-save"></i> </a>
+                </li>
+            </ul>
+        {{ form_end(form, {'render_rest': false})}}
+    </div>
+</div>
+{% endblock %}
+{% block javascripts %}
+            
+
+{{parent()}}
+<script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.9/dist/js/bootstrap-select.min.js"></script>
+<script>
+    $('.my-select').selectpicker();
+</script>
 {% endblock %}

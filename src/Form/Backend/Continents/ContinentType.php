@@ -26,8 +26,12 @@ class ContinentType extends AbstractType
             ->add('zonesGeographique', EntityType::class, [
                 'class'     => ZoneGeographique::class,
                 'multiple'  => true,
-                'expanded'  => true,
                 'by_reference'  => false,
+                'attr'      => [
+                    'class'     => 'my-select form-control',
+                    'data-live-search'      => 'true',
+                    'multiple title'        => 'Selectionner un pays'
+                ]
             ])
             ->add('active', CheckboxType::class, [
                 'attr' => [

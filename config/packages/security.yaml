@@ -12,6 +12,9 @@ security:
         ROLE_REDACTEUR: [ROLE_ADMIN, ROLE_USER]
         ROLE_SUPERADMIN: [ROLE_USER, ROLE_ADMIN, ROLE_COURSIER, ROLE_REDACTEUR, ROLE_ALLOWED_TO_SWITCH]
         ROLE_CLIENT: ROLE_USER
+        ROLE_ENTREPRISE: ROLE_USER
+        ROLE_AGENCEVOYAGE: ROLE_USER
+        
 
     # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
     providers:

@@ -21,6 +21,7 @@
     <tr>
       <th scope="col">Adresse Ip</th>
       <th scope="col">Derniere connexion</th>
+      <th scope="col">Action</th>
     </tr>
   </thead>
   <tbody>
@@ -28,6 +29,11 @@
         <tr>
             <th scope="row">{{ip.ip}}</th>
             <td>{{ip.updatedAt|date('d/m/Y')}}</td>
+            {% if ip.autoriser == true %}
+              <th scope="row"><a href="{{path('del_access_ip', {id: ip.id})}}" ><i class="fas fa-minus-circle"></i> </a></th>
+            {% else %}
+              <th scope="row"><a href="{{path('add_access_ip', {id: ip.id})}}" ><i class="fas fa-plus"></a></th>
+            {% endif %}
         </tr>
     {% endfor %}
     </tr>

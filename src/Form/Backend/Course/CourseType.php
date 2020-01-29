@@ -45,6 +45,7 @@ class CourseType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Course::class,
+            'csrf_protection'       => false
         ]);
     }
 }

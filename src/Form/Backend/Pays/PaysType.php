@@ -18,13 +18,16 @@ class PaysType extends AbstractType
         $builder
             ->add('zoneGeographique', EntityType::class, [
                 'class'     => ZoneGeographique::class,
+                'attr'      => [
+                    'class'     => 'form-control'
+                ]
                 
             ])
             ->add('titre', TextType::class, [
                 'attr'      => [
                     'class'     => 'form-control'
                 ],
-                'label'     => 'Libelle'
+                'label'     => 'Libellé'
             ])
             ->add('iso', TextType::class, [
                 'attr'      => [
@@ -44,6 +47,7 @@ class PaysType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Pays::class,
+            'csrf_protection'   => false
         ]);
     }
 }

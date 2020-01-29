@@ -32,6 +32,8 @@ class CourseController extends AbstractController
             AbstractNormalizer::CIRCULAR_REFERENCE_HANDLER => function ($object, $format, $context) {
                 return $object->getTitre();
             },
+            AbstractNormalizer::ATTRIBUTES  => ['client', 'adresse', 'codePostal', 'id', 'ville', 'realiser', 'livraison', 'enlevement', 'reference', 'dateEnlevement' => 'timestamp', 'coursier', 'nom', 'prenom', 'classic', 'tourisme'],
+
         ];
         $normalizer = new ObjectNormalizer(null, null, null, null, null, null, $defaultContext);
 

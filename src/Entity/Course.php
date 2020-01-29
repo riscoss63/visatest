@@ -91,6 +91,16 @@ class Course
      */
     private $client;
 
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $classic;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $tourisme;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -277,6 +287,30 @@ class Course
     public function setClient(?User $client): self
     {
         $this->client = $client;
+
+        return $this;
+    }
+
+    public function getClassic(): ?bool
+    {
+        return $this->classic;
+    }
+
+    public function setClassic(bool $classic): self
+    {
+        $this->classic = $classic;
+
+        return $this;
+    }
+
+    public function getTourisme(): ?bool
+    {
+        return $this->tourisme;
+    }
+
+    public function setTourisme(bool $tourisme): self
+    {
+        $this->tourisme = $tourisme;
 
         return $this;
     }

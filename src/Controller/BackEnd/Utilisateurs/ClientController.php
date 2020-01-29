@@ -14,7 +14,7 @@ use Symfony\Component\Serializer\Encoder\JsonEncoder;
 use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 use Symfony\Component\Serializer\Serializer;
-
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 /**
  * @Route("/gestion/clients")
@@ -68,12 +68,13 @@ class ClientController extends AbstractController
     /**
      * @Route("/client/add", name="add_client")
      */
-    public function clientAdd(Request $request, EntityManagerInterface $manager, UserPasswordEncoderInterface $encoder) : Response
+    public function clientAdd(Request $request, EntityManagerInterface $manager, UserPasswordEncoderInterface $encoder, \Swift_Mailer $mailer, ValidatorInterface $validator) : Response
     {
         $client = new User;
         $form = $this->createForm(ClientType::class, $client);
         $form->handleRequest($request);
-
+        $errors = $validator->validate($client);
+        
         if($form->isSubmitted() AND $form->isValid())
         {
             //On récupere notre psw et on l'encode
@@ -85,35 +86,72 @@ class ClientController extends AbstractController
 
             $manager->persist($client);
             $manager->flush();
+            
+            //mail
+            $message= (new \Swift_Message('Création de compte : Visa en ligne'))
+                ->setFrom('sghairipro63@gmail.com')
+                ->setTo($client->getEmail())
+                ->setBody(
+                    $this->renderView(
+                        'back_end/emails/add_user.html.twig',
+                        [
+                            'mdp'           => $password,
+                            'client'        => $client
+                        ]
+                    ),
+                    'text/html'
+            );
+            $mailer->send($message);
 
             $this->addFlash('success', 'Client ajouter');
-            return $this->redirectToRoute('show_clients');
+            return $this->redirectToRoute('edit_client', [
+                'id'        => $client->getId()
+            ]);
         }
 
         return $this->render('back_end\client\edit_client.html.twig', [
-            'form'      => $form->createView()
+            'form'      => $form->createView(),
+            'errors'    => $errors
         ]);
     }
 
     /**
      * @Route("/client/edit-{id}", name="edit_client", options={"expose"=true})
      */
-    public function clientEdit($id, Request $request, EntityManagerInterface $manager, UserPasswordEncoderInterface $encoder) : Response
+    public function clientEdit($id, Request $request, EntityManagerInterface $manager, UserPasswordEncoderInterface $encoder, \Swift_Mailer $mailer, ValidatorInterface $validator) : Response
     {
         $client = $this->getDoctrine()->getRepository(User::class)->find($id);
+        $errors = $validator->validate($client);
 
         $form = $this->createForm(ClientType::class, $client);
         $form->handleRequest($request);
 
         if($form->isSubmitted() AND $form->isValid())
         {
+            $client->setPassword($client->getPassword());
+
             //On récupere le mot de passe en clair et l'encode grâce a l'encodage auto
             $password=$form->get('password')->getData();
+
             if($password != null)
             {
                 $client->setPassword($encoder->encodePassword($client, $password));
+
+                $message= (new \Swift_Message('Modification de votre compte : visa en ligne'))
+                    ->setFrom('sghairipro63@gmail.com')
+                    ->setTo($client->getEmail())
+                    ->setBody(
+                        $this->renderView(
+                            'back_end/emails/mdp_modifier.html.twig',
+                            [
+                                'mdp'   => $password,
+                                'client'        => $client
+                            ]
+                        ),
+                        'text/html'
+                );
+                $mailer->send($message);
             }
-            $client->setPassword($client->getPassword());
 
             //On modifie da date de modification
             $client->setDateModif(new \DateTime("now"));
@@ -122,11 +160,11 @@ class ClientController extends AbstractController
             $manager->flush();
 
             $this->addFlash('success', 'Client modifier');
-            return $this->redirectToRoute('show_clients');
         }
 
         return $this->render('back_end\client\edit_client.html.twig', [
-            'form'      => $form->createView()
+            'form'      => $form->createView(),
+            'errors'    => $errors
         ]); 
     }
 

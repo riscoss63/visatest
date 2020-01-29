@@ -71,12 +71,7 @@ class UserType extends AbstractType
                 
             ])
             
-            
-            ->add('submit', SubmitType::class, [
-                'attr'  => [
-                    'class'     => 'form-control btn btn-primary'
-                ]
-            ])
+        
         ;
     }
 

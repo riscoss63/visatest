@@ -6,6 +6,23 @@ $(document).ready(function(){
     var addCountryButton = $('.add-country');
     var addCityButton = $('.add-city');
     var rangeBox = $('.range-box');
+    var codePostalLivraison = $('#code_postal_livraison');
+    var moindevoyageur = $('.moindevoyageur');
+    var plusdevoyageur = $('.plusdevoyageur');
+    var dateEntree = $('#date_entree');
+    var dateSortie = $('#date_sortie');
+    var enlevement = $('input[name="radio_enlevement"]');
+    var livraison = $('input[name="mode-livraison"]');
+    var mail = $('#email');
+    var quantiteVoyageur = $('#nbvoyageurs');
+    var nom = $('input[name="nom"]');
+    var prenom = $('input[name="prenom"]');
+    var adresse = $('input[name="adresse"]');
+    var codePostal = $('input[name="codePostal"]');
+    var ville = $('input[name="ville"]');
+    var telephone = $('input[name="telephone"]');
+
+
 
     setProgressBar();
 
@@ -22,7 +39,10 @@ $(document).ready(function(){
     if($('.russia-cities').length){
         populateCitySelect();
     }
-
+    if(livraison.length){
+        livraisonAffichage();
+    }
+    
     submitButton.on('click', function(){
         goToNextScreen();
     });
@@ -42,6 +62,68 @@ $(document).ready(function(){
     rangeBox.on('click', function(){
         changeQuantity();
     });
+
+    codePostalLivraison.change(function () {
+        afficherCoursier(codePostalLivraison.val());
+    });
+
+    moindevoyageur.on('click', function() {
+        baisserVoyageur();
+    })
+
+    plusdevoyageur.on('click', function() {
+        monterVoyageur();
+    })
+
+    dateEntree.on('change', function() {
+        montrerDateEntree(dateEntree);
+    })
+
+    dateSortie.on('change', function() {
+        
+        montrerDateSortie(dateSortie);
+    })
+
+    enlevement.on('click', function() {
+        enlevementAffichage(enlevement);
+    })
+
+    livraison.on('click', function() {
+        livraisonAffichage();
+    })
+
+    mail.on('change', function() {
+        mailChange(mail);
+    })
+
+    quantiteVoyageur.on('change', function() {
+        quantiteChange(quantiteVoyageur);
+    })
+    
+    nom.on('change', function() {
+        nomChange(nom);
+    })
+
+    prenom.on('change', function() {
+        prenomChange(prenom);
+    })
+
+    adresse.on('change', function() {
+        adresseChange(adresse);
+    })
+
+    codePostal.on('change', function() {
+        codePostalChange(codePostal);
+    })
+
+    ville.on('change', function() {
+        villeChange(ville);
+    })
+
+    telephone.on('change', function() {
+        telephoneChange(telephone);
+    })
+
 	//Change la couleur du label des formulaire (version mobile) au focus
 	$("#codePostal0").focus(function(){
         $("label[for=codePostal0]").css("color", "#cccc00");
@@ -1171,6 +1253,8 @@ function setProgressBar(stepNbToSet) {
     }
 }
 
+
+
 function setStepsProgress(stepToSet) {
     var stepNbToSet = stepToSet || getCurrentStepNb();
 
@@ -1244,6 +1328,10 @@ function addSelectCountryBelow(button) {
     populateCountrySelect();
 }
 
+// function removeSelectCountryBelow(button) {
+//     button.before('');
+// }
+
 function addSelectCityBelow(button) {
     button.before($('.russia-cities-form:first-child').clone());
 }
@@ -1251,7 +1339,157 @@ function addSelectCityBelow(button) {
 function changeQuantity() {
     setTimeout(function() {
         $('.label-quantity').text('x' + $('.range-box input').val());
+
     }, 100);
 }
 
+function afficherCoursier(codePostal) {
+    var regexIleDeFrance = /^75|77|78|91|92|93|94|95[0-9]{3}$/;
+    if(regexIleDeFrance.test(codePostal)) {
+        $('.ile').show();
+    }
+    else {
+        $('.ile').hide();
+    }
     
+
+}
+
+function baisserVoyageur() {
+    var inputvoyageur = $('#nbvoyageurs');
+    var nb = inputvoyageur.val();
+    if(nb <= 1) {
+        inputvoyageur.val(1);
+    }
+    else {
+        var result = nb - 1 
+        inputvoyageur.val(result);
+        quantiteChange(inputvoyageur);
+    }
+    
+}
+
+function monterVoyageur() {
+    var inputvoyageur = $('#nbvoyageurs');
+    nb = inputvoyageur.val();
+    inputvoyageur.val(Number(nb) + 1);
+    quantiteChange(inputvoyageur);
+    
+}
+
+$( ".multiple-country-select-nationalite" ).on("change", function () {
+    var str = "";
+    $( " .multiple-country-select-nationalite option:selected" ).each(function() {
+        str += '<p class="label">' + $( this ).text() + '</p>';
+        $.parseHTML( str );
+    });
+    $( ".natio" ).html( str );
+})
+
+function montrerDateEntree(dateEntree) {
+    var montrerDateEntree = new Date(dateEntree.datepicker( "getDate" ));
+    var stringEntre = `${montrerDateEntree.getDate()}/${montrerDateEntree.getMonth() + 1}/${montrerDateEntree.getFullYear()}`;
+    $("#affichage_entree").text( stringEntre );
+}
+
+function montrerDateSortie(dateSortie) {
+    var montrerDateSortie = new Date(dateSortie.datepicker( "getDate" ));
+    var stringSortie = `${montrerDateSortie.getDate()}/${montrerDateSortie.getMonth() + 1}/${montrerDateSortie.getFullYear()}`;
+    $("#affichage_sortie").text( stringSortie );
+}
+
+function enlevementAffichage(enlevement) {
+    var str = $("input[name='radio_enlevement']:checked").val()
+    $(".enlevement-sortie").text('Enlèvement par  ' + str);
+    if(str == "coursier") {
+        var tarifCoursier = $(".prix-coursier").text();
+        $(".tarif-enlevement").text(tarifCoursier);
+    }
+    if(str == "agence") {
+        $(".enlevement-sortie").text('Enlèvement à l\''+str);
+    }
+}
+
+function livraisonAffichage() {
+    var str = $("input[name='mode-livraison']:checked").val();
+    $(".livraison-sortie").text('Livraison par ' +str);
+    var strTarif = $("input[name='mode-livraison']:checked").parent().parent().next().children();
+    $(".livraison-tarif").text(strTarif.text());
+}
+
+function mailChange(mail) {
+    var str = mail.val();
+    $(".mail-show").text(str);
+}
+
+// function assuranceAffichage(assurance) {
+//     var duree = $("input[name='radioassurance']:checked").val();
+//     $("#" + duree).on('change', function());
+//     $(".assurance-quantite").text(nb);
+//     console.log(nb);
+// }
+// var str;
+// var duree;
+$('input[name="radioassurance"]').on('click', function() {
+    duree = $("input[name='radioassurance']:checked").val();
+    dureeMove(duree);
+
+});
+function dureeMove(duree) {
+    strNb = $("#" + duree).val();
+    $(".assurance-quantite").text(strNb);
+    $("#" + duree).on('change', function() {
+        strNb = $("#" + duree).val();
+        $(".assurance-quantite").text(strNb);
+        strTotal = strPrix * strNb;
+        $(".assurance-total").text(strTotal + '€');
+
+    });
+
+    strPrix = $("." + duree).text();
+    strTotal = strPrix * strNb;
+    $(".assurance-prix").text(strPrix + '€');
+    $(".assurance-total").text(strTotal + '€');
+}
+
+function quantiteChange(voyageurs) {
+    quantites = voyageurs.val();
+    $('.quantite-voyageur').text(quantites);
+    price = $('#price-visa-ttc').text();
+    resultat = price * quantites;
+    $('.prix-visa-type').text(resultat);
+    console.log(price);
+}
+
+function nomChange(nom) {
+    var str = nom.val();
+    $('.nomChange').text(str);
+}
+
+function prenomChange(prenom) {
+    var str = prenom.val();
+    $('.prenomChange').text(str + ' ');
+}
+
+function adresseChange(adresse) {
+    var str = adresse.val();
+    $('.adresseChange').text(str);
+}
+
+function codePostalChange(postal) {
+    var str = postal.val();
+    $('.postalChange').text(str);
+}
+
+function villeChange(ville) {
+    var str = ville.val();
+    $('.villeChange').text(str);
+}
+
+function telephoneChange(num) {
+    var str = num.val();
+    var strD = $('.iti__selected-dial-code').text();
+    $('.numChange').text(strD + str);
+    console.log(str);
+}
+

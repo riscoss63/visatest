@@ -66,16 +66,23 @@ class DemandesController extends AbstractController
     {
         $courses = $this->getDoctrine()->getRepository(Course::class)->findAll();
         $courseVisa = 0;
-        foreach ($courses as $course) 
+        if($courses) 
         {
-            $typeVisa=$course->getDemande()->getVisaType();
-
-            if($typeVisa->getVisaClassic())
+            foreach ($courses as $course) 
             {
-                $courseVisa += 1;
+                if($course->getDemande()->getVisaType())
+                {
+                    $typeVisa=$course->getDemande()->getVisaType();
+                }
+
+                if($typeVisa->getVisaClassic())
+                {
+                    $courseVisa += 1;
+                }
+                $courseVisa;
             }
-            $courseVisa;
         }
+        
         return $this->render('/back_end/visa_classic/demandes/show_demandes.html.twig', [
             'nbDeCourse'    => $courseVisa
         ]);

@@ -38,7 +38,7 @@ class AdressesIp
 
     public function __construct()
     {
-        
+        $this->updatedAt = new \DateTime('now');
     }
     public function getId(): ?int
     {

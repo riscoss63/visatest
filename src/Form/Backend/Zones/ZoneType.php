@@ -28,8 +28,12 @@ class ZoneType extends AbstractType
             ->add('pays', EntityType::class, [
                 'class'     => Pays::class,
                 'multiple'  => true,
-                'expanded'  => true,
                 'by_reference'  => false,
+                'attr'      => [
+                    'class'     => 'my-select form-control',
+                    'data-live-search'      => 'true',
+                    'multiple title'        => 'Selectionner un pays'
+                ]
             ])
             ->add('active', CheckboxType::class, [
                 'attr' => [
@@ -49,6 +53,7 @@ class ZoneType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => ZoneGeographique::class,
+            'csrf_protection'    => false
         ]);
     }
 }

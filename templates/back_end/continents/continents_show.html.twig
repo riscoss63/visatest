@@ -5,8 +5,8 @@
     <div class="row">
         <h5 class=" m-auto col-6"><i class="fa fa-flag"></i>  Liste des continents   </h5>
         <div class="col-6 text-right">
-            <a id="" href="{{path('liste_zone')}}" type="button" class="btn btn-danger btn-elevate btn-icon-sm mx-2 "><i class="fa fa-chevron-left"></i> Retour à la liste des zones</a>
-            <a href="{{path('add_continent')}}" class="btn btn-primary petite-taille"><i class="fas fa-plus-circle"></i> Nouveau continent </a>
+            <a id="" href="{{path('liste_zone')}}" type="button" class="btn btn-retour btn-elevate btn-icon-sm mx-2 "><i class="fas fa-chevron-left"></i> Retour à la liste des zones</a>
+            <a href="{{path('add_continent')}}" class="btn btn-primary petite-taille" rel="modal:open"><i class="fas fa-plus-circle"></i> Nouveau continent </a>
         </div>
     </div>
 
@@ -24,7 +24,15 @@
             </table>
         </div> 
     </div>
+    <ul class="sticky-toolbar">
+        <li class="toolbar-items">
+            <a href="{{path('liste_zone')}}" class="btn btn-retour"><i class="fas fa-chevron-left"></i> </a>
 
+        </li>
+        <li class="toolbar-items">
+            <a href="{{path('add_continent')}}" class="btn btn-primary petite-taille" rel="modal:open"><i class="fas fa-plus-circle"></i></a>
+        </li>
+    </ul>
 {% endblock %}
 
 {% block javascripts %}
@@ -33,15 +41,15 @@
     <script>
 
         function actionsFormatter(value, row, index){
-            return '<a href="'+Routing.generate('edit_continent', {'id' : row.id})+'" title="Modifier"><i class="far fa-edit"></i></a>';
+            return '<a href="'+Routing.generate('edit_continent', {'id' : row.id})+'" title="Modifier" rel="modal:open"><i class="far fa-edit"></i></a>';
         }
 
         function booleanFormatter(value, row, index) {
             if (value === true) {
-                return '<i class="fa fa-check text-success text-center"></i>';
+                return '<i class="fas fa-check text-success text-center"></i>';
             }
             else {
-                return '<i class="fa fa-times text-danger text-center"></i>';
+                return '<i class="fas fa-times text-danger text-center"></i>';
             }
         }
 

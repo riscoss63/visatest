@@ -40,6 +40,7 @@ class LoginListener
             $ip = new AdressesIp;
             $ip->setIp($request->getClientIp());
             $ip->setUpdatedAt(new \DateTime('now'));
+            $ip->setAutoriser(false);
             $user->addIp($ip);
             
             //On enregistre dans la BD

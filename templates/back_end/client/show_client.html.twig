@@ -1,7 +1,6 @@
 {% extends "back_end/base.html.twig" %}
 
 
-
 {% block contenu %}
 
     <div class="row">
@@ -13,7 +12,12 @@
 
     <div class="row">
         <div class="col-12">
-            <table data-toggle="table" data-url="{{ path('json_clients')}}" data-pagination="true" data-search="true" data-pagination: "true">
+            <div class="col-6 mt-5 position-absolute">
+                <label class="kt-checkbox">
+                    <input id="premium-filter" type="checkbox"> Afficher uniquement les clients  <strong>Premium</strong>
+                </label>
+            </div>
+            <table id="table" class="mt-4" data-toggle="table" data-url="{{ path('json_clients')}}" data-pagination="true" data-search="true" data-pagination: "true" data-filter-control="true">
                 <thead>
                     <tr>
                         <th data-sortable="true" data-field="username">Login de connexion</th>
@@ -21,7 +25,7 @@
                         <th data-field="prenom" data-sortable="true">Prenom</th>
                         <th data-field="valide" data-formatter="booleanFormatter" data-align="center" data-sortable="true">Actif</th>
                         <th data-field="premium" data-formatter="booleanFormatter" data-align="center" data-sortable="true">Premium</th>
-                        <th data-field="roles" data-sortable="true">Profil</th>
+                        <th data-field="roles" data-formatter="rolesFormatter" data-filter-control="select" data-sortable="true">Profil</th>
                         <th data-field="dateCreation.timestamp" data-formatter="dateFormatter" data-sortable="true">Date de création</th>
                         <th data-field="dateModif.timestamp" data-formatter="dateFormatter" data-sortable="true">Date de modification</th>
                         <th data-field="edit" data-formatter="actionsFormatter">Editer</th>
@@ -36,6 +40,8 @@
 {% block javascripts %}
 
     {{ parent() }}
+    <script src="https://unpkg.com/bootstrap-table@1.15.5/dist/extensions/filter-control/bootstrap-table-filter-control.min.js"></script>
+
     <script>
 
         function actionsFormatter(value, row, index){
@@ -45,11 +51,12 @@
 
         function booleanFormatter(value, row, index) {
             if (value === true) {
-                return '<i class="fa fa-check text-success text-center"></i>';
+                return '<i class="fas fa-check text-success text-center"></i>';
             }
             else {
-                return '<i class="fa fa-times text-danger text-center"></i>';
+                return '<i class="fas fa-times text-danger text-center"></i>';
             }
+            
         }
 
         function dateFormatter(value, row, index) {
@@ -57,31 +64,49 @@
             return `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`;
         }
 
-        // function rolesFormatter(value, row, index) {
-        //     switch (row.roles) {
-        //         case "ROLE_SUPERADMIN":
-        //             return "Super administrateur"
-        //             break;
-                
-        //         case "ROLE_COURSIER":
-        //             return "Coursier"
-        //             break;
-
-        //         case "ROLE_ADMIN":
-        //             return "Administrateur secondaire"
-        //             break;
-
-        //         case "ROLE_REDACTEUR":     
-        //             return "Rédacteur"
-        //             break;    
-        //         case "ROLE_USER":
-        //             return "null"
-        //             break;      
+        function rolesFormatter(value, row, index) {
+            var roles = row["roles"];
+            var txt =[];
+            for(var i in roles)
+            {
+                switch (roles[i]) {
+                case "ROLE_ENTREPRISE":
+                    txt.push("Entreprise") 
+                    break;
             
-        //         default:
-        //             break;
-        //     }
-        // }
+                case "ROLE_AGENCEVOYAGE":
+                    txt.push("Agence de voyage")
+                    break;
+                case "ROLE_CLIENT":
+                    txt.push("Client")
+                    break;      
+        
+                default:
+                    txt.push("Aucun droit n'est sélectionner")
+                    break;
+                }
+            }
+            return txt;
+        }
+
+        var table = $('#table')
+        var button = $('#premium-filter')
+        button.on("change", function() {
+            if($(this).is(':checked')) {
+                table.bootstrapTable('filterBy', {
+                    premium: true
+                })
+            }
+            else {
+                table.bootstrapTable('destroy')
+                table.bootstrapTable()
+            }
+            
+
+        })
+        
+
     </script>
     
 {% endblock %}
+

@@ -12,7 +12,21 @@
 
     <div class="row">
         <div class="col-12">
-            <table data-toggle="table" data-url="{{ path('json_notes_de_course')}}" data-pagination="true" data-search="true" data-pagination: "true">
+            <div class="col-8 mt-5 position-absolute">
+                <div class="row">
+                    <select id="service-filter"  class="form-control col-4 mr-3">
+                        <option value="default">Sélectionner un type de visa</option>
+                        <option value="carte_tourisme">Carte de tourisme</option>
+                        <option value="visa_classic">Visa classic</option>
+                    </select>
+                    <select id="type-filter" class="form-control col-4">
+                        <option value="default">Sélectionner un type de course</option>
+                        <option value="type_livraison">Livraison</option>
+                        <option value="type_enlevement">Enlèvement</option>
+                    </select>
+                </div>
+            </div>
+            <table id="table" data-toggle="table" data-url="{{ path('json_notes_de_course')}}" data-pagination="true" data-search="true" data-pagination: "true" class="mt-3">
                 <thead>
                     <tr>
                         <th data-field="reference" data-formatter="referenceFormatter" data-sortable="true">Référence</th>
@@ -32,6 +46,50 @@
 
     {{ parent() }}
     <script>
+        var table = $('#table')
+        var buttonServiceFilter = $('#service-filter')
+        var buttonTypeFilter = $('#type-filter')
+
+        buttonServiceFilter.change(function() {
+            $('#service-filter option:selected').each(function(){
+                var val=$(this).val();
+                if(val == "carte_tourisme") {
+                    table.bootstrapTable('filterBy', {
+                        tourisme: true
+                    })
+                }
+                else if(val == "visa_classic") {
+                    table.bootstrapTable('filterBy', {
+                        classic: true
+                    })
+                }
+                else if(val == "default") {
+                    table.bootstrapTable('destroy')
+                    table.bootstrapTable()  
+                }
+            })
+        })
+
+        buttonTypeFilter.change(function() {
+            $('#type-filter option:selected').each(function(){
+                var val=$(this).val();
+                if(val == "type_livraison") {
+                    table.bootstrapTable('filterBy', {
+                        livraison: true
+                    })
+                }
+                else if(val == "type_enlevement") {
+                    table.bootstrapTable('filterBy', {
+                        enlevement: true
+                    })
+                }
+                else if(val == "default") {
+                    table.bootstrapTable('destroy')
+                    table.bootstrapTable()                
+                }
+            })
+        })
+
         function referenceFormatter(value, row, index) {
             return '<a href="'+Routing.generate('edit_course', {'id' : row.id})+'" title="Modifier" rel="modal:open">'+value+' </a>';
         }

@@ -52,11 +52,14 @@ class ZonesController extends AbstractController
             AbstractNormalizer::CIRCULAR_REFERENCE_HANDLER => function ($object, $format, $context) {
                 return $object->getTitre();
             },
+            AbstractNormalizer::ATTRIBUTES  => ['valide', 'pays', 'titre', 'id'],
         ];
         $normalizer = new ObjectNormalizer(null, null, null, null, null, null, $defaultContext);
 
         $serializer = new Serializer([$normalizer], [$encoder]);
-        $jsonZones=$serializer->serialize($zonesGeographique, 'json');
+        $jsonZones=$serializer->serialize($zonesGeographique, 'json', [
+
+        ]);
         //On retourne une réponse JSON
         return new Response($jsonZones, 200, ['Content-Type' => 'application/json']);
     }

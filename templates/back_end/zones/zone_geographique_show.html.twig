@@ -4,8 +4,8 @@
 
     <div class="row">
         <h5 class=" m-auto col-6"><i class="fa fa-globe"></i> Liste des zones géographiques  </h5>
-        <div class="col-6 float-right">
-            <a id="" href="{{path('show_continents')}}" type="button" class="btn btn-warning btn-elevate btn-icon-sm mx-2 "><i class="fa fa-globe"></i> Gérer les continents</a>
+        <div class="col-6 text-right">
+            <a id="" href="{{path('show_continents')}}" type="button" class="btn btn-warning btn-elevate btn-icon-sm mx-2 "><i class="fas fa-globe"></i> Gérer les continents</a>
 
             <a href="{{path('add_zone')}}" class="btn btn-primary petite-taille"><i class="fas fa-plus-circle"></i> Nouvelle zone</a>
         </div>
@@ -26,6 +26,16 @@
         </div> 
     </div>
 
+    <ul class="sticky-toolbar">
+        <li class="toolbar-items">
+            <a href="{{path('show_continents')}}" class="btn btn-warning"><i class="fas fa-globe"></i> </a>
+
+        </li>
+        <li class="toolbar-items">
+            <a href="{{path('add_zone')}}" class="btn btn-primary "><i class="fas fa-plus-circle"></i> </a>
+        </li>
+    </ul>
+
 {% endblock %}
 
 {% block javascripts %}
@@ -39,10 +49,10 @@
 
         function booleanFormatter(value, row, index) {
             if (value === true) {
-                return '<i class="fa fa-check text-success text-center"></i>';
+                return '<i class="fas fa-check text-success text-center"></i>';
             }
             else {
-                return '<i class="fa fa-times text-danger text-center"></i>';
+                return '<i class="fas fa-times text-danger text-center"></i>';
             }
         }
 

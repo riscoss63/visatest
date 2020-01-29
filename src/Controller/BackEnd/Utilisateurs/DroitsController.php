@@ -2,6 +2,7 @@
 
 namespace App\Controller\BackEnd\Utilisateurs;
 
+use App\Entity\AdressesIp;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -154,4 +155,36 @@ class DroitsController extends AbstractController
             'ips'   =>$user->getIps()
         ]);
     }
+
+    /**
+     * Ajouter une adresse ip à une user
+     * @Route("/access-ip-add/ip-{id}", name="add_access_ip")
+     */
+    public function accessIpAdd($id, EntityManagerInterface $manager)
+    {
+        $ip = $this->getDoctrine()->getRepository(AdressesIp::class)->find($id);
+        $ip->setAutoriser(true);
+        $manager->persist($ip);
+        $manager->flush();
+
+        $this->addFlash('success', 'L\'adresse ip à était ajouter.');
+        return $this->redirectToRoute('show_access_ip_users');
+    }
+
+    /**
+     * Del une adresse ip à une user
+     * @Route("/access-ip-del/ip-{id}", name="del_access_ip")
+     */
+    public function accessIpDel($id, EntityManagerInterface $manager)
+    {
+        $ip = $this->getDoctrine()->getRepository(AdressesIp::class)->find($id);
+        $ip->setAutoriser(false);
+        $manager->persist($ip);
+        $manager->flush();
+
+        $this->addFlash('success', 'L\'adresse ip à était supprimer.');
+        return $this->redirectToRoute('show_access_ip_users');
+    }
+
+    
 }

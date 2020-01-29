@@ -41,6 +41,8 @@ class PaysController extends AbstractController
             AbstractNormalizer::CIRCULAR_REFERENCE_HANDLER => function ($object, $format, $context) {
                 return $object->getTitre();
             },
+            AbstractNormalizer::ATTRIBUTES  => ['iso', 'titre', 'zoneGeographique', 'id'],
+
         ];
         $normalizer = new ObjectNormalizer(null, null, null, null, null, null, $defaultContext);
 
@@ -97,7 +99,7 @@ class PaysController extends AbstractController
 
         $pays = $this->getDoctrine()->getRepository(Pays::class)->find($id);
 
-        $form= $this->createForm(PaysType::class);
+        $form= $this->createForm(PaysType::class, $pays);
         $form->handleRequest($request);
 
         if($form->isSubmitted() AND $form->isValid())

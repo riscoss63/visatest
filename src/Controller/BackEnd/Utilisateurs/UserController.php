@@ -16,7 +16,7 @@ use Symfony\Component\Serializer\Encoder\JsonEncoder;
 use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 use Symfony\Component\Serializer\Serializer;
-
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 /**
  * @Route("/gestion")
@@ -98,12 +98,13 @@ class UserController extends AbstractController
      * Modifier un User grâce a son id
      * @Route("/utilisateur-{id}", name="modif_user", options={"expose"=true})
      */
-    public function utilisateurEdit(Request $request, $id, EntityManagerInterface $manager, UserPasswordEncoderInterface $encoder, \Swift_Mailer $mailer) : Response
+    public function utilisateurEdit(Request $request, $id, EntityManagerInterface $manager, UserPasswordEncoderInterface $encoder, \Swift_Mailer $mailer, ValidatorInterface $validator) : Response
     {
         $this->denyAccessUnlessGranted('SHOW', $this->serviceUsers);
 
         $user= $this->getDoctrine()->getRepository(User::class)->find($id);
-        
+        $errors = $validator->validate($user);
+
         $form=$this->createForm(UserType::class, $user);
         $form->handleRequest($request);
         
@@ -141,7 +142,8 @@ class UserController extends AbstractController
             
         }   
         return $this->render('back_end\utilisateurs\edit_utilisateur.html.twig', [
-            'form'          =>$form->createView()
+            'form'          =>$form->createView(),
+            'errors'    => $errors
         ]);
     }
 
@@ -149,12 +151,12 @@ class UserController extends AbstractController
      * Création d'un nouveau utilisateur
      * @Route("/utilisateur/add", name="add_user")
      */
-    public function utilisateurAdd(Request $request, EntityManagerInterface $manager, UserPasswordEncoderInterface $encoder, \Swift_Mailer $mailer) : Response
+    public function utilisateurAdd(Request $request, EntityManagerInterface $manager, UserPasswordEncoderInterface $encoder, \Swift_Mailer $mailer, ValidatorInterface $validator) : Response
     {
         $this->denyAccessUnlessGranted('SHOW', $this->serviceUsers);
         //On crée un nouveau User
         $user = new User;
-
+        $errors = $validator->validate($user);
         //On crée le formulaire
         $form= $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
@@ -196,8 +198,11 @@ class UserController extends AbstractController
                 'id'    =>$user->getId()
             ]);
         }
+        
+    
         return $this->render('back_end\utilisateurs\edit_utilisateur.html.twig', [
-            'form'      => $form->createView()
+            'form'      => $form->createView(),
+            'errors'    => $errors
         ]);
     }
 

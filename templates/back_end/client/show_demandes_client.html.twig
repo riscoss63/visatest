@@ -59,8 +59,17 @@
     }
 
     function prestationsFormatter(value, row, index) {
-        
-        return '<strong>'+row["quantiteVisa"]+'</strong>';
+        var txt ="";
+        if(row["visaType"]["visaClassic"]) {
+            txt ='<strong>'+row["quantiteVisa"]+'</strong> Visa '+row["visaType"]["visaClassic"]["pays"]["titre"];
+        }
+        else if(row["visaType"]["eVisa"]) {
+            txt ='<strong>'+row["quantiteVisa"]+'</strong> Visa '+row["visaType"]["eVisa"]["pays"]["titre"];
+        }
+        else if(row["visaType"]["carteTourisme"]) {
+            txt ='<strong>'+row["quantiteVisa"]+'</strong> Visa '+row["visaType"]["carteTourisme"]["pays"]["titre"];
+        }
+        return txt;
     }
 
     function actionsFormatter(value, row, index){

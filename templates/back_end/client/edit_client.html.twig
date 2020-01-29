@@ -3,23 +3,80 @@
 
 {% block contenu %}
 {{ form_start(form)}}
-    {{ form_row(form.valide)}}
-    {{ form_row(form.premium)}}
-    {{ form_row(form.nom)}}
-    {{ form_row(form.prenom)}}
-    {{ form_row(form.email)}}
-    <div class="row form-group">
-        {{ form_label(form.password) }}
-        <div class="input-group col-sm-12">
-            <div class="input-group-prepend">
-                <button id="passwd-generator" class="btn btn-secondary" type="button" title="Générer un mot de passe"><i class="fa fa-cogs"></i></button>
-            </div>
-            {{ form_widget(form.password) }}
-        </div>
-    </div>
 
-    {{ form_row(form.submit)}}
-{{ form_end(form)}}
+<div class="row">
+    <h5 class=" m-auto col-8"><i class="fa fa-users-cog"></i>  {% if app.request.attributes.get('_route') == 'edit_client' %} Modification d'un utilisateur {% else %} Création d'un nouvel utilisateur  {% endif %}   </h5>
+    <div class="col-4 text-right pr-5">
+        <a href="{{path('show_clients')}}" class="btn btn-retour"><i class="fas fa-chevron-left"></i> Retour </a>
+        <button type="submit" class="btn btn-enregistrer"><i class="fas fa-save"></i> Enregistrer </a>
+    </div>
+</div>
+
+<div class="row justify-content-center mt-5">
+    <div class="col-10 text-center">
+        <h6 class="text-center my-5"> Informations <strong>générales</strong></h6>
+                {% if errors is not null %}
+                    {% for error in errors %}
+                        <div class="alert alert-danger" role="alert">
+                            {{ error.message }}
+                        </div>
+                    {% endfor %}
+                {% endif %}
+                
+            <div class="row form-group text-right">
+                {{ form_label(form.email, 'Email', {'label_attr' : {'class': 'col-sm-2 col-form-label'}}) }}
+                <div class="input-group col-sm-10">
+                    {{ form_widget(form.email) }}
+                </div>
+            </div>
+            <div class="row form-group text-right">
+                {{ form_label(form.nom, 'Nom', {'label_attr' : {'class': 'col-sm-2 col-form-label'}}) }}
+                <div class="input-group col-sm-10">
+                    {{ form_widget(form.nom) }}
+                </div>
+            </div>
+            <div class="row form-group text-right">
+                {{ form_label(form.prenom, 'Prenom', {'label_attr' : {'class': 'col-sm-2 col-form-label'}}) }}
+                <div class="input-group col-sm-10">
+                    {{ form_widget(form.prenom) }}
+                </div>
+            </div>
+            <div class="row form-group text-right">
+                {{ form_label(form.valide, 'Actif', {'label_attr' : {'class': 'col-sm-2 col-form-label'}}) }}
+                <div class="input-group col-sm-10">
+                    {{ form_widget(form.valide) }}
+                </div>
+            </div>
+            <div class="row form-group text-right">
+                {{ form_label(form.premium, 'Premium', {'label_attr' : {'class': 'col-sm-2 col-form-label'}}) }}
+                <div class="input-group col-sm-10">
+                    {{ form_widget(form.premium) }}
+                </div>
+            </div>
+            <h6 class="text-center mt-5 mb-4"> Génération d'un <strong>mot de passe</strong><h6>
+            <div class="row form-group">
+                <p>Appuyez sur le bouton 'engrenage' pour générer un mot de passe aléatoire.</p>
+                <div class="input-group col-sm-12">
+                    <div class="input-group-prepend">
+                        <button id="passwd-generator" class="btn" type="button" title="Générer un mot de passe"><i class="fas fa-cogs"></i></button>
+                    </div>
+                    {{ form_widget(form.password) }}
+                </div>
+            </div>
+            <ul class="sticky-toolbar">
+                <li class="toolbar-items">
+                    <a href="{{path('show_users')}}" class="btn btn-retour"><i class="fas fa-chevron-left"></i> </a>
+        
+                </li>
+                <li class="toolbar-items">
+                    <button type="submit" class="btn btn-enregistrer"><i class="fas fa-save"></i> </a>
+                </li>
+            </ul>
+        {{ form_end(form, {'render_rest': false})}}
+    </div>
+</div>
+
+
 {% endblock %}
 
 {% block javascripts %}

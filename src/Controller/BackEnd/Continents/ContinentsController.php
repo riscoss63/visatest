@@ -41,6 +41,8 @@ class ContinentsController extends AbstractController
             AbstractNormalizer::CIRCULAR_REFERENCE_HANDLER => function ($object, $format, $context) {
                 return $object->getTitre();
             },
+            AbstractNormalizer::ATTRIBUTES  => ['valide', 'zonesGeographique', 'titre', 'id'],
+
         ];
         $normalizer = new ObjectNormalizer(null, null, null, null, null, null, $defaultContext);
 
@@ -77,13 +79,12 @@ class ContinentsController extends AbstractController
             $manager->persist($continent);
             $manager->flush();
 
-            return $this->redirectToRoute('edit_continent', [
-                'id'    => $continent->getId()
-            ]);
+            return $this->redirectToRoute('show_continents');
         }
 
-        return $this->render('/back_end/continents/continents_edit.html.twig', [
-            'form'      => $form->createView()
+        return $this->render('/back_end/continents/continents_add.html.twig', [
+            'form'      => $form->createView(),
+            'id'        => $continent->getId()
         ]);
     }
 
@@ -106,7 +107,8 @@ class ContinentsController extends AbstractController
         }
 
         return $this->render('/back_end/continents/continents_edit.html.twig', [
-            'form'      => $form->createView()
+            'form'      => $form->createView(),
+            'id'        => $continent->getId()
         ]);
 
     }

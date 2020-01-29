@@ -4,7 +4,7 @@
 
     <div class="row">
         <h5 class=" m-auto col-8"><i class="fa fa-flag"></i>  Liste des pays génériques   </h5>
-        <div class="col-3 float-right">
+        <div class="col-3 text-right">
             <a href="{{path('add_pays')}}" class="btn btn-primary petite-taille"><i class="fas fa-plus-circle"></i> Nouveau pays</a>
         </div>
     </div>
@@ -16,14 +16,19 @@
                     <tr>
                         <th data-sortable="true" data-field="iso">Code</th>
                         <th data-field="titre" >Titre</th>
-                        <th data-field="zoneGeographique.titre" >Zone</th>
-                        <th data-field="valide" data-formatter="booleanFormatter" data-align="center" data-sortable="true">Actif</th>
+                        <th data-field="zoneGeographique.titre" data-formatter="listePaysFormatter">Zone</th>
                         <th data-field="edit" data-formatter="actionsFormatter">Editer</th>
                     </tr>
                 </thead>
             </table>
         </div> 
     </div>
+
+    <ul class="sticky-toolbar">
+        <li class="toolbar-items">
+            <a href="{{path('add_pays')}}" class="btn btn-primary "><i class="fas fa-plus-circle"></i> </a>
+        </li>
+    </ul>
 
 {% endblock %}
 
@@ -36,33 +41,14 @@
             return '<a href="'+Routing.generate('edit_pays', {'id' : row.id})+'" title="Modifier"><i class="far fa-edit"></i></a>';
         }
 
-        function booleanFormatter(value, row, index) {
-            if (value === true) {
-                return '<i class="fa fa-check text-success text-center"></i>';
+
+        function listePaysFormatter(value, row, index){
+            if (row["zoneGeographique"]){
+                return "<span class='kt-badge kt-badge--info kt-badge--lg kt-badge--inline kt-badge--pill kt-badge--rounded'>" +
+                    row["zoneGeographique"]["titre"] + "</span>";
             }
-            else {
-                return '<i class="fa fa-times text-danger text-center"></i>';
-            }
+            return "<span class='kt-badge kt-badge--lg kt-badge--warning kt-badge--inline kt-badge--pill kt-badge--rounded'>Aucune Zone paramétré</span>";
         }
-
-        // function listePaysFormatter(value, row, index){
-        //     if (row["zoneGeographique"].length > 0){
-        //         var listeZone = [];
-        //         $.each(row["zoneGeographique"], function(idx, elt){
-        //             txt = "<span class='kt-badge kt-badge--info kt-badge--lg kt-badge--inline kt-badge--pill kt-badge--rounded'>" +
-        //                 elt["titre"] + "</span>";
-        //             listeZone.push(txt);
-        //         });
-        //         return listeZone.join(" ");
-        //     }
-        //     return "<span class='kt-badge kt-badge--lg kt-badge--warning kt-badge--inline kt-badge--pill kt-badge--rounded'>Aucune Zone paramétré</span>";
-        // }
-
-        // function dateFormatter(value, row, index) {
-        //     var date = new Date(value*1000);
-        //     return `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`;
-        // }
-
     </script>
     
 {% endblock %}
