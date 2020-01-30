@@ -8,14 +8,20 @@
 
     <div class="row">
         <h5 class=" m-auto col-8"><i class="fa fa-users-cog"></i> Gestion des catégories</h5>
-        <div class="col-3 float-right">
-            <a href="{{path('add_categorie_faq')}}" class="btn btn-primary petite-taille"><i class="fas fa-plus-circle"></i> Ajouter une catégorie </a>
-        </div>
+        
     </div>
 
     <div class="row">
         <div class="col-12">
-            <table id="table" data-toggle="table" data-url="{{ path('json_categories_faq')}}" data-pagination="true" data-search="true" data-pagination: "true">
+            <div class="col-8 mt-5 position-absolute">
+                {{ form_start(form)}}
+                        <div class="input-group col-sm-10 ">
+                            {{ form_widget(form.titre) }}
+                            <button type="submit" class="btn btn-enregistrer p-0 pr-1"><i class="fas fa-save"></i> Ajouter la catégorie</a>
+                        </div>
+                {{ form_end(form) }}
+            </div>
+            <table id="table" data-toggle="table" data-url="{{ path('json_categories_faq')}}" data-pagination="true" data-search="true" data-pagination: "true" class="mt-4">
                 <thead>
 
                     <tr>
@@ -39,7 +45,8 @@
     <script>
 
          function actionsFormatter(value, row, index){
-            return '<a href="'+Routing.generate('edit_categorie_faq', {'id' : row.id})+'" title="Modifier"><i class="far fa-edit"></i></a>'+
+            return  '<a href="'+Routing.generate('add_sujet_categorie_faq', {'id' : row.id})+'" title="Ajouter" class="btn btn-sm btn-brand btn-primary text-center" rel="modal:open"><i class="fas fa-plus-circle petite-taille"></i><span>Nouveau sujet</span></a>'+
+                    '<a href="'+Routing.generate('edit_categorie_faq', {'id' : row.id})+'" title="Modifier"><i class="far fa-edit"></i></a>'+
                     '<a href="'+Routing.generate('del_categorie_faq', {'id' : row.id})+'" title="Supprimer"><i class="fas fa-trash"></i></a>';
         }
 

@@ -33,6 +33,7 @@ class SujetType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => SujetFaq::class,
+            'csrf_protection'       => false
         ]);
     }
 }

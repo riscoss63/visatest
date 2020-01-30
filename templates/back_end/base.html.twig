@@ -75,7 +75,18 @@
                                         <a class="nav-link menu-l {% if app.request.attributes.get('_route') == 'show_questions_reponses' %} active {% endif %}" href="{{ path('show_questions_reponses') }}"><i class="fa fa-question-circle"> </i>  Foire aux questions</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link menu-l {% if app.request.attributes.get('_route') == 'infos_entreprise_evisa' %} active {% endif %}" href="{{ path('infos_entreprise_evisa')}}"><i class="fa"> EV </i> E-visa</a>
+                                        <a class="nav-link menu-l {% if app.request.attributes.get('_route') == 'infos_entreprise_evisa' or app.request.attributes.get('_route') == 'show_pays_evisa' or app.request.attributes.get('_route') == 'liste_transport_evisa' or app.request.attributes.get('_route') == 'show_demandes_evisa' %} active {% endif %}" href="{{ path('infos_entreprise_evisa')}}" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa"> EV </i> E-visa</a>
+                                        <div class="dropdown-menu 
+                                            {% if app.request.attributes.get('_route') == 'infos_entreprise_evisa' or app.request.attributes.get('_route') == 'show_pays_evisa' or app.request.attributes.get('_route') == 'liste_transport_evisa' or app.request.attributes.get('_route') == 'show_demandes_evisa' %}
+                                                show
+                                            {% endif %}" 
+                                        href="{{ path('infos_entreprise_evisa')}}" aria-labelledby="dropdownMenuButton">
+
+                                            <a class="dropdown-item {% if app.request.attributes.get('_route') == 'infos_entreprise_evisa' %} active {% endif %}" href="{{ path('infos_entreprise_evisa')}}"><i class="fa fa-building"></i> Infos Entreprise</a>
+                                            <a class="dropdown-item {% if app.request.attributes.get('_route') == 'show_pays_evisa' %} active {% endif %}" href="{{ path('show_pays_evisa')}}"><i class="fa fa-flag"></i> Pays EVisa</a></a>
+                                            <a class="dropdown-item {% if app.request.attributes.get('_route') == 'liste_transport_evisa' %} active {% endif %}" href="{{ path('liste_transport_evisa')}}"><i class="fa fa-shipping-fast"></i>Tarifs transport/livraison</a>
+                                            <a class="dropdown-item {% if app.request.attributes.get('_route') == 'show_demandes_evisa' %} active {% endif %}" href="{{ path('show_demandes_evisa')}}"><i class="fa fa-check"><span></span></i> Gestion des demandes</a>
+                                        </div>
                                     </li>
                                     <li class="nav-item">
                                         <a class="nav-link menu-l {% if app.request.attributes.get('_route') == 'show_pays_visa_classic' %} active {% endif %}" href="{{ path('show_pays_visa_classic')}}"><i class="fa"> VC </i> Visa classic</a>

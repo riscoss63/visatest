@@ -5,19 +5,10 @@
    } 
  </style>
 
-{% if app.request.attributes.get('_route') == 'add_sujet_faq' %} 
-    {{ form_start(form, {'action': path('add_sujet_faq', { 'id': id}), 'method': 'POST'})}}
-{% else %} 
-    {{ form_start(form, {'action': path('edit_sujet_faq', { 'id': id}), 'method': 'POST'})}}
-{% endif %}
+{{ form_start(form, {'action': path('add_sujet_categorie_faq', { 'id': id}), 'method': 'POST'})}}
 
 <div class="row">
-    <h5 class=" m-auto col-8"><i class="fa fa-globe"></i> 
-{% if app.request.attributes.get('_route') == 'add_sujet_faq' %} 
-    Ajout de sujet
-{% else %} 
-    Modification de sujet
-{% endif %} </h5>
+    <h5 class=" m-auto col-8"><i class="fa fa-globe"></i>  Ajout de sujet </h5>
 </div>
 
 <div class="row justify-content-center mt-5">

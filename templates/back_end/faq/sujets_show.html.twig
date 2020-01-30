@@ -9,17 +9,20 @@
     <div class="row">
         <h5 class=" m-auto col-8"><i class="fa fa-users-cog"></i> Gestion des sujets</h5>
         <div class="col-3 float-right">
-            <a href="{{path('add_sujet_faq')}}" class="btn btn-primary petite-taille"><i class="fas fa-plus-circle"></i> Ajouter un sujet </a>
+            <a href="{{path('add_sujet_faq')}}" class="btn btn-primary petite-taille" rel="modal:open"><i class="fas fa-plus-circle"></i> Ajouter un sujet </a>
         </div>
     </div>
 
     <div class="row">
         <div class="col-12">
-            <table id="table" data-toggle="table" data-url="{{ path('json_sujets_faq')}}" data-pagination="true" data-search="true" data-pagination: "true">
+            <div class="col-6 mt-5 position-absolute">
+                <p>Filtrez les sujets suivant votre <strong>catégorie</strong> </p>
+            </div>
+            <table id="table" data-toggle="table" data-url="{{ path('json_sujets_faq')}}" data-pagination="true" data-search="true" data-pagination: "true" data-filter-control="true">
                 <thead>
 
                     <tr>
-                        <th data-field="categorieFaq.titre" data-sortable="true"> Catégorie </th>
+                        <th data-field="categorieFaq.titre" data-formatter="categorieFaqFormatter" data-sortable="true" data-filter-control="select" class="profil"> Catégorie </th>
                         <th data-field="titre" data-sortable="true"> Sujet </th>
                         <th data-field="dateCreation.timestamp" data-formatter="dateFormatter" data-sortable="true"> Date de création </th>
                         <th data-field="dateModification.timestamp" data-formatter="dateFormatter" data-sortable="true"> Date de Modification </th>
@@ -36,10 +39,15 @@
 {% block javascripts %}
 
     {{ parent() }}
+    <script src="https://unpkg.com/bootstrap-table@1.15.5/dist/extensions/filter-control/bootstrap-table-filter-control.min.js"></script>
+
     <script>
+        function categorieFaqFormatter(value, row, index) {
+            return row["categorieFaq"]["titre"];
+        }
 
          function actionsFormatter(value, row, index){
-            return '<a href="'+Routing.generate('edit_sujet_faq', {'id' : row.id})+'" title="Modifier"><i class="far fa-edit"></i></a>'+
+            return '<a href="'+Routing.generate('edit_sujet_faq', {'id' : row.id})+'" title="Modifier" rel="modal:open"><i class="far fa-edit"></i></a>'+
                     '<a href="'+Routing.generate('del_sujet_faq', {'id' : row.id})+'" title="Supprimer"><i class="fas fa-trash"></i></a>';
         }
 

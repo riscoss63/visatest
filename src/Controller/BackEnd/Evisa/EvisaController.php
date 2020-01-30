@@ -65,8 +65,11 @@ class EvisaController extends AbstractController
         $encoder = new JsonEncoder();
         $defaultContext = [
             AbstractNormalizer::CIRCULAR_REFERENCE_HANDLER => function ($object, $format, $context) {
-                return $object->getTitre();
+                return $object->getId();
             },
+            AbstractNormalizer::ATTRIBUTES      => ['id', 'titre', 'typeVisa', 'pays' => 'iso']
+            
+
         ];
         $normalizer = new ObjectNormalizer(null, null, null, null, null, null, $defaultContext);
 

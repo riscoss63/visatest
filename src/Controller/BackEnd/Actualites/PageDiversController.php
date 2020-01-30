@@ -32,6 +32,8 @@ class PageDiversController extends AbstractController
             AbstractNormalizer::CIRCULAR_REFERENCE_HANDLER => function ($object, $format, $context) {
                 return $object->getTitre();
             },
+            AbstractNormalizer::ATTRIBUTES      => ['id', 'titre','meta' => 'metaDescription', 'actif', 'dateCreation' => 'timestamp', 'dateModification' => 'timestamp', 'slug']
+
         ];
         $normalizer = new ObjectNormalizer(null, null, null, null, null, null, $defaultContext);
 

@@ -48,7 +48,8 @@ body{
 }
 
 .petite-taille {
-    font-size: 13px;
+    font-size: 1rem;
+    vertical-align: middle;;
 }
 
 .kt-badge.kt-badge--rounded {
@@ -130,7 +131,7 @@ strong {
     margin-top: 1.5rem;
 }
 
-.fht-cell {
+th.profil .fht-cell {
     position: absolute ;
     bottom: 101%;
     left: 20%;
@@ -140,6 +141,32 @@ div.vich-image  a  img {
     width: 100% !important;
 }
 
-#actualite_actif {
+.check {
     font-size: 10px;
+}
+th.categoriefaq .fht-cell {
+    position: absolute ;
+    bottom: 101%;
+    left: 20%;
+}
+
+th.sujetfaq .fht-cell {
+    position: absolute ;
+    bottom: 101%;
+    left: 50%;
+}
+
+.dropdown-menu.show {
+    position: initial !important;
+    transform: none !important;
+    color:#850d11 !important;
+    font-weight: bold !important;
+    background-color: #282733;
+    margin: 0;
+    width: 100%;
+    border: none;
+    border-radius: inherit;
+}
+.dropdown-menu.show a {
+    color: #9899ac;
 }

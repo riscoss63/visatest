@@ -22,12 +22,15 @@ class EvisaType extends AbstractType
         $builder
             ->add('active', CheckboxType::class, [
                 'attr' => [
-                    'class' => '',
+                    'class' => 'form-control check',
                 ],
                 'required'      =>false,
             ])
             ->add('pays', EntityType::class, [
                 'class'     => Pays::class,
+                'attr'  => [
+                    'class'     => 'form-control'
+                ]
             ])
 
             ->add('slug', TextType::class, [
@@ -51,7 +54,10 @@ class EvisaType extends AbstractType
                 'image_uri' => true,
                 // 'imagine_pattern' => '...',
                 'asset_helper' => true,
-                'label'     =>false
+                'label'     =>false,
+                'attr'      => [
+                    'class'     => 'form-control'
+                ],
             ])
             ->add('communique', TextType::class, [
                 'attr'      => [

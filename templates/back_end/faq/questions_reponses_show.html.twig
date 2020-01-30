@@ -15,12 +15,12 @@
 
     <div class="row">
         <div class="col-12">
-            <table id="table" data-toggle="table" data-url="{{ path('json_questions_reponses')}}" data-pagination="true" data-search="true" data-pagination: "true">
+            <table id="table" data-toggle="table" data-url="{{ path('json_questions_reponses')}}" data-pagination="true" data-search="true" data-pagination: "true"  data-filter="true" data-filter-control="true">
                 <thead>
 
                     <tr>
-                        <th data-field="sujetFaq.categorieFaq.titre" data-sortable="true"> Catégorie </th>
-                        <th data-field="sujetFaq.titre" data-sortable="true"> Sujet </th>
+                        <th data-field="sujetFaq.categorieFaq.titre" class="categoriefaq" data-formatter="categorieFormatter" data-filter-control="select" data-sortable="true"> Catégorie </th>
+                        <th data-field="sujetFaq.titre" class="sujetfaq" data-formatter="sujetFormatter" data-filter-control="select" data-sortable="true"> Sujet </th>
                         <th data-field="question" data-align="center" data-sortable="true">Question</th>
                         <th data-field="reponse" data-sortable="true"> Réponse </th>
                         <th data-field="edit" data-formatter="actionsFormatter"> Editer </th>
@@ -36,8 +36,17 @@
 {% block javascripts %}
 
     {{ parent() }}
+    <script src="https://unpkg.com/bootstrap-table@1.15.5/dist/extensions/filter-control/bootstrap-table-filter-control.min.js"></script>
+
     <script>
 
+        function sujetFormatter(value, row, index) {
+            return row["sujetFaq"]["titre"]
+        }
+
+        function categorieFormatter(value, row, index) {
+            return row["sujetFaq"]["categorieFaq"]["titre"]
+        }
          function actionsFormatter(value, row, index){
             return '<a href="'+Routing.generate('edit_question_reponse', {'id' : row.id})+'" title="Modifier"><i class="far fa-edit"></i></a>'+
                     '<a href="'+Routing.generate('del_question_repose_faq', {'id' : row.id})+'" title="Supprimer"><i class="fas fa-trash"></i></a>';

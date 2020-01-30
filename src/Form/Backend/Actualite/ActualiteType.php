@@ -26,12 +26,12 @@ class ActualiteType extends AbstractType
             ->add('slug', TextType::class, [
                 'attr'      => [
                     'class'     => 'form-control',
-                    'placeholder'   => 'Par défaut la méta-titre est selectionner'
+                    'placeholder'   => 'Par défaut le méta-titre est selectionné'
                 ]
             ])
             ->add('actif', CheckboxType::class, [
                 'attr'      => [
-                    'class'     => 'form-control'
+                    'class'     => 'form-control check'
                 ]
             ])
             ->add('visaClassic', EntityType::class, [

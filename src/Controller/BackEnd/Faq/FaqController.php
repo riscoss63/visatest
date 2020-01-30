@@ -37,6 +37,8 @@ class FaqController extends AbstractController
             AbstractNormalizer::CIRCULAR_REFERENCE_HANDLER => function ($object, $format, $context) {
                 return $object->getTitre();
             },
+            AbstractNormalizer::ATTRIBUTES      => ['sujetFaq' => 'categorieFaq', 'question','reponse', 'dateCreation' => 'timestamp', 'dateModification' => 'timestamp', 'id']
+
         ];
         $normalizer = new ObjectNormalizer(null, null, null, null, null, null, $defaultContext);
 
@@ -58,6 +60,7 @@ class FaqController extends AbstractController
             AbstractNormalizer::CIRCULAR_REFERENCE_HANDLER => function ($object, $format, $context) {
                 return $object->getTitre();
             },
+
         ];
         $normalizer = new ObjectNormalizer(null, null, null, null, null, null, $defaultContext);
 
@@ -99,9 +102,22 @@ class FaqController extends AbstractController
     /**
      * @Route("/show/categories", name="show_categories_faq")
      */
-    public function categoriesFaqShow() : Response
+    public function categoriesFaqShow(Request $request, EntityManagerInterface $manager) : Response
     {
-        return $this->render('/back_end/faq/categories_show.html.twig');
+        $categorie = new CategorieFaq;
+
+        $form = $this->createForm(CategorieFaqType::class, $categorie);
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() AND $form->isValid())
+        {
+            $manager->persist($categorie);
+            $manager->flush();
+        }
+
+        return $this->render('/back_end/faq/categories_show.html.twig', [
+            'form'      => $form->createView()
+        ]);
     }
 
     /**
@@ -177,14 +193,39 @@ class FaqController extends AbstractController
             $manager->persist($sujet);
             $manager->flush();
 
-            return $this->redirectToRoute('edit_sujet_faq', [
-                'id'        => $sujet->getId()
-            ]);
-            
+            return $this->redirectToRoute('show_sujets_faq');            
         }
 
         return $this->render('/back_end/faq/sujets_edit.html.twig', [
-            'form'      =>$form->createView()
+            'form'      =>$form->createView(),
+            'id'        => $sujet->getId()
+        ]);
+    }
+
+    /**
+     * @Route("/add/sujet/categorie-{id}", name="add_sujet_categorie_faq", options={"expose"=true})
+     */
+    public function sujetCategorieAdd(Request $request, EntityManagerInterface $manager, $id) : Response
+    {
+        $categorie = $this->getDoctrine()->getRepository(CategorieFaq::class)->find($id);
+        $sujet = new SujetFaq;
+        $sujet->setCategorieFaq($categorie);
+
+        $form= $this->createForm(SujetType::class, $sujet);
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() AND $form->isValid())
+        {
+            $manager->persist($sujet);
+            $manager->flush();
+
+            return $this->redirectToRoute('show_categories_faq');
+            
+        }
+
+        return $this->render('/back_end/faq/sujets_categorie_edit.html.twig', [
+            'form'      =>$form->createView(),
+            'id' => $categorie->getId()
         ]);
     }
 
@@ -245,9 +286,12 @@ class FaqController extends AbstractController
         {
             $manager->persist($sujet);
             $manager->flush();
+
+            return $this->redirectToRoute('show_sujets_faq');
         }
         return $this->render('/back_end/faq/sujets_edit.html.twig', [
-            'form'      =>$form->createView()
+            'form'      =>$form->createView(),
+            'id'        => $sujet->getId()
         ]);
     }
 
