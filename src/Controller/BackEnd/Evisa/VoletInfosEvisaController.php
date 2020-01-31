@@ -34,6 +34,8 @@ class VoletInfosEvisaController extends AbstractController
             AbstractNormalizer::CIRCULAR_REFERENCE_HANDLER => function ($object, $format, $context) {
                 return $object->getTitre();
             },
+            AbstractNormalizer::ATTRIBUTES      => ['id', 'titre', 'contenu']
+
         ];
         $normalizer = new ObjectNormalizer(null, null, null, null, null, null, $defaultContext);
 
@@ -48,6 +50,8 @@ class VoletInfosEvisaController extends AbstractController
      */
     public function voletsInfoShow($id, Request $request, EntityManagerInterface $manager) : Response
     {
+        $evisas = $this->getDoctrine()->getRepository(Evisa::class)->findAll();
+
         $eVisa = $this->getDoctrine()->getRepository(EVisa::class)->find($id);
 
         //Permet l'ajout d'un nouveau volet
@@ -65,7 +69,8 @@ class VoletInfosEvisaController extends AbstractController
 
         return $this->render('/back_end/evisa/volet_infos/show_volet_infos.html.twig', [
             'evisa'      => $eVisa,
-            'form'              => $form->createView()
+            'form'       => $form->createView(),
+            'visas'     => $evisas
         ]);
     }
 
@@ -93,6 +98,21 @@ class VoletInfosEvisaController extends AbstractController
         return $this->render('/back_end/evisa/volet_infos/edit_volet_infos.html.twig', [
             'form'      =>$form->createView(),
             'voletinfo' => $voletInfo,
+        ]);
+    }
+
+    /**
+     * @Route("/del/volet-infos-{id}", name="del_volet_infos_evisa", options={"expose"=true})
+     */
+    public function voletInfoDel($id, EntityManagerInterface $manager)
+    {
+        $voletInfo = $this->getDoctrine()->getRepository(VoletInfo::class)->find($id);
+        $evisa = $voletInfo->getEVisa();
+        $manager->remove($voletInfo);
+        $manager->flush();
+
+        return $this->redirectToRoute('show_volet_infos_evisa', [
+            'id'        => $evisa->getId()
         ]);
     }
 }

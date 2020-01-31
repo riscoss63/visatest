@@ -86,6 +86,21 @@ class InfosEntreprise
      */
     private $typeVisa;
 
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $bonDeCommande;
+
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $paiementVirement;
+
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $paiementCheque;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -255,6 +270,42 @@ class InfosEntreprise
     public function setTypeVisa(string $typeVisa): self
     {
         $this->typeVisa = $typeVisa;
+
+        return $this;
+    }
+
+    public function getBonDeCommande(): ?string
+    {
+        return $this->bonDeCommande;
+    }
+
+    public function setBonDeCommande(?string $bonDeCommande): self
+    {
+        $this->bonDeCommande = $bonDeCommande;
+
+        return $this;
+    }
+
+    public function getPaiementVirement(): ?string
+    {
+        return $this->paiementVirement;
+    }
+
+    public function setPaiementVirement(?string $paiementVirement): self
+    {
+        $this->paiementVirement = $paiementVirement;
+
+        return $this;
+    }
+
+    public function getPaiementCheque(): ?string
+    {
+        return $this->paiementCheque;
+    }
+
+    public function setPaiementCheque(?string $paiementCheque): self
+    {
+        $this->paiementCheque = $paiementCheque;
 
         return $this;
     }

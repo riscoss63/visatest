@@ -1,7 +1,7 @@
 {% extends "back_end/base.html.twig" %}
 
 {% block menu_header %}
-    {% include "back_end/evisa/__header.html.twig" %}
+    {% include "back_end/evisa/demandes/__header.html.twig" %}
 {% endblock %}
 
 
@@ -11,33 +11,16 @@
         <h5 class=" m-auto col-8"><i class="fa fa-users-cog"></i>Demandes</h5>
     </div>
 
-    <div class="row text-center mt-4">
-        <div class="col-4">
-            <a href="{{path('show_demandes_visa_classic')}}" class="col-12 btn btn-secondary  petite-taille"> Demandes de Visas </a>
-        </div>
-        <div class="col-4">
-            <a href="{{path('show_demande_en_cours_visa_classic')}}" class="col-12 btn btn-secondary  petite-taille"> Commandes en cours </a>
-        </div>
-        <div class="col-4">
-            <a href="{{path('liste_reception_dossier')}}" class="col-12 btn btn-secondary  petite-taille">  Archives </a>
-        </div>
-    </div>
 
     <div class="row">
         <div class="col-12 float-left mt-5">
-            <a href="{{path('liste_reception_dossier')}}" class="btn btn-primary petite-taille" rel="modal:open"><i class="fas fa-walking"></i>  assurance(s) voyages </a>
+            <a href="{{path('liste_reception_dossier')}}" class="btn btn-info petite-taille border-1" rel="modal:open"><i class="fas fa-walking"></i>  assurance(s) voyages </a>
         </div>
-        <div class="col-3 mt-5">
-            <a href="{{path('liste_reception_dossier')}}" class="col-12 btn btn-primary petite-taille" rel="modal:open"> Adresser Evisas </a>
-        </div>
-        <div class="col-3 mt-5">
-            <a href="{{path('liste_reception_dossier')}}" class="col-12 btn btn-primary petite-taille" rel="modal:open"> Commande spécifique </a>
-        </div>
-        <div class="col-3 mt-5">
-            <a href="{{path('liste_reception_dossier')}}" class="col-12 btn btn-primary petite-taille" rel="modal:open"> Rappel </a>
-        </div>
-        <div class="col-3 mt-5">
-            <a href="{{path('liste_reception_dossier')}}" class="col-12 btn btn-primary petite-taille" rel="modal:open"> Supprimer </a>
+        <div class="col-12 mt-5 text-left">
+            <a href="{{path('liste_reception_dossier')}}" class="m-2 btn btn-info petite-taille" rel="modal:open"> Adresser Evisas </a>
+            <a href="{{path('liste_reception_dossier')}}" class="m-2 btn btn-info petite-taille" rel="modal:open"> Commande spécifique </a>
+            <a href="{{path('liste_reception_dossier')}}" class="m-2 btn btn-info petite-taille" rel="modal:open"> Rappel </a>
+            <a href="{{path('liste_reception_dossier')}}" class="m-2 btn btn-danger petite-taille" rel="modal:open"> Supprimer </a>
         </div>
         <div class="col-12">
             <table data-toggle="table" data-url="{{ path('json_demandes_evisa') }}" data-pagination="true" data-search="false" data-pagination: "true" data-detail-view="true"
@@ -65,7 +48,7 @@
 
         function detailFormatter(index, row) {
             var html = []
-            var voyageurs = row["client"]["voyageurs"]
+            var voyageurs = row["voyageurs"]
             html.push('<div class="row mr-0">')
             voyageurs.forEach(function(voyageur){
 
@@ -86,7 +69,7 @@
             {
                 urgent = 'URGENT';
             }
-            return '<strong>'+row["quantiteVisa"]+'</strong> Visa '+row["visaType"]["eVisa"]["pays"]["titre"]+ ' <strong> ' +urgent+ '</strong>';
+            return '<strong style="font-size: 3em;">'+row["quantiteVisa"]+'</strong> Visa '+row["visaType"]["eVisa"]["pays"]["titre"]+ ' <strong> ' +urgent+ '</strong>';
         }
 
         function actionsFormatter(value, row, index){

@@ -156,7 +156,7 @@ th.sujetfaq .fht-cell {
     left: 50%;
 }
 
-.dropdown-menu.show {
+.menu-left.show {
     position: initial !important;
     transform: none !important;
     color:#850d11 !important;
@@ -167,6 +167,6 @@ th.sujetfaq .fht-cell {
     border: none;
     border-radius: inherit;
 }
-.dropdown-menu.show a {
+.menu-left.show a {
     color: #9899ac;
 }

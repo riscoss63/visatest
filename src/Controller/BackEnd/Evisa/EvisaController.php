@@ -6,6 +6,7 @@ use App\Entity\EVisa;
 use App\Entity\InfosEntreprise;
 use App\Entity\ModeExpedition;
 use App\Entity\NotreService;
+use App\Form\Backend\InfosEntreprise\BonDeCommandeEntrepriseType;
 use App\Form\Backend\InfosEntreprise\InfosEntrepriseType;
 use App\Form\Backend\VisaClassic\EvisaType;
 use App\Form\Backend\VisaClassic\ModeExpeditionType;
@@ -26,7 +27,7 @@ use Symfony\Component\Serializer\Serializer;
 class EvisaController extends AbstractController
 {
     /**
-     * @Route("/infos-entreprise", name="infos_entreprise_evisa")
+     * @Route("/entreprise/infos", name="infos_entreprise_evisa")
      */
     public function infosEntrepriseEdit(Request $request, EntityManagerInterface $manager) : Response
     {
@@ -48,10 +49,39 @@ class EvisaController extends AbstractController
             $manager->flush();
         }
 
-        return $this->render('/back_end/evisa/infos_entreprise/infos_entreprise.html.twig', [
+        return $this->render('/back_end/evisa/infos_entreprise/infos_entreprise_edit.html.twig', [
             'form'      => $form->createView()
         ]);
     }
+
+    /**
+     * @Route("/entreprise/bons-de-commande", name="bonde_de_commande_entreprise_evisa")
+     */
+    public function bonDeCommandeEdit(Request $request, EntityManagerInterface $manager)
+    {
+        $bonDeCommande= $this->getDoctrine()->getRepository(InfosEntreprise::class)->findOneBy([
+            'typeVisa'      =>  'evisa'
+        ]);
+        if(!$bonDeCommande)
+        {
+            $bonDeCommande = new InfosEntreprise;
+            $bonDeCommande->setTypeVisa('evisa');
+        }
+
+        $form= $this->createForm(BonDeCommandeEntrepriseType::class, $bonDeCommande);
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() AND $form->isValid())
+        {
+            $manager->persist($bonDeCommande);
+            $manager->flush();
+        }
+
+        return $this->render('/back_end/evisa/infos_entreprise/bon_de_commande_entreprise_edit.html.twig', [
+            'form'      => $form->createView()
+        ]);
+    }
+    
 
     /**
      * @Route("/liste/pays-json", name="json_evisa")

@@ -4,16 +4,38 @@
 {% block contenu %}
 
     <div class="row">
-        <h5 class=" m-auto col-8"><i class="fa fa-users-cog"></i> Gestion des volets d'informations - Evisa / {{evisa.pays.titre}} </h5>
+        <h5 class=" m-auto col-5"><i class="fa fa-users-cog"></i> Gestion des volets d'informations - Evisa / {{evisa.pays.titre}} </h5>
+        <div class="dropdown col-3 text-right">
+            <button class="btn  dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="far fa-edit" aria-hidden="true"></i>Modifier une autre page pays
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                {% for visa in visas %}
+                    <a class="dropdown-item" href="{{path('edit_pays_evisa', {'id' : visa.id})}}">{{visa.pays.titre}}</a>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="dropdown col-3 text-left">
+            <button class="btn  dropdown-toggle" type="button" id="dropdownMenuButton2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="fas fa-info"></i> Gestion des volets informations
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
+                {% for visa in visas %}
+                    <a class="dropdown-item" href="{{path('show_volet_infos_evisa', {'id' : visa.id})}}">{{visa.pays.titre}}</a>
+                {% endfor %}
+            </div>
+        </div>
+        <a href="{{path('show_type_evisa', {'id' : evisa.id})}}" class="btn btn-retour"><i class="fas fa-chevron-left"></i> Retour </a>
+
     </div>
 
     <div class="row mt-5">
         <div class="col-12">
             {{ form_start(form)}}
-            <div class="row mt-4 justify-content-center">
+            <div class="row mt-4 ">
                 {{ form_widget(form.titre)}}
-                <button type="submit" class="btn btn-success btn-elevate btn-enregistrer2 col-5 ml-1">
-                    <i class="fa fa-save"></i> Ajouter un volet d'information
+                <button type="submit" class="btn btn-enregistrer btn-elevate p-0 col-3 ml-1">
+                    <i class="fas fa-plus-circle"></i> Ajouter un volet d'information
                 </button>
             </div>
             {{ form_end(form)}}
@@ -22,13 +44,17 @@
                     <tr>
                         <th data-field="titre" data-sortable="true">Titre</th>
                         <th data-field="contenu" data-sortable="true">Contenu</th>
-                        <th data-field="edite"data-formatter="actionsFormatter">Modifier</th>
+                        <th data-field="edite" data-formatter="actionsFormatter">Modifier</th>
                     </tr>
                 </thead>
             </table>
         </div> 
     </div>
-
+    <ul class="sticky-toolbar">
+        <li class="toolbar-items">
+            <a href="{{path('show_pays_evisa')}}" class="btn btn-retour"><i class="fas fa-chevron-left"></i> </a>
+        </li>
+    </ul>
 {% endblock %}
 
 {% block javascripts %}
@@ -38,9 +64,8 @@
 
         function actionsFormatter(value, row, index){
             return '<a href="'+Routing.generate('edit_volet_infos_evisa', {'id' : row.id})+'" title="Modifier" rel="modal:open"><i class="far fa-edit"> Editer </i></a>'+
-                    '<a href="'+Routing.generate('del_volet_infos_visa_classic', {'id' : row.id})+'" title="Supprimer""><i class="far fa-trash-alt"></i> Supprimer </a>';
+                    '<a href="'+Routing.generate('del_volet_infos_evisa', {'id' : row.id})+'" title="Supprimer""><i class="far fa-trash-alt"></i> Supprimer </a>';
         }
-        
 
         // function libelleFormatter(value, row,index){
         //     libelleZone = "";

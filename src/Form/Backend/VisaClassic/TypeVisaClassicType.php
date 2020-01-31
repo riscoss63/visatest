@@ -25,13 +25,16 @@ class TypeVisaClassicType extends AbstractType
         $builder
             ->add('active', CheckboxType::class, [
                 'attr' => [
-                    'class' => '',
+                    'class' => 'form-control check',
                 ],
                 'required'      =>false,
             ])
             ->add('categorieVisa', EntityType::class, [
                 'class'     => CategorieVisa::class,
-                'choices'   =>  $categories
+                'choices'   =>  $categories,
+                'attr'      => [
+                    'class'     => 'form-control'
+                ],
             ])
 
             ->add('titre', TextType::class, [
@@ -42,7 +45,7 @@ class TypeVisaClassicType extends AbstractType
             ])
             ->add('fraisFormulaireValide', CheckboxType::class, [
                 'attr'      => [
-                    'class'     => ''
+                    'class'     => 'form-control check'
                 ],
                 'label'     => 'Option formulaire',
                 'required'      =>false,
@@ -58,7 +61,10 @@ class TypeVisaClassicType extends AbstractType
                     'Simple'        => 'simple',
                     'Double'        => 'double',
                     'Multiple'      => 'multiple',
-                ]
+                ],
+                'attr'      => [
+                    'class'     => 'form-control'
+                ],
             ])
             ->add('validite', IntegerType::class, [
                 'attr'      => [

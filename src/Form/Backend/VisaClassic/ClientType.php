@@ -80,6 +80,21 @@ class ClientType extends AbstractType
                 'by_reference'    =>false
 
             ])
+            ->add('nom', TextType::class, [
+                'attr'      => [
+                    'class'     => 'form-control'
+                ]
+            ])
+            ->add('prenom', TextType::class, [
+                'attr'      => [
+                    'class'     => 'form-control'
+                ]
+            ])
+            ->add('email', TextType::class, [
+                'attr'      => [
+                    'class'     => 'form-control'
+                ]
+            ])
             ->add('submit', SubmitType::class, [
                 'attr'  => [
                     'class'     => 'mt-3 form-control btn btn-primary'

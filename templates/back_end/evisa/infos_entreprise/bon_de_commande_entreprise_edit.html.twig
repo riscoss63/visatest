@@ -1,0 +1,45 @@
+{% extends "back_end/base.html.twig" %}
+
+{% block menu_header %}
+    {% include "back_end/evisa/infos_entreprise/__header.html.twig" %}
+{% endblock %}
+
+{% block contenu %}
+    {{ form_start(form)}}
+
+    <div class="row">
+        <h5 class=" m-auto col-8"><i class="fa fa-globe"></i> Infos entreprise </h5>
+        <div class="col-4 text-right pr-5">
+            <button type="submit" class="btn btn-enregistrer"><i class="fas fa-save"></i> Enregistrer </a>
+        </div>
+    </div>
+
+    <div class="row justify-content-center mt-5">
+        <div class="col-12 text-center">    
+            <div class="row form-group text-right mb-5">
+                {{ form_label(form.bonDeCommande, 'Texte de bons de commande', {'label_attr' : {'class': 'col-sm-2 col-form-label'}}) }}
+                <div class="input-group col-sm-10">
+                    {{ form_widget(form.bonDeCommande) }}
+                </div>
+            </div>
+            <div class="row form-group text-right mb-5">
+                {{ form_label(form.paiementVirement, 'Texte du paiement par virement', {'label_attr' : {'class': 'col-sm-2 col-form-label'}}) }}
+                <div class="input-group col-sm-10">
+                    {{ form_widget(form.paiementVirement) }}
+                </div>
+            </div>
+            <div class="row form-group text-right">
+                {{ form_label(form.paiementCheque, 'Texte du paiement par chèque', {'label_attr' : {'class': 'col-sm-2 col-form-label'}}) }}
+                <div class="input-group col-sm-10">
+                    {{ form_widget(form.paiementCheque) }}
+                </div>
+            </div>
+            <ul class="sticky-toolbar">
+                <li class="toolbar-items">
+                    <button type="submit" class="btn btn-enregistrer"><i class="fas fa-save"></i> </a>
+                </li>
+            </ul>
+            {{ form_end(form, {'render_rest': false})}}
+        </div>
+    </div>
+{% endblock %}

@@ -31,7 +31,7 @@ use Twig\Error\RuntimeError;
 class DemandesEnCoursController extends AbstractController
 {
     /**
-     * @Route("/liste/json", name="json_liste_demande_en_cours_visa_classic")
+     * @Route("/liste/json", name="json_liste_demande_en_cours_evisa")
      */
     public function demandeEnCoursJson() : Response
     {

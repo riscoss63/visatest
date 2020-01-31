@@ -4,9 +4,14 @@ namespace App\Entity;
 
 use DateTimeInterface;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Vich\UploaderBundle\Entity\File as EmbeddedFile;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\VoyageursRepository")
+ * @Vich\Uploadable
  */
 class Voyageurs
 {
@@ -26,6 +31,7 @@ class Voyageurs
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $prenom;
+
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="voyageurs", cascade={"persist", "remove"})
      */
@@ -66,9 +72,106 @@ class Voyageurs
      */
     private $attestation;
 
+    /**
+     * NOTE: This is not a mapped field of entity metadata, just a simple property.
+     * 
+     * @Vich\UploadableField(mapping="passeport", fileNameProperty="image.name", size="image.size", mimeType="image.mimeType", originalName="image.originalName", dimensions="image.dimensions")
+     * 
+     * @var File
+     */
+    private $passeportFile;
+
+    /**
+     * NOTE: This is not a mapped field of entity metadata, just a simple property.
+     * 
+     * @Vich\UploadableField(mapping="photoIdentite", fileNameProperty="image.name", size="image.size", mimeType="image.mimeType", originalName="image.originalName", dimensions="image.dimensions")
+     * 
+     * @var File
+     */
+    private $photoIdentiteFile;
+
+    /**
+     * @ORM\Embedded(class="Vich\UploaderBundle\Entity\File")
+     *
+     * @var EmbeddedFile
+     */
+    private $image;
+
+    /**
+     * @ORM\Column(type="datetime")
+     *
+     * @var \DateTime
+     */
+    private $updatedAt;
+
+    public function __construct()
+    {
+        $this->image = new EmbeddedFile();
+    }
+
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    /**
+     * If manually uploading a file (i.e. not using Symfony Form) ensure an instance
+     * of 'UploadedFile' is injected into this setter to trigger the  update. If this
+     * bundle's configuration parameter 'inject_on_load' is set to 'true' this setter
+     * must be able to accept an instance of 'File' as the bundle will inject one here
+     * during Doctrine hydration.
+     *
+     * @param File|UploadedFile $imageFile
+     */
+    public function setPasseportFile(?File $passeportFile = null)
+    {
+        $this->passeportFile = $passeportFile;
+
+        if (null !== $passeportFile) {
+            // It is required that at least one field changes if you are using doctrine
+            // otherwise the event listeners won't be called and the file is lost
+            $this->updatedAt = new \DateTimeImmutable();
+        }
+    }
+
+    public function getPasseportFile(): ?File
+    {
+        return $this->passeportFile;
+    }
+
+    /**
+     * If manually uploading a file (i.e. not using Symfony Form) ensure an instance
+     * of 'UploadedFile' is injected into this setter to trigger the  update. If this
+     * bundle's configuration parameter 'inject_on_load' is set to 'true' this setter
+     * must be able to accept an instance of 'File' as the bundle will inject one here
+     * during Doctrine hydration.
+     *
+     * @param File|UploadedFile $imageFile
+     */
+    public function setPhotoIdentiteFile(?File $photoIdentiteFile = null)
+    {
+        $this->photoIdentiteFile = $photoIdentiteFile;
+
+        if (null !== $photoIdentiteFile) {
+            // It is required that at least one field changes if you are using doctrine
+            // otherwise the event listeners won't be called and the file is lost
+            $this->updatedAt = new \DateTimeImmutable();
+        }
+    }
+
+    public function getPhotoIdentiteFile(): ?File
+    {
+        return $this->photoIdentiteFile;
+    }
+
+    public function setImage(EmbeddedFile $image)
+    {
+        $this->image = $image;
+    }
+
+    public function getImage(): ?EmbeddedFile
+    {
+        return $this->image;
     }
 
     public function getNom(): ?string

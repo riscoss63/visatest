@@ -1,6 +1,102 @@
 {% extends "back_end/base.html.twig" %}
 
 
+
 {% block contenu %}
-{{ form(form)}}
+    {{ form_start(form)}}
+
+    <div class="row">
+        <h5 class=" m-auto col-8"><i class="fa fa-globe"></i>  {% if app.request.attributes.get('_route') == 'edit_type_evisa' %} Modification d'une page pays Evisa {% else %} Ajout d'une page pays Evisa {% endif %}   </h5>
+        <div class="col-4 text-right pr-5">
+            <a href="{{path('show_type_evisa', {'id' : id})}}" class="btn btn-retour"><i class="fas fa-chevron-left"></i> Retour </a>
+            <button type="submit" class="btn btn-enregistrer"><i class="fas fa-save"></i> Enregistrer </a>
+        </div>
+    </div>
+
+    <div class="row justify-content-center mt-5">
+        <div class="col-10 text-center">    
+                    
+                <div class="row form-group text-right " >
+                    {{ form_label(form.categorieVisa, 'Catégorie', {'label_attr' : {'class': 'col-sm-2 col-form-label'}}) }}
+                    <div class="input-group col-sm-10 align-items-center">
+                        {{ form_widget(form.categorieVisa) }}
+                    </div>
+                </div>
+                <div class="row form-group text-right">
+                    {{ form_label(form.titre, 'Nom du type de visa', {'label_attr' : {'class': 'col-sm-2 col-form-label'}}) }}
+                    <div class="input-group col-sm-10">
+                        {{ form_widget(form.titre) }}
+                    </div>
+                </div>
+                <div class="row form-group text-right mb-5">
+                    {{ form_label(form.active, 'Options', {'label_attr' : {'class': 'col-sm-2 col-form-label'}}) }}
+                    <div class="input-group col-sm-3">
+                        {{ form_widget(form.active) }} Actif
+                        {{ form_widget(form.fraisFormulaireValide) }} Option formulaire
+                    </div>
+                </div>
+                <div class="row form-group text-right">
+                    {{ form_label(form.fraisFormulaire, 'Frais formulaire', {'label_attr' : {'class': 'col-sm-2 col-form-label'}}) }}
+                    <div class="input-group col-sm-1">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">€ </span>
+                        </div>
+                        {{ form_widget(form.fraisFormulaire) }}
+                    </div>
+                </div>
+                <div class="row form-group text-right">
+                    {{ form_label(form.typeEntre, 'Type d\'entrée', {'label_attr' : {'class': 'col-sm-2 col-form-label'}}) }}
+                    <div class="input-group col-sm-10">
+                        {{ form_widget(form.typeEntre) }}
+                    </div>
+                </div>
+                <div class="row form-group text-right">
+                    {{ form_label(form.validite, 'Validité', {'label_attr' : {'class': 'col-sm-2 col-form-label'}}) }}
+                    <div class="input-group col-sm-10">
+                        {{ form_widget(form.validite) }}
+                    </div>
+                </div>
+                <div class="row form-group text-right">
+                    {{ form_label(form.dureSejour, 'Durée du séjour (en jours)', {'label_attr' : {'class': 'col-sm-2 col-form-label'}}) }}
+                    <div class="input-group col-sm-10">
+                        {{ form_widget(form.dureSejour) }}
+                    </div>
+                </div>
+                <div class="row form-group text-right">
+                    {{ form_label(form.delaiObtention, 'Délai d\'obtention (en jours)', {'label_attr' : {'class': 'col-sm-2 col-form-label'}}) }}
+                    <div class="input-group col-sm-10">
+                        {{ form_widget(form.delaiObtention) }}
+                    </div>
+                </div>
+                <div class="row form-group text-right">
+                    {{ form_label(form.fraisConsulaire, 'Frais consulaires', {'label_attr' : {'class': 'col-sm-2 col-form-label'}}) }}
+                    <div class="input-group col-sm-10">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">€ </span>
+                        </div>
+                        {{ form_widget(form.fraisConsulaire) }}
+                    </div>
+                </div>
+                <div class="row form-group text-right">
+                    {{ form_label(form.fraisEdition, 'Frais édition de dossier', {'label_attr' : {'class': 'col-sm-2 col-form-label'}}) }}
+                    <div class="input-group col-sm-10">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">€ </span>
+                        </div>
+                        {{ form_widget(form.fraisEdition) }}
+                    </div>
+                </div>
+                </div>
+                <ul class="sticky-toolbar">
+                    <li class="toolbar-items">
+                        <a href="{{path('show_type_evisa', {'id' : id})}}" class="btn btn-retour"><i class="fas fa-chevron-left"></i> </a>
+            
+                    </li>
+                    <li class="toolbar-items">
+                        <button type="submit" class="btn btn-enregistrer"><i class="fas fa-save"></i> </a>
+                    </li>
+                </ul>
+            {{ form_end(form, {'render_rest': false})}}
+        </div>
+    </div>
 {% endblock %}

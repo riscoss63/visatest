@@ -41,6 +41,8 @@ class CategorieEvisaController extends AbstractController
             AbstractNormalizer::CIRCULAR_REFERENCE_HANDLER => function ($object, $format, $context) {
                 return $object->getTitre();
             },
+            AbstractNormalizer::ATTRIBUTES      => ['id', 'titre', 'categorieVisa']
+
         ];
         $normalizer = new ObjectNormalizer(null, null, null, null, null, null, $defaultContext);
 
@@ -139,6 +141,7 @@ class CategorieEvisaController extends AbstractController
 
         //Permet l'ajout d'un nouveau doccument obligatoire
         $doccumentObligatoireAjout = new DoccumentObligatoire;
+
         $obligatoireAjoutForm =$this->createForm(CategorieDoccumentObligatoiresAjoutType::class, $doccumentObligatoireAjout);
         $obligatoireAjoutForm->handleRequest($request);
 

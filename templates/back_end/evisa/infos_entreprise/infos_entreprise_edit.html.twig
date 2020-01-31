@@ -1,0 +1,108 @@
+{% extends "back_end/base.html.twig" %}
+
+{% block menu_header %}
+    {% include "back_end/evisa/infos_entreprise/__header.html.twig" %}
+{% endblock %}
+
+{% block contenu %}
+    {{ form_start(form)}}
+
+    <div class="row">
+        <h5 class=" m-auto col-8"><i class="fa fa-globe"></i> Infos entreprise </h5>
+        <div class="col-4 text-right pr-5">
+            <button type="submit" class="btn btn-enregistrer"><i class="fas fa-save"></i> Enregistrer </a>
+        </div>
+    </div>
+
+    <div class="row justify-content-center mt-5">
+        <div class="col-6 text-center">    
+                    
+                <div class="row form-group text-right">
+                    {{ form_label(form.titre, 'Raison social', {'label_attr' : {'class': 'col-sm-2 col-form-label'}}) }}
+                    <div class="input-group col-sm-10">
+                        {{ form_widget(form.titre) }}
+                    </div>
+                </div>
+                <div class="row form-group text-right mb-5">
+                    {{ form_label(form.adresse, 'Adresse', {'label_attr' : {'class': 'col-sm-2 col-form-label'}}) }}
+                    <div class="input-group col-sm-10">
+                        {{ form_widget(form.adresse) }}
+                    </div>
+                </div>
+                <div class="row form-group text-right">
+                    {{ form_label(form.complementAdresse, 'Complément adresse', {'label_attr' : {'class': 'col-sm-2 col-form-label'}}) }}
+                    <div class="input-group col-sm-10">
+                        {{ form_widget(form.complementAdresse) }}
+                    </div>
+                </div>
+                <div class="row form-group text-right">
+                    {{ form_label(form.codePostal, 'Code postal', {'label_attr' : {'class': 'col-sm-2 col-form-label'}}) }}
+                    <div class="input-group col-sm-10">
+                        {{ form_widget(form.codePostal) }}
+                    </div>
+                </div>
+                <div class="row form-group text-right">
+                    {{ form_label(form.ville, 'Ville', {'label_attr' : {'class': 'col-sm-2 col-form-label'}}) }}
+                    <div class="input-group col-sm-10">
+                        {{ form_widget(form.ville) }}
+                    </div>
+                </div>
+                <div class="row form-group text-right">
+                    {{ form_label(form.horairesOuverture, 'Horaires d\'ouvetures', {'label_attr' : {'class': 'col-sm-2 col-form-label'}}) }}
+                    <div class="input-group col-sm-10">
+                        {{ form_widget(form.horairesOuverture) }}
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 text-center">            
+                <div class="row form-group text-right">
+                    {{ form_label(form.email, 'Email contact', {'label_attr' : {'class': 'col-sm-2 col-form-label'}}) }}
+                    <div class="input-group col-sm-10">
+                        {{ form_widget(form.email) }}
+                    </div>
+                </div>
+                <div class="row form-group text-right mb-5">
+                    {{ form_label(form.telephoneFixe, 'Téléphone fixe', {'label_attr' : {'class': 'col-sm-2 col-form-label'}}) }}
+                    <div class="input-group col-sm-10">
+                        {{ form_widget(form.telephoneFixe) }}
+                    </div>
+                </div>
+                <div class="row form-group text-right mb-5">
+                    {{ form_label(form.telephone, 'Mobile', {'label_attr' : {'class': 'col-sm-2 col-form-label'}}) }}
+                    <div class="input-group col-sm-10">
+                        {{ form_widget(form.telephone) }}
+                    </div>
+                </div>
+                <div class="row form-group text-right mb-5">
+                    {{ form_label(form.siret, 'Siret', {'label_attr' : {'class': 'col-sm-2 col-form-label'}}) }}
+                    <div class="input-group col-sm-10">
+                        {{ form_widget(form.siret) }}
+                    </div>
+                </div>
+                <div class="row form-group text-right mb-5">
+                    {{ form_label(form.siren, 'Siren', {'label_attr' : {'class': 'col-sm-2 col-form-label'}}) }}
+                    <div class="input-group col-sm-10">
+                        {{ form_widget(form.siren) }}
+                    </div>
+                </div>
+                <div class="row form-group text-right mb-5">
+                    {{ form_label(form.tva, 'Taux tva (en %)', {'label_attr' : {'class': 'col-sm-2 col-form-label'}}) }}
+                    <div class="input-group col-sm-10">
+                        {{ form_widget(form.tva) }}
+                    </div>
+                </div>
+                <div class="row form-group text-right mb-5">
+                    {{ form_label(form.cnil, 'Cnil', {'label_attr' : {'class': 'col-sm-2 col-form-label'}}) }}
+                    <div class="input-group col-sm-10">
+                        {{ form_widget(form.cnil) }}
+                    </div>
+                </div>
+                <ul class="sticky-toolbar">
+                    <li class="toolbar-items">
+                        <button type="submit" class="btn btn-enregistrer"><i class="fas fa-save"></i> </a>
+                    </li>
+                </ul>
+            {{ form_end(form, {'render_rest': false})}}
+        </div>
+    </div>
+{% endblock %}
