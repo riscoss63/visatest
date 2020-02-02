@@ -29,27 +29,27 @@ class CategorieVisa
     private $titre;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\VisaType", mappedBy="categorieVisa")
+     * @ORM\OneToMany(targetEntity="App\Entity\VisaType", mappedBy="categorieVisa", cascade={"persist", "remove"})
      */
     private $visaType;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\DoccumentObligatoire", mappedBy="categorieVisa")
+     * @ORM\OneToMany(targetEntity="App\Entity\DoccumentObligatoire", mappedBy="categorieVisa", cascade={"persist", "remove"})
      */
     private $doccumentsObligatoires;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\DoccumentFacultatif", mappedBy="categorieVisa")
+     * @ORM\OneToMany(targetEntity="App\Entity\DoccumentFacultatif", mappedBy="categorieVisa", cascade={"persist", "remove"})
      */
     private $doccumentsFacultatifs;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\DoccumentOfficiel", mappedBy="categorieVisa")
+     * @ORM\OneToMany(targetEntity="App\Entity\DoccumentOfficiel", mappedBy="categorieVisa", cascade={"persist", "remove"})
      */
     private $doccumentsOfficiel;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Pays", inversedBy="categorieVisas")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Pays", inversedBy="categorieVisas", cascade={"persist", "remove"})
      */
     private $pays;
 

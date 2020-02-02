@@ -81,6 +81,8 @@ class DroitsController extends AbstractController
             $manager->persist($service);
             $manager->flush();
             $this->addFlash('success', 'Accès modifier');
+
+            return $this->redirectToRoute('show_acces');
         }
         return $this->render('back_end\utilisateurs\droits\edit_service.html.twig', [
             'form'          =>$form->createView(),
@@ -108,12 +110,12 @@ class DroitsController extends AbstractController
 
         $form=$this->createForm(UserAccessType::class, $user);
         $form->handleRequest($request);
-
         if($form->isSubmitted() AND $form->isValid())
         {
             $manager->persist($user);
             $manager->flush();
 
+            return $this->redirectToRoute('show_acces_user');
             $this->addFlash('success', 'Accès utilisateur modifier');
         }
 

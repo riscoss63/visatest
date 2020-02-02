@@ -35,7 +35,7 @@ class ContinentType extends AbstractType
             ])
             ->add('active', CheckboxType::class, [
                 'attr' => [
-                    'class' => '',
+                    'class' => 'form-control check',
                 ],
                 'required'      =>false,
             ])
@@ -51,6 +51,9 @@ class ContinentType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Continent::class,
+            'csrf_protection'   => true,
+            'csrf_field_name'   => '_token',
+            'crsf_token_id'     => 'continent_id'
         ]);
     }
 }

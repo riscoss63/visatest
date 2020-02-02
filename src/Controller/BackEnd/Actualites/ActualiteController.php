@@ -66,6 +66,9 @@ class ActualiteController extends AbstractController
         {
             $manager->persist($actualite);
             $manager->flush();
+
+            $this->addFlash('success', 'Une actualité a était ajouter');
+
             return $this->redirectToRoute('edit_actualite', [
                 'id'        => $actualite->getId()
             ]);
@@ -92,6 +95,8 @@ class ActualiteController extends AbstractController
             
             $manager->persist($actualite);
             $manager->flush();
+            $this->addFlash('success', 'Une actualité a était modifier');
+
         }
 
         return $this->render('/back_end/actualite/actualite_edit.html.twig', [
@@ -105,11 +110,14 @@ class ActualiteController extends AbstractController
     public function actualiteDel($id, EntityManagerInterface $manager)
     {
         $actualite = $this->getDoctrine()->getRepository(Actualite::class)->find($id);
-
         if($actualite)
         {
+            $actualite->setMeta(null);
+
             $manager->remove($actualite);
             $manager->flush();
+            $this->addFlash('success', 'Une actualité a était supprimer');
+
         }
 
         return $this->redirectToRoute('show_actualite');

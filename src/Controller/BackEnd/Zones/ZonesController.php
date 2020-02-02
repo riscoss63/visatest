@@ -52,7 +52,7 @@ class ZonesController extends AbstractController
             AbstractNormalizer::CIRCULAR_REFERENCE_HANDLER => function ($object, $format, $context) {
                 return $object->getTitre();
             },
-            AbstractNormalizer::ATTRIBUTES  => ['valide', 'pays', 'titre', 'id'],
+            AbstractNormalizer::ATTRIBUTES  => ['active', 'pays', 'titre', 'id'],
         ];
         $normalizer = new ObjectNormalizer(null, null, null, null, null, null, $defaultContext);
 
@@ -88,6 +88,7 @@ class ZonesController extends AbstractController
         {
             $manager->persist($zone);
             $manager->flush();
+            $this->addFlash('success', 'Une nouvelle zone a était ajouter');
             return $this->redirectToRoute('edit_zone', [
                 'id'        => $zone->getId()
             ]);
@@ -113,6 +114,9 @@ class ZonesController extends AbstractController
         {
             $manager->persist($zone);
             $manager->flush();
+
+            $this->addFlash('success', 'Une nouvelle zone a était modifier');
+
         }
 
         return $this->render('/back_end/zones/zone_geographique_edit.html.twig', [

@@ -186,8 +186,12 @@
         <div class="step-content">
             <p>Envoi par <span class="shipping">{{commande.transport}}</span> le <span class="date">{{commande.dateEnvoi|date('d/m/Y')}}</span> à <span class="hour">{{commande.dateEnvoi|date('H \\h\\ i')}}</span></p>
 
-            <p class="transporter">Numéro de suivi : <strong><span class="tracking-code">{{commande.expedition.suivi}}</span></strong><br>
-                <a href="#" class="text-underline">Accéder au suivi du transporteur</a></p>
+            {% if commande.expedition.suivi is defined %}
+                <p class="transporter">Numéro de suivi : <strong><span class="tracking-code">{{commande.expedition.suivi}}</span></strong><br>
+                    <a href="#" class="text-underline">Accéder au suivi du transporteur</a>
+                </p>
+            {% endif %}
+            
 
             <p class="agency">Retrait à l’agence disponible à partir du <span class="date">14/05/2019</span></p>
 

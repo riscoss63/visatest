@@ -34,12 +34,12 @@ class Demande
     private $dateCreation;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="demandes")
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="demandes", cascade={"persist", "remove"})
      */
     private $client;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\VisaType", inversedBy="demandes")
+     * @ORM\ManyToOne(targetEntity="App\Entity\VisaType", inversedBy="demandes", cascade={"persist", "remove"})
      */
     private $visaType;
 
@@ -64,7 +64,7 @@ class Demande
     private $sortie;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Transport", inversedBy="demandes")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Transport", inversedBy="demandes", cascade={"persist", "remove"})
      */
     private $transport;
 
@@ -79,7 +79,7 @@ class Demande
     private $course;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\FraisComplementaire", mappedBy="demande", cascade={"persist"})
+     * @ORM\OneToMany(targetEntity="App\Entity\FraisComplementaire", mappedBy="demande", cascade={"persist", "remove"})
      */
     private $fraisComplementaire;
 
@@ -89,12 +89,12 @@ class Demande
     private $expedition;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Assurance", inversedBy="demande")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Assurance", inversedBy="demande", cascade={"persist", "remove"})
      */
     private $assurance;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Voyageurs", mappedBy="demande")
+     * @ORM\OneToMany(targetEntity="App\Entity\Voyageurs", mappedBy="demande", cascade={"persist", "remove"})
      */
     private $voyageurs;
 

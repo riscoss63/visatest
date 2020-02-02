@@ -15,22 +15,23 @@
                 </div>
             </div>
 
-            <div class="offset-lg-2 text-left">
-                {% for check in form.droits %}
-                    <div class="form-check">
-                        {{ form_widget(check)}}
-                        {{ form_label(check)}}
-                    </div>
-                {% endfor %}
-            </div>
-                
+            <div class="row form-group text-right align-items-center">
+                {{ form_label(form.droits, 'Roles', {'label_attr' : {'class': 'col-sm-2 col-form-label'}}) }}
+                <div class="input-group col-sm-10">
+                    {{ form_widget(form.droits) }}
+                </div>
+            </div>                
 
             <div class="row form-group text-right">
                 <div class="input-group col-sm-12">
                     {{ form_widget(form.submit) }}
                 </div>
             </div>
-            
         {{ form_end(form)}}
     </div>
 </div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.9/dist/js/bootstrap-select.min.js"></script>
+<script>
+    $('.my-select').selectpicker();
+</script>

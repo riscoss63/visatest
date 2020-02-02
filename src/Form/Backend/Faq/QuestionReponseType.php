@@ -19,7 +19,10 @@ class QuestionReponseType extends AbstractType
             ->add('question', CKEditorType::class)
             ->add('reponse', CKEditorType::class)
             ->add('sujetFaq', EntityType::class, [
-                'class'     => SujetFaq::class
+                'class'     => SujetFaq::class,
+                'attr'      => [
+                    'class'     => 'form-control'
+                ]
             ])
         ;
     }
@@ -28,6 +31,9 @@ class QuestionReponseType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => QuestionReponseFaq::class,
+            'csrf_protection'   => true,
+            'csrf_field_name'   => '_token',
+            'csrf_token_id'     => 'question_reponse_edit'
         ]);
     }
 }

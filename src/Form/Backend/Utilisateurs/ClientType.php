@@ -22,13 +22,13 @@ class ClientType extends AbstractType
         $builder
             ->add('valide', CheckboxType::class, [
                 'attr' => [
-                    'class' => '',
+                    'class' => 'form-control check',
                 ],
                 'required'      =>false,
             ])      
             ->add('premium', CheckboxType::class, [
                 'attr' => [
-                    'class' => '',
+                    'class' => 'form-control check',
                 ],
                 'required'      =>false,
             ])      

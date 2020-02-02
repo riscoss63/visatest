@@ -22,7 +22,14 @@ class TransportType extends AbstractType
                 'attr'      => [
                     'class'     => 'form-control ml-1'
                 ],
-                'label'     => 'Type de tarif',
+                'label'     => 'Libellé',
+                'required'  => true,
+            ])
+            ->add('libelleCourt', TextType::class, [
+                'attr'      => [
+                    'class'     => 'form-control ml-1'
+                ],
+                'label'     => 'Libellé court',
                 'required'  => true,
             ])
             ->add('informations', TextType::class, [
@@ -47,11 +54,15 @@ class TransportType extends AbstractType
                 'image_uri' => true,
                 // 'imagine_pattern' => '...',
                 'asset_helper' => true,
-                'label'     =>false
+                'label'     =>false,
+                'attr' => [
+                    'class' => 'form-control',
+                ],
+
             ])
             ->add('actif', CheckboxType::class, [
                 'attr' => [
-                    'class' => '',
+                    'class' => 'form-control check',
                 ],
                 'required'      =>false,
             ])

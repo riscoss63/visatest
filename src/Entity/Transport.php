@@ -46,7 +46,7 @@ class Transport
     /**
      * @ORM\Column(type="date")
      */
-    private $DateCreation;
+    private $dateCreation;
 
     /**
      * @ORM\Column(type="date", nullable=true)
@@ -54,7 +54,7 @@ class Transport
     private $dateModification;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\TarifTransport", mappedBy="transport")
+     * @ORM\OneToMany(targetEntity="App\Entity\TarifTransport", mappedBy="transport", cascade={"persist", "remove"})
      */
     private $tarifTransports;
 
@@ -87,7 +87,7 @@ class Transport
     private $updatedAt;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Demande", mappedBy="transport")
+     * @ORM\OneToMany(targetEntity="App\Entity\Demande", mappedBy="transport", cascade={"persist", "remove"})
      */
     private $demandes;
 
@@ -106,13 +106,19 @@ class Transport
      */
     private $aeroport;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $libelleCourt;
+
     public function __construct()
     {
         $this->tarifTransports = new ArrayCollection();
         $this->image = new EmbeddedFile();
-        $this->DateCreation = new \DateTime('now');
+        $this->dateCreation = new \DateTime('now');
         $this->updatedAt = new \DateTime('now');
         $this->demandes = new ArrayCollection();
+        $this->dateModification= new \DateTime('now');
     }
 
     public function getId(): ?int
@@ -170,12 +176,12 @@ class Transport
 
     public function getDateCreation(): ?\DateTimeInterface
     {
-        return $this->DateCreation;
+        return $this->dateCreation;
     }
 
-    public function setDateCreation(\DateTimeInterface $DateCreation): self
+    public function setDateCreation(\DateTimeInterface $dateCreation): self
     {
-        $this->DateCreation = $DateCreation;
+        $this->dateCreation = $dateCreation;
 
         return $this;
     }
@@ -340,6 +346,18 @@ class Transport
     public function __toString()
     {
         return $this->titre;
+    }
+
+    public function getLibelleCourt(): ?string
+    {
+        return $this->libelleCourt;
+    }
+
+    public function setLibelleCourt(?string $libelleCourt): self
+    {
+        $this->libelleCourt = $libelleCourt;
+
+        return $this;
     }
 
 }

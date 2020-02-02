@@ -29,7 +29,7 @@ class Pays
     private $iso;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\ZoneGeographique", inversedBy="pays")
+     * @ORM\ManyToOne(targetEntity="App\Entity\ZoneGeographique", inversedBy="pays", cascade={"persist", "remove"})
      */
     private $zoneGeographique;
 
@@ -44,7 +44,7 @@ class Pays
     private $eVisa;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\CategorieVisa", mappedBy="pays")
+     * @ORM\OneToMany(targetEntity="App\Entity\CategorieVisa", mappedBy="pays", cascade={"persist", "remove"})
      */
     private $categorieVisas;
 
@@ -54,7 +54,7 @@ class Pays
     private $carteTourisme;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Assurance", mappedBy="pays")
+     * @ORM\OneToMany(targetEntity="App\Entity\Assurance", mappedBy="pays", cascade={"persist", "remove"})
      */
     private $assurances;
 

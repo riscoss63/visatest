@@ -6,6 +6,7 @@ use App\Entity\InfosEntreprise;
 use App\Entity\ModeExpedition;
 use App\Entity\NotreService;
 use App\Entity\VisaClassic;
+use App\Form\Backend\InfosEntreprise\BonDeCommandeEntrepriseType;
 use App\Form\Backend\InfosEntreprise\InfosEntrepriseType;
 use App\Form\Backend\VisaClassic\ModeExpeditionType;
 use App\Form\Backend\VisaClassic\NotreServiceType;
@@ -37,7 +38,7 @@ class VisaClassicController extends AbstractController
     }
 
     /**
-     * @Route("/infos-entreprise", name="infos_entreprise_visa_classic")
+     * @Route("/entreprise/infos", name="infos_entreprise_visa_classic")
      */
     public function infosEntrepriseEdit(Request $request, EntityManagerInterface $manager) : Response
     {
@@ -61,7 +62,37 @@ class VisaClassicController extends AbstractController
             $manager->flush();
         }
 
-        return $this->render('/back_end/infos_entreprise/infos_entreprise_edit.html.twig', [
+        return $this->render('/back_end/visa_classic/infos_entreprise/infos_entreprise_edit.html.twig', [
+            'form'      => $form->createView()
+        ]);
+    }
+
+    /**
+     * @Route("/entreprise/bons-de-commande", name="bon_de_commande_entreprise_visa_classic")
+     */
+    public function bonDeCommandeEdit(Request $request, EntityManagerInterface $manager)
+    {
+        $this->denyAccessUnlessGranted('SHOW', $this->servicePaysVisaClassic);
+
+        $bonDeCommande= $this->getDoctrine()->getRepository(InfosEntreprise::class)->findOneBy([
+            'typeVisa'      =>  'visa_classic'
+        ]);
+        if(!$bonDeCommande)
+        {
+            $bonDeCommande = new InfosEntreprise;
+            $bonDeCommande->setTypeVisa('visa_classic');
+        }
+
+        $form= $this->createForm(BonDeCommandeEntrepriseType::class, $bonDeCommande);
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() AND $form->isValid())
+        {
+            $manager->persist($bonDeCommande);
+            $manager->flush();
+        }
+
+        return $this->render('/back_end/evisa/infos_entreprise/bon_de_commande_entreprise_edit.html.twig', [
             'form'      => $form->createView()
         ]);
     }
@@ -80,6 +111,8 @@ class VisaClassicController extends AbstractController
             AbstractNormalizer::CIRCULAR_REFERENCE_HANDLER => function ($object, $format, $context) {
                 return $object->getTitre();
             },
+            AbstractNormalizer::ATTRIBUTES      => ['id', 'titre', 'typeVisa', 'pays' => 'iso']
+
         ];
         $normalizer = new ObjectNormalizer(null, null, null, null, null, null, $defaultContext);
 

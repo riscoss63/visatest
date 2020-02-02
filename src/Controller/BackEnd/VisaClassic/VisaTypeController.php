@@ -42,6 +42,8 @@ class VisaTypeController extends AbstractController
             AbstractNormalizer::CIRCULAR_REFERENCE_HANDLER => function ($object, $format, $context) {
                 return $object->getTitre();
             },
+            AbstractNormalizer::ATTRIBUTES      => ['id', 'titre', 'categorieVisa', 'typeEntre', 'dureSejour', 'active']
+
         ];
         $normalizer = new ObjectNormalizer(null, null, null, null, null, null, $defaultContext);
 
@@ -90,7 +92,8 @@ class VisaTypeController extends AbstractController
         }
 
         return $this->render('/back_end/visa_classic/type_visa_classic_edit.html.twig', [
-            'form'      => $form->createView()
+            'form'      => $form->createView(),
+            'id'       => $visaClassic->getId()
         ]);
 
     }
@@ -103,7 +106,7 @@ class VisaTypeController extends AbstractController
         $this->denyAccessUnlessGranted('SHOW', $this->serviceTypeVisaClassic);
 
         $typeVisaClassic = $this->getDoctrine()->getRepository(VisaType::class)->find($id);
-
+        $visaClassic = $typeVisaClassic->getVisaClassic();
         $form = $this->createForm(TypeVisaClassicType::class, $typeVisaClassic);
         $form->handleRequest($request);
 
@@ -114,7 +117,8 @@ class VisaTypeController extends AbstractController
         }
 
         return $this->render('/back_end/visa_classic/type_visa_classic_edit.html.twig', [
-            'form'      => $form->createView()
+            'form'      => $form->createView(),
+            'id'        => $visaClassic->getId()
         ]);
     }
 

@@ -8,18 +8,18 @@
 
     <div class="row">
         <h5 class=" m-auto col-8"><i class="fa fa-users-cog"></i> Gestion des questions/réponses</h5>
-        <div class="col-3 float-right">
-            <a href="{{path('add_question_reponse')}}" class="btn btn-primary petite-taille"><i class="fas fa-plus-circle"></i> Ajouter une question/reponse </a>
-        </div>
     </div>
 
     <div class="row">
         <div class="col-12">
-            <table id="table" data-toggle="table" data-url="{{ path('json_questions_reponses')}}" data-pagination="true" data-search="true" data-pagination: "true"  data-filter="true" data-filter-control="true">
+            <div class="col-6 mt-4 position-absolute add-question">
+                <a href="#" id="question-add" class="btn btn-primary petite-taille" rel=""> Ajouter une question</a>
+            </div>
+            <table id="table" class="mt-4" data-toggle="table" data-url="{{ path('json_questions_reponses')}}" data-pagination="true" data-search="true" data-pagination: "true"  data-filter="true" data-filter-control="true">
                 <thead>
 
                     <tr>
-                        <th data-field="sujetFaq.categorieFaq.titre" class="categoriefaq" data-formatter="categorieFormatter" data-filter-control="select" data-sortable="true"> Catégorie </th>
+                        <th data-field="sujetFaq.categorieFaq.titre" class="categoriefaq" data-filter-default="Choisir une catégorie" data-formatter="categorieFormatter" data-filter-control="select" data-sortable="true"> Catégorie </th>
                         <th data-field="sujetFaq.titre" class="sujetfaq" data-formatter="sujetFormatter" data-filter-control="select" data-sortable="true"> Sujet </th>
                         <th data-field="question" data-align="center" data-sortable="true">Question</th>
                         <th data-field="reponse" data-sortable="true"> Réponse </th>
@@ -45,10 +45,15 @@
         }
 
         function categorieFormatter(value, row, index) {
-            return row["sujetFaq"]["categorieFaq"]["titre"]
+            if(row["sujetFaq"]["categorieFaq"] ==null) {
+                return '<em>Aucune catégorie</em>';
+            }
+            else {
+                return row["sujetFaq"]["categorieFaq"]["titre"]
+            }
         }
          function actionsFormatter(value, row, index){
-            return '<a href="'+Routing.generate('edit_question_reponse', {'id' : row.id})+'" title="Modifier"><i class="far fa-edit"></i></a>'+
+            return '<a href="'+Routing.generate('edit_question_reponse', {'id' : row.id})+'" title="Modifier" rel="modal:open"><i class="far fa-edit"></i></a>'+
                     '<a href="'+Routing.generate('del_question_repose_faq', {'id' : row.id})+'" title="Supprimer"><i class="fas fa-trash"></i></a>';
         }
 
@@ -89,6 +94,15 @@
             return 'Aucun visa n\'est selectionner';
         }
 
+        $('#question-add').on('click', function() {
+            var categorie = $('.categoriefaq option:selected').val();
+            var sujet = $('.sujetfaq option:selected').val();
+            if(sujet) {
+                $('#question-add').attr('href', Routing.generate('add_question_reponse', {'sujettitre' : sujet}));
+                $('#question-add').attr('rel', 'modal:open')
+            }
+            
+        })
         
         
     </script>

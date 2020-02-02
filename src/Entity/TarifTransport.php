@@ -34,15 +34,30 @@ class TarifTransport
     private $actif;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Transport", inversedBy="tarifTransports")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Transport", inversedBy="tarifTransports", cascade={"persist", "remove"})
      */
     private $transport;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Departemente", inversedBy="tarifTransports")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Departemente", inversedBy="tarifTransports", cascade={"persist", "remove"})
      */
     private $departement;
 
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $dateCreation;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $dateModification;
+
+    public function __construct()
+    {
+        $this->dateCreation = new \DateTime('now');
+        $this->dateCreation = new \DateTime('now');
+    }
     public function getId(): ?int
     {
         return $this->id;
@@ -111,5 +126,29 @@ class TarifTransport
     public function getTitre()
     {
         return $this->transport->getTitre();
+    }
+
+    public function getDateCreation(): ?\DateTimeInterface
+    {
+        return $this->dateCreation;
+    }
+
+    public function setDateCreation(?\DateTimeInterface $dateCreation): self
+    {
+        $this->dateCreation = $dateCreation;
+
+        return $this;
+    }
+
+    public function getDateModification(): ?\DateTimeInterface
+    {
+        return $this->dateModification;
+    }
+
+    public function setDateModification(?\DateTimeInterface $dateModification): self
+    {
+        $this->dateModification = $dateModification;
+
+        return $this;
     }
 }

@@ -65,8 +65,8 @@ class PageDiversController extends AbstractController
         if($form->isSubmitted() AND $form->isValid())
         {
             $manager->persist($pageDivers);
-            $manager-flush();
-
+            $manager->flush();
+            $this->addFlash('success', 'Une page divers a était ajouter');
             return $this->redirectToRoute('edit_page_divers', [
                 'id'        => $pageDivers->getId()
             ]);
@@ -91,6 +91,7 @@ class PageDiversController extends AbstractController
         {
             $manager->persist($pageDivers);
             $manager->flush();
+            $this->addFlash('success', 'La page divers a était modifier');
         }
 
         return $this->render('/back_end/actualite/page_divers_edit.html.twig', [
@@ -104,11 +105,13 @@ class PageDiversController extends AbstractController
     public function pageDiversDel($id, EntityManagerInterface $manager)
     {
         $pageDivers = $this->getDoctrine()->getRepository(PageDivers::class)->find($id);
-
+        $pageDivers->setMeta(null);
         if($pageDivers)
         {
             $manager->remove($pageDivers);
             $manager->flush();
+            $this->addFlash('success', 'La page divers a était supprimer');
+
         }
 
         return $this->redirectToRoute('show_page_divers');

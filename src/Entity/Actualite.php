@@ -65,17 +65,17 @@ class Actualite
     private $contenu;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\VisaClassic", inversedBy="actualites")
+     * @ORM\ManyToOne(targetEntity="App\Entity\VisaClassic", inversedBy="actualites", cascade={"persist", "remove"})
      */
     private $visaClassic;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\EVisa", inversedBy="actualites")
+     * @ORM\ManyToOne(targetEntity="App\Entity\EVisa", inversedBy="actualites", cascade={"persist", "remove"})
      */
     private $evisa;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\CarteTourisme", inversedBy="actualites")
+     * @ORM\ManyToOne(targetEntity="App\Entity\CarteTourisme", inversedBy="actualites", cascade={"persist", "remove"})
      */
     private $carteTourisme;
 

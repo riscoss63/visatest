@@ -22,7 +22,7 @@ class UserType extends AbstractType
         $builder
             ->add('valide', CheckboxType::class, [
                 'attr' => [
-                    'class' => '',
+                    'class' => 'form-control check',
                 ],
                 'required'      =>false,
             ])
@@ -33,12 +33,14 @@ class UserType extends AbstractType
                     'Coursier'      => 'ROLE_COURSIER',
                     'Rédacteur'     => 'ROLE_REDACTEUR'
                 ],
-                'expanded'      => false,
                 'multiple'      => true,
                 'attr'      => [
-                    'class'     => 'form-control'
+                    'class'     => 'form-control my-select',
+                    'data-live-search'      => 'true',
+                    'multiple title'        => 'Selectionner un rôles'
                 ]
             ])
+
             
             ->add('nom', TextType::class, [
                 'attr' => [

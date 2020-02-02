@@ -1,14 +1,12 @@
 {% extends "back_end/base.html.twig" %}
 
-{% block menu_header %}
-    {% include "back_end/visa_classic/__header.html.twig" %}
-{% endblock %}
-
-
 {% block contenu %}
 
     <div class="row">
-        <h5 class=" m-auto col-8"><i class="fa fa-users-cog"></i>Liste des catégories visa - Visas classiques / {{ visaClassic.pays.titre }}</h5>
+        <h5 class=" m-auto col-5"><i class="fa fa-users-cog"></i>Liste des catégories visa - Visas classiques / {{ visaClassic.pays.titre }}</h5>
+        <div class="col-7 text-right pr-5">
+            <a href="{{path('show_pays_visa_classic')}}" class="btn btn-retour"><i class="fas fa-chevron-left"></i> Retour à la liste des pays </a>
+        </div>
     </div>
 
     <div class="row">
@@ -23,6 +21,11 @@
             </table>
         </div> 
     </div>
+    <ul class="sticky-toolbar">
+        <li class="toolbar-items">
+            <a href="{{path('show_pays_visa_classic')}}" class="btn btn-retour"><i class="fas fa-chevron-left"></i> </a>
+        </li>
+    </ul>
 
 {% endblock %}
 

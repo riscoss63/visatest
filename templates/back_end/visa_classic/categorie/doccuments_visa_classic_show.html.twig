@@ -8,17 +8,18 @@
 {% block contenu %}
 
     <div class="row">
-        <h5 class=" m-auto col-8"><i class="fa fa-users-cog"></i>Gestion des documents (nécessaires et optionnels) - Visas classiques /  /  {{ categorie.titre }}</h5>
+        <h5 class=" m-auto col-8"><i class="fa fa-users-cog"></i>Gestion des documents (nécessaires et optionnels) - Visas classic / {{categorie.pays.titre}} /  {{ categorie.titre }}</h5>
+        <a href="{{path('show_pays_visa_classic')}}" class="btn btn-retour"><i class="fas fa-chevron-left"></i> Retour à la liste des pays </a>
     </div>
 
     <div class="row mt-5">
         <div class="col-6">
             <h6 class="text-center">Gestion de la liste des documents obligatoires</h6>
             {{ form_start(doccuments_obligatoires_ajout)}}
-            <div class="row mt-4 justify-content-center">
+            <div class="row mt-4 justify-content-center align-items-center">
                 {{ form_widget(doccuments_obligatoires_ajout.titre)}}
-                <button type="submit" class="btn btn-success btn-elevate btn-enregistrer2 col-5 ml-1">
-                    <i class="fa fa-save"></i> Ajouter un document nécessaire
+                <button type="submit" class="btn btn-enregistrer btn-elevate btn-enregistrer2 col-5 ml-1">
+                    <i class="fas fa-save"></i> Ajouter un document nécessaire
                 </button>
             </div>
             {{ form_end(doccuments_obligatoires_ajout)}}
@@ -35,10 +36,10 @@
         <div class="col-6">
             <h6 class="text-center">Gestion de la liste des documents facultatifs</h6>
             {{ form_start(doccuments_facultatifs_ajout)}}
-            <div class="row mt-4 justify-content-center">
+            <div class="row mt-4 justify-content-center align-items-center">
                 {{ form_widget(doccuments_facultatifs_ajout.titre)}}
-                <button type="submit" class="btn btn-success btn-elevate btn-enregistrer2 col-5 ml-1">
-                    <i class="fa fa-save"></i> Ajouter un document facultatif
+                <button type="submit" class="btn btn-enregistrer btn-elevate btn-enregistrer2 col-5 ml-1">
+                    <i class="fas fa-save"></i> Ajouter un document facultatif
                 </button>
             </div>
             {{ form_end(doccuments_facultatifs_ajout)}}
@@ -53,6 +54,7 @@
             </table>
         </div> 
     </div>
+
 
 {% endblock %}
 

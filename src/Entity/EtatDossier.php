@@ -32,7 +32,7 @@ class EtatDossier
     private $nom;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\ReceptionDossier", inversedBy="etatDossier",cascade={"persist"})
+     * @ORM\ManyToOne(targetEntity="App\Entity\ReceptionDossier", inversedBy="etatDossier", cascade={"persist", "remove"})
      */
     private $receptionDossier;
 

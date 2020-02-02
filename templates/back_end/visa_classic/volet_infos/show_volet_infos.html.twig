@@ -1,23 +1,43 @@
 {% extends "back_end/base.html.twig" %}
 
-{% block menu_header %}
-    {% include "back_end/visa_classic/__header.html.twig" %}
-{% endblock %}
 
 
 {% block contenu %}
 
+    
     <div class="row">
-        <h5 class=" m-auto col-8"><i class="fa fa-users-cog"></i> Gestion des volets d'informations - Visas classiques / {{visa_classic.pays.titre}} </h5>
+        <h5 class=" m-auto col-5"><i class="fa fa-users-cog"></i> Gestion des volets d'informations - Visa classic / {{visa_classic.pays.titre}} </h5>
+        <div class="dropdown col-3 text-right">
+            <button class="btn  dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="far fa-edit" aria-hidden="true"></i>Modifier une autre page pays
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                {% for visa in visas %}
+                    <a class="dropdown-item" href="{{path('edit_pays_visa_classic', {'id' : visa.id})}}">{{visa.pays.titre}}</a>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="dropdown col-3 text-left">
+            <button class="btn  dropdown-toggle" type="button" id="dropdownMenuButton2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="fas fa-info"></i> Gestion des volets informations
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
+                {% for visa in visas %}
+                    <a class="dropdown-item" href="{{path('show_volet_infos_visa_classic', {'id' : visa.id})}}">{{visa.pays.titre}}</a>
+                {% endfor %}
+            </div>
+        </div>
+        <a href="{{path('show_type_visa_classic', {'id' : visa_classic.id})}}" class="btn btn-retour"><i class="fas fa-chevron-left"></i> Retour </a>
+
     </div>
 
     <div class="row mt-5">
         <div class="col-12">
             {{ form_start(form)}}
-            <div class="row mt-4 justify-content-center">
+            <div class="row mt-4 ">
                 {{ form_widget(form.titre)}}
                 <button type="submit" class="btn btn-success btn-elevate btn-enregistrer2 col-5 ml-1">
-                    <i class="fa fa-save"></i> Ajouter un volet d'information
+                    <i class="fas fa-plus-circle"></i> Ajouter un volet d'information
                 </button>
             </div>
             {{ form_end(form)}}
@@ -32,7 +52,11 @@
             </table>
         </div> 
     </div>
-
+    <ul class="sticky-toolbar">
+        <li class="toolbar-items">
+            <a href="{{path('show_pays_visa_classic')}}" class="btn btn-retour"><i class="fas fa-chevron-left"></i> </a>
+        </li>
+    </ul>
 {% endblock %}
 
 {% block javascripts %}

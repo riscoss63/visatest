@@ -22,7 +22,7 @@
                 <thead>
 
                     <tr>
-                        <th data-field="categorieFaq.titre" data-formatter="categorieFaqFormatter" data-sortable="true" data-filter-control="select" class="profil"> Catégorie </th>
+                        <th data-field="categorieFaq" data-formatter="categorieFaqFormatter" data-sortable="true" data-filter-control="select" class="profil"> Catégorie </th>
                         <th data-field="titre" data-sortable="true"> Sujet </th>
                         <th data-field="dateCreation.timestamp" data-formatter="dateFormatter" data-sortable="true"> Date de création </th>
                         <th data-field="dateModification.timestamp" data-formatter="dateFormatter" data-sortable="true"> Date de Modification </th>
@@ -43,7 +43,12 @@
 
     <script>
         function categorieFaqFormatter(value, row, index) {
-            return row["categorieFaq"]["titre"];
+            if(row["categorieFaq"] ===null) {
+                return '<em>Aucune catégorie</em>';
+            }
+            else {
+                return row["categorieFaq"]["titre"];
+            }
         }
 
          function actionsFormatter(value, row, index){
@@ -89,7 +94,7 @@
         }
         function dateFormatter(value, row, index) {
             var date = new Date(value*1000);
-            return `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()} à ${date.getHours()}h${date.getMinutes()}`;
+            return `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}  ${date.getHours()}:${date.getMinutes()}`;
         }
     </script>
     

@@ -1,8 +1,32 @@
  <style>
    .modal{
        margin-top: 35px;
+       max-width: 1300px;
    } 
  </style>
-    {{ form_start(form, {'action': path('edit_doccument_obligatoire', {'id': doc.id}), 'method': 'POST'}) }}
-        {{ form_row(form) }}
-    {{ form_end(form)}}
+ <div class="row">
+    <h5 class=" m-auto col-8"><i class="fa fa-globe"></i>  Modification de doccument obligatoire  </h5>
+</div>
+
+<div class="row justify-content-center mt-5">
+    <div class="col-10 text-center">    
+            {{ form_start(form, {'action': path('edit_doccument_obligatoire', {'id': doc.id}), 'method': 'POST'}) }}
+
+            <div class="row form-group text-right">
+                {{ form_label(form.titre, 'Titre', {'label_attr' : {'class': 'col-sm-2 col-form-label'}}) }}
+                <div class="input-group col-sm-10">
+                    {{ form_widget(form.titre) }}
+                </div>
+            </div>
+            <div class="row form-group text-right">
+                {{ form_label(form.contenu, 'Contenu', {'label_attr' : {'class': 'col-sm-2 col-form-label'}}) }}
+                <div class="input-group col-sm-10">
+                    {{ form_widget(form.contenu) }}
+                </div>
+            </div>
+            
+            <button type="submit" class="btn btn-enregistrer"><i class="fas fa-save"></i> Enregistrer </a>
+
+        {{ form_end(form, {'render_rest': false})}}
+    </div>
+</div>

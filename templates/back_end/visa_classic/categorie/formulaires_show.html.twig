@@ -9,18 +9,19 @@
 
     <div class="row">
         <h5 class=" m-auto col-8"><i class="fa fa-users-cog"></i> Gestion des formulaires - Visas classiques / {{ categorie.titre }} </h5>
+        <a href="{{path('show_pays_visa_classic')}}" class="btn btn-retour"><i class="fas fa-chevron-left"></i> Retour à la liste des pays </a>
     </div>
 
     <div class="row mt-5">
         <div class="col-12">
             <h6 class="text-center">Gestion de la liste des documents obligatoires</h6>
             {{ form_start(form)}}
-            <div class="row mt-4 justify-content-center">
+            <div class="row mt-4 align-items-center">
                 {{ form_label(form.name)}}
                 {{ form_widget(form.name)}}
                 {{ form_widget(form.doccumentOfficielFile)}}
-                <button type="submit" class="btn btn-success btn-elevate btn-enregistrer2 col-3 ml-1">
-                    <i class="fa fa-save"></i> Ajouter un document nécessaire
+                <button type="submit" class="btn btn-enregistrer btn-elevate btn-enregistrer2 col-3 ml-1">
+                    <i class="fas fa-save"></i> Ajouter un document nécessaire
                 </button>
             </div>
             {{ form_end(form)}}

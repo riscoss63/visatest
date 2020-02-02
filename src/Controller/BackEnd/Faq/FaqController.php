@@ -2,6 +2,7 @@
 
 namespace App\Controller\BackEnd\Faq;
 
+use App\Entity\Categorie;
 use App\Entity\CategorieFaq;
 use App\Entity\QuestionReponseFaq;
 use App\Entity\SujetFaq;
@@ -35,9 +36,8 @@ class FaqController extends AbstractController
         $encoder = new JsonEncoder();
         $defaultContext = [
             AbstractNormalizer::CIRCULAR_REFERENCE_HANDLER => function ($object, $format, $context) {
-                return $object->getTitre();
+                return $object->getId();
             },
-            AbstractNormalizer::ATTRIBUTES      => ['sujetFaq' => 'categorieFaq', 'question','reponse', 'dateCreation' => 'timestamp', 'dateModification' => 'timestamp', 'id']
 
         ];
         $normalizer = new ObjectNormalizer(null, null, null, null, null, null, $defaultContext);
@@ -58,7 +58,7 @@ class FaqController extends AbstractController
         $encoder = new JsonEncoder();
         $defaultContext = [
             AbstractNormalizer::CIRCULAR_REFERENCE_HANDLER => function ($object, $format, $context) {
-                return $object->getTitre();
+                return $object->getId();
             },
 
         ];
@@ -80,7 +80,7 @@ class FaqController extends AbstractController
         $encoder = new JsonEncoder();
         $defaultContext = [
             AbstractNormalizer::CIRCULAR_REFERENCE_HANDLER => function ($object, $format, $context) {
-                return $object->getTitre();
+                return $object->getId();
             },
         ];
         $normalizer = new ObjectNormalizer(null, null, null, null, null, null, $defaultContext);
@@ -129,12 +129,16 @@ class FaqController extends AbstractController
     }
 
     /**
-     * @Route("/add/question-reponse", name="add_question_reponse")
+     * @Route("/add/question-reponse/{sujettitre}", name="add_question_reponse", options={"expose"=true})
      */
-    public function questionReponseAdd(Request $request, EntityManagerInterface $manager) : Response
+    public function questionReponseAdd(Request $request, EntityManagerInterface $manager, $sujettitre) : Response
     {
         $questionReponse = new QuestionReponseFaq;
 
+        $sujet = $this->getDoctrine()->getRepository(SujetFaq::class)->findOneBy([
+            'titre' => $sujettitre
+        ]);
+        $questionReponse->setSujetFaq($sujet);
         $form = $this->createForm(QuestionReponseType::class, $questionReponse);
         $form->handleRequest($request);
 
@@ -143,13 +147,13 @@ class FaqController extends AbstractController
             $manager->persist($questionReponse);
             $manager->flush();
 
-            return $this->redirectToRoute('edit_question_reponse', [
-                'id'        => $questionReponse->getId()
-            ]);
+            $this->addFlash('success', 'Question / Réponse ajouter');
+            return $this->redirectToRoute('show_questions_reponses');
         }
 
         return $this->render('/back_end/faq/questions_reponses_edit.html.twig', [
-            'form'      => $form->createView()
+            'form'      => $form->createView(),
+            'id'        => $sujettitre
         ]);
     }
 
@@ -167,6 +171,8 @@ class FaqController extends AbstractController
         {
             $manager->persist($categorie);
             $manager->flush();
+
+            $this->addFlash('success', 'Catégorie ajouter');
 
             return $this->redirectToRoute('edit_categorie_faq', [
                 'id'        => $categorie->getId()
@@ -192,6 +198,8 @@ class FaqController extends AbstractController
         {
             $manager->persist($sujet);
             $manager->flush();
+
+            $this->addFlash('success', 'Sujet ajouter');
 
             return $this->redirectToRoute('show_sujets_faq');            
         }
@@ -219,6 +227,8 @@ class FaqController extends AbstractController
             $manager->persist($sujet);
             $manager->flush();
 
+            $this->addFlash('success', 'Sujet ajouter');
+
             return $this->redirectToRoute('show_categories_faq');
             
         }
@@ -243,10 +253,14 @@ class FaqController extends AbstractController
         {
             $manager->persist($questionReponse);
             $manager->flush();
+
+            $this->addFlash('success', 'Question / Réponse modifier');
+            return $this->redirectToRoute('show_questions_reponses');
         }
 
         return $this->render('/back_end/faq/questions_reponses_edit.html.twig', [
-            'form'      => $form->createView()
+            'form'      => $form->createView(),
+            'id'        => $questionReponse->getId()
         ]);
     }
 
@@ -264,6 +278,8 @@ class FaqController extends AbstractController
         {
             $manager->persist($categorie);
             $manager->flush();
+            $this->addFlash('success', 'Catégorie modifier');
+
         }
 
         return $this->render('/back_end/faq/categories_edit.html.twig', [
@@ -286,6 +302,7 @@ class FaqController extends AbstractController
         {
             $manager->persist($sujet);
             $manager->flush();
+            $this->addFlash('success', 'Sujet modifier');
 
             return $this->redirectToRoute('show_sujets_faq');
         }
@@ -306,6 +323,8 @@ class FaqController extends AbstractController
         {
             $manager->remove($questionReponse);
             $manager->flush();
+            $this->addFlash('success', 'Question/Réponse supprimer');
+
         }
 
         return $this->redirectToRoute('show_questions_reponses');
@@ -317,11 +336,19 @@ class FaqController extends AbstractController
     public function categorieDel($id, EntityManagerInterface $manager)
     {
         $categorie = $this->getDoctrine()->getRepository(CategorieFaq::class)->find($id);
-
+        $sujets = $categorie->getSujets();
+        
         if($categorie)
         {
+            foreach ($sujets as $sujet) 
+            {
+                $categorie->removeSujet($sujet);
+            }
+
             $manager->remove($categorie);
             $manager->flush();
+            $this->addFlash('success', 'Catégorie supprimer');
+
         }
 
         return $this->redirectToRoute('show_categories_faq');
@@ -337,6 +364,8 @@ class FaqController extends AbstractController
         {
             $manager->remove($sujet);
             $manager->flush();
+            $this->addFlash('success', 'Sujet supprimer');
+
         }
 
         return $this->redirectToRoute('show_sujets_faq');

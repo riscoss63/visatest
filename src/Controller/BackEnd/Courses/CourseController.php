@@ -121,6 +121,9 @@ class CourseController extends AbstractController
         if($form->isSubmitted() AND $form->isValid())
         {
             $client = $form->get('client')->getData();
+            $dateEnlevement = $form->get('dateEnlevement')->getData();
+            $dateEnlevementFormatter = new \DateTime($dateEnlevement);
+            $course->setDateEnlevement($dateEnlevementFormatter);
             $course->setReference(\strtoupper($reference));
             $course->setNom($client->getNom());
             $course->setPrenom($client->getPrenom());
@@ -145,6 +148,8 @@ class CourseController extends AbstractController
                         'text/html'
                 );
                 $mailer->send($message);
+                $this->addFlash('success', 'Mail envoyer au coursier ');
+
             }
             if($mailClient == true)
             {
@@ -163,6 +168,8 @@ class CourseController extends AbstractController
                         'text/html'
                 );
                 $mailer->send($message);
+                $this->addFlash('success', 'Mail envoyer au client ');
+
             }
 
             $manager->persist($course);

@@ -70,15 +70,16 @@ class DemandesController extends AbstractController
         {
             foreach ($courses as $course) 
             {
-                if($course->getDemande()->getVisaType())
+                if($course->getDemande()->getVisaType()  != null)
                 {
                     $typeVisa=$course->getDemande()->getVisaType();
+                    if($typeVisa->getVisaClassic())
+                    {
+                        $courseVisa += 1;
+                    }
                 }
 
-                if($typeVisa->getVisaClassic())
-                {
-                    $courseVisa += 1;
-                }
+                
                 $courseVisa;
             }
         }

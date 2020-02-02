@@ -57,6 +57,6 @@ class Expedition
 
     public function getTitre()
     {
-        return $this->demande->getVisaType()->getVisaClassic()->getPays()->getTitre();
+        return $this->id;
     }
 }

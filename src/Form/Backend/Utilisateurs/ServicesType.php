@@ -23,17 +23,12 @@ class ServicesType extends AbstractType
                     'Coursier'      => 'ROLE_COURSIER',
                     'Rédacteur'     => 'ROLE_REDACTEUR'
                 ],
-                'expanded'  => true,
                 'multiple'  => true,
-                'compound'  =>true,
                 'attr'      => [
-                    'class'     => 'form-control'
+                    'class'     => 'form-control my-select',
+                    'data-live-search'      => 'true',
+                    'multiple title'        => 'Selectionner un rôles'
                 ],
-                'choice_attr'   => [
-                    'Utilisateur'   => [
-                        'class'     => ''
-                    ]
-                ]
             ])
             ->add('service', TextType::class, [
                 'attr'      => [

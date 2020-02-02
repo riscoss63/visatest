@@ -1,16 +1,13 @@
 {% extends "back_end/base.html.twig" %}
 
-{% block menu_header %}
-    {% include "back_end/visa_classic/__header.html.twig" %}
-{% endblock %}
-
 
 {% block contenu %}
 
     <div class="row">
-        <h5 class=" m-auto col-8"><i class="fa fa-shipping-fast"></i>  Liste des tarifs transports/ {{transport.titre}} </h5>
-        <div class="col-3 float-right">
-            <a href="{{path('add_tarif_transport', { id : transport.id})}}" class="btn btn-primary petite-taille"><i class="fas fa-plus-circle"></i> Ajouter un tarif de transport </a>
+        <h5 class=" m-auto col-7"><i class="fa fa-globe"></i>  {% if app.request.attributes.get('_route') == 'edit_tarif_transport' %} Modification de type de tarif / {{transport.titre}} {% else %} Ajout de type de tarif {% endif %}   </h5>
+        <div class="col-5 text-right">
+            <a href="{{path('liste_transport_visa_classic')}}" class="btn btn-retour"><i class="fas fa-chevron-left"></i> Retour à la liste des transports </a>
+            <a href="{{path('add_transport_visa_classic')}}" class="btn btn-primary petite-taille"><i class="fas fa-plus-circle"></i> Nouveau type de tarif </a>
         </div>
     </div>
 
@@ -20,7 +17,7 @@
                 <thead>
                     <tr>
                         <th data-field="zone" data-sortable="true">Zone</th>
-                        <th data-field="departement" data-sortable="true">Département</th>
+                        <th data-field="departement.nom" data-sortable="true">Département</th>
                         <th data-field="prix" >Tarif</th>
                         <th data-field="actif" data-formatter="booleanFormatter" data-align="center" data-sortable="true">Actif</th>
                         <th data-field="edit" data-formatter="actionsFormatter">Actions</th>
@@ -29,7 +26,11 @@
             </table>
         </div> 
     </div>
-
+    <ul class="sticky-toolbar">
+        <li class="toolbar-items">
+            <a href="{{path('add_transport_visa_classic')}}" class="btn btn-primary"><i class="fas fa-plus-circle"></i> </a>
+        </li>
+    </ul>
 {% endblock %}
 
 {% block javascripts %}
@@ -37,15 +38,15 @@
     {{ parent() }}
     <script>
         function actionsFormatter(value, row, index){
-            return '<a href="'+Routing.generate('edit_tarif_transport', {'id' : row.id})+'" title="Modifier"><i class="far fa-edit"></i></a>';
+            return '<a href="'+Routing.generate('edit_tarif_transport_visa_classic', {'id' : row.id})+'" title="Modifier" rel="modal:open"><i class="far fa-edit"></i></a>';
         }
 
         function booleanFormatter(value, row, index) {
             if (value === true) {
-                return '<i class="fa fa-check text-success text-center"></i>';
+                return '<i class="fas fa-check text-success text-center"></i>';
             }
             else {
-                return '<i class="fa fa-times text-danger text-center"></i>';
+                return '<i class="fas fa-times text-danger text-center"></i>';
             }
         }
 

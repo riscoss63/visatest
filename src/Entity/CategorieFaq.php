@@ -29,7 +29,7 @@ class CategorieFaq
     private $faq;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\SujetFaq", mappedBy="categorieFaq")
+     * @ORM\OneToMany(targetEntity="App\Entity\SujetFaq", mappedBy="categorieFaq", cascade={"persist", "remove"})
      */
     private $sujets;
 

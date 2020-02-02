@@ -22,7 +22,10 @@ class SujetType extends AbstractType
                 ]
             ])
             ->add('categorieFaq', EntityType::class, [
-                'class'     => CategorieFaq::class
+                'class'     => CategorieFaq::class,
+                'attr'      => [
+                    'class'     => 'form-control'
+                ]
             ])
             ->add('submit', SubmitType::class)
 

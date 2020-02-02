@@ -32,7 +32,7 @@ class TarifTransportController extends AbstractController
         $encoder = new JsonEncoder();
         $defaultContext = [
             AbstractNormalizer::CIRCULAR_REFERENCE_HANDLER => function ($object, $format, $context) {
-                return $object->getZone();
+                return $object->getId();
             },
         ];
         // $normalizer = new ObjectNormalizer();
@@ -73,13 +73,14 @@ class TarifTransportController extends AbstractController
             $manager->persist($tarifTransport);
             $manager->flush();
 
-            return $this->redirectToRoute('edit_tarif_transport_evisa', [
-                'id'        =>  $tarifTransport->getId()
+            return $this->redirectToRoute('show_tarif_transport_evisa', [
+                'id'        =>  $transport->getId()
             ]);
         }
 
         return $this->render('/back_end/evisa/transports/edit_tarif_transport_evisa.html.twig', [
-            'form'      => $form->createView()
+            'form'      => $form->createView(),
+            'id'        => $transport->getId()
         ]);
     }
 
@@ -89,7 +90,7 @@ class TarifTransportController extends AbstractController
     public function tarifTransportEdit($id, Request $request, EntityManagerInterface $manager) : Response
     {
         $tarifTransport = $this->getDoctrine()->getRepository(TarifTransport::class)->find($id);
-
+        $transport = $tarifTransport->getTransport();
         $form = $this->createForm(TarifTransportType::class, $tarifTransport);
         $form->handleRequest($request);
 
@@ -97,10 +98,15 @@ class TarifTransportController extends AbstractController
         {
             $manager->persist($tarifTransport);
             $manager->flush();
+
+            return $this->redirectToRoute('show_tarif_transport_evisa', [
+                'id'        =>  $transport->getId()
+            ]);
         }
 
         return $this->render('/back_end/evisa/transports/edit_tarif_transport_evisa.html.twig', [
-            'form'      => $form->createView()
+            'form'      => $form->createView(),
+            'id'        => $tarifTransport->getId()
         ]);
     }
 }

@@ -1,8 +1,24 @@
- <style>
+  <style>
    .modal{
        margin-top: 35px;
+       max-width: 1300px;
    } 
  </style>
-    {{ form_start(form, {'action': path('edit_formulaire_officiel', {'id': formulaire.id}), 'method': 'POST'}) }}
-        {{ form(form) }}
-    {{ form_end(form)}}
+
+<div class="row justify-content-center mt-5">
+  <div class="col-10 text-center">    
+          {{ form_start(form, {'action': path('edit_formulaire_officiel', {'id': formulaire.id}), 'method': 'POST'}) }}
+
+          <div class="row form-group text-right">
+              {{ form_label(form.name, 'Titre du doccument', {'label_attr' : {'class': 'col-sm-2 col-form-label'}}) }}
+              <div class="input-group col-sm-10">
+                  {{ form_widget(form.name) }}
+              </div>
+          </div>
+
+          
+          <button type="submit" class="btn btn-enregistrer"><i class="fas fa-save"></i> Enregistrer </a>
+
+      {{ form_end(form, {'render_rest': false})}}
+  </div>
+</div>

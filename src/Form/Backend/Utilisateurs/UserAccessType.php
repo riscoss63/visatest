@@ -25,30 +25,14 @@ class UserAccessType extends AbstractType
             ->add('services', EntityType::class, [
                 'class'     => Services::class,
                 'multiple'  => true,
-                'expanded'  => true,
                 'by_reference'  => false,
-            ])
-            ->add('valide', CheckboxType::class, [
-                'attr' => [
-                    'class' => '',
-                ],
-                'required'      =>false,
-            ])
-            ->add('roles', ChoiceType::class, [
-                'choices'       => [
-                    'Utilisateur'       => 'ROLE_USER',
-                    'SuperAdministrateur'   => 'ROLE_SUPERADMIN',
-                    'Administrateur secondaire' => 'ROLE_ADMIN',
-                    'Coursier'      => 'ROLE_COURSIER',
-                    'Rédacteur'     => 'ROLE_REDACTEUR'
-                ],
-                'expanded'  => false,
-                'multiple'  => true,
                 'attr'      => [
-                    'class'     => 'form-control'
-                ]
-            ])
-            
+                    'class'     => 'form-control my-select',
+                    'data-live-search'      => 'true',
+                    'multiple title'        => 'Selectionner un service'
+                ],
+                'required'      => false
+            ])            
             ->add('nom', TextType::class, [
                 'attr' => [
                     'class' => 'form-control',
@@ -69,18 +53,7 @@ class UserAccessType extends AbstractType
                     'placeholder'   => 'Adresse mail'
                 ],
                 
-            ])
-            ->add('password', TextType::class, [
-                'attr' => [
-                    'class' => 'form-control',
-                    'placeholder'   => 'Mot de passe'
-                ],
-                'required'      =>false,
-                'mapped'        =>false,
-                
-            ])
-            
-            
+            ])    
             ->add('submit', SubmitType::class, [
                 'attr'  => [
                     'class'     => 'form-control btn btn-primary'

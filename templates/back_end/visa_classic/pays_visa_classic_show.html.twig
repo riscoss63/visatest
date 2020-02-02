@@ -1,15 +1,10 @@
 {% extends "back_end/base.html.twig" %}
 
-{% block menu_header %}
-    {% include "back_end/visa_classic/__header.html.twig" %}
-{% endblock %}
-
-
 {% block contenu %}
 
     <div class="row">
         <h5 class=" m-auto col-8"><i class="fa fa-users-cog"></i> Liste des pages pays</h5>
-        <div class="col-3 float-right">
+        <div class="col-3 text-right">
             <a href="{{path('add_pays_visa_classic')}}" class="btn btn-primary petite-taille"><i class="fas fa-plus-circle"></i> Ajouter une page Pays </a>
         </div>
     </div>
@@ -29,6 +24,11 @@
             </table>
         </div> 
     </div>
+    <ul class="sticky-toolbar">
+        <li class="toolbar-items">
+            <a href="{{path('add_pays_visa_classic')}}" class="btn btn-primary"><i class="fas fa-plus-circle"></i> </a>
+        </li>
+    </ul>
 
 {% endblock %}
 
@@ -39,17 +39,17 @@
 
         function actionsFormatter(value, row, index){
             return '<a href="'+Routing.generate('edit_pays_visa_classic', {'id' : row.id})+'" title="Modifier"><i class="far fa-edit"></i></a>'+
-            '<a href="'+Routing.generate('show_type_visa_classic', {'id' : row.id})+'" title="Modifier"><i class="fa fa-money-bill"></i></a>'+
+            '<a href="'+Routing.generate('show_type_visa_classic', {'id' : row.id})+'" title="Modifier"><i class="fas fa-money-bill"></i></a>'+
             '<a href="'+Routing.generate('show_categorie_visa_classic', {'id' : row.id})+'" title="Modifier"><i class="fas fa-window-restore"></i></a>'+
             '<a href="'+Routing.generate('show_volet_infos_visa_classic', {'id' : row.id})+'" title="Modifier"><i class="fas fa-info-circle"></i></a>';
         }
 
         function booleanFormatter(value, row, index) {
             if (value === true) {
-                return '<i class="fa fa-check text-success text-center"></i>';
+                return '<i class="fas fa-check text-success text-center"></i>';
             }
             else {
-                return '<i class="fa fa-times text-danger text-center"></i>';
+                return '<i class="fas fa-times text-danger text-center"></i>';
             }
         }
 

@@ -77,12 +77,12 @@ class EVisa
     private $pays;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\VisaType", mappedBy="eVisa")
+     * @ORM\OneToMany(targetEntity="App\Entity\VisaType", mappedBy="eVisa", cascade={"persist", "remove"})
      */
     private $typeVisa;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\VoletInfo", mappedBy="eVisa")
+     * @ORM\OneToMany(targetEntity="App\Entity\VoletInfo", mappedBy="eVisa", cascade={"persist", "remove"})
      */
     private $voletInfos;
 
@@ -97,7 +97,7 @@ class EVisa
     private $modeExpedition;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Actualite", mappedBy="evisa")
+     * @ORM\OneToMany(targetEntity="App\Entity\Actualite", mappedBy="evisa", cascade={"persist", "remove"})
      */
     private $actualites;
 

@@ -29,7 +29,7 @@ class Home
     private $titre;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\ImagesAccueil", mappedBy="home")
+     * @ORM\OneToMany(targetEntity="App\Entity\ImagesAccueil", mappedBy="home", cascade={"persist", "remove"})
      */
     private $images;
 

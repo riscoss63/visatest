@@ -34,7 +34,7 @@ class ReceptionDossier
     private $incomplet;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\EtatDossier", mappedBy="receptionDossier",cascade={"persist"})
+     * @ORM\OneToMany(targetEntity="App\Entity\EtatDossier", mappedBy="receptionDossier", cascade={"persist", "remove"})
      */
     private $etatDossier;
 

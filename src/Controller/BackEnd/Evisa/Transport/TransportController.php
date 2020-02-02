@@ -40,6 +40,8 @@ class TransportController extends AbstractController
             AbstractNormalizer::CIRCULAR_REFERENCE_HANDLER => function ($object, $format, $context) {
                 return $object->getTitre();
             },
+            AbstractNormalizer::ATTRIBUTES      => ['id', 'titre', 'informations', 'tarif', 'actif', 'dateCreation'=>'timestamp', 'dateModification'=>'timestamp']
+
         ];
         $normalizer = new ObjectNormalizer(null, null, null, null, null, null, $defaultContext);
 
@@ -104,7 +106,8 @@ class TransportController extends AbstractController
         }
 
         return $this->render('/back_end/evisa/transports/edit_transport_evisa.html.twig', [
-            'form'      => $form->createView()
+            'form'      => $form->createView(),
+            'transport' => $transport
         ]);
 
     }

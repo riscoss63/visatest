@@ -77,17 +77,17 @@ class VisaClassic
     private $pays;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\VisaType", mappedBy="visaClassic")
+     * @ORM\OneToMany(targetEntity="App\Entity\VisaType", mappedBy="visaClassic", cascade={"persist", "remove"})
      */
     private $typeVisa;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\VoletInfo", mappedBy="visaClassic")
+     * @ORM\OneToMany(targetEntity="App\Entity\VoletInfo", mappedBy="visaClassic", cascade={"persist", "remove"})
      */
     private $voletsInfos;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\DoccumentSupplementaire", mappedBy="visaClassic")
+     * @ORM\OneToMany(targetEntity="App\Entity\DoccumentSupplementaire", mappedBy="visaClassic", cascade={"persist", "remove"})
      */
     private $doccumentsSupplementaire;
 
@@ -102,7 +102,7 @@ class VisaClassic
     private $notreService;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Actualite", mappedBy="visaClassic")
+     * @ORM\OneToMany(targetEntity="App\Entity\Actualite", mappedBy="visaClassic", cascade={"persist", "remove"})
      */
     private $actualites;
 

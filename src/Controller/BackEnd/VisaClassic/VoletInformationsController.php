@@ -43,6 +43,8 @@ class VoletInformationsController extends AbstractController
             AbstractNormalizer::CIRCULAR_REFERENCE_HANDLER => function ($object, $format, $context) {
                 return $object->getTitre();
             },
+            AbstractNormalizer::ATTRIBUTES      => ['id', 'titre', 'contenu']
+
         ];
         $normalizer = new ObjectNormalizer(null, null, null, null, null, null, $defaultContext);
 
@@ -57,6 +59,7 @@ class VoletInformationsController extends AbstractController
      */
     public function voletsInfoShow($id, Request $request, EntityManagerInterface $manager) : Response
     {
+        $visasClassic = $this->getDoctrine()->getRepository(VisaClassic::class)->findAll();
         $visaClassic = $this->getDoctrine()->getRepository(VisaClassic::class)->find($id);
 
         //Permet l'ajout d'un nouveau volet
@@ -74,7 +77,8 @@ class VoletInformationsController extends AbstractController
 
         return $this->render('/back_end/visa_classic/volet_infos/show_volet_infos.html.twig', [
             'visa_classic'      =>$visaClassic,
-            'form'              => $form->createView()
+            'form'              => $form->createView(),
+            'visas'             => $visasClassic
         ]);
     }
 

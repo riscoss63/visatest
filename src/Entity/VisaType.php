@@ -69,27 +69,27 @@ class VisaType
     private $fraisFormulaire;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\VisaClassic", inversedBy="typeVisa")
+     * @ORM\ManyToOne(targetEntity="App\Entity\VisaClassic", inversedBy="typeVisa", cascade={"persist", "remove"})
      */
     private $visaClassic;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\CategorieVisa", inversedBy="visaType")
+     * @ORM\ManyToOne(targetEntity="App\Entity\CategorieVisa", inversedBy="visaType", cascade={"persist", "remove"})
      */
     private $categorieVisa;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Demande", mappedBy="visaType")
+     * @ORM\OneToMany(targetEntity="App\Entity\Demande", mappedBy="visaType", cascade={"persist", "remove"})
      */
     private $demandes;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\EVisa", inversedBy="typeVisa")
+     * @ORM\ManyToOne(targetEntity="App\Entity\EVisa", inversedBy="typeVisa", cascade={"persist", "remove"})
      */
     private $eVisa;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\CarteTourisme", inversedBy="typeVisa")
+     * @ORM\ManyToOne(targetEntity="App\Entity\CarteTourisme", inversedBy="typeVisa", cascade={"persist", "remove"})
      */
     private $carteTourisme;
 

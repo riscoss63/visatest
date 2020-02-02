@@ -20,7 +20,7 @@
                         {{ course.codePostal }} {{ course.ville }}
                     </p>
                     {% else %}
-                        <strong>Date/heure de livraison </strong> : {{ course.dateEnlevement | date("d/m/Y H:i") }} <br />
+                        <strong>Date/heure de livraison(jour/mois/année) </strong> : {{ course.dateEnlevement | date("d/m/Y H:i") }} <br />
                         <strong>Adresse de livraison </strong> : <br />
                         <p align="center">
                             {{ course.adresse }} <br />

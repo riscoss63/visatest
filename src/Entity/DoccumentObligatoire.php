@@ -27,7 +27,7 @@ class DoccumentObligatoire
     private $contenu;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\CategorieVisa", inversedBy="doccumentsObligatoires")
+     * @ORM\ManyToOne(targetEntity="App\Entity\CategorieVisa", inversedBy="doccumentsObligatoires", cascade={"persist", "remove"})
      */
     private $categorieVisa;
 

@@ -33,19 +33,24 @@ class CourseEditType extends AbstractType
             ->add('nom', TextType::class, [
                 'attr'      => [
                     'class'     => 'form-control',
-                    'placeholder'   => 'Si le client n\'existe pas, sinon laissez se champ vide'
+                    'placeholder'   => 'Remplire si le client n\'existe pas, sinon laissez se champ vide'
                 ],
                 'required'  => false
             ])
             ->add('prenom', TextType::class, [
                 'attr'      => [
                     'class'     => 'form-control',
-                    'placeholder'   => 'Si le client n\'existe pas, sinon laissez se champ vide'
+                    'placeholder'   => 'Remplire si le client n\'existe pas, sinon laissez se champ vide'
                 ],
                 'required'  => false
             ])
-            ->add('dateEnlevement', DateTimeType::class, [
-                'label'     => 'Date de livraison/enlevement'
+            ->add('dateEnlevement', TextType::class, [
+                'label'     => 'Date de livraison/enlevement',
+                'attr'      => [
+                    'id'     => 'date-livraison',
+                    'class'  => 'form-control'
+                ],
+                'mapped'       => false
             ])
             ->add('adresse', TextType::class, [
                 'attr' => [
@@ -88,10 +93,16 @@ class CourseEditType extends AbstractType
                 'required'      => false
             ])
             ->add('livraison', CheckboxType::class,[
-                'required'      => false
+                'required'      => false,
+                'attr' => [
+                    'class' => 'form-control check',
+                ],
             ])
             ->add('enlevement', CheckboxType::class, [
-                'required'      => false
+                'required'      => false,
+                'attr' => [
+                    'class' => 'form-control check',
+                ],
             ])
             ->add('submit', SubmitType::class, [
                 'attr'  => [
@@ -105,6 +116,9 @@ class CourseEditType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Course::class,
+            'csrf_protection'   => true,
+            'csrf_field_name'   => '_token',
+            'crsf_token_id'     => 'course_edit'
         ]);
     }
 }

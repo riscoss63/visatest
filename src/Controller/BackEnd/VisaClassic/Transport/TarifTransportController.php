@@ -16,7 +16,7 @@ use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 use Symfony\Component\Serializer\Serializer;
 
 /**
- * @Route("/gestion/tarif-transport")
+ * @Route("/gestion/visa-classic/tarif-transport")
  */
 class TarifTransportController extends AbstractController
 {
@@ -30,12 +30,13 @@ class TarifTransportController extends AbstractController
         $transport = $this->getDoctrine()->getRepository(Transport::class)->find($id);
         $tarifsTransport = $transport->getTarifTransports();
         $encoder = new JsonEncoder();
-        // $defaultContext = [
-        //     AbstractNormalizer::CIRCULAR_REFERENCE_HANDLER => function ($object, $format, $context) {
-        //         return $object->getZone();
-        //     },
-        // ];
-        $normalizer = new ObjectNormalizer();
+        $defaultContext = [
+            AbstractNormalizer::CIRCULAR_REFERENCE_HANDLER => function ($object, $format, $context) {
+                return $object->getId();
+            },
+        ];
+        // $normalizer = new ObjectNormalizer();
+        $normalizer = new ObjectNormalizer(null, null, null, null, null, null, $defaultContext);
 
         $serializer = new Serializer([$normalizer], [$encoder]);
         $jsonTarifsTransportVisaClassic=$serializer->serialize($tarifsTransport, 'json', [
@@ -74,23 +75,25 @@ class TarifTransportController extends AbstractController
             $manager->persist($tarifTransport);
             $manager->flush();
 
-            return $this->redirectToRoute('edit_tarif_transport', [
-                'id'        =>  $tarifTransport->getId()
+            return $this->redirectToRoute('show_tarif_transport', [
+                'id'        =>  $transport->getId()
             ]);
         }
 
         return $this->render('/back_end/visa_classic/transports/edit_tarif_transport_visa_classic.html.twig', [
-            'form'      => $form->createView()
+            'form'      => $form->createView(),
+            'transport' => $transport,
+
         ]);
     }
 
     /**
-     * @Route("/edit/tarif-transport-{id}", name="edit_tarif_transport", options={"expose" = true})
+     * @Route("/edit/tarif-transport-{id}", name="edit_tarif_transport_visa_classic", options={"expose" = true})
      */
     public function tarifTransportEdit($id, Request $request, EntityManagerInterface $manager) : Response
     {
         $tarifTransport = $this->getDoctrine()->getRepository(TarifTransport::class)->find($id);
-
+        $transport = $tarifTransport->getTransport();
         $form = $this->createForm(TarifTransportType::class, $tarifTransport);
         $form->handleRequest($request);
 
@@ -98,10 +101,15 @@ class TarifTransportController extends AbstractController
         {
             $manager->persist($tarifTransport);
             $manager->flush();
-        }
+
+            return $this->redirectToRoute('show_tarif_transport', [
+                'id'        =>  $transport->getId()
+            ]);
+        } 
 
         return $this->render('/back_end/visa_classic/transports/edit_tarif_transport_visa_classic.html.twig', [
-            'form'      => $form->createView()
+            'form'      => $form->createView(),
+            'transport' => $transport
         ]);
     }
 }

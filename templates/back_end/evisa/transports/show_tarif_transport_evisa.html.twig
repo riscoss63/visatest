@@ -5,9 +5,10 @@
 {% block contenu %}
 
     <div class="row">
-        <h5 class=" m-auto col-8"><i class="fa fa-shipping-fast"></i>  Liste des tarifs transports/ {{transport.titre}} </h5>
-        <div class="col-3 float-right">
-            <a href="{{path('add_tarif_transport_evisa', { id : transport.id})}}" class="btn btn-primary petite-taille"><i class="fas fa-plus-circle"></i> Ajouter un tarif de transport </a>
+        <h5 class=" m-auto col-5"><i class="fa fa-shipping-fast"></i>  Liste des tarifs transports/ {{transport.titre}} </h5>
+        <div class="col-5 text-right">
+            <a href="{{path('liste_transport_evisa')}}" class="btn btn-retour"><i class="fas fa-chevron-left"></i> Retour liste des types de tarifs </a>
+            <a href="{{path('add_tarif_transport_evisa', { id : transport.id})}}" class="btn btn-primary petite-taille" rel="modal:open"><i class="fas fa-plus-circle" ></i> Ajouter un tarif de transport </a>
         </div>
     </div>
 
@@ -20,13 +21,20 @@
                         <th data-field="departement.nom" data-sortable="true">Département</th>
                         <th data-field="prix" >Tarif</th>
                         <th data-field="actif" data-formatter="booleanFormatter" data-align="center" data-sortable="true">Actif</th>
+                        <th data-field="dateCreation.timestamp" data-formatter="dateFormatter" data-align="center" data-sortable="true">Date de création</th>
+                        <th data-field="dateModification.timestamp" data-formatter="dateFormatter" data-align="center" data-sortable="true">Date de Modification</th>
                         <th data-field="edit" data-formatter="actionsFormatter">Actions</th>
                     </tr>
                 </thead>
             </table>
         </div> 
     </div>
-
+    <ul class="sticky-toolbar">
+        <li class="toolbar-items">
+            <a href="{{path('liste_transport_evisa')}}" class="btn btn-retour"><i class="fas fa-chevron-left"></i></a>
+            <a href="{{path('add_tarif_transport_evisa', { id : transport.id})}}" class="btn btn-primary petite-taille" rel="modal:open"><i class="fas fa-plus-circle" ></i> </a>
+        </li>
+    </ul>
 {% endblock %}
 
 {% block javascripts %}
@@ -34,16 +42,21 @@
     {{ parent() }}
     <script>
         function actionsFormatter(value, row, index){
-            return '<a href="'+Routing.generate('edit_tarif_transport_evisa', {'id' : row.id})+'" title="Modifier"><i class="far fa-edit"></i></a>';
+            return '<a href="'+Routing.generate('edit_tarif_transport_evisa', {'id' : row.id})+'" title="Modifier" rel="modal:open"><i class="far fa-edit"></i></a>';
         }
 
         function booleanFormatter(value, row, index) {
             if (value === true) {
-                return '<i class="fa fa-check text-success text-center"></i>';
+                return '<i class="fas fa-check text-success text-center"></i>';
             }
             else {
-                return '<i class="fa fa-times text-danger text-center"></i>';
+                return '<i class="fas fa-times text-danger text-center"></i>';
             }
+        }
+
+        function dateFormatter(value, row, index) {
+            var date = new Date(value*1000);
+            return `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`;
         }
 
     </script>

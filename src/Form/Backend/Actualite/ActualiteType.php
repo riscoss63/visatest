@@ -84,7 +84,9 @@ class ActualiteType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Actualite::class,
-            'csrf_protection'   => false
+            'csrf_protection'   => true,
+            'csrf_field_name' => '_token',
+            'csrf_token_id'   => 'actualite_type',
         ]);
     }
 }

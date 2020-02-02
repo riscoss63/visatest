@@ -134,7 +134,7 @@ strong {
 th.profil .fht-cell {
     position: absolute ;
     bottom: 101%;
-    left: 20%;
+    left: 35%;
 }
 
 div.vich-image  a  img {
@@ -146,14 +146,14 @@ div.vich-image  a  img {
 }
 th.categoriefaq .fht-cell {
     position: absolute ;
-    bottom: 101%;
-    left: 20%;
+    bottom: 115%;
+    left: 0%;
 }
 
 th.sujetfaq .fht-cell {
     position: absolute ;
-    bottom: 101%;
-    left: 50%;
+    bottom: 115%;
+    left: 19%;
 }
 
 .menu-left.show {
@@ -169,4 +169,12 @@ th.sujetfaq .fht-cell {
 }
 .menu-left.show a {
     color: #9899ac;
+}
+
+.add-question {
+    left: 40%;
+}
+
+.z-index-1 {
+    z-index: 1 !important;
 }

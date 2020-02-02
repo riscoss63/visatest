@@ -47,7 +47,7 @@ class TarifTransportType extends AbstractType
             ])
             ->add('actif', CheckboxType::class, [
                 'attr' => [
-                    'class' => '',
+                    'class' => 'form-control check',
                 ],
                 'required'      =>false,
             ])

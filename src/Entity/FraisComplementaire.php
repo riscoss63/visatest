@@ -37,7 +37,7 @@ class FraisComplementaire
     private $total;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Demande", inversedBy="fraisComplementaire", cascade={"persist"})
+     * @ORM\ManyToOne(targetEntity="App\Entity\Demande", inversedBy="fraisComplementaire", cascade={"persist", "remove"})
      */
     private $demande;
 
