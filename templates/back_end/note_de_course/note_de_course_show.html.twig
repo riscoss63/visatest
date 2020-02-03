@@ -1,12 +1,12 @@
 {% extends "back_end/base.html.twig" %}
-
+{% block title %}Note de course{% endblock %}
 
 {% block contenu %}
 
     <div class="row">
         <h5 class=" m-auto col-8"><i class="fa fa-users-cog"></i> Liste des notes de course</h5>
         <div class="col-3 float-right">
-            <a href="{{path('add_course')}}" class="btn btn-primary petite-taille"><i class="fas fa-plus-circle"></i> Ajouter une Course </a>
+            <a href="{{path('select_client_course')}}" class="btn btn-primary petite-taille"><i class="fas fa-plus-circle"></i> Ajouter une Course </a>
         </div>
     </div>
 
@@ -41,7 +41,7 @@
     </div>
     <ul class="sticky-toolbar">
         <li class="toolbar-items">
-            <a href="{{path('add_course')}}" class="btn btn-primary"><i class="fas fa-plus-circle"></i> </a>
+            <a href="{{path('select_client_course')}}" class="btn btn-primary"><i class="fas fa-plus-circle"></i> </a>
         </li>
     </ul>
 
@@ -147,7 +147,7 @@
             {
                 livrEnlevement = " Enlevement "
             }
-            return `<strong>${livrEnlevement}</strong> le :<br/> ${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()} à ${date.getHours()}h${date.getMinutes()}`;
+            return `<strong>${livrEnlevement}</strong> le :<br/> ${date.toLocaleString("fr-FR")}`;
         }
 
         // function libelleFormatter(value, row,index){

@@ -1,5 +1,5 @@
 {% extends "back_end/base.html.twig" %}
-
+{% block title %}Catégories{% endblock %}
 {% block menu_header %}
     {% include "back_end/faq/__header.html.twig" %}
 {% endblock %}
@@ -99,7 +99,7 @@
 
         function dateFormatter(value, row, index) {
             var date = new Date(value*1000);
-            return `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()} à ${date.getHours()}h${date.getMinutes()}`;
+            return `${date.toLocaleString("fr-FR")}`;
         }
     </script>
     

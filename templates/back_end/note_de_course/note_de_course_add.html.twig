@@ -1,18 +1,18 @@
-{% extends "back_end/base.html.twig" %}
+  <style>
+    .modal{
+        margin: 35px;
+        max-width: 1100px;
+        overflow: auto;
 
-{% block stylesheets %}
-{{parent()}}
+    } 
+</style>
+
   <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-{% endblock %}
-{% block contenu %}
-    {{ form_start(form)}}
+
+    {{ form_start(form, {'action': path('add_course', {'id': id}), 'method': 'POST'})}}
 
     <div class="row">
         <h5 class=" m-auto col-5"><i class="fa fa-globe"></i>  Ajouter une note de course   </h5>
-        <div class="col-7 text-right pr-5">
-            <a href="{{path('show_liste_notes_de_course')}}" class="btn btn-retour"><i class="fas fa-chevron-left"></i> Retour à la liste de notes de course </a>
-            <button type="submit" class="btn btn-enregistrer"><i class="fas fa-save"></i> Enregistrer </a>
-        </div>
     </div>
 
 
@@ -74,12 +74,6 @@
                     </div>
                 </div>
                 <div class="row form-group text-right mb-5">
-                    {{ form_label(form.client, 'Client', {'label_attr' : {'class': 'col-sm-2 col-form-label'}}) }}
-                    <div class="input-group col-sm-10">
-                        {{ form_widget(form.client) }}
-                    </div>
-                </div>
-                <div class="row form-group text-right mb-5">
                     {{ form_label(form.livraison, 'Livraison', {'label_attr' : {'class': 'col-sm-2 col-form-label'}}) }}
                     <div class="input-group col-sm-1">
                         {{ form_widget(form.livraison) }}
@@ -91,24 +85,15 @@
                         {{ form_widget(form.enlevement) }}
                     </div>
                 </div>
-                <ul class="sticky-toolbar">
-                    <li class="toolbar-items">
-                        <a href="{{path('liste_zone')}}" class="btn btn-retour"><i class="fas fa-chevron-left"></i> </a>
-            
-                    </li>
-                    <li class="toolbar-items">
-                        <button type="submit" class="btn btn-enregistrer"><i class="fas fa-save"></i> </a>
-                    </li>
-                </ul>
+                {{ form_row(form.submit)}}
+
                 {{form_widget(form._token)}}
             {{ form_end(form, {'render_rest': false})}}
         </div>
     </div>
 
 
-{% endblock %}
-{% block javascripts %}     
-{{parent()}}  
+
 <link rel="stylesheet" type="text/css" href="{{ asset('/bundles/datetimepicker-master/build/jquery.datetimepicker.min.css') }}"/ >
 <script src="{{ asset('/bundles/datetimepicker-master/build/jquery.datetimepicker.full.min.js') }}"></script>
 <script>
@@ -120,4 +105,3 @@
     
 </script>
 
-{% endblock %}

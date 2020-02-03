@@ -3,6 +3,7 @@
 namespace App\Controller\BackEnd\Courses;
 
 use App\Entity\Course;
+use App\Entity\User;
 use App\Form\Backend\Course\CourseEditType;
 use App\Form\Backend\Course\CourseType;
 use Doctrine\ORM\EntityManagerInterface;
@@ -106,12 +107,21 @@ class CourseController extends AbstractController
     }
 
     /**
-     * @Route("/add/course", name="add_course")
+     * @Route("/select/client", name="select_client_course")
      */
-    public function courseAdd(Request $request, EntityManagerInterface $manager, \Swift_Mailer $mailer) :Response
+    public function clientSelect()
+    {
+        return $this->render('/back_end/note_de_course/client_select.html.twig');
+    }
+
+    /**
+     * @Route("/add/course/client-{id}", name="add_course", options={"expose"=true})
+     */
+    public function courseAdd(Request $request, EntityManagerInterface $manager, \Swift_Mailer $mailer, $id) :Response
     {
         $course = new Course;
-
+        $client = $this->getDoctrine()->getRepository(User::class)->find($id);
+        $course->setClient($client);
         $reference = random_bytes(5);
         $reference=bin2hex($reference);
     
@@ -120,7 +130,6 @@ class CourseController extends AbstractController
 
         if($form->isSubmitted() AND $form->isValid())
         {
-            $client = $form->get('client')->getData();
             $dateEnlevement = $form->get('dateEnlevement')->getData();
             $dateEnlevementFormatter = new \DateTime($dateEnlevement);
             $course->setDateEnlevement($dateEnlevementFormatter);
@@ -155,7 +164,7 @@ class CourseController extends AbstractController
             {
                 $message= (new \Swift_Message('Course visa en ligne'))
                     ->setFrom('sghairipro63@gmail.com')
-                    ->setTo($coursier->getEmail())
+                    ->setTo($client->getEmail())
                     ->setBody(
                         $this->renderView(
                             'back_end/emails/course_client.html.twig',
@@ -182,6 +191,7 @@ class CourseController extends AbstractController
 
         return $this->render('/back_end/note_de_course/note_de_course_add.html.twig', [
             'form'      => $form->createView(),
+            'id'        => $client->getId()
         ]);
     }
 

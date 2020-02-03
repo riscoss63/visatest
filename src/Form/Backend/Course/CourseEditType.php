@@ -86,11 +86,13 @@ class CourseEditType extends AbstractType
             ->add('client', EntityType::class, [
                 'class'     => User::class,
                 'choices' => $this->userRepository->findClients(),
-                'choice_label' => 'prenom',
+                'choice_label' => 'email',
                 'attr' => [
                     'class' => 'form-control',
+                    
                 ],
-                'required'      => false
+                'required'      => false,
+
             ])
             ->add('livraison', CheckboxType::class,[
                 'required'      => false,

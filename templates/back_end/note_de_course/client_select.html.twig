@@ -1,5 +1,5 @@
 {% extends "back_end/base.html.twig" %}
-{% block title %}Clients{% endblock %}
+{% block title %}Choisir un client{% endblock %}
 
 {% block contenu %}
 
@@ -45,8 +45,7 @@
     <script>
 
         function actionsFormatter(value, row, index){
-            return '<a href="'+Routing.generate('edit_client', {'id' : row.id})+'" title="Modifier"><i class="far fa-edit"></i></a>'+
-                    '<a href="'+Routing.generate('show_demandes_client', {'id' : row.id})+'" title="Modifier" rel="modal:open"><i class="fas fa-list-ul"></i></a>';
+            return '<a href="'+Routing.generate('add_course', {'id' : row.id})+'" title="Ajouter une course" rel="modal:open"><i class="fas fa-plus-circle"></i> Nouvelle note de course</a>';
         }
 
         function booleanFormatter(value, row, index) {
