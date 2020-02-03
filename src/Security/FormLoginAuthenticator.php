@@ -4,6 +4,7 @@ namespace App\Security;
 
 use App\Entity\AdressesIp;
 use App\Entity\User;
+use App\Service\IpAutoriser;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -29,13 +30,14 @@ class FormLoginAuthenticator extends AbstractFormLoginAuthenticator implements P
     private $urlGenerator;
     private $csrfTokenManager;
     private $passwordEncoder;
-
-    public function __construct(EntityManagerInterface $entityManager, UrlGeneratorInterface $urlGenerator, CsrfTokenManagerInterface $csrfTokenManager, UserPasswordEncoderInterface $passwordEncoder)
+    private $ipAutoriser;
+    public function __construct(EntityManagerInterface $entityManager, UrlGeneratorInterface $urlGenerator, CsrfTokenManagerInterface $csrfTokenManager, UserPasswordEncoderInterface $passwordEncoder, IpAutoriser $ipAutoriser)
     {
         $this->entityManager = $entityManager;
         $this->urlGenerator = $urlGenerator;
         $this->csrfTokenManager = $csrfTokenManager;
         $this->passwordEncoder = $passwordEncoder;
+        $this->ipAutoriser = $ipAutoriser;
     }
 
     public function supports(Request $request)
@@ -50,6 +52,7 @@ class FormLoginAuthenticator extends AbstractFormLoginAuthenticator implements P
             'email' => $request->request->get('email'),
             'password' => $request->request->get('password'),
             'csrf_token' => $request->request->get('_csrf_token'),
+            'ip_user'   => $request->getClientIp()
         ];
         $request->getSession()->set(
             Security::LAST_USERNAME,
@@ -62,13 +65,15 @@ class FormLoginAuthenticator extends AbstractFormLoginAuthenticator implements P
     public function getUser($credentials, UserProviderInterface $userProvider)
     {
         $token = new CsrfToken('authenticate', $credentials['csrf_token']);
-        if (!$this->csrfTokenManager->isTokenValid($token)) {
+        if (!$this->csrfTokenManager->isTokenValid($token)) 
+        {
             throw new InvalidCsrfTokenException();
         }
 
         $user = $this->entityManager->getRepository(User::class)->findOneBy(['email' => $credentials['email']]);
 
-        if (!$user) {
+        if (!$user) 
+        {
             // fail authentication with a custom error
             throw new CustomUserMessageAuthenticationException('Email could not be found.');
         }
@@ -78,7 +83,13 @@ class FormLoginAuthenticator extends AbstractFormLoginAuthenticator implements P
 
     public function checkCredentials($credentials, UserInterface $user)
     {
-        return $this->passwordEncoder->isPasswordValid($user, $credentials['password']);
+        $valide = $this->passwordEncoder->isPasswordValid($user, $credentials['password']);
+
+        if($valide AND $this->ipAutoriser->autoriserIp($user, $credentials['ip_user']))
+        {
+            return true;
+        }
+        return false;
     }
 
     /**

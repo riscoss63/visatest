@@ -4,7 +4,7 @@
 {% block contenu %}
 
     <div class="row">
-        <h5 class=" m-auto col-7"><i class="fa fa-users-cog"></i>Gestion des documents (nécessaires et optionnels) - Visas classiques /{{categorie.pays.titre}} /  {{ categorie.titre }}</h5>
+        <h5 class=" m-auto col-7"><i class="fa fa-users-cog"></i>Gestion des documents (nécessaires et optionnels) - Evisa /{{categorie.pays.titre}} /  {{ categorie.titre }}</h5>
         <div class="col-5 text-right pr-5">
             {# <a href="javascript:history.go(-1)" class="btn btn-warning btn-elevate btn-icon-sm mx-2 "><i class="fas fa-chevron-left"></i> Retour à la liste des catégories </a> #}
             <a href="{{path('show_pays_evisa')}}" class="btn btn-retour"><i class="fas fa-chevron-left"></i> Retour à la liste des pays </a>
@@ -22,6 +22,7 @@
                     <i class="fas fa-save"></i> Ajouter un document nécessaire
                 </button>
             </div>
+            {{form_widget(doccuments_obligatoires_ajout._token)}}
             {{ form_end(doccuments_obligatoires_ajout)}}
             <table data-toggle="table" data-url="{{ path('json_categorie_doccument_obligatoire', {id: categorie.id} )}}" data-pagination="true" data-search="true" data-pagination: "true" data-card-view="true" data-show-header="false" class="table-bordered">
                 <thead>
@@ -42,6 +43,7 @@
                     <i class="fas fa-save"></i> Ajouter un document facultatif
                 </button>
             </div>
+            {{form_widget(doccuments_facultatifs_ajout._token)}}
             {{ form_end(doccuments_facultatifs_ajout)}}
             <table data-toggle="table" data-url="{{ path('json_categorie_doccument_facultatif', {id: categorie.id} )}}" data-pagination="true" data-search="true" data-pagination: "true" data-card-view="true" data-show-header="false" class="table-bordered">
                 <thead>

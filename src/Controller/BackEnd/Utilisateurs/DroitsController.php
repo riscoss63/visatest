@@ -149,6 +149,7 @@ class DroitsController extends AbstractController
         {
             $manager->persist($user);
             $manager->flush();
+            
             $this->addFlash('success', 'Adresse ip utilisateur modifier');
         }
         return $this->render('back_end\utilisateurs\droits\edit_ip_users.html.twig', [

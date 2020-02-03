@@ -76,7 +76,7 @@ class EvisaTypeController extends AbstractController
         {
             $manager->persist($typeEvisa);
             $manager->flush();
-
+            $this->addFlash('success', 'Type d\'evisa ajouter');
             return $this->redirectToRoute('edit_type_evisa', [
                 'id'        =>$typeEvisa->getId()
             ]);
@@ -105,6 +105,8 @@ class EvisaTypeController extends AbstractController
         {
             $manager->persist($typeEvisa);
             $manager->flush();
+            $this->addFlash('success', 'Type d\'evisa modifier');
+
         }
 
         return $this->render('/back_end/evisa/type_evisa_edit.html.twig', [

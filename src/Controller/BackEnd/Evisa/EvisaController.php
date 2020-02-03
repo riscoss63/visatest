@@ -135,7 +135,7 @@ class EvisaController extends AbstractController
         {
             $manager->persist($eVisa);
             $manager->flush();
-            
+            $this->addFlash('success', 'Page Evisa ajouter');
             return $this->redirectToRoute('edit_pays_evisa', [
                 'id'        => $eVisa->getId()
             ]);
@@ -162,6 +162,8 @@ class EvisaController extends AbstractController
         {
             $manager->persist($eVisa);
             $manager->flush();
+            $this->addFlash('success', 'Page Evisa modifier');
+
         }
 
         return $this->render('/back_end/evisa/pays_evisa_edit.html.twig', [

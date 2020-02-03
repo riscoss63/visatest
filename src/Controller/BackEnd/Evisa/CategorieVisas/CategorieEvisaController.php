@@ -160,6 +160,8 @@ class CategorieEvisaController extends AbstractController
             $doccumentFacultatif->setCategorieVisa($categorie);
             $manager->persist($doccumentFacultatif);
             $manager->flush();
+
+            $this->addFlash('success', 'Doccument facultatif ajouter');
         }
 
         if($obligatoireAjoutForm->isSubmitted() AND $obligatoireAjoutForm->isValid())
@@ -167,6 +169,8 @@ class CategorieEvisaController extends AbstractController
             $doccumentObligatoireAjout->setCategorieVisa($categorie);
             $manager->persist($doccumentObligatoireAjout);
             $manager->flush();
+            $this->addFlash('success', 'Doccument obligatoire ajouter');
+
         }
 
 
@@ -192,6 +196,8 @@ class CategorieEvisaController extends AbstractController
         {
             $manager->persist($doccumentObligatoire);
             $manager->flush();
+
+            $this->addFlash('success', 'Doccument obligatoire modifier');
 
             return $this->redirectToRoute('show_listes_doccuments_categorie_evisa', [
                 'id'        => $categorie->getId()
@@ -219,6 +225,9 @@ class CategorieEvisaController extends AbstractController
         $manager->remove($doccumentObligatoire);
         $manager->flush();
 
+        $this->addFlash('success', 'Doccument obligatoire supprimer');
+
+
         return $this->redirectToRoute('show_listes_doccuments_categorie_evisa', [
             'id'        => $categorie->getId()
         ]);
@@ -243,7 +252,8 @@ class CategorieEvisaController extends AbstractController
             $manager->persist($doccumentFacultatif);
             $manager->flush();
 
-            
+            $this->addFlash('success', 'Doccument facultatif modifier');
+
             return $this->redirectToRoute('show_listes_doccuments_categorie_evisa', [
                 'id'        => $categorie->getId()
             ]);
@@ -267,6 +277,7 @@ class CategorieEvisaController extends AbstractController
         $categorie = $doccumentFacultatif->getCategorieVisa();
         $manager->remove($doccumentFacultatif);
         $manager->flush();
+        $this->addFlash('success', 'Doccument facultatif supprimer');
 
         return $this->redirectToRoute('show_listes_doccuments_categorie_evisa', [
             'id'        => $categorie->getId()

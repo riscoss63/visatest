@@ -15,6 +15,7 @@
                 <thead>
                     <tr>
                         <th data-sortable="true" data-field="iso">Code</th>
+                        <th data-field="iso" data-formatter="logoFormatter">Logo</th>
                         <th data-field="titre" >Titre</th>
                         <th data-field="zoneGeographique.titre" data-formatter="listePaysFormatter">Zone</th>
                         <th data-field="edit" data-formatter="actionsFormatter">Editer</th>
@@ -37,6 +38,9 @@
     {{ parent() }}
     <script>
 
+        function logoFormatter(value,row,index) {
+            return '<img src="https://flagpedia.net/data/flags/h80/'+value.toLowerCase()+'.png" alt="'+row["titre"]+'" style="width:10%;"/>'
+        }
         function actionsFormatter(value, row, index){
             return '<a href="'+Routing.generate('edit_pays', {'id' : row.id})+'" title="Modifier"><i class="far fa-edit"></i></a>';
         }

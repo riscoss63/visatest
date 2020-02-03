@@ -77,6 +77,9 @@ class EvisaType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => EVisa::class,
+            'csrf_protection'       => true,
+            'csrf_field_name'       => '_token',
+            'crsf_token_id'         => 'sujet_edit'
         ]);
     }
 }

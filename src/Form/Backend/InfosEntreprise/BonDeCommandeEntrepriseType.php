@@ -25,6 +25,9 @@ class BonDeCommandeEntrepriseType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => InfosEntreprise::class,
+            'csrf_protection'       => true,
+            'csrf_field_name'       => '_token',
+            'crsf_token_id'         => 'bon_de_commande_edit'
         ]);
     }
 }

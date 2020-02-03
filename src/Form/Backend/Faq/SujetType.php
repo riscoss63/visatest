@@ -36,7 +36,10 @@ class SujetType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => SujetFaq::class,
-            'csrf_protection'       => false
+            'csrf_protection'       => true,
+            'csrf_field_name'       => '_token',
+            'crsf_token_id'         => 'sujet_edit'
+
         ]);
     }
 }

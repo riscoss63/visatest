@@ -141,6 +141,7 @@ class User implements UserInterface
         $this->ips = new ArrayCollection();
         $ip = new AdressesIp;
         $ip->setIp($request->getClientIp());
+        $ip->setAutoriser(false);
         $this->addIp($ip);
         $this->demandes = new ArrayCollection();
         $this->voyageurs = new ArrayCollection();

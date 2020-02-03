@@ -7,18 +7,21 @@
 
 <div class="row justify-content-center mt-5">
   <div class="col-10 text-center">    
-          {{ form_start(form, {'action': path('edit_formulaire_officiel', {'id': formulaire.id}), 'method': 'POST'}) }}
-
-          <div class="row form-group text-right">
-              {{ form_label(form.name, 'Titre du doccument', {'label_attr' : {'class': 'col-sm-2 col-form-label'}}) }}
-              <div class="input-group col-sm-10">
-                  {{ form_widget(form.name) }}
-              </div>
+    {% if app.request.attributes.get('_route') == 'edit_formulaire_officiel_evisa' %}
+        {{ form_start(form, {'action': path('edit_formulaire_officiel_evisa', {'id': formulaire.id}), 'method': 'POST'}) }}
+    {% else %}
+        {{ form_start(form, {'action': path('edit_formulaire_officiel', {'id': formulaire.id}), 'method': 'POST'}) }}
+    {% endif %}
+      <div class="row form-group text-right">
+          {{ form_label(form.name, 'Titre du doccument', {'label_attr' : {'class': 'col-sm-2 col-form-label'}}) }}
+          <div class="input-group col-sm-10">
+              {{ form_widget(form.name) }}
           </div>
+      </div>
 
-          
-          <button type="submit" class="btn btn-enregistrer"><i class="fas fa-save"></i> Enregistrer </a>
-
-      {{ form_end(form, {'render_rest': false})}}
+      
+      <button type="submit" class="btn btn-enregistrer"><i class="fas fa-save"></i> Enregistrer </a>
+      {{form_widget(form._token)}}
+    {{ form_end(form, {'render_rest': false})}}
   </div>
 </div>

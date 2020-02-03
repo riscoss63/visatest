@@ -72,6 +72,7 @@ class TarifTransportController extends AbstractController
         {
             $manager->persist($tarifTransport);
             $manager->flush();
+            $this->addFlash('success', 'Tarif transport ajouter');
 
             return $this->redirectToRoute('show_tarif_transport_evisa', [
                 'id'        =>  $transport->getId()
@@ -98,6 +99,7 @@ class TarifTransportController extends AbstractController
         {
             $manager->persist($tarifTransport);
             $manager->flush();
+            $this->addFlash('success', 'Tarif transport modifier');
 
             return $this->redirectToRoute('show_tarif_transport_evisa', [
                 'id'        =>  $transport->getId()
@@ -106,6 +108,7 @@ class TarifTransportController extends AbstractController
 
         return $this->render('/back_end/evisa/transports/edit_tarif_transport_evisa.html.twig', [
             'form'      => $form->createView(),
+            'transport' => $transport,
             'id'        => $tarifTransport->getId()
         ]);
     }

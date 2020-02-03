@@ -9,9 +9,12 @@
 </div>
 
 <div class="row justify-content-center mt-5">
-    <div class="col-10 text-center">    
+    <div class="col-10 text-center">
+        {% if app.request.attributes.get('_route') == 'edit_doccument_obligatoire_evisa' %}
+            {{ form_start(form, {'action': path('edit_doccument_obligatoire_evisa', {'id': doc.id}), 'method': 'POST'}) }}
+        {% else %}
             {{ form_start(form, {'action': path('edit_doccument_obligatoire', {'id': doc.id}), 'method': 'POST'}) }}
-
+        {% endif %}    
             <div class="row form-group text-right">
                 {{ form_label(form.titre, 'Titre', {'label_attr' : {'class': 'col-sm-2 col-form-label'}}) }}
                 <div class="input-group col-sm-10">
@@ -26,6 +29,7 @@
             </div>
             
             <button type="submit" class="btn btn-enregistrer"><i class="fas fa-save"></i> Enregistrer </a>
+        {{form_widget(form._token)}}
 
         {{ form_end(form, {'render_rest': false})}}
     </div>

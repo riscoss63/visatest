@@ -77,6 +77,7 @@ class TransportController extends AbstractController
         {
             $manager->persist($transport);
             $manager->flush();
+            $this->addFlash('success', 'Type de transport ajouter');
 
             return $this->redirectToRoute('edit_transport_evisa', [
                 'id'       => $transport->getId()
@@ -102,7 +103,8 @@ class TransportController extends AbstractController
         {
             $manager->persist($transport);
             $manager->flush();
- 
+            $this->addFlash('success', 'Type de transport modifier');
+
         }
 
         return $this->render('/back_end/evisa/transports/edit_transport_evisa.html.twig', [
