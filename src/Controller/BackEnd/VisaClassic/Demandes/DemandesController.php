@@ -146,15 +146,21 @@ class DemandesController extends AbstractController
         }
 
         $encoder = new JsonEncoder();
-        $defaultContext = [
-            AbstractNormalizer::CIRCULAR_REFERENCE_HANDLER => function ($object, $format, $context) {
-                return $object->getTitre();
-            },
-        ];
-        $normalizer = new ObjectNormalizer(null, null, null, null, null, null, $defaultContext);
+        // $defaultContext = [
+        //     AbstractNormalizer::CIRCULAR_REFERENCE_HANDLER => function ($object, $format, $context) {
+        //         return $object->getTitre();
+        //     },
+        // ];
+        $normalizer = new ObjectNormalizer();
 
         $serializer = new Serializer([$normalizer], [$encoder]);
-        $jsonReceptionDossierVisaClassic=$serializer->serialize($ReceptionDossierVisaClassic, 'json');
+        $jsonReceptionDossierVisaClassic=$serializer->serialize($ReceptionDossierVisaClassic, 'json', [
+            AbstractNormalizer::CIRCULAR_REFERENCE_HANDLER => function ($object, $format, $context) {
+                return $object->getId();
+            },
+            AbstractNormalizer::ATTRIBUTES =>['id', 'demande', 'demande' => ['client' => ['email'], 'reference', 'visaType' => ['visaClassic' => ['pays' => ['titre']]], 'quantiteVisa', 'dateCreation' => ['timestamp'] ] ],
+            
+        ]);
         //On retourne une réponse JSON
         return new Response($jsonReceptionDossierVisaClassic, 200, ['Content-Type' => 'application/json']);
     }
