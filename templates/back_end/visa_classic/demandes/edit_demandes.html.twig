@@ -1,33 +1,138 @@
- <style>
-   .modal{
-       margin-top: 35px;
-       overflow-y: auto;
-       max-width : 1100px
-   } 
- </style>
-        {% form_theme form '/back_end/jquery.collection.html.twig' %}
-    <h3> Modification d'une commande </h3>
-    <p>Type de Visa :<strong> {{ demande.visaType.visaClassic.pays.titre}} - {{ demande.visaType.titre }} - NB d'entrées : {{ demande.quantiteVisa }} </strong></p>
+<style>
+    .modal{
+        margin-top: 35px;
+        overflow-y: auto;
+        max-width : 1300px
+    } 
+</style>
+
+    
+    {% form_theme form '/back_end/jquery.collection.html.twig' %}
+
+    <div class="row">
+        <h5 class=" m-auto col-8"><i class="fa fa-globe"></i> Modification d'une commande   </h5>
+    </div>
     {{ form_start(form, {'action': path('edit_demandes_visa_classic', {'id': demande.id}), 'method': 'POST'}) }}
-        <h4>Informations commande</h4>
-        {{ form_row(form.entre )}}
-        {{ form_row(form.sortie )}}
-        {{ form_row(form.urgent )}}
-        <h4>Informations de livraison</h4>
-        {{ form_row(form.transport )}}
-        <h4>Informations Utilisateur</h4>
-        {{ form_row(form.client.valide )}}
-        {{ form_row(form.client.premium )}}
-        {{ form_row(form.client.pays )}}
-        {{ form_row(form.client.adresse )}}
-        {{ form_row(form.client.codePostal )}}
-        {{ form_row(form.client.ville )}}
-        {{ form_row(form.client.telephone )}}
-        <h4>Informations Voyageurs</h4>
-        {{ form_row(form.client.voyageurs )}}
-    {{ form_end(form)}}
+    <div class="row justify-content-center mt-5">
+        <div class="col-5 text-center"> 
+            <h3>Informations <strong>client</strong></h3>        
+                <div class="row form-group text-right">
+                    {{ form_label(form.client.nom, 'Nom' , {'label_attr' : {'class': 'col-sm-2 col-form-label'}}) }}
+                    <div class="input-group col-sm-4">
+                        {{ form_widget(form.client.nom) }}
+                    </div>
+                    {{ form_label(form.client.prenom, 'Prénom', {'label_attr' : {'class': 'col-sm-2 col-form-label'}}) }}
+                    <div class="input-group col-sm-4">
+                        {{ form_widget(form.client.prenom) }}
+                    </div>
+                </div>
+                <div class="row form-group text-right">
+                    {{ form_label(form.client.email, 'Email', {'label_attr' : {'class': 'col-sm-2 col-form-label'}}) }}
+                    <div class="input-group col-sm-10">
+                        {{ form_widget(form.client.email) }}
+                    </div>
+                </div>
+                <div class="row form-group text-right">
+                    {{ form_label(form.client.telephone, 'Téléphone', {'label_attr' : {'class': 'col-sm-2 col-form-label'}}) }}
+                    <div class="input-group col-sm-10">
+                        {{ form_widget(form.client.telephone) }}
+                    </div>
+                </div>
+                <div class="row form-group text-right">
+                    {{ form_label(form.client.adresse, 'Adresse', {'label_attr' : {'class': 'col-sm-2 col-form-label'}}) }}
+                    <div class="input-group col-sm-10">
+                        {{ form_widget(form.client.adresse) }}
+                    </div>
+                </div>
+                <div class="row form-group text-right">
+                    {{ form_label(form.client.codePostal, 'Code postal', {'label_attr' : {'class': 'col-sm-2 col-form-label'}}) }}
+                    <div class="input-group col-sm-10">
+                        {{ form_widget(form.client.codePostal) }}
+                    </div>
+                </div>
+                <div class="row form-group text-right">
+                    {{ form_label(form.client.ville, 'Ville', {'label_attr' : {'class': 'col-sm-2 col-form-label'}}) }}
+                    <div class="input-group col-sm-10">
+                        {{ form_widget(form.client.ville) }}
+                    </div>
+                </div>
+                <h3>Informations demande</h3>
+                <p>Type de Visa :<strong> {{ demande.visaType.visaClassic.pays.titre}} - {{ demande.visaType.titre }} - NB d'entrées : {{ demande.quantiteVisa }} </strong></p>
+
+                <div class="row form-group text-right mb-5">
+                    {{ form_label(form.entre, 'Date de départ', {'label_attr' : {'class': 'col-sm-2 col-form-label'}}) }}
+                    <div class="input-group col-sm-10">
+                        {{ form_widget(form.entre) }}
+                    </div>
+                </div>
+                <div class="row form-group text-right mb-5">
+                    {{ form_label(form.sortie, 'Date de retour', {'label_attr' : {'class': 'col-sm-2 col-form-label'}}) }}
+                    <div class="input-group col-sm-10">
+                        {{ form_widget(form.sortie) }}
+                    </div>
+                </div>
+
+            {{ form_end(form, {'render_rest': false})}}
+        </div>
+        <div class="col-7" >
+            <h3>Informations <strong>Voyageurs</strong></h3>
+            {% for voyageur in form.client.voyageurs %}
+                <h5>Voyageur n°{{loop.index}}</h5>
+                <div class="row form-group text-right mb-5">
+                    {{ form_label(voyageur.nom, 'Nom', {'label_attr' : {'class': 'col-sm-2 col-form-label'}}) }}
+                    <div class="input-group col-sm-10">
+                        {{ form_widget(voyageur.nom) }}
+                    </div>
+                </div>
+                <div class="row form-group text-right mb-5">
+                    {{ form_label(voyageur.prenom, 'Prenom', {'label_attr' : {'class': 'col-sm-2 col-form-label'}}) }}
+                    <div class="input-group col-sm-10">
+                        {{ form_widget(voyageur.prenom) }}
+                    </div>
+                </div>
+                <div class="row form-group text-right mb-5">
+                    {{ form_label(voyageur.sexe, 'Sexe', {'label_attr' : {'class': 'col-sm-2 col-form-label'}}) }}
+                    <div class="input-group col-sm-10">
+                        {{ form_widget(voyageur.sexe) }}
+                    </div>
+                </div>
+                <div class="row form-group text-right mb-5">
+                    {{ form_label(voyageur.nationalite, 'Nationalite', {'label_attr' : {'class': 'col-sm-2 col-form-label'}}) }}
+                    <div class="input-group col-sm-10">
+                        {{ form_widget(voyageur.nationalite) }}
+                    </div>
+                </div>
+                <div class="row form-group text-right mb-5">
+                    {{ form_label(voyageur.dateNaissance, 'Date de naissance', {'label_attr' : {'class': 'col-sm-2 col-form-label'}}) }}
+                    <div class="input-group col-sm-10">
+                        {{ form_widget(voyageur.dateNaissance) }}
+                    </div>
+                </div>
+                <div class="row form-group text-right mb-5">
+                    {{ form_label(voyageur.numeroPasseport, 'Numéro de passeport', {'label_attr' : {'class': 'col-sm-2 col-form-label'}}) }}
+                    <div class="input-group col-sm-10">
+                        {{ form_widget(voyageur.numeroPasseport) }}
+                    </div>
+                </div>
+                <hn></hn>
+            {% endfor %}
+        </div>
+    </div>
+
+
+    
 
 <script type="text/javascript" src="{{ asset('backend/js/jquery.collection.js') }}"></script>
-    <script type="text/javascript">
-        $('.my-selector').collection();
-    </script>
+<script type="text/javascript">
+    $('.my-selector').collection();
+</script>
+<link rel="stylesheet" type="text/css" href="{{ asset('/bundles/datetimepicker-master/build/jquery.datetimepicker.min.css') }}"/ >
+<script src="{{ asset('/bundles/datetimepicker-master/build/jquery.datetimepicker.full.min.js') }}"></script>
+<script>
+    jQuery.datetimepicker.setLocale('fr');
+    jQuery('#course_edit_dateEnlevement').datetimepicker({
+        format: 'd-m-Y H:i',
+        theme: 'dark',
+    });
+    
+</script>

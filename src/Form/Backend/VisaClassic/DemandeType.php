@@ -4,9 +4,11 @@ namespace App\Form\Backend\VisaClassic;
 
 use App\Entity\Demande;
 use App\Entity\Transport;
+use App\Form\Backend\Evisa\VoyageurEvisaType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -49,6 +51,13 @@ class DemandeType extends AbstractType
                 'choice_label'  => 'titre'
             ])
             ->add('client', ClientType::class)
+            ->add('voyageurs', CollectionType::class, [
+                'entry_type'    => VoyageursType::class,
+                'allow_add'     => true,
+                'allow_delete'  => true,
+                'prototype'     => true,
+                'by_reference'  => false,
+            ])
             ->add('submit', SubmitType::class, [
                 'attr'  => [
                     'class'     => 'mt-3 form-control btn btn-primary'

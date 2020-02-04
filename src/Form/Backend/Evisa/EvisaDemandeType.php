@@ -22,7 +22,6 @@ class EvisaDemandeType extends AbstractType
                 'attr'          => [
                     'class' => 'my-selector form',
                 ],
-                'by_reference'    =>false
             ])
         ;
     }

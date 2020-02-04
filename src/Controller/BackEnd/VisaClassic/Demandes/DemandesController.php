@@ -7,6 +7,7 @@ use App\Entity\Demande;
 use App\Entity\EtatDossier;
 use App\Entity\ReceptionDossier;
 use App\Entity\User;
+use App\Entity\VisaType;
 use App\Form\Backend\VisaClassic\CompletReceptionType;
 use App\Form\Backend\VisaClassic\DemandeType;
 use App\Form\Backend\VisaClassic\EtatDossierType;
@@ -32,6 +33,7 @@ class DemandesController extends AbstractController
     public function demandesJson() : Response
     {
         $demandes = $this->getDoctrine()->getRepository(Demande::class)->findAll();
+        $demandesVisaClassic = [];
         foreach($demandes as $demande)
         {
             if($demande->getEtat() === 'commande')
@@ -70,9 +72,10 @@ class DemandesController extends AbstractController
         {
             foreach ($courses as $course) 
             {
-                if($course->getDemande()->getVisaType()  != null)
+                
+                if($course->getDemande()->getVisaType() != null)
                 {
-                    $typeVisa=$course->getDemande()->getVisaType();
+                    $typeVisa = $course->getDemande()->getVisaType();
                     if($typeVisa->getVisaClassic())
                     {
                         $courseVisa += 1;
@@ -157,23 +160,27 @@ class DemandesController extends AbstractController
             $demande = $this->getDoctrine()->getRepository(Demande::class)->findOneBy([
                 'reference'     => $referenceType
             ]);
+
+            if($demande)
+            {
+                $receptionDossier = new ReceptionDossier;
+                $receptionDossier->setIncomplet(true);
+                $receptionDossier->setDemande($demande);
+                $manager->persist($receptionDossier);
+                $manager->flush();
+
+                return $this->redirectToRoute('show_demandes_visa_classic');
+            }
+
+            elseif($demande === null AND $referenceType)
+            {
+                $this->addFlash('danger', 'La réference n\'existe pas');
+                return $this->redirectToRoute('show_demandes_visa_classic');
+            }
         }
         
 
-        if($demande)
-        {
-            $receptionDossier = new ReceptionDossier;
-            $receptionDossier->setIncomplet(true);
-            $receptionDossier->setDemande($demande);
-            $manager->persist($receptionDossier);
-            $manager->flush();
-
-            return $this->redirectToRoute('show_demandes_visa_classic');
-        }
-        elseif($demande === null AND $referenceType)
-        {
-            return $this->redirectToRoute('show_demandes_visa_classic');
-        }
+        
         
         return $this->render('/back_end/visa_classic/demandes/show_reception_dossier.html.twig');
     }
@@ -218,7 +225,7 @@ class DemandesController extends AbstractController
             $demande->setEtat('encours');
 
             $transport = $demande->getTransport();
-            if($transport->coursier())
+            if($transport->getCoursier() == true)
             {
                 $random = random_int(10, 15);
                 $reference = random_bytes($random);
