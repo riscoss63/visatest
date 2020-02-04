@@ -62,10 +62,11 @@ class DemandesController extends AbstractController
 
         $serializer = new Serializer([$normalizer], [$encoder]);
         $jsonDemandesVisaClassic=$serializer->serialize($demandesVisaClassic, 'json', [
-            AbstractNormalizer::ATTRIBUTES =>['id', 'client', 'reference', 'quantiteVisa', 'urgent', 'demande', 'visaType'=> ['visaClassic' => ['pays' => 'titre']], 'dateCreation' => 'timestamp'],
             AbstractNormalizer::CIRCULAR_REFERENCE_HANDLER => function ($object, $format, $context) {
                 return $object->getId();
             },
+            AbstractNormalizer::ATTRIBUTES =>['id', 'client' => ['email'], 'reference', 'quantiteVisa', 'urgent', 'demande', 'visaType'=> ['visaClassic' => ['pays' => ['titre']]], 'dateCreation' => ['timestamp']],
+            
         ]);
         //On retourne une réponse JSON
         return new Response($jsonDemandesVisaClassic, 200, ['Content-Type' => 'application/json']);
