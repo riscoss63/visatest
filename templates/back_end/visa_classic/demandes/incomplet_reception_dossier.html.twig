@@ -1,37 +1,48 @@
 <style>
     .modal{
-        margin: 35px;
+        margin-top: 35px;
         max-width: 1100px;
         overflow: auto;
-
     } 
 </style>
 
-<div class="row">
-    <h5 class=" m-auto col-8"><i class="fa fa-users-cog"></i>Réception dossier</h5>
-</div>
+{% form_theme form '/back_end/jquery.collection.html.twig' %}
+{{ form_start(form, {'action': path('incomplet_visa_classic', {'id': id}), 'method': 'POST'}) }}
 
 <div class="row">
-    <div class="col-12">
-        {% form_theme form '/back_end/jquery.collection.html.twig' %}
-        {{ form_start(form, {'action': path('incomplet_visa_classic', {'id': id}), 'method': 'POST'}) }}
+    <h5 class=" m-auto col-10 text-center"><i class="fa fa-globe"></i> Dossier incomplet</h5>
+</div>
+
+<div class="row justify-content-center mt-5">
+    <div class="col-10 text-center"> 
+                <div class="row form-group text-center">
+                    <div class="col-sm-10 offset-sm-2">
+                        <div class="row">
+                            <div class="col-4">
+                                <h6>Titre du doccument</h6>
+                            </div>
+                            <div class="col-2">
+                                <h6>Doccument manquant</h6>
+                            </div>
+                            <div class="col-2">
+                                <h6>Doccument non conforme</h6>
+                            </div>
+                        </div>
+                    </div>
             {% for doccument in form.etatDossier %}
-                <div class="row align-items-center">
-                    {{ form_widget(doccument.nom)}}
-                    {{ form_widget(doccument.manquant)}}
-                    {{ form_label(doccument.manquant)}}
-                    {{ form_widget(doccument.nonConforme)}}
-                    {{ form_label(doccument.nonConforme)}}
-                </div>
+                
+                    <div class="input-group col-sm-10 offset-sm-2 mt-3">
+                        {{ form_widget(doccument.nom) }}
+                        {{ form_widget(doccument.manquant)}}
+                        {{ form_widget(doccument.nonConforme)}}
+                    </div>
+                
             {% endfor %}
-        {{ form_end(form)}}
-    </div> 
+            </div>
+            <button type="submit" class="btn btn-enregistrer"><i class="fas fa-save"></i> Enregistrer </a>
+            {{ form_widget(form._token)}}
+        {{ form_end(form, {'render_rest': false})}}
+    </div>
 </div>
 
-<script type="text/javascript" src="{{ asset('backend/js/jquery.collection.js') }}"></script>
-<script type="text/javascript">
-    $('.my-selector').collection({
-        add_at_the_end: true
-    });
-</script>
     
