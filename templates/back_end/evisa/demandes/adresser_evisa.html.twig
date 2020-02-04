@@ -1,0 +1,55 @@
+ <style>
+   .modal{
+       margin-top: 35px;
+       overflow-y: auto;
+       max-width : 1100px
+   } 
+ </style>
+        
+<div class="row">
+    <h5 class=" m-auto col-8"><i class="fa fa-users-cog"></i>Infos voyageurs</h5>
+</div>
+
+<div class="row justify-content-center mt-5">
+    <div class="col-10 text-center">  
+            {% form_theme form.demandes '/back_end/jquery.collection.html.twig' %}
+
+    {# {{form(form)}}   #}
+        {{ form_start(form, {'action': path('adresser-evisa'), 'method': 'POST'}) }}
+
+        {{form_row(form.demandes)}}
+            {# {% for demande in form.demandes %}
+                {% for voyageur in demande.voyageurs %}
+                    <li>
+                        <div class="row form-group text-right">
+                            {{ form_label(form.passeportFile, 'Nom', {'label_attr' : {'class': 'col-sm-2 col-form-label'}}) }}
+                            <div class="input-group col-sm-10">
+                                {{ form_widget(form.passeportFile) }}
+                            </div>
+                        </div>
+                    </li>
+                {% endfor %} #}
+                
+            {# {% endfor %} #}
+        
+            
+            {# <div class="row form-group text-right">
+                <div class="col-sm-2">Télécharger la copie du passeport</div>                
+                <div class="input-group col-sm-10">
+                    <a href="{{ vich_uploader_asset(voyageur, 'passeportFile') }}" alt="{{ voyageur.nom }}" > Lien </a>
+                </div>
+            </div> #}
+            
+            
+         {{ form_end(form, {'render_rest': false})}} 
+    </div>
+</div>
+    
+<script type="text/javascript" src="{{ asset('backend/js/jquery.collection.js') }}"></script>
+<script type="text/javascript">
+    $('.my-selector').collection();
+</script>
+
+<script type="text/javascript">
+    $('.my-selector2').collection();
+</script>

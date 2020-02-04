@@ -17,10 +17,11 @@
             <a href="{{path('liste_reception_dossier')}}" class="btn btn-info petite-taille border-1" rel="modal:open"><i class="fas fa-walking"></i>  assurance(s) voyages </a>
         </div>
         <div class="col-12 mt-5 text-left">
-            <a href="{{path('liste_reception_dossier')}}" class="m-2 btn btn-info petite-taille" rel="modal:open"> Adresser Evisas </a>
+            <a href="{{path('adresser-evisa')}}" class="m-2 btn btn-info petite-taille" rel="modal:open"> Adresser Evisas </a>
             <a href="{{path('liste_reception_dossier')}}" class="m-2 btn btn-info petite-taille" rel="modal:open"> Commande spécifique </a>
+            <a href="{{path('liste_reception_dossier')}}" class="m-2 btn btn-info petite-taille" rel="modal:open"> En cours de traitement </a>
             <a href="{{path('liste_reception_dossier')}}" class="m-2 btn btn-info petite-taille" rel="modal:open"> Rappel </a>
-            <a href="{{path('liste_reception_dossier')}}" class="m-2 btn btn-danger petite-taille" rel="modal:open"> Supprimer </a>
+            <a href="{{path('liste_reception_dossier')}}" class="m-2 btn btn-danger petite-taille" rel="modal:open"> <i class="fas fa-trash-alt"></i> Supprimer </a>
         </div>
         <div class="col-12">
             <table data-toggle="table" data-url="{{ path('json_demandes_evisa') }}" data-pagination="true" data-search="false" data-pagination: "true" data-detail-view="true"
@@ -73,7 +74,7 @@
         }
 
         function actionsFormatter(value, row, index){
-            return '<a href="'+Routing.generate('edit_demandes_evisa', {'id' : row.id})+'" title="Modifier" rel="modal:open"><i class="far fa-edit"> Editer </i></a>';
+            return '<a href="'+Routing.generate('edit_demandes_evisa', {'id' : row.id})+'" title="Modifier" rel="modal:open"><i class="far fa-edit">  </i> Editer</a>';
         }
 
         function booleanFormatter(value, row, index) {

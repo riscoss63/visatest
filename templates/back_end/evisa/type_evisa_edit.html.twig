@@ -18,8 +18,12 @@
                     
                 <div class="row form-group text-right " >
                     {{ form_label(form.categorieVisa, 'Catégorie', {'label_attr' : {'class': 'col-sm-2 col-form-label'}}) }}
-                    <div class="input-group col-sm-10 align-items-center">
+                    <div class="input-group col-sm-3 align-items-center">
                         {{ form_widget(form.categorieVisa) }}
+                    </div>
+                    <div class="col-sm-6">
+                        <a href="" class="btn btn-primary petite-taille" id="boutton-renommer" rel=""><i class="fas fa-edit"></i> Renommer la catégorie sélectionnée </a>
+                        <a href="#" id="categorie-add" class="btn btn-primary petite-taille" rel=""><i class="fas fa-plus-circle"></i> Ajouter une catégorie</a>
                     </div>
                 </div>
                 <div class="row form-group text-right">
@@ -100,4 +104,22 @@
             {{ form_end(form, {'render_rest': false})}}
         </div>
     </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{parent()}}
+    <script>
+        var id = {{ eVisa.id|json_encode()|raw }}
+
+        $('#boutton-renommer').on('click', function() {
+            var categorie = $('#type_visa_classic_categorieVisa option:selected').val();
+            $('#boutton-renommer').attr('href', Routing.generate('categorie_evisa_edit', {'idCategorie': categorie, 'idType': {{id}} }))
+            $('#boutton-renommer').attr('rel', 'modal:open')
+        })
+
+        $('#categorie-add').on('click', function() {
+            $('#categorie-add').attr('href', Routing.generate('categorie_evisa_add', {'idVisa': id, 'idType' : {{id}} }))
+            $('#categorie-add').attr('rel', 'modal:open')
+        })
+    </script>
 {% endblock %}

@@ -93,3 +93,13 @@
     <script type="text/javascript">
         $('.my-selector').collection();
     </script>
+<link rel="stylesheet" type="text/css" href="{{ asset('/bundles/datetimepicker-master/build/jquery.datetimepicker.min.css') }}"/ >
+<script src="{{ asset('/bundles/datetimepicker-master/build/jquery.datetimepicker.full.min.js') }}"></script>
+<script>
+    jQuery.datetimepicker.setLocale('fr');
+    jQuery('#course_edit_dateEnlevement').datetimepicker({
+        format: 'd-m-Y H:i',
+        theme: 'dark',
+    });
+    
+</script>

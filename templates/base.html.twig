@@ -8,6 +8,7 @@
         <title>{% block title %}Accueil{% endblock %}</title>
 
         {% block stylesheets %}
+            <link rel="stylesheet" type="text/css" href="{{ asset('/frontend/dist/css/bootstrap.min.css') }}">
             <link rel="stylesheet" type="text/css" href="{{ asset('/frontend/css/main.css') }}">
             <link rel="stylesheet" type="text/css" href="{{ asset('/frontend/fonts/font.css') }}">
             <link href="https://fonts.googleapis.com/css?family=Fira+Sans+Condensed:500|Open+Sans+Condensed:300|Open+Sans:300,600|Roboto+Condensed:300,400,700|Roboto:100&display=swap" rel="stylesheet">
@@ -16,8 +17,6 @@
             <link rel="stylesheet" type="text/css" href="{{ asset('/frontend/css/menu-front.css') }}">
             <link rel="stylesheet" type="text/css" href="{{ asset('/frontend/css/owl.theme.default.css') }}">
             <link rel="stylesheet" type="text/css" href="{{ asset('/frontend/css/owl.carousel.css') }}">
-            <link rel="stylesheet" type="text/css" href="{{ asset('/frontend/css/page-front-visa.css') }}">
-            <link rel="stylesheet" type="text/css" href="{{ asset('/frontend/css/dist/bootstrap.min.css') }}">
             {# <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"> #}
 
         {% endblock %}
@@ -26,7 +25,6 @@
 
     <body>
         {% block flash %}
-            {% if app.flashes %}
                 <div class="messages">
                     {% for type, messages in app.flashes %}
                         {% for message in messages %}
@@ -40,7 +38,6 @@
                         {% endfor %}
                     {% endfor %}
                 </div>
-            {% endif %}
         {% endblock %}
         {% block header %}
         

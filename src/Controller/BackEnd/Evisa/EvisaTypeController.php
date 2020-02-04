@@ -53,6 +53,7 @@ class EvisaTypeController extends AbstractController
     {
 
         $eVisa = $this->getDoctrine()->getRepository(EVisa::class)->find($id);
+        
         return $this->render('/back_end/evisa/type_evisa_show.html.twig', [
             'eVisa'       =>$eVisa
         ]);
@@ -68,8 +69,21 @@ class EvisaTypeController extends AbstractController
         $typeEvisa = new VisaType;
         $eVisa = $this->getDoctrine()->getRepository(EVisa::class)->find($id);
         $typeEvisa->setEVisa($eVisa);
+        $typesVisa = $eVisa->getTypeVisa();
 
-        $form = $this->createForm(TypeVisaClassicType::class, $typeEvisa);
+        $categories = [];
+        foreach ($typesVisa as $typeVisa) 
+        {
+            if($typeVisa->getCategorieVisa())
+            {
+                $categories[] = $typeVisa->getCategorieVisa();
+            }
+        }
+
+
+        $form = $this->createForm(TypeVisaClassicType::class, $typeEvisa, [
+            'categories'        => $categories
+        ]);
         $form->handleRequest($request);
 
         if($form->isSubmitted() AND $form->isValid())
@@ -98,7 +112,13 @@ class EvisaTypeController extends AbstractController
 
         $typeEvisa = $this->getDoctrine()->getRepository(VisaType::class)->find($id);
         $evisa = $typeEvisa->getEVisa();
-        $form = $this->createForm(TypeVisaClassicType::class, $typeEvisa);
+        $categorieVisa = $evisa->getCategorieVisas();
+
+        
+
+        $form = $this->createForm(TypeVisaClassicType::class, $typeEvisa, [
+            'categories'        => $categorieVisa
+        ]);
         $form->handleRequest($request);
 
         if($form->isSubmitted() AND $form->isValid())
@@ -111,7 +131,8 @@ class EvisaTypeController extends AbstractController
 
         return $this->render('/back_end/evisa/type_evisa_edit.html.twig', [
             'form'      => $form->createView(),
-            'id'        => $evisa->getId()
+            'id'        => $typeEvisa->getId(),
+            'eVisa'     => $evisa
         ]);
     }
 }

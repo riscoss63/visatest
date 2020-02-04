@@ -49,6 +49,19 @@
                     {{ form_widget(form.numeroPasseport) }}
                 </div>
             </div>
+            <div class="row form-group text-right">
+                <div class="col-sm-2">Télécharger la copie du passeport</div>                
+                <div class="input-group col-sm-10">
+                    <a href="{{ vich_uploader_asset(voyageur, 'passeportFile') }}" alt="{{ voyageur.nom }}" > Lien </a>
+                </div>
+            </div>
+            <div class="row form-group text-right">
+                <div class="col-sm-2">Télécharger la photo d'identité</div>               
+                <div class="input-group col-sm-10">
+                    <a href="{{ vich_uploader_asset(voyageur, 'passeportFile') }}" alt="{{ voyageur.nom }}" > Lien </a>
+                </div>
+            </div>
+            
         {{ form_end(form, {'render_rest': false})}}
     </div>
 </div>

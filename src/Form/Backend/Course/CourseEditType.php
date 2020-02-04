@@ -33,14 +33,14 @@ class CourseEditType extends AbstractType
             ->add('nom', TextType::class, [
                 'attr'      => [
                     'class'     => 'form-control',
-                    'placeholder'   => 'Remplire si le client n\'existe pas, sinon laissez se champ vide'
+                    'placeholder'   => 'Remplire si le client n\'existe pas, sinon laissez ce champ vide'
                 ],
                 'required'  => false
             ])
             ->add('prenom', TextType::class, [
                 'attr'      => [
                     'class'     => 'form-control',
-                    'placeholder'   => 'Remplire si le client n\'existe pas, sinon laissez se champ vide'
+                    'placeholder'   => 'Remplire si le client n\'existe pas, sinon laissez ce champ vide'
                 ],
                 'required'  => false
             ])
@@ -48,7 +48,7 @@ class CourseEditType extends AbstractType
                 'label'     => 'Date de livraison/enlevement',
                 'attr'      => [
                     'id'     => 'date-livraison',
-                    'class'  => 'form-control'
+                    'class'  => 'form-control js-datepicker'
                 ],
                 'mapped'       => false
             ])

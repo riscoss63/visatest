@@ -178,3 +178,27 @@ th.sujetfaq .fht-cell {
 .z-index-1 {
     z-index: 1 !important;
 }
+
+.detail-icon .fa {
+    color: #007bff !important;
+}
+
+/*PC*/
+@media screen and (min-width: 1024px) and (max-width: 1700px)
+{ 
+    
+} 
+
+/*Tablette*/
+@media screen and (min-width: 740px ) and (max-width: 1024px )
+{
+    
+    
+}
+
+/*Fone*/
+@media screen and (max-width: 320px  ) and (max-width: 720px  )
+{ 
+        
+}
+

@@ -101,6 +101,11 @@ class EVisa
      */
     private $actualites;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\CategorieVisa", mappedBy="evisa")
+     */
+    private $categorieVisas;
+
     public function __construct()
     {
         $this->typeVisa = new ArrayCollection();
@@ -108,6 +113,7 @@ class EVisa
         $this->actualites = new ArrayCollection();
         $this->image = new EmbeddedFile();
         $this->updatedAt = new \DateTimeImmutable();
+        $this->categorieVisas = new ArrayCollection();
 
     }
 
@@ -348,5 +354,36 @@ class EVisa
     public function __toString()
     {
         return $this->getPays()->getTitre();
+    }
+
+    /**
+     * @return Collection|CategorieVisa[]
+     */
+    public function getCategorieVisas(): Collection
+    {
+        return $this->categorieVisas;
+    }
+
+    public function addCategorieVisa(CategorieVisa $categorieVisa): self
+    {
+        if (!$this->categorieVisas->contains($categorieVisa)) {
+            $this->categorieVisas[] = $categorieVisa;
+            $categorieVisa->setEvisa($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCategorieVisa(CategorieVisa $categorieVisa): self
+    {
+        if ($this->categorieVisas->contains($categorieVisa)) {
+            $this->categorieVisas->removeElement($categorieVisa);
+            // set the owning side to null (unless already changed)
+            if ($categorieVisa->getEvisa() === $this) {
+                $categorieVisa->setEvisa(null);
+            }
+        }
+
+        return $this;
     }
 }

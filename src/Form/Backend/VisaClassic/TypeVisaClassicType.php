@@ -108,7 +108,7 @@ class TypeVisaClassicType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => VisaType::class,
-            'categories' => null,
+            'categories' => [],
             // enable/disable CSRF protection for this form
             'csrf_protection' => true,
             // the name of the hidden HTML field that stores the token

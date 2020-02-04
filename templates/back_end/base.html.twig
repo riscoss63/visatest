@@ -18,7 +18,7 @@
             <script src="{{ path('fos_js_routing_js', { callback: 'fos.Router.setData' }) }}"></script>
             <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" />
             <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.9/dist/css/bootstrap-select.min.css">
-
+            
             
         {% endblock %}
 
@@ -82,12 +82,12 @@
                                                 active 
                                             {% endif %}" href="{{ path('infos_entreprise_evisa')}}" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa"> EV </i> E-visa</a>
                                         <div class="dropdown-menu menu-left
-                                            {% if app.request.attributes.get('_route') == 'infos_entreprise_evisa' or app.request.attributes.get('_route') == 'show_pays_evisa' or app.request.attributes.get('_route') == 'liste_transport_evisa' or app.request.attributes.get('_route') == 'show_demandes_evisa' or app.request.attributes.get('_route') == 'show_type_evisa' or app.request.attributes.get('_route') == 'add_type_evisa' or app.request.attributes.get('_route') == 'edit_type_evisa' or app.request.attributes.get('_route') == 'show_volet_infos_evisa' or app.request.attributes.get('_route') == 'add_pays_evisa' or app.request.attributes.get('_route') == 'edit_pays_evisa' %}
+                                            {% if app.request.attributes.get('_route') == 'infos_entreprise_evisa' or app.request.attributes.get('_route') == 'show_pays_evisa' or app.request.attributes.get('_route') == 'liste_transport_evisa' or app.request.attributes.get('_route') == 'show_demandes_evisa' or app.request.attributes.get('_route') == 'show_type_evisa' or app.request.attributes.get('_route') == 'add_type_evisa' or app.request.attributes.get('_route') == 'edit_type_evisa' or app.request.attributes.get('_route') == 'show_volet_infos_evisa' or app.request.attributes.get('_route') == 'add_pays_evisa' or app.request.attributes.get('_route') == 'edit_pays_evisa' or app.request.attributes.get('_route') == 'bonde_de_commande_entreprise_evisa' %}
                                                 show
                                             {% endif %}" 
                                         href="{{ path('infos_entreprise_evisa')}}" aria-labelledby="dropdownMenuButton">
 
-                                            <a class="dropdown-item {% if app.request.attributes.get('_route') == 'infos_entreprise_evisa' %} active {% endif %}" href="{{ path('infos_entreprise_evisa')}}"><i class="fa fa-building"></i> Infos Entreprise</a>
+                                            <a class="dropdown-item {% if app.request.attributes.get('_route') == 'infos_entreprise_evisa' or app.request.attributes.get('_route') == 'bonde_de_commande_entreprise_evisa' %} active {% endif %}" href="{{ path('infos_entreprise_evisa')}}"><i class="fa fa-building"></i> Infos Entreprise</a>
                                             <a class="dropdown-item 
                                                 {% if app.request.attributes.get('_route') == 'show_pays_evisa' or app.request.attributes.get('_route') == 'show_type_evisa' or app.request.attributes.get('_route') == 'add_type_evisa' or app.request.attributes.get('_route') == 'show_volet_infos_evisa' or app.request.attributes.get('_route') == 'edit_type_evisa' or app.request.attributes.get('_route') == 'add_pays_evisa' or app.request.attributes.get('_route') == 'edit_pays_evisa' %} 
                                                     active 

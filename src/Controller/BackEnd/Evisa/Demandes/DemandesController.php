@@ -7,13 +7,16 @@ use App\Entity\Demande;
 use App\Entity\EtatDossier;
 use App\Entity\ReceptionDossier;
 use App\Entity\Voyageurs;
+use App\Form\Backend\Evisa\DemandeEvisaAdresserType;
 use App\Form\Backend\VisaClassic\CompletReceptionType;
 use App\Form\Backend\VisaClassic\DemandeType;
 use App\Form\Backend\VisaClassic\EtatDossierType;
 use App\Form\Backend\VisaClassic\IncompletReceptionType;
 use App\Form\Backend\VisaClassic\VoyageursType;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -111,9 +114,58 @@ class DemandesController extends AbstractController
         }
         return $this->render('/back_end/evisa/demandes/edit_voyageurs.html.twig', [
             'form'      => $form->createView(),
-            'id'        => $voyageur->getId()
+            'id'        => $voyageur->getId(),
+            'voyageur'  => $voyageur
         ]);
     }
     
+    /**
+     * @Route("/adresser/evisa", name="adresser-evisa")
+     */
+    public function evisaAdresser(Request $request, EntityManagerInterface $manager)
+    {
+        $demandes = $this->getDoctrine()->getRepository(Demande::class)->findAll();
+
+        foreach($demandes as $demande)
+        {
+            if($demande->getEtat() === 'encours')
+            {
+                $evisa = $demande->getVisaType()->getEVisa();
+                if($evisa)
+                {
+                    $demandesEvisa[] = $demande;
+                }
+            }
+            
+            $demandesEvisa;
+        }
+        
+        $form = $this->createFormBuilder($demandesEvisa)
+            ->add('demandes', CollectionType::class, [
+                'entry_type'    => DemandeEvisaAdresserType::class,
+                'allow_add'     => true,
+                'allow_delete'  => true,
+                'prototype'     => true,
+                'required'      => false,
+                'attr'          => [
+                    'class' => 'my-selector form',
+                ],
+                'by_reference'    =>false
+            ])
+            ->getForm();
+        ;
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() AND $form->isValid())
+        {
+            $manager->persist($demandesEvisa);
+            $manager->flush();
+        }
+
+        return $this->render('/back_end/evisa/demandes/adresser_evisa.html.twig', [
+            'form'      => $form->createView(),
+            'demandes'  => $demandesEvisa
+        ]);
+    }
 
 }
