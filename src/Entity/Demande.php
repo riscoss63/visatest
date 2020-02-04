@@ -113,6 +113,11 @@ class Demande
      */
     private $dateEnvoi;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\EvisaSend", inversedBy="demandes")
+     */
+    private $evisaSend;
+
     public function __construct()
     {
         $this->fraisComplementaire = new ArrayCollection();
@@ -409,6 +414,18 @@ class Demande
     public function setDateEnvoi(\DateTimeInterface $dateEnvoi): self
     {
         $this->dateEnvoi = $dateEnvoi;
+
+        return $this;
+    }
+
+    public function getEvisaSend(): ?EvisaSend
+    {
+        return $this->evisaSend;
+    }
+
+    public function setEvisaSend(?EvisaSend $evisaSend): self
+    {
+        $this->evisaSend = $evisaSend;
 
         return $this;
     }

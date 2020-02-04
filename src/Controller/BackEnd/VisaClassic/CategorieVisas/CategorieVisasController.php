@@ -7,6 +7,8 @@ use App\Entity\DoccumentFacultatif;
 use App\Entity\DoccumentObligatoire;
 use App\Entity\DoccumentOfficiel;
 use App\Entity\VisaClassic;
+use App\Entity\VisaType;
+use App\Form\Backend\CategorieVisa\CategorieVisaType;
 use App\Form\Backend\VisaClassic\CategorieDoccumentFacultatifAjoutType;
 use App\Form\Backend\VisaClassic\CategorieDoccumentFacultatifModifType;
 use App\Form\Backend\VisaClassic\CategorieDoccumentObligatoiresAjoutType;
@@ -46,7 +48,7 @@ class CategorieVisasController extends AbstractController
         $this->denyAccessUnlessGranted('SHOW', $this->serviceCategorieVisaClassic);
 
         $visaClassic= $this->getDoctrine()->getRepository(VisaClassic::class)->find($id);
-        $typeVisaClassic= $visaClassic->getTypeVisa();
+        $typeVisaClassic= $visaClassic->getCategorieVisas();
         $encoder = new JsonEncoder();
         $defaultContext = [
             AbstractNormalizer::CIRCULAR_REFERENCE_HANDLER => function ($object, $format, $context) {
@@ -61,6 +63,66 @@ class CategorieVisasController extends AbstractController
         $jsonTypeVisaClassic=$serializer->serialize($typeVisaClassic, 'json');
         //On retourne une réponse JSON
         return new Response($jsonTypeVisaClassic, 200, ['Content-Type' => 'application/json']);
+    }
+
+    /**
+     * @Route("/add/categorie/visaclassic-{idVisa}/type-{idType}", name="categorie_visaclassic_add", options={"expose"=true})
+     */
+    public function categorieAdd(Request $request, EntityManagerInterface $manager, $idVisa, $idType)
+    {
+        $categorie = new CategorieVisa;
+        $visaclassic = $this->getDoctrine()->getRepository(VisaClassic::class)->find($idVisa);
+        $categorie->setVisaClassic($visaclassic);
+
+        $form = $this->createForm(CategorieVisaType::class, $categorie);
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() AND $form->isValid())
+        {
+            $manager->persist($categorie);
+            $manager->flush();
+            $this->addFlash('success', 'Catégorie visa ajouter');
+
+            return $this->redirectToRoute('edit_type_visa_classic', [
+                'id'        => $idType
+            ]);
+        }
+
+        return $this->render('/back_end/visa_classic/categorie/categorie_evisa_edit.html.twig', [
+            'form'      => $form->createView(),
+            'idVisa'        => $visaclassic->getId(),
+            'idType'        => $idType
+        ]);
+    }
+
+    /**
+     * @Route("/edit/categorie-{idCategorie}/visa-type-{idType}", name="categorie_visaclassic_edit", options={"expose"=true})
+     */
+    public function categorieEdit(Request $request, EntityManagerInterface $manager, $idType, $idCategorie)
+    {
+        $categorie = $this->getDoctrine()->getRepository(CategorieVisa::class)->find($idCategorie);
+        $visaType = $this->getDoctrine()->getRepository(VisaType::class)->find($idType);
+        
+        $form = $this->createForm(CategorieVisaType::class, $categorie);
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() AND $form->isValid())
+        {
+            $manager->persist($categorie);
+            $manager->flush();
+            
+            $this->addFlash('success', 'Catégorie visa modifier');
+
+            return $this->redirectToRoute('edit_type_visa_classic', [
+                'id'        => $visaType->getId()
+            ]);
+        }
+
+        return $this->render('/back_end/visa_classic/categorie/categorie_evisa_edit.html.twig', [
+            'form'      => $form->createView(),
+            'idType'        => $visaType->getId(),
+            'idCategorie'   => $categorie->getId()
+        ]);
     }
 
     /**

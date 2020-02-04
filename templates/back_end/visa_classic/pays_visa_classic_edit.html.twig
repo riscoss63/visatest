@@ -42,7 +42,7 @@
                 {% endfor %}
                 <div class="row form-group text-right">
                     {{ form_label(form.position, 'Position', {'label_attr' : {'class': 'col-sm-2 col-form-label'}}) }}
-                    <div class="input-group col-sm-1">
+                    <div class="input-group col-sm-10">
                         {{ form_widget(form.position) }}
                     </div>
                 </div>
@@ -68,6 +68,7 @@
                         <button type="submit" class="btn btn-enregistrer"><i class="fas fa-save"></i> </a>
                     </li>
                 </ul>
+                {{form_widget(form._token)}}
             {{ form_end(form, {'render_rest': false})}}
         </div>
     </div>

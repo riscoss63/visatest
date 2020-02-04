@@ -38,7 +38,7 @@ class CategorieEvisaController extends AbstractController
     {
 
         $eVisa= $this->getDoctrine()->getRepository(EVisa::class)->find($id);
-        $typeEvisa= $eVisa->getTypeVisa();
+        $typeEvisa= $eVisa->getCategorieVisas();
         $encoder = new JsonEncoder();
         $defaultContext = [
             AbstractNormalizer::CIRCULAR_REFERENCE_HANDLER => function ($object, $format, $context) {

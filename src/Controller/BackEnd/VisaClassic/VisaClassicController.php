@@ -111,7 +111,7 @@ class VisaClassicController extends AbstractController
             AbstractNormalizer::CIRCULAR_REFERENCE_HANDLER => function ($object, $format, $context) {
                 return $object->getTitre();
             },
-            AbstractNormalizer::ATTRIBUTES      => ['id', 'titre', 'typeVisa', 'pays' => 'iso']
+            AbstractNormalizer::ATTRIBUTES      => ['id', 'titre', 'typeVisa', 'pays' => 'iso', 'active']
 
         ];
         $normalizer = new ObjectNormalizer(null, null, null, null, null, null, $defaultContext);

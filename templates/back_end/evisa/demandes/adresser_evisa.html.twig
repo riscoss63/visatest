@@ -17,20 +17,17 @@
     {# {{form(form)}}   #}
         {{ form_start(form, {'action': path('adresser-evisa'), 'method': 'POST'}) }}
 
-        {{form_row(form.demandes)}}
-            {# {% for demande in form.demandes %}
-                {% for voyageur in demande.voyageurs %}
+            {% for demande in form.demandes %}
                     <li>
                         <div class="row form-group text-right">
-                            {{ form_label(form.passeportFile, 'Nom', {'label_attr' : {'class': 'col-sm-2 col-form-label'}}) }}
+                            {{ form_label(demande.voyageurs, 'Nom', {'label_attr' : {'class': 'col-sm-2 col-form-label'}}) }}
                             <div class="input-group col-sm-10">
-                                {{ form_widget(form.passeportFile) }}
+                                {{ form_widget(demande.voyageurs) }}
                             </div>
                         </div>
                     </li>
-                {% endfor %} #}
                 
-            {# {% endfor %} #}
+            {% endfor %}
         
             
             {# <div class="row form-group text-right">

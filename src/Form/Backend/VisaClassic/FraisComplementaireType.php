@@ -53,6 +53,9 @@ class FraisComplementaireType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => FraisComplementaire::class,
+            'csrf_protection'       => true,
+            'csrf_field_name'       => '_token',
+            'crsf_token_id'         => 'formulaire_complementaire_edit'
         ]);
     }
 }

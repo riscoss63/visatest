@@ -58,6 +58,11 @@ class CategorieVisa
      */
     private $evisa;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\VisaClassic", inversedBy="categorieVisas")
+     */
+    private $visaClassic;
+
 
     public function __construct()
     {
@@ -234,6 +239,18 @@ class CategorieVisa
     public function setEvisa(?EVisa $evisa): self
     {
         $this->evisa = $evisa;
+
+        return $this;
+    }
+
+    public function getVisaClassic(): ?VisaClassic
+    {
+        return $this->visaClassic;
+    }
+
+    public function setVisaClassic(?VisaClassic $visaClassic): self
+    {
+        $this->visaClassic = $visaClassic;
 
         return $this;
     }

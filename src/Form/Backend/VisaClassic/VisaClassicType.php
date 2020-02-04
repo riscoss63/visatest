@@ -29,6 +29,9 @@ class VisaClassicType extends AbstractType
             ])
             ->add('pays', EntityType::class, [
                 'class'     => Pays::class,
+                'attr'  => [
+                    'class'     => 'form-control'
+                ]
             ])
 
             ->add('slug', TextType::class, [
@@ -69,6 +72,9 @@ class VisaClassicType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => VisaClassic::class,
+            'csrf_protection'       => true,
+            'csrf_field_name'       => '_token',
+            'crsf_token_id'         => 'visa_classic_edit'
         ]);
     }
 }

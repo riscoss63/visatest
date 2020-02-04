@@ -78,7 +78,12 @@ class VisaTypeController extends AbstractController
         $visaClassic = $this->getDoctrine()->getRepository(VisaClassic::class)->find($id);
         $typeVisaClassic->setVisaClassic($visaClassic);
 
-        $form = $this->createForm(TypeVisaClassicType::class, $typeVisaClassic);
+        $categories = $visaClassic->getCategorieVisas();
+        
+
+        $form = $this->createForm(TypeVisaClassicType::class, $typeVisaClassic, [
+            'categories'        => $categories
+        ]);
         $form->handleRequest($request);
 
         if($form->isSubmitted() AND $form->isValid())
@@ -93,7 +98,8 @@ class VisaTypeController extends AbstractController
 
         return $this->render('/back_end/visa_classic/type_visa_classic_edit.html.twig', [
             'form'      => $form->createView(),
-            'id'       => $visaClassic->getId()
+            'id'       => $visaClassic->getId(),
+            'visa'     => $visaClassic
         ]);
 
     }
@@ -107,7 +113,12 @@ class VisaTypeController extends AbstractController
 
         $typeVisaClassic = $this->getDoctrine()->getRepository(VisaType::class)->find($id);
         $visaClassic = $typeVisaClassic->getVisaClassic();
-        $form = $this->createForm(TypeVisaClassicType::class, $typeVisaClassic);
+        $categories = $visaClassic->getCategorieVisas();
+        
+
+        $form = $this->createForm(TypeVisaClassicType::class, $typeVisaClassic, [
+            'categories'        => $categories
+        ]);
         $form->handleRequest($request);
 
         if($form->isSubmitted() AND $form->isValid())
@@ -118,7 +129,9 @@ class VisaTypeController extends AbstractController
 
         return $this->render('/back_end/visa_classic/type_visa_classic_edit.html.twig', [
             'form'      => $form->createView(),
-            'id'        => $visaClassic->getId()
+            'id'        => $visaClassic->getId(),
+            'visa'     => $visaClassic
+
         ]);
     }
 

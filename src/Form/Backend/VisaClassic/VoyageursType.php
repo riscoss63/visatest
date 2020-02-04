@@ -65,6 +65,9 @@ class VoyageursType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Voyageurs::class,
+            'csrf_protection'       => true,
+            'csrf_field_name'       => '_token',
+            'crsf_token_id'         => 'voyageur_type_edit'
         ]);
     }
 }

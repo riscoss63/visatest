@@ -30,11 +30,6 @@ class DemandeEvisaAdresserType extends AbstractType
 
             ])
             
-            ->add('submit', SubmitType::class, [
-                'attr'  => [
-                    'class'     => 'mt-3 form-control btn btn-primary'
-                ]
-            ])
         ;
     }
 

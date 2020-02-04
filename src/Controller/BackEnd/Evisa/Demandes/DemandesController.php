@@ -5,9 +5,11 @@ namespace App\Controller\BackEnd\Evisa\Demandes;
 use App\Entity\Course;
 use App\Entity\Demande;
 use App\Entity\EtatDossier;
+use App\Entity\EvisaSend;
 use App\Entity\ReceptionDossier;
 use App\Entity\Voyageurs;
 use App\Form\Backend\Evisa\DemandeEvisaAdresserType;
+use App\Form\Backend\Evisa\EvisaDemandeType;
 use App\Form\Backend\VisaClassic\CompletReceptionType;
 use App\Form\Backend\VisaClassic\DemandeType;
 use App\Form\Backend\VisaClassic\EtatDossierType;
@@ -126,6 +128,13 @@ class DemandesController extends AbstractController
     {
         $demandes = $this->getDoctrine()->getRepository(Demande::class)->findAll();
 
+        $evisaDemande = $this->getDoctrine()->getRepository(EvisaSend::class)->find(1);
+        
+        if(!$evisaDemande)
+        {
+            $evisaDemande = new EvisaSend;
+        }
+
         foreach($demandes as $demande)
         {
             if($demande->getEtat() === 'encours')
@@ -133,38 +142,23 @@ class DemandesController extends AbstractController
                 $evisa = $demande->getVisaType()->getEVisa();
                 if($evisa)
                 {
-                    $demandesEvisa[] = $demande;
+                    $evisaDemande->addDemande($demande) ;
                 }
             }
-            
-            $demandesEvisa;
         }
-        
-        $form = $this->createFormBuilder($demandesEvisa)
-            ->add('demandes', CollectionType::class, [
-                'entry_type'    => DemandeEvisaAdresserType::class,
-                'allow_add'     => true,
-                'allow_delete'  => true,
-                'prototype'     => true,
-                'required'      => false,
-                'attr'          => [
-                    'class' => 'my-selector form',
-                ],
-                'by_reference'    =>false
-            ])
-            ->getForm();
-        ;
+        var_dump($evisaDemande);
+        $form = $this->createForm(EvisaDemandeType::class, $evisaDemande);
         $form->handleRequest($request);
 
         if($form->isSubmitted() AND $form->isValid())
         {
-            $manager->persist($demandesEvisa);
+            $manager->persist($evisaDemande);
             $manager->flush();
         }
 
         return $this->render('/back_end/evisa/demandes/adresser_evisa.html.twig', [
             'form'      => $form->createView(),
-            'demandes'  => $demandesEvisa
+            'demandes'  => $evisaDemande
         ]);
     }
 

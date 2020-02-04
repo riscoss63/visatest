@@ -106,6 +106,11 @@ class VisaClassic
      */
     private $actualites;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\CategorieVisa", mappedBy="visaClassic")
+     */
+    private $categorieVisas;
+
 
     public function __construct()
     {
@@ -115,6 +120,7 @@ class VisaClassic
         $this->voletsInfos = new ArrayCollection();
         $this->doccumentsSupplementaire = new ArrayCollection();
         $this->actualites = new ArrayCollection();
+        $this->categorieVisas = new ArrayCollection();
     }
 
     /**
@@ -385,6 +391,37 @@ class VisaClassic
     public function __toString()
     {
         return $this->getPays()->getTitre();
+    }
+
+    /**
+     * @return Collection|CategorieVisa[]
+     */
+    public function getCategorieVisas(): Collection
+    {
+        return $this->categorieVisas;
+    }
+
+    public function addCategorieVisa(CategorieVisa $categorieVisa): self
+    {
+        if (!$this->categorieVisas->contains($categorieVisa)) {
+            $this->categorieVisas[] = $categorieVisa;
+            $categorieVisa->setVisaClassic($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCategorieVisa(CategorieVisa $categorieVisa): self
+    {
+        if ($this->categorieVisas->contains($categorieVisa)) {
+            $this->categorieVisas->removeElement($categorieVisa);
+            // set the owning side to null (unless already changed)
+            if ($categorieVisa->getVisaClassic() === $this) {
+                $categorieVisa->setVisaClassic(null);
+            }
+        }
+
+        return $this;
     }
 
 }

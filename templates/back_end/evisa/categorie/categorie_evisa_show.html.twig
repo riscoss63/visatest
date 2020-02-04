@@ -14,7 +14,7 @@
             <table data-toggle="table" data-url="{{ path('json_categorie_evisa', {id: evisa.id} )}}" data-pagination="true" data-search="true" data-pagination: "true">
                 <thead>
                     <tr>
-                        <th data-field="categorieVisa.titre" data-sortable="true">Catégorie</th>
+                        <th data-field="titre" data-sortable="true">Catégorie</th>
                         <th data-field="edit" data-formatter="actionsFormatter">Editer</th>
                     </tr>
                 </thead>
@@ -34,8 +34,8 @@
     <script>
 
         function actionsFormatter(value, row, index){
-            return '<a href="'+Routing.generate('show_listes_doccuments_categorie_evisa', {'id' :  row["categorieVisa"]["id"]})+'" title="Modifier"><i class="far fa-edit"></i> Gestion des listes de documents </a>'+
-                    '<a href="'+Routing.generate('show_formulaire_visa_type', {'id' :  row["categorieVisa"]["id"]})+'" title="Modifier"><i class="far fa-edit"></i> Gestion des formulaires </a>';
+            return '<a href="'+Routing.generate('show_listes_doccuments_categorie_evisa', {'id' :  row.id})+'" title="Modifier"><i class="far fa-edit"></i> Gestion des listes de documents </a>'+
+                    '<a href="'+Routing.generate('show_formulaire_visa_type', {'id' :  row.id})+'" title="Modifier"><i class="far fa-edit"></i> Gestion des formulaires </a>';
         }
 
         function booleanFormatter(value, row, index) {

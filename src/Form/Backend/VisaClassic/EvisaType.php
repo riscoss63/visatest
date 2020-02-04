@@ -79,7 +79,7 @@ class EvisaType extends AbstractType
             'data_class' => EVisa::class,
             'csrf_protection'       => true,
             'csrf_field_name'       => '_token',
-            'crsf_token_id'         => 'sujet_edit'
+            'crsf_token_id'         => 'evisa_edit'
         ]);
     }
 }

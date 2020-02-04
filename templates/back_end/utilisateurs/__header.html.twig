@@ -1,4 +1,4 @@
-<nav class="nav">
+{# <nav class="nav">
 
     <a class="nav-link {% if app.request.attributes.get('_route') == 'show_users' %} active {% endif %}" href="{{ path('show_users')}}"><i class="fa fa-users-cog"></i>Utilisateurs</a>
 
@@ -8,4 +8,35 @@
 
     <a class="nav-link {% if app.request.attributes.get('_route') == 'show_access_ip_users' %} active {% endif %}" href="{{ path('show_access_ip_users')}}" ><i class="fa fa-check"><span></span></i>Accès par IPs</a>
 
-</nav>
+</nav> #}
+<div class="col-12">
+    <nav class="navbar navbar-expand-lg ">
+        <button class="navbar-toggler ml-auto navbar-light bg-light" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse text-white" id="navbarTogglerDemo03">
+            <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link {% if app.request.attributes.get('_route') == 'show_users' %} active {% endif %}" href="{{ path('show_users')}}"><i class="fa fa-users-cog"></i>Utilisateurs</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {% if app.request.attributes.get('_route') == 'show_acces' %} active {% endif %}" href="{{ path('show_acces')}}"><i class="fa fa-lock"></i>Droits d'accès par section</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {% if app.request.attributes.get('_route') == 'show_acces_user' %} active {% endif %}" href="{{ path('show_acces_user')}}"><i class="fa fa-lock"></i>Droits spéciaux par utilisateur</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {% if app.request.attributes.get('_route') == 'show_access_ip_users' %} active {% endif %}" href="{{ path('show_access_ip_users')}}" ><i class="fa fa-check"><span></span></i>Accès par IPs</a>
+                </li>
+            </ul>
+            <div class="my-2 my-lg-0">
+                {% if app.user %}
+                    <p> Bienvenue, {{ app.user.prenom }}  <a href="{{ path('app_logout') }}">Déconnecter</a></p>
+                {% endif %}                                
+            </div>
+            
+        </div>
+    </nav>
+</div>
+

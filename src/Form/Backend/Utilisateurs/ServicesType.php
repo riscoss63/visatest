@@ -36,11 +36,7 @@ class ServicesType extends AbstractType
                 ],
                 'disabled'      =>true,
             ])
-            ->add('submit', SubmitType::class, [
-                'attr'  => [
-                    'class'     => 'form-control btn btn-primary'
-                ]
-            ])
+            
         ;
     }
 

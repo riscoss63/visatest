@@ -69,21 +69,13 @@ class EvisaTypeController extends AbstractController
         $typeEvisa = new VisaType;
         $eVisa = $this->getDoctrine()->getRepository(EVisa::class)->find($id);
         $typeEvisa->setEVisa($eVisa);
-        $typesVisa = $eVisa->getTypeVisa();
-
-        $categories = [];
-        foreach ($typesVisa as $typeVisa) 
-        {
-            if($typeVisa->getCategorieVisa())
-            {
-                $categories[] = $typeVisa->getCategorieVisa();
-            }
-        }
-
+        $evisa = $typeEvisa->getEVisa();
+        $categorieVisa = $evisa->getCategorieVisas();
 
         $form = $this->createForm(TypeVisaClassicType::class, $typeEvisa, [
-            'categories'        => $categories
+            'categories'        => $categorieVisa
         ]);
+
         $form->handleRequest($request);
 
         if($form->isSubmitted() AND $form->isValid())
@@ -98,7 +90,8 @@ class EvisaTypeController extends AbstractController
 
         return $this->render('/back_end/evisa/type_evisa_edit.html.twig', [
             'form'      => $form->createView(),
-            'id'        => $eVisa->getId()
+            'id'        => $eVisa->getId(),
+            'eVisa'     => $eVisa
         ]);
 
     }
@@ -131,7 +124,7 @@ class EvisaTypeController extends AbstractController
 
         return $this->render('/back_end/evisa/type_evisa_edit.html.twig', [
             'form'      => $form->createView(),
-            'id'        => $typeEvisa->getId(),
+            'id'        => $evisa->getId(),
             'eVisa'     => $evisa
         ]);
     }

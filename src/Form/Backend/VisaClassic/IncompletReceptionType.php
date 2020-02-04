@@ -37,6 +37,9 @@ class IncompletReceptionType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => ReceptionDossier::class,
+            'csrf_protection'       => true,
+            'csrf_field_name'       => '_token',
+            'crsf_token_id'         => 'incomplet_reception_edit'
         ]);
     }
 }

@@ -16,7 +16,7 @@ class VoyageurEvisaType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('passeportFile', VichImageType::class, [
+            ->add('evisaFile', VichImageType::class, [
                 'required' => false,
                 'allow_delete' => true,
                 'download_label' => true,
@@ -26,11 +26,7 @@ class VoyageurEvisaType extends AbstractType
                 'asset_helper' => true,
                 'label'     =>false
             ])
-            ->add('submit', SubmitType::class, [
-                'attr'  => [
-                    'class'     => 'mt-3 form-control btn btn-primary'
-                ]
-            ])
+            
         ;
     }
 
