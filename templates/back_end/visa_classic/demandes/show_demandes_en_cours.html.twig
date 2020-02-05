@@ -12,17 +12,18 @@
         <h5 class=" m-auto col-8"><i class="fa fa-users-cog"></i>Demandes en cours</h5>
     </div>
 
+    <div class="alert alert-danger" id="danger-alert" style="display:none"> Veuillez selectionner au moin une commande</div>
 
     <div class="row">
         <div class="col-12">
             <div class="col float-left mt-5">
                 <a href="{{path('expedition_visa_classic')}}" class="btn btn-light border petite-taille" rel="modal:open"> Expédition </a>
-                <a href="#" id="frais" class="btn btn-light border petite-taille"  rel="modal:open"> Frais supplémentaires </a>
+                <a href="#" id="frais" class="btn btn-light border petite-taille"  rel=""> Frais supplémentaires </a>
                 <a href="#"  class="btn btn-light border petite-taille"  rel="modal:open"> New order </a>
                 <a href="#"  class="btn btn-light border petite-taille"  rel="modal:open"> Mise à disposition </a>
                 <a href="#"  class="btn btn-light border petite-taille"  rel="modal:open"> Supprimer </a>
             </div>
-            <table data-toggle="table" id="table" data-url="{{ path('json_liste_demande_en_cours_visa_classic') }}" data-pagination="true" data-search="false" data-pagination: "true"   data-click-to-select="true" class="mt-5">
+            <table data-toggle="table" id="table" data-url="{{ path('json_liste_demande_en_cours_visa_classic') }}" data-pagination="true" data-search="false" data-pagination: "true"   data-click-to-select="true" class="mt-5" data-select-item-name="selectItemName">
                 <thead>
                     <tr>
                         <th data-field="demande" data-formatter="demandeFormatter" data-sortable="true" data-checkbox="true">Demande</th>
@@ -96,16 +97,25 @@
             return `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()} à ${date.getHours()}h${date.getMinutes()}`;
         }
 
-        var $table = $('#table');
-        var $button = $('#frais');
+        var table = $('#table');
+        var button = $('#frais');
 
         $(function() {
-            $button.click(function(event) {
-                var data = JSON.stringify($table.bootstrapTable('getSelections'));
+            button.click(function(event) {
+                  event.preventDefault()
+                var data = JSON.stringify(table.bootstrapTable('getSelections'));
                 jsonData = JSON.parse(data);
                 objet = jsonData[0];
-
-                this.href = Routing.generate('frais_completementaire_visa_classic', {'id' : objet.id});
+                if(objet) {
+                    this.rel = 'modal:open'
+                    this.href = Routing.generate('frais_completementaire_visa_classic', {'id' : objet.id});
+                }
+                if(objet == null) {
+                    this.rel = ''
+                    this.href = '#';
+                    $("#danger-alert").show();
+                    setTimeout(function() { $("#danger-alert").hide(); }, 4500);
+                }
             })
         })
         

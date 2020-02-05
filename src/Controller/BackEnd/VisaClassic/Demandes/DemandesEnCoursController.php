@@ -86,6 +86,13 @@ class DemandesEnCoursController extends AbstractController
 
         if($form->isSubmitted() AND $form->isValid())
         {
+            $fraisComplementaires = $form->get('fraisComplementaire')->getData();
+            foreach ($fraisComplementaires as $frais) 
+            {
+                $total = $frais->getQuantite() * $frais->getPrixUnitaire();
+                $frais->setTotal($total);
+            }
+
             $manager->persist($demande);
             $manager->flush();
 
@@ -108,7 +115,7 @@ class DemandesEnCoursController extends AbstractController
             $visaClassic = $demande->getVisaType();
             $expedition = $demande->getExpedition();
 
-            if($visaClassic AND $expedition)
+            if($visaClassic AND $expedition AND $expedition->getDemande()->getTransport()->getCoursier() === false)
             {
                 $expeditionVisaClassic[] = $expedition;
             }
@@ -117,15 +124,17 @@ class DemandesEnCoursController extends AbstractController
         }
 
         $encoder = new JsonEncoder();
-        $defaultContext = [
-            AbstractNormalizer::CIRCULAR_REFERENCE_HANDLER => function ($object, $format, $context) {
-                return $object->getTitre();
-            },
-        ];
-        $normalizer = new ObjectNormalizer(null, null, null, null, null, null, $defaultContext);
+        
+        $normalizer = new ObjectNormalizer();
 
         $serializer = new Serializer([$normalizer], [$encoder]);
-        $jsonExpeditionVisaClassic=$serializer->serialize($expeditionVisaClassic, 'json');
+        $jsonExpeditionVisaClassic=$serializer->serialize($expeditionVisaClassic, 'json', [
+            AbstractNormalizer::CIRCULAR_REFERENCE_HANDLER => function ($object, $format, $context) {
+                return $object->getId();
+            },
+            AbstractNormalizer::ATTRIBUTES =>['id', 'suivi', 'demande' => ['reference', 'client' => ['email'], 'quantiteVisa', 'transport' => ['titre'], ], ],
+            
+        ]);
         //On retourne une réponse JSON
         return new Response($jsonExpeditionVisaClassic, 200, ['Content-Type' => 'application/json']);
     }

@@ -13,31 +13,10 @@
 
 <div class="row">
     <div class="col-12">
-                    {# <ul data-prototype="{{ form_widget(form.fraisComplementaire.vars.prototype)|e }}" data-widget-tags="{{ '<li></li>'|e }}" data-widget-counter="{{ form.fraisComplementaire|length }}"> #}
-
         {{ form_start(form, {'action': path('frais_completementaire_visa_classic', {'id': id}), 'method': 'POST'}) }}
                     
-                    {# {{ form_row(form.fraisComplementaire.quantite)}}
-                    {{ form_row(form.fraisComplementaire.titre)}} #}
-                    {# {% for frais in form.fraisComplementaire %}
-                    <div class="row ">
-                        <div class="col-3">
-                            {{ form_row(frais.titre)}}
-                        </div>
-                        <div class="col-3">
-                            {{ form_row(frais.quantite)}}
-                        </div>
-                        <div class="col-3">
-                            {{ form_row(frais.prixUnitaire)}}
-                        </div>
-                        <div class="col-3">
-                            {{ form_row(frais.total)}}
-                        </div>
-                        {{ form_row(frais.id)}}
-                    </div>
-                {% endfor %} #}
+            <div id="formB-demo" class="collectionB " {% if form.fraisComplementaire.vars.prototype is defined %} data-prototype="{{ form_widget(form.fraisComplementaire.vars.prototype)|e('html_attr') }}" data-prototype-name="{{ form.fraisComplementaire.vars.prototype.vars.name|e('html_attr') }}" {% endif %} data-allow-add="{{ form.fraisComplementaire.vars.allow_add }}" data-allow-remove="{{ form.fraisComplementaire.vars.allow_delete }}" data-name-prefix="{{ form.fraisComplementaire.vars.full_name }}" >
 
-            <div id="formB-demo" class="collectionB" {% if form.fraisComplementaire.vars.prototype is defined %} data-prototype="{{ form_widget(form.fraisComplementaire.vars.prototype)|e('html_attr') }}" data-prototype-name="{{ form.fraisComplementaire.vars.prototype.vars.name|e('html_attr') }}" {% endif %} data-allow-add="{{ form.fraisComplementaire.vars.allow_add }}" data-allow-remove="{{ form.fraisComplementaire.vars.allow_delete }}" data-name-prefix="{{ form.fraisComplementaire.vars.full_name }}" >
                 {% for frais in form.fraisComplementaire %}
                     <div class="row ">
                         <div class="col-3">
@@ -54,10 +33,9 @@
                         </div>
                     </div>
                 {% endfor %}
+
             </div>
 
-            
-                
         {{ form_end(form)}}
     </div> 
 </div>
@@ -65,6 +43,7 @@
 <script type="text/javascript" src="{{ asset('backend/js/jquery.collection.js') }}"></script>
     <script type="text/javascript">
         $('.collectionB').collection();
+        
         function displayVals() {
             var singleValues = $( ".form[fraisComplementaire][1][quantite]" ).val();
             var multipleValues = $( "#multiple" ).val() || [];
