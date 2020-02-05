@@ -1,0 +1,65 @@
+<style>
+    .modal{
+        margin-top: 35px;
+        max-width: 1100px;
+        overflow: auto;
+    } 
+</style>
+
+<div class="row">
+    <h5 class=" m-auto col-8"><i class="fa fa-users-cog"></i>Demandes</h5>
+</div>
+    <div class="alert alert-success" id="success-alert" style="display:none"> Mail envoyer</div>
+    <div class="row">
+        <div class="col-12">
+            <table class="table table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <td class="text-center">Demande</td>
+                        <td>Date de création</td>
+                        <td>Paiement</td>
+                        <td>Prestations</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for demande in demandes %}
+                        <tr>
+                            <td class="text-center">
+                                <input value="{{demande.id}}" name="selectItemName" type="checkbox"> Réference:<br/>
+                                <strong>{{ demande.reference}}</strong><br/>
+                                <strong>{{demande.client.email}}</strong>
+                            </td>
+                            <td>
+                                {{demande.dateCreation|date('d/m/Y')}}
+                            </td>
+                            <td>
+                                -
+                            </td>
+                            <td>
+                                <strong>{{demande.quantiteVisa}}</strong> Visa {{demande.visaType.visaClassic.pays.titre}}
+                            </td>
+                            
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div> 
+    </div>
+    <button type="submit" id="send" class="btn btn-enregistrer"><i class="fas fa-save"></i> Enregistrer </a>
+
+<script>
+    $(function() {
+        $('#send').click(function () {
+            var data = []
+            $('input[name="selectItemName"]:checked').each(function () {
+                data.push($(this).val())
+            })
+
+            $.post( Routing.generate('rappel_dossier_non_recu'), { choices : data }, function(){
+                $("#success-alert").show();
+                setTimeout(function() { $("#success-alert").hide(); }, 5000);
+            } );
+            
+        })
+    })    
+</script>    

@@ -1,0 +1,36 @@
+{% extends "front_end/emails/base.html.twig" %}
+{% block email_title %}Dossier incomplet{% endblock %}
+{% block email_body %}
+	<table style="border-collapse: collapse;" width="600" cellspacing="0" cellpadding="0">
+		<tr>
+			<td>
+				<p>
+					Bonjour {{ client.prenom }} {{ client.nom }},
+				</p>
+				<p>
+					Nous avons bien reçu votre dossier pour l'obtention de visa pour {{receptionDossier.demande.visaType.visaClassic.pays.titre}}. Toutefois, une ou plusieurs pièces de votre dossier sont manquantes ou erronées :
+				</p>
+				<ul>
+					{% for doccument in doccuments %}
+						<li>[{{doccument.nom}}] : {% if doccument.manquant == true %} Document absent {% else %} Document non conforme {% endif %}  </li>
+					{% endfor %}
+				</ul>
+				<p>
+					Message de l’administrateur <em>«  Ce document est obligatoire pour le traitement de votre dossier »</em>
+				</p>
+				<p>
+					Nous vous remercions de nous adresser les documents manquants dans les meilleurs délais, pour un traitement de votre demande. 
+				</p>
+				<p>
+					A noter que seuls les documents originaux (passeport, photos...) doivent nous parvenir par courrier suivi. Les autres documents peuvent nous être adressés par email en pièce jointe.
+				</p>
+				<p>
+					Nous nous tenons à votre disposition pour tout complément d'information.
+				</p>
+				<p>
+                    <strong>Visa-en-ligne</strong>
+                </p>
+			</td>
+		</tr>
+	</table>
+{% endblock %}

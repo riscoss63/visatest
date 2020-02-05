@@ -14,12 +14,13 @@
     <div class="row">
         <div class="col-12">
             <div class="col-12 float-left mt-5">
-                <a href="{{path('liste_reception_dossier')}}" class="btn btn-primary petite-taille" rel="modal:open"><i class="fas fa-motorcycle"></i> {{ nbDeCourse }} Course(s) </a>
+                <a href="{{path('liste_reception_dossier')}}" class="btn btn-white petite-taille border" rel="modal:open"><i class="fas fa-motorcycle"></i> {{ nbDeCourse }} Course(s) </a>
             </div>
             <div class="col-3 float-left mt-5">
-                <a href="{{path('liste_reception_dossier')}}" class="btn btn-primary petite-taille" rel="modal:open"> Réception de dossiers </a>
+                <a href="{{path('liste_reception_dossier')}}" class="btn btn-light petite-taille border" rel="modal:open"> Réception de dossiers </a>
+                <a href="{{path('rappel_dossier_non_recu')}}" class="btn btn-light petite-taille border" rel="modal:open"> Rappel </a>
             </div>
-            <table data-toggle="table" data-url="{{ path('json_demandes_visa_classic') }}" data-pagination="true" data-search="false" data-pagination: "true">
+            <table class="mt-5" data-toggle="table" data-url="{{ path('json_demandes_visa_classic') }}" data-pagination="true" data-search="true" data-pagination: "true">
                 <thead>
                     <tr>
                         <th data-field="demande" data-formatter="demandeFormatter" data-sortable="true" >Demande</th>

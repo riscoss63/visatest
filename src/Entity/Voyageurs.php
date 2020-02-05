@@ -113,6 +113,11 @@ class Voyageurs
      */
     private $updatedAt;
 
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $statut;
+
     public function __construct()
     {
         $this->image = new EmbeddedFile();
@@ -333,5 +338,17 @@ class Voyageurs
     public function getTitre()
     {
         return $this->nom;
+    }
+
+    public function getStatut(): ?int
+    {
+        return $this->statut;
+    }
+
+    public function setStatut(?int $statut): self
+    {
+        $this->statut = $statut;
+
+        return $this;
     }
 }

@@ -48,16 +48,8 @@ class DemandesController extends AbstractController
             $demandesVisaClassic;
         }
         $encoder = new JsonEncoder();
-        // $defaultContext = [
-        //     AbstractNormalizer::CIRCULAR_REFERENCE_HANDLER => function ($object, $format, $context) {
-        //         return $object->getId();
-        //     },
-        //     AbstractNormalizer::ATTRIBUTES      => ['id', 'client', 'reference', 'quantiteVisa', 'urgent', 'demande', 'visaType'=> ['visaClassic']],
-        //     AbstractNormalizer::ALLOW_EXTRA_ATTRIBUTES => false,
-
-        // ];
-        // $normalizer = new ObjectNormalizer(null, null, null, null, null, null, $defaultContext)
-        ;
+       
+        
         $normalizer = new ObjectNormalizer();
 
         $serializer = new Serializer([$normalizer], [$encoder]);
@@ -171,7 +163,7 @@ class DemandesController extends AbstractController
     public function receptionDossierShow(Request $request, EntityManagerInterface $manager) : Response
     {    
         $referenceType=$request->request->get('reference');
-        if($referenceType)
+        if(isset($referenceType))
         {
             $demande = $this->getDoctrine()->getRepository(Demande::class)->findOneBy([
                 'reference'     => $referenceType
@@ -185,6 +177,7 @@ class DemandesController extends AbstractController
                 $manager->persist($receptionDossier);
                 $manager->flush();
 
+                $this->addFlash('success', 'Demande ajouter');
                 return $this->redirectToRoute('show_demandes_visa_classic');
             }
 
@@ -194,28 +187,51 @@ class DemandesController extends AbstractController
                 return $this->redirectToRoute('show_demandes_visa_classic');
             }
         }
-        
-
-        
-        
         return $this->render('/back_end/visa_classic/demandes/show_reception_dossier.html.twig');
     }
 
     /**
      * @Route("/incomplet-dossier-{id}/visa-classic", name="incomplet_visa_classic", options={"expose" = true})
      */
-    public function incompletDossierVisaClassic($id, Request $request, EntityManagerInterface $manager) : Response
+    public function incompletDossierVisaClassic($id, Request $request, EntityManagerInterface $manager, \Swift_Mailer $mailer) : Response
     {
         $receptionDossier = $this->getDoctrine()->getRepository(ReceptionDossier::class)->find($id);
-
+        $client = $receptionDossier->getDemande()->getClient();
         $form = $this->createForm(IncompletReceptionType::class, $receptionDossier);
         $form->handleRequest($request);
         
 
         if($form->isSubmitted() AND $form->isValid())
         {
+            $etatDossiers = $receptionDossier->getEtatDossier();
+            foreach ($etatDossiers as $etatDossier) 
+            {
+                if($etatDossier->getManquant() == false AND $etatDossier->getNonConforme() == false)
+                {
+                    $receptionDossier->removeEtatDossier($etatDossier);
+                    $manager->remove($etatDossier);
+                }
+            }
             $manager->persist($receptionDossier);
             $manager->flush();
+
+            $message= (new \Swift_Message('Document manquant : visa en ligne'))
+                ->setFrom('sghairipro63@gmail.com')
+                ->setTo($client->getEmail())
+                ->setBody(
+                    $this->renderView(
+                        'back_end/emails/reception_dossier/incomplet_dossier.html.twig',
+                        [
+                            'client'        => $client,
+                            'doccuments'   => $etatDossiers,
+                            'receptionDossier'=>$receptionDossier
+                        ]
+                    ),
+                    'text/html'
+            );
+            $mailer->send($message);
+
+            $this->addFlash('success', 'Mail envoyer avec les doccuments manquant ou non conforme');
             return $this->redirectToRoute('show_demandes_visa_classic');
             
         }
@@ -229,7 +245,7 @@ class DemandesController extends AbstractController
     /**
      * @Route("/complet-dossier-{id}/visa-classic", name="complet_dossier_visa_classic", options={"expose" = true})
      */
-    public function completDossierVisaClassic($id, Request $request, EntityManagerInterface $manager) : Response
+    public function completDossierVisaClassic($id, Request $request, EntityManagerInterface $manager, \Swift_Mailer $mailer) : Response
     {
         $receptionDossier = $this->getDoctrine()->getRepository(ReceptionDossier::class)->find($id);
         $demande = $receptionDossier->getDemande();
@@ -243,6 +259,7 @@ class DemandesController extends AbstractController
             $transport = $demande->getTransport();
             if($transport->getCoursier() == true)
             {
+                $client = $demande->getClient();
                 $random = random_int(10, 15);
                 $reference = random_bytes($random);
                 $reference=bin2hex($reference);
@@ -262,9 +279,30 @@ class DemandesController extends AbstractController
                 $course->setDemande($demande);
                 $course->setReference($reference);
                 $manager->persist($course);
+
+                
+
             }
             $manager->persist($receptionDossier);
             $manager->flush();
+            $client = $demande->getClient();
+
+            $message= (new \Swift_Message('Doccuments reçu : visa en ligne'))
+                ->setFrom('sghairipro63@gmail.com')
+                ->setTo($client->getEmail())
+                ->setBody(
+                    $this->renderView(
+                        'back_end/emails/reception_dossier/dossier_reçu.html.twig',
+                        [
+                            'client'        => $client,
+                            'receptionDossier'  =>$receptionDossier
+                        ]
+                    ),
+                    'text/html'
+            );
+            $mailer->send($message);
+
+            $this->addFlash('success', 'Dossier valider');
 
             return $this->redirectToRoute('show_demandes_visa_classic');
         }
@@ -272,6 +310,98 @@ class DemandesController extends AbstractController
         return $this->render('/back_end/visa_classic/demandes/complet_reception_dossier.html.twig', [
             'form'      => $form->createView(),
             'id'        => $receptionDossier->getId()
+        ]);
+    }
+
+    /**
+     *@Route("/json/demande-dossier-non-recu", name="json_dossier_non_recu") 
+     */
+    public function jsonDossierNonRecu()
+    {
+        $demandes = $this->getDoctrine()->getRepository(Demande::class)->findAll();
+        $demandesVisaClassic = [];
+        foreach($demandes as $demande)
+        {
+            if($demande->getEtat() === 'commande' AND $demande->getReceptionDossier() == null)
+            {
+                $visaClassic = $demande->getVisaType()->getVisaClassic();
+                if($visaClassic)
+                {
+                    $demandesVisaClassic[] = $demande;
+                }
+            }
+            
+            $demandesVisaClassic;
+        }
+        $encoder = new JsonEncoder();
+
+        $normalizer = new ObjectNormalizer();
+
+        $serializer = new Serializer([$normalizer], [$encoder]);
+        $jsonDemandesVisaClassic=$serializer->serialize($demandesVisaClassic, 'json', [
+            AbstractNormalizer::CIRCULAR_REFERENCE_HANDLER => function ($object, $format, $context) {
+                return $object->getId();
+            },
+            AbstractNormalizer::ATTRIBUTES =>['id', 'client' => ['email'], 'reference', 'quantiteVisa', 'urgent', 'demande', 'visaType'=> ['visaClassic' => ['pays' => ['titre']]], 'dateCreation' => ['timestamp']],
+            
+        ]);
+        //On retourne une réponse JSON
+        return new Response($jsonDemandesVisaClassic, 200, ['Content-Type' => 'application/json']);
+    }
+
+
+    /**
+     * @Route("/liste/demande-dossier-non-recu", name="rappel_dossier_non_recu", options={"expose"=true})
+     */
+    public function dossierNonRecu(Request $request, EntityManagerInterface $manager, \Swift_Mailer $mailer)
+    {
+        $demandes = $this->getDoctrine()->getRepository(Demande::class)->findAll();
+        $demandesVisaClassic = [];
+        foreach($demandes as $demande)
+        {
+            if($demande->getEtat() === 'commande' AND $demande->getReceptionDossier() == null)
+            {
+                $visaClassic = $demande->getVisaType()->getVisaClassic();
+                if($visaClassic)
+                {
+                    $demandesVisaClassic[] = $demande;
+                }
+            }
+            
+            $demandesVisaClassic;
+        }
+
+        if($request->get('choices'))
+        {
+            $idDemandesSend = $request->get('choices');
+            foreach($idDemandesSend as $idDemande)
+            {
+                $demandeSend = $this->getDoctrine()->getRepository(Demande::class)->find($idDemande);
+                $client = $demandeSend->getClient();
+                $message= (new \Swift_Message('Dossier non reçu : visa en ligne'))
+                    ->setFrom('sghairipro63@gmail.com')
+                    ->setTo($client->getEmail())
+                    ->setBody(
+                        $this->renderView(
+                            'back_end/emails/demande_visa_classic/rappel_demande.html.twig',
+                            [
+                                'client'        => $client,
+                                'demande'       => $demande
+                            ]
+                        ),
+                        'text/html'
+                );
+                $mailer->send($message);
+            }
+
+            $this->addFlash('success', 'Mail envoyer');
+            return $this->redirectToRoute('liste_reception_dossier');
+        }
+        
+
+
+        return $this->render('/back_end/visa_classic/demandes/rappel_dossier.html.twig', [
+            'demandes'      => $demandesVisaClassic
         ]);
     }
 

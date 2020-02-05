@@ -1,0 +1,32 @@
+{% extends "front_end/emails/base.html.twig" %}
+{% block email_title %}Dossier reçu{% endblock %}
+{% block email_body %}
+	<table style="border-collapse: collapse;" width="600" cellspacing="0" cellpadding="0">
+		<tr>
+			<td>
+				<p>
+					Bonjour {{ client.prenom }} {{ client.nom }},
+				</p>
+				<p>
+					Nous avons bien reçu votre dossier pour l'obtention de visa pour {{receptionDossier.demande.visaType.visaClassic.pays.titre}}.
+				</p>
+
+				<p>
+					Vous pouvez suivre votre commande directement sur votre <a href="{{absolute_url(path('app_login'))}}" rel="espace-client">espace client</a>
+				</p>
+				<p>
+					Nous restons à votre disposition pour tout renseignement complémentaire.
+				</p>
+				<p>
+					EURO VISA SERVICE vous souhaite une excellente journée.
+				</p>
+				<p>
+					Nous nous tenons à votre disposition pour tout complément d'information.
+				</p>
+				<p>
+                    <strong>Visa-en-ligne</strong> : formalités à l'international
+                </p>
+			</td>
+		</tr>
+	</table>
+{% endblock %}

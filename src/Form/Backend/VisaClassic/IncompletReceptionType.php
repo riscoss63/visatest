@@ -24,7 +24,7 @@ class IncompletReceptionType extends AbstractType
                     'class' => 'my-selector form',
                 ],
                 'by_reference'    =>false,
-                'label'     => 'Nature des documents manquants ou non conformes : '
+                'label'     => 'Nature des documents manquants ou non conformes : ',
 
             ])
             ->add('submit', SubmitType::class)

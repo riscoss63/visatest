@@ -1,8 +1,9 @@
 {% extends "back_end/base.html.twig" %}
 
 {% block menu_header %}
-    {% include "back_end/visa_classic/__header.html.twig" %}
+    {% include "back_end/visa_classic/demandes/__header.html.twig" %}
 {% endblock %}
+
 
 
 {% block contenu %}
@@ -11,28 +12,17 @@
         <h5 class=" m-auto col-8"><i class="fa fa-users-cog"></i>Demandes en cours</h5>
     </div>
 
-    <div class="row text-center mt-4">
-        <div class="col-4">
-            <a href="{{path('show_demandes_visa_classic')}}" class="btn btn-secondary  petite-taille"> Demandes de Visas </a>
-        </div>
-        <div class="col-4">
-            <a href="{{path('show_demande_en_cours_visa_classic')}}" class="btn btn-secondary  petite-taille"> Commandes en cours </a>
-        </div>
-        <div class="col-4">
-            <a href="{{path('liste_reception_dossier')}}" class="btn btn-secondary  petite-taille">  Archives </a>
-        </div>
-    </div>
 
     <div class="row">
         <div class="col-12">
             <div class="col float-left mt-5">
-                <a href="{{path('expedition_visa_classic')}}" class="btn btn-primary petite-taille" rel="modal:open"> Expédition </a>
-                <a href="#" id="frais" class="btn btn-primary petite-taille"  rel="modal:open"> Frais supplémentaires </a>
-                <a href="#"  class="btn btn-primary petite-taille"  rel="modal:open"> New order </a>
-                <a href="#"  class="btn btn-primary petite-taille"  rel="modal:open"> Mise à disposition </a>
-                <a href="#"  class="btn btn-primary petite-taille"  rel="modal:open"> Supprimer </a>
+                <a href="{{path('expedition_visa_classic')}}" class="btn btn-light border petite-taille" rel="modal:open"> Expédition </a>
+                <a href="#" id="frais" class="btn btn-light border petite-taille"  rel="modal:open"> Frais supplémentaires </a>
+                <a href="#"  class="btn btn-light border petite-taille"  rel="modal:open"> New order </a>
+                <a href="#"  class="btn btn-light border petite-taille"  rel="modal:open"> Mise à disposition </a>
+                <a href="#"  class="btn btn-light border petite-taille"  rel="modal:open"> Supprimer </a>
             </div>
-            <table data-toggle="table" id="table" data-url="{{ path('json_liste_demande_en_cours_visa_classic') }}" data-pagination="true" data-search="false" data-pagination: "true"   data-click-to-select="true">
+            <table data-toggle="table" id="table" data-url="{{ path('json_liste_demande_en_cours_visa_classic') }}" data-pagination="true" data-search="false" data-pagination: "true"   data-click-to-select="true" class="mt-5">
                 <thead>
                     <tr>
                         <th data-field="demande" data-formatter="demandeFormatter" data-sortable="true" data-checkbox="true">Demande</th>

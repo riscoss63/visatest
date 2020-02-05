@@ -12,12 +12,19 @@
 
 <div class="row">
     <div class="col-12">
-        <div class="col-3 float-left mt-5">
+        <div class="col-9 float-left mt-5">
                 <form method="post" action="{{ path('liste_reception_dossier') }}">
-                    <input type="text" id="reference" name="reference" placeholder="réference commande" class="form-control"/>
+                    <div class="row">
+                        <div class="col-6 p-0">
+                            <input type="text" id="reference" name="reference" required="true" placeholder="réference commande" class="form-control"/>
+                        </div>
+                        <div class="col-6">
+                            <button type="submit" class="btn btn-light border petite-taille"> Ajouter </button>
+                        </div>
+                    </div>
                 </form>
             </div>
-        <table data-toggle="table" data-url="{{ path('json_reception_dossier_visa_classic') }}" data-pagination="true" data-search="true" data-pagination: "true">
+        <table class="mt-5" data-toggle="table" data-url="{{ path('json_reception_dossier_visa_classic') }}" data-pagination="true" data-search="true" data-pagination: "true">
             <thead>
                 <tr>
                     <th data-field="demande" data-formatter="demandeFormatter" data-sortable="true">Demande</th>
@@ -46,8 +53,8 @@
         }
 
         function actionsFormatter(value, row, index){
-            return '<a href="'+Routing.generate('incomplet_visa_classic', {'id' : row.id})+'" class="btn btn-danger btn-sm mb-2" rel="modal:open">Incomplet</a><br/>'+
-                    '<a href="'+Routing.generate('complet_dossier_visa_classic', {'id' : row.id})+'" class="btn btn-success btn-sm mb-2" rel="modal:open">Complet</a>';
+            return '<a href="'+Routing.generate('incomplet_visa_classic', {'id' : row.id})+'" class="btn btn-light btn-sm mb-2" rel="modal:open">Incomplet</a><br/>'+
+                    '<a href="'+Routing.generate('complet_dossier_visa_classic', {'id' : row.id})+'" class="btn btn-light btn-sm mb-2" rel="modal:open">Complet</a>';
         }
 
         function booleanFormatter(value, row, index) {

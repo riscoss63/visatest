@@ -1,0 +1,24 @@
+{% extends "front_end/emails/base.html.twig" %}
+{% block email_title %}Rappel d'envoi de dossier{% endblock %}
+{% block email_body %}
+	<table style="border-collapse: collapse;" width="600" cellspacing="0" cellpadding="0">
+		<tr>
+			<td>
+				<p>
+					Bonjour {{ client.nom }} {{ client.prenom }},
+				</p>
+				<p>
+					Vous avez formulé une demande en ligne {{ demande.reference }} pour l'obtention d'un Evisa pour le pays : <strong>{{ demande.visaType.visaClassic.pays.titre }}</strong>.
+				</p>
+				<p>
+					Il semblerait toutefois que vous n'ayez pas envoyer votre dossier.
+				<p>
+					L'équipe de Evisa Application vous remercie de votre confiance et vous souhaite une agréable journée.
+				</p>
+				<p>
+					<strong>Visa-en-ligne.com</strong>
+				</p>
+			</td>
+		</tr>
+	</table>
+{% endblock %}

@@ -19,12 +19,12 @@ class EtatDossier
     /**
      * @ORM\Column(type="boolean", nullable=true)
      */
-    private $manquant;
+    private $manquant = null;
 
     /**
      * @ORM\Column(type="boolean", nullable=true)
      */
-    private $nonConforme;
+    private $nonConforme = null;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
