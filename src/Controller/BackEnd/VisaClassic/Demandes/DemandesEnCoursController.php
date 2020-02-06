@@ -115,6 +115,7 @@ class DemandesEnCoursController extends AbstractController
     public function receptionDossierJson() : Response
     {
         $demandes = $this->getDoctrine()->getRepository(Demande::class)->findAll();
+        $expeditionVisaClassic = [];
         foreach($demandes as $demande)
         {
             $visaClassic = $demande->getVisaType();
