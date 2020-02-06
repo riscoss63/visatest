@@ -121,6 +121,7 @@ class Voyageurs
     public function __construct()
     {
         $this->image = new EmbeddedFile();
+        $this->updatedAt= new \DateTime('now');
     }
 
     public function getId(): ?int

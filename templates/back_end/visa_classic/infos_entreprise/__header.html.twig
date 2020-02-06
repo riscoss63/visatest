@@ -1,7 +1,7 @@
-<nav class="nav">
+<nav class="nav my-4">
 
-    <a class="nav-link {% if app.request.attributes.get('_route') == 'infos_entreprise_visa_classic' %} active {% endif %}" href="{{ path('infos_entreprise_visa_classic')}}"><i class="fa fa-users-cog"></i>Informations générales</a>
-    <a class="nav-link {% if app.request.attributes.get('_route') == 'bon_de_commande_entreprise_visa_classic' %} active {% endif %}" href="{{ path('bon_de_commande_entreprise_visa_classic')}}"><i class="fa fa-users-cog"></i>Textes des bons de commandes</a>
-    <a class="nav-link {% if app.request.attributes.get('_route') == 'show_demandes_visa_classic' %} active {% endif %}" href="{{ path('show_demandes_visa_classic')}}"><i class="fa fa-users-cog"></i>Archives</a>
+    <a class="nav-link {% if app.request.attributes.get('_route') == 'infos_entreprise_visa_classic' %} active {% endif %}" href="{{ path('infos_entreprise_visa_classic')}}"><i class="fa fa-info"></i>Informations générales</a>
+    <a class="nav-link {% if app.request.attributes.get('_route') == 'bon_de_commande_entreprise_visa_classic' %} active {% endif %}" href="{{ path('bon_de_commande_entreprise_visa_classic')}}"><i class="fa fa-address-card"></i>Textes des bons de commandes</a>
+    <a class="nav-link {% if app.request.attributes.get('_route') == 'show_demandes_visa_classic' %} active {% endif %}" href="{{ path('show_demandes_visa_classic')}}"><i class="fa fa-envelope"></i>Gestionnaire d'emails(en cours de finalisation)</a>
 
 </nav>

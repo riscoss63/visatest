@@ -1,6 +1,6 @@
 <nav class="nav">
 
-    <a class="nav-link {% if app.request.attributes.get('_route') == 'show_demandes_visa_classic' %} active {% endif %}" href="{{ path('show_demandes_evisa')}}"><i class="fa fa-users-cog"></i>Demandes de visa classic</a>
+    <a class="nav-link {% if app.request.attributes.get('_route') == 'show_demandes_visa_classic' %} active {% endif %}" href="{{ path('show_demandes_visa_classic')}}"><i class="fa fa-users-cog"></i>Demandes de visa classic</a>
     <a class="nav-link {% if app.request.attributes.get('_route') == 'show_demande_en_cours_visa_classic' %} active {% endif %}" href="{{ path('show_demande_en_cours_visa_classic')}}"><i class="fa fa-users-cog"></i>Commandes en cours</a>
     <a class="nav-link {% if app.request.attributes.get('_route') == 'show_demandes_visa_classic' %} active {% endif %}" href="{{ path('show_demandes_visa_classic')}}"><i class="fa fa-users-cog"></i>Archives</a>
 

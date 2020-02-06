@@ -11,7 +11,7 @@
 
     <div class="row">
         <div class="col-12">
-            <table data-toggle="table" data-url="{{ path('json_visa_classic')}}" data-pagination="true" data-search="true" data-pagination: "true">
+            <table data-toggle="table" data-url="{{ path('json_visa_classic')}}" data-pagination="true" data-search="true" data-pagination: "true" >
                 <thead>
                     <tr>
                         <th data-field="pays.iso" data-sortable="true">Code ISO</th>
@@ -36,7 +36,7 @@
 
     {{ parent() }}
     <script>
-
+        
         function actionsFormatter(value, row, index){
             return '<a href="'+Routing.generate('edit_pays_visa_classic', {'id' : row.id})+'" title="Modifier"><i class="far fa-edit"></i></a>'+
             '<a href="'+Routing.generate('show_type_visa_classic', {'id' : row.id})+'" title="Modifier"><i class="fas fa-money-bill"></i></a>'+

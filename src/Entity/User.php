@@ -568,4 +568,9 @@ class User implements UserInterface
         return $this;
     }
 
+    public function __toString()
+    {
+        return strtoupper($this->nom). '-' .  ucfirst($this->prenom). '-' . $this->email .' ';
+    }
+
 }

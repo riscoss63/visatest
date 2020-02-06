@@ -183,6 +183,14 @@ th.sujetfaq .fht-cell {
     color: #007bff !important;
 }
 
+.select2 {
+    width: 100% !important;
+}
+
+.table td{
+    color: #646c9a;
+}
+
 /*PC*/
 @media screen and (min-width: 1024px) and (max-width: 1300px)
 { 

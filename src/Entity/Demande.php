@@ -118,10 +118,16 @@ class Demande
      */
     private $evisaSend;
 
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $quantiteAssurance;
+
     public function __construct()
     {
         $this->fraisComplementaire = new ArrayCollection();
         $this->voyageurs = new ArrayCollection();
+        $this->dateCreation= new \DateTime('now');
     }
 
     public function getId(): ?int
@@ -426,6 +432,18 @@ class Demande
     public function setEvisaSend(?EvisaSend $evisaSend): self
     {
         $this->evisaSend = $evisaSend;
+
+        return $this;
+    }
+
+    public function getQuantiteAssurance(): ?int
+    {
+        return $this->quantiteAssurance;
+    }
+
+    public function setQuantiteAssurance(?int $quantiteAssurance): self
+    {
+        $this->quantiteAssurance = $quantiteAssurance;
 
         return $this;
     }

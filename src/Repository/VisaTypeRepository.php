@@ -47,4 +47,20 @@ class VisaTypeRepository extends ServiceEntityRepository
         ;
     }
     */
+
+    
+    public function findVisaClassic()
+    {
+        $visasType = $this->findAll();
+        foreach($visasType as $visaType)
+        {
+            if($visaType->getVisaClassic())
+            {
+                $visasTypeClassic[] = $visaType ;
+            }
+        }
+        return $visasTypeClassic;
+    }
+    
+
 }

@@ -126,10 +126,10 @@ class DemandesController extends AbstractController
         $demandes = $this->getDoctrine()->getRepository(Demande::class)->findAll();
         foreach($demandes as $demande)
         {
-            $visaClassic = $demande->getVisaType();
+            $visaClassic = $demande->getVisaType()->getVisaClassic();
             $receptionDossier = $demande->getReceptionDossier();
 
-            if($visaClassic AND $receptionDossier)
+            if($visaClassic AND $receptionDossier AND $demande->getEtat() === 'reception')
             {
                 $ReceptionDossierVisaClassic[] = $receptionDossier;
             }
@@ -173,6 +173,7 @@ class DemandesController extends AbstractController
             {
                 $receptionDossier = new ReceptionDossier;
                 $receptionDossier->setIncomplet(true);
+                $demande->setEtat('reception');
                 $receptionDossier->setDemande($demande);
                 $manager->persist($receptionDossier);
                 $manager->flush();
@@ -255,7 +256,7 @@ class DemandesController extends AbstractController
         if($form->isSubmitted() AND $form->isValid())
         {
             $demande->setEtat('encours');
-
+            
             $transport = $demande->getTransport();
             if($transport->getCoursier() == true)
             {
@@ -270,19 +271,17 @@ class DemandesController extends AbstractController
                 $course = new Course;
                 $course->setNom($demande->getClient()->getNom());
                 $course->setPrenom($demande->getClient()->getPrenom());
-                $course->setAdresse($demande->getAdresse());
-                $course->setCodePostal($demande->getCodepostal());
-                $course->setVille($demande->getVille());
+                $course->setAdresse($demande->getClient()->getAdresse());
+                $course->setCodePostal($demande->getClient()->getCodepostal());
+                $course->setVille($demande->getClient()->getVille());
                 $course->setRealiser(false);
                 $course->setCoursier($coursier);
                 $course->setLivraison(true);
                 $course->setDemande($demande);
                 $course->setReference($reference);
                 $manager->persist($course);
-
-                
-
             }
+            
             $manager->persist($receptionDossier);
             $manager->flush();
             $client = $demande->getClient();

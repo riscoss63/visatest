@@ -56,6 +56,7 @@
             })
 
             $.post( Routing.generate('rappel_dossier_non_recu'), { choices : data }, function(){
+                event.preventDefault()
                 $("#success-alert").show();
                 setTimeout(function() { $("#success-alert").hide(); }, 5000);
             } );

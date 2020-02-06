@@ -1,0 +1,189 @@
+ <style>
+   .modal{
+       margin-top: 35px;
+       max-width: 1100px;
+       overflow: auto;
+   } 
+ </style>
+ 
+    {% form_theme form '/back_end/jquery.collection.html.twig' %}
+<script type="text/javascript" src="{{ asset('backend/js/jquery.collection.js') }}"></script>
+
+{{ form_start(form, {'action': path('add_commande_visa_classic'), 'method': 'POST'})}}
+
+
+<div class="row">
+    <h5 class=" m-auto col-8"><i class="fa fa-globe"></i> Nouvelle demande </h5>
+</div>
+
+<div class="row justify-content-center mt-5">
+    <div class="col-10">  
+
+        <button class="btn btn-light border add-user petite-taille"> Ajouter un nouveau utilisateur </button>  
+        <button class="btn btn-light border show-user petite-taille" style="display:none"> Utilisateur existant </button>
+
+        <div class="user-existant mt-4">
+            <h5 >Sélection <strong>utilisateur</strong></h5>
+            <div class="row form-group text-right  mt-3">
+                {{ form_label(form.client, 'Client', {'label_attr' : {'class': 'col-sm-2 col-form-label'}}) }}
+                <div class="input-group text-left col-sm-10">
+                    {{ form_widget(form.client) }}
+                </div>
+            </div>
+        </div>
+
+        <div class="inscription mt-4" style="display:none">
+            <h5>Nouveau <strong>utilisateur</strong></h5>
+            <div class="row form-group text-right">
+                {{ form_label(form.clientInscription.nom, 'Nom' , {'label_attr' : {'class': 'col-sm-2 col-form-label'}}) }}
+                <div class="input-group col-sm-4">
+                    {{ form_widget(form.clientInscription.nom) }}
+                </div>
+                {{ form_label(form.clientInscription.prenom, 'Prénom', {'label_attr' : {'class': 'col-sm-2 col-form-label'}}) }}
+                <div class="input-group col-sm-4">
+                    {{ form_widget(form.clientInscription.prenom) }}
+                </div>
+            </div>
+            <div class="row form-group text-right">
+                {{ form_label(form.clientInscription.email, 'Email', {'label_attr' : {'class': 'col-sm-2 col-form-label'}}) }}
+                <div class="input-group col-sm-10">
+                    {{ form_widget(form.clientInscription.email) }}
+                </div>
+            </div>
+            <div class="row form-group text-right">
+                {{ form_label(form.clientInscription.telephone, 'Téléphone', {'label_attr' : {'class': 'col-sm-2 col-form-label'}}) }}
+                <div class="input-group col-sm-10">
+                    {{ form_widget(form.clientInscription.telephone) }}
+                </div>
+            </div>
+            <div class="row form-group text-right">
+                {{ form_label(form.clientInscription.adresse, 'Adresse', {'label_attr' : {'class': 'col-sm-2 col-form-label'}}) }}
+                <div class="input-group col-sm-10">
+                    {{ form_widget(form.clientInscription.adresse) }}
+                </div>
+            </div>
+            <div class="row form-group text-right">
+                {{ form_label(form.clientInscription.codePostal, 'Code postal', {'label_attr' : {'class': 'col-sm-2 col-form-label'}}) }}
+                <div class="input-group col-sm-10">
+                    {{ form_widget(form.clientInscription.codePostal) }}
+                </div>
+            </div>
+            <div class="row form-group text-right">
+                {{ form_label(form.clientInscription.ville, 'Ville', {'label_attr' : {'class': 'col-sm-2 col-form-label'}}) }}
+                <div class="input-group col-sm-10">
+                    {{ form_widget(form.clientInscription.ville) }}
+                </div>
+            </div>
+        </div>
+
+        <h5>Informations <strong>spécifiques</strong></h5>
+        <div class="row form-group text-right">
+            {{ form_label(form.visaType, 'Type de Visa', {'label_attr' : {'class': 'col-sm-2 col-form-label'}}) }}
+            <div class="input-group text-left col-sm-10">
+                {{ form_widget(form.visaType) }}
+            </div>
+        </div>
+
+        <h5>Commande</h5>
+        <div class="row form-group text-right mb-5">
+            {{ form_label(form.entre, 'Date de départ', {'label_attr' : {'class': 'col-sm-2 col-form-label'}}) }}
+            <div class="input-group col-sm-10">
+                {{ form_widget(form.entre) }}
+            </div>
+        </div>
+        <div class="row form-group text-right mb-5">
+            {{ form_label(form.sortie, 'Date de retour', {'label_attr' : {'class': 'col-sm-2 col-form-label'}}) }}
+            <div class="input-group col-sm-10">
+                {{ form_widget(form.sortie) }}
+            </div>
+        </div>
+        <div class="row form-group text-right mb-5">
+            {{ form_label(form.urgent, 'Urgent', {'label_attr' : {'class': 'col-sm-2 col-form-label'}}) }}
+            <div class="input-group col-sm-10">
+                {{ form_widget(form.urgent) }}
+            </div>
+        </div>
+
+        <h5>Informations de <strong>livraison</strong></h5>
+        <div class="row form-group text-right mb-5">
+            {{ form_label(form.transport, 'Mode de réception du visa classic', {'label_attr' : {'class': 'col-sm-2 col-form-label'}}) }}
+            <div class="input-group col-sm-10">
+                {{ form_widget(form.transport) }}
+            </div>
+        </div>
+
+        <h5>Gestion des <strong>voyageurs</strong></h5>
+        {{form_widget(form.voyageurs)}}
+
+        <h5>Informations <strong>assurances</strong></h5>
+        <div class="row form-group text-right mb-5">
+            {{ form_label(form.assurance, 'Assurance', {'label_attr' : {'class': 'col-sm-2 col-form-label'}}) }}
+            <div class="input-group col-sm-10">
+                {{ form_widget(form.assurance) }}
+            </div>
+        </div>
+        <div class="row form-group text-right mb-5">
+            {{ form_label(form.quantiteAssurance, 'Nombre d\'assurance', {'label_attr' : {'class': 'col-sm-2 col-form-label'}}) }}
+            <div class="input-group col-sm-10">
+                {{ form_widget(form.quantiteAssurance) }}
+            </div>
+        </div>
+
+        <h5>Gestion des prix</h5>
+        {{form_widget(form.fraisComplementaire)}}
+        <button type="submit" class="btn btn-enregistrer"><i class="fas fa-save"></i> Enregistrer </button>
+        {{ form_widget(form._token)}}
+        {{ form_end(form, {'render_rest': false})}}
+    </div>
+</div>
+
+<link href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" rel="stylesheet" />
+<script type="text/javascript">
+    $('.my-selector').collection({
+        up: '<a href="#" class="btn btn-default"><span class="fas fa-arrow-circle-up"></span></a>',
+        down: '<a href="#" class="btn btn-default"><i class="fas fa-arrow-alt-circle-down"></i></a>',
+        add: '<a href="#" class="btn btn-default"><i class="fas fa-plus-circle"></i></a>',
+        remove: '<a href="#" class="btn btn-default"><i class="fas fa-trash-alt"></i></a>'
+    });
+    $('.my-selector2').collection({
+        up: '<a href="#" class="btn btn-default"><span class="fas fa-arrow-circle-up"></span></a>',
+        down: '<a href="#" class="btn btn-default"><i class="fas fa-arrow-alt-circle-down"></i></a>',
+        add: '<a href="#" class="btn btn-default"><i class="fas fa-plus-circle"></i></a>',
+        remove: '<a href="#" class="btn btn-default"><i class="fas fa-trash-alt"></i></a>'
+    });
+</script>
+<script>
+    // In your Javascript (external .js resource or <script> tag)
+    $(document).ready(function() {
+        $('#nouvelle_demande_client').select2({
+            placeholder:'Choisir un client',
+            allowClear: true
+
+        });
+    });
+
+    $(document).ready(function() {
+        $('#nouvelle_demande_visaType').select2({
+            placeholder:'Choisir un type de visa',
+            allowClear: true
+        });
+    });
+
+    
+    var showUser = $('.show-user');
+    var addUser = $('.add-user');
+
+    showUser.on('click', function() {
+        $('.user-existant').show()
+        $('.inscription').hide()
+        addUser.show()
+        showUser.hide()
+    })
+
+    addUser.on('click', function() {
+        $('.inscription').show()
+        $('.user-existant').hide()
+        addUser.hide()
+        showUser.show()
+    })
+</script>

@@ -92,7 +92,7 @@ class VisaClassicController extends AbstractController
             $manager->flush();
         }
 
-        return $this->render('/back_end/evisa/infos_entreprise/bon_de_commande_entreprise_edit.html.twig', [
+        return $this->render('/back_end/visa_classic/infos_entreprise/bon_de_commande_entreprise_edit.html.twig', [
             'form'      => $form->createView()
         ]);
     }

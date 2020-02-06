@@ -26,12 +26,12 @@ class ReceptionDossier
     /**
      * @ORM\Column(type="boolean", nullable=true)
      */
-    private $complet;
+    private $complet = false;
 
     /**
      * @ORM\Column(type="boolean", nullable=true)
      */
-    private $incomplet;
+    private $incomplet = false;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\EtatDossier", mappedBy="receptionDossier", cascade={"persist", "remove"})
