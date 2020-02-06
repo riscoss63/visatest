@@ -118,7 +118,7 @@ class DemandesEnCoursController extends AbstractController
         $expeditionVisaClassic = [];
         foreach($demandes as $demande)
         {
-            $visaClassic = $demande->getVisaType();
+            $visaClassic = $demande->getVisaType()->getVisaClassic();
             $expedition = $demande->getExpedition();
 
             if($visaClassic AND $expedition AND $expedition->getDemande()->getTransport()->getCoursier() === false)
@@ -228,7 +228,7 @@ class DemandesEnCoursController extends AbstractController
         {
             //Si faut crée le client
             $userAdd=$form->get('clientInscription')->getData();
-            if(isset($userAdd))
+            if($userAdd->getEmail() !== null)
             {
                     //On crée un mdp aleatoire
                 $random = random_int(10, 15);
