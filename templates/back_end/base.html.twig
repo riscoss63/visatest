@@ -132,6 +132,8 @@
                                                         or app.request.attributes.get('_route') == 'del_formulaire_officiel'
                                                         or app.request.attributes.get('_route') == 'show_volet_infos_visa_classic'
                                                         or app.request.attributes.get('_route') == 'edit_tarif_transport_visa_classic'
+                                                        or app.request.attributes.get('_route') == 'edit_mode_expedition'
+                                                        or app.request.attributes.get('_route') == 'edit_notre_service'
                                                     %}        
                                                         active 
                                                     {% endif %}" href="{{ path('infos_entreprise_visa_classic')}}" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa"> VC </i> Visa classic
@@ -168,6 +170,8 @@
                                                         or app.request.attributes.get('_route') == 'del_formulaire_officiel'
                                                         or app.request.attributes.get('_route') == 'show_volet_infos_visa_classic'
                                                         or app.request.attributes.get('_route') == 'edit_tarif_transport_visa_classic'
+                                                        or app.request.attributes.get('_route') == 'edit_mode_expedition'
+                                                        or app.request.attributes.get('_route') == 'edit_notre_service'
                                                     %}
                                                         show
                                                     {% endif %}" 
@@ -178,6 +182,8 @@
                                                         {% if 
                                                             app.request.attributes.get('_route') == 'infos_entreprise_visa_classic' 
                                                             or app.request.attributes.get('_route') == 'bon_de_commande_entreprise_visa_classic' 
+                                                            or app.request.attributes.get('_route') == 'edit_mode_expedition'
+                                                            or app.request.attributes.get('_route') == 'edit_notre_service'
                                                         %} 
                                                             active 
                                                         {% endif %}" href="{{ path('infos_entreprise_visa_classic')}}"><i class="fa fa-building"></i> Infos Entreprise</a>

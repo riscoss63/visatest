@@ -179,38 +179,19 @@ class VisaClassicController extends AbstractController
     }
 
     /**
-     * @Route("/add/mode-expedition/visa-classic-{id}", name="add_mode_expedition")
+     * @Route("/edit/mode-expedition/visa-classic", name="edit_mode_expedition")
      */
-    public function modeDexpeditionAdd(Request $request, $id, EntityManagerInterface $manager) : Response
-    {   
-        $visa = $this->getDoctrine()->getRepository(VisaClassic::class)->find($id);
-
-        $modeExpedition = new ModeExpedition;
-        $modeExpedition->setVisaClassic($visa);
-
-        $form = $this->createForm(ModeExpeditionType::class, $modeExpedition);
-        $form->handleRequest($request);
-
-        if($form->isSubmitted() AND $form->isValid())
-        {
-            $manager->persist($modeExpedition);
-            $manager->flush();
-            return $this->redirectToRoute('edit_mode_expedition', [
-                'id'        =>$modeExpedition->getId()
-            ]);
-        }
-        return $this->render('/back_end/visa_classic/rubrique/edit_mode_expedition.html.twig', [
-            'form'      => $form->createView()
-        ]);
-    }
-
-    /**
-     * @Route("/edit/mode-expedition-{id}/visa-classic", name="edit_mode_expedition")
-     */
-    public function modeDexpeditionEdit(Request $request, $id, EntityManagerInterface $manager) : Response
+    public function modeDexpeditionEdit(Request $request, EntityManagerInterface $manager) : Response
     {
-        $modeExpedition = $this->getDoctrine()->getRepository(ModeExpedition::class)->find($id);
-
+        $modeExpedition = $this->getDoctrine()->getRepository(ModeExpedition::class)->findOneBy([
+            'visaClassic'       => true
+        ]);
+        
+        if(!$modeExpedition)
+        {
+            $modeExpedition = new ModeExpedition;
+            $modeExpedition->setVisaClassic(true);
+        }
         $form = $this->createForm(ModeExpeditionType::class, $modeExpedition);
         $form->handleRequest($request);
 
@@ -226,37 +207,19 @@ class VisaClassicController extends AbstractController
     }
 
     /**
-     * @Route("/add/notre-service/visa-classic-{id}", name="add_notre_service")
+     * @Route("/edit/notre-service/visa-classic", name="edit_notre_service")
      */
-    public function notreServiceAdd(Request $request, $id, EntityManagerInterface $manager) : Response
-    {   
-        $visa = $this->getDoctrine()->getRepository(VisaClassic::class)->find($id);
-
-        $notreService = new NotreService;
-        $notreService->setVisaClassic($visa);
-
-        $form = $this->createForm(NotreServiceType::class, $notreService);
-        $form->handleRequest($request);
-
-        if($form->isSubmitted() AND $form->isValid())
-        {
-            $manager->persist($notreService);
-            $manager->flush();
-            return $this->redirectToRoute('edit_notre_service', [
-                'id'        =>$notreService->getId()
-            ]);
-        }
-        return $this->render('/back_end/visa_classic/rubrique/edit_notre_service.html.twig', [
-            'form'      => $form->createView()
-        ]);
-    }
-
-    /**
-     * @Route("/edit/notre-service-{id}/visa-classic", name="edit_notre_service")
-     */
-    public function notreServiceEdit(Request $request, $id, EntityManagerInterface $manager) : Response
+    public function notreServiceEdit(Request $request, EntityManagerInterface $manager) : Response
     {
-        $notreService = $this->getDoctrine()->getRepository(NotreService::class)->find($id);
+        $notreService = $this->getDoctrine()->getRepository(NotreService::class)->findOneBy([
+            'visaClassic'       => true
+        ]);
+        
+        if(!$notreService)
+        {
+            $notreService = new NotreService;
+            $notreService->setVisaClassic(true);
+        }
 
         $form = $this->createForm(NotreServiceType::class, $notreService);
         $form->handleRequest($request);

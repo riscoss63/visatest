@@ -1,9 +1,34 @@
 {% extends "back_end/base.html.twig" %}
 
 {% block menu_header %}
-    {% include "back_end/visa_classic/__header.html.twig" %}
+    {% include "back_end/visa_classic/infos_entreprise/__header.html.twig" %}
 {% endblock %}
 
 {% block contenu %}
-    {{ form(form)}}
+{{form_start(form)}}
+
+<div class="row">
+    <h5 class=" m-auto col-8"><i class="fa fa-globe"></i> Mode d'expedition </h5>
+    <div class="col-4 text-right pr-5">
+        <button type="submit" class="btn btn-enregistrer"><i class="fas fa-save"></i> Enregistrer </a>
+    </div>
+</div>
+<div class="row justify-content-center mt-5">
+    <div class="col-10 text-center">    
+                
+        <div class="row form-group text-right">
+            {{ form_label(form.contenu, 'Contenu', {'label_attr' : {'class': 'col-sm-2 col-form-label'}}) }}
+            <div class="input-group col-sm-10">
+                {{ form_widget(form.contenu) }}
+            </div>
+        </div>    
+        <ul class="sticky-toolbar">
+            <li class="toolbar-items">
+                <button type="submit" class="btn btn-enregistrer"><i class="fas fa-save"></i> </a>
+            </li>
+        </ul>
+        {{form_widget(form._token)}}
+    {{ form_end(form, {'render_rest': false})}}
+    </div>
+</div>
 {% endblock %}

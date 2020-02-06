@@ -22,17 +22,17 @@ class ModeExpedition
     private $contenu;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\VisaClassic", mappedBy="modeExpedition", cascade={"persist", "remove"})
+     * @ORM\Column(type="boolean", nullable=true)
      */
     private $visaClassic;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\EVisa", mappedBy="modeExpedition", cascade={"persist", "remove"})
+     * @ORM\Column(type="boolean", nullable=true)
      */
-    private $eVisa;
+    private $evisa;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\CarteTourisme", mappedBy="modeExpedition", cascade={"persist", "remove"})
+     * @ORM\Column(type="boolean", nullable=true)
      */
     private $carteTourisme;
 
@@ -53,57 +53,40 @@ class ModeExpedition
         return $this;
     }
 
-    public function getVisaClassic(): ?VisaClassic
+    public function getVisaClassic(): ?bool
     {
         return $this->visaClassic;
     }
 
-    public function setVisaClassic(?VisaClassic $visaClassic): self
+    public function setVisaClassic(?bool $visaClassic): self
     {
         $this->visaClassic = $visaClassic;
 
-        // set (or unset) the owning side of the relation if necessary
-        $newModeExpedition = null === $visaClassic ? null : $this;
-        if ($visaClassic->getModeExpedition() !== $newModeExpedition) {
-            $visaClassic->setModeExpedition($newModeExpedition);
-        }
+        return $this;
+    }
+
+    public function getEvisa(): ?bool
+    {
+        return $this->evisa;
+    }
+
+    public function setEvisa(?bool $evisa): self
+    {
+        $this->evisa = $evisa;
 
         return $this;
     }
 
-    public function getEVisa(): ?EVisa
-    {
-        return $this->eVisa;
-    }
-
-    public function setEVisa(?EVisa $eVisa): self
-    {
-        $this->eVisa = $eVisa;
-
-        // set (or unset) the owning side of the relation if necessary
-        $newModeExpedition = null === $eVisa ? null : $this;
-        if ($eVisa->getModeExpedition() !== $newModeExpedition) {
-            $eVisa->setModeExpedition($newModeExpedition);
-        }
-
-        return $this;
-    }
-
-    public function getCarteTourisme(): ?CarteTourisme
+    public function getCarteTourisme(): ?bool
     {
         return $this->carteTourisme;
     }
 
-    public function setCarteTourisme(?CarteTourisme $carteTourisme): self
+    public function setCarteTourisme(?bool $carteTourisme): self
     {
         $this->carteTourisme = $carteTourisme;
 
-        // set (or unset) the owning side of the relation if necessary
-        $newModeExpedition = null === $carteTourisme ? null : $this;
-        if ($carteTourisme->getModeExpedition() !== $newModeExpedition) {
-            $carteTourisme->setModeExpedition($newModeExpedition);
-        }
-
         return $this;
     }
+    
 }

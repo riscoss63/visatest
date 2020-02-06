@@ -59,16 +59,6 @@ class CarteTourisme
     private $voletsInfos;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\ModeExpedition", inversedBy="carteTourisme", cascade={"persist", "remove"})
-     */
-    private $modeExpedition;
-
-    /**
-     * @ORM\OneToOne(targetEntity="App\Entity\NotreService", inversedBy="carteTourisme", cascade={"persist", "remove"})
-     */
-    private $notreService;
-
-    /**
      * @ORM\OneToMany(targetEntity="App\Entity\Actualite", mappedBy="carteTourisme")
      */
     private $actualites;
@@ -215,30 +205,6 @@ class CarteTourisme
                 $voletsInfo->setCarteTourisme(null);
             }
         }
-
-        return $this;
-    }
-
-    public function getModeExpedition(): ?ModeExpedition
-    {
-        return $this->modeExpedition;
-    }
-
-    public function setModeExpedition(?ModeExpedition $modeExpedition): self
-    {
-        $this->modeExpedition = $modeExpedition;
-
-        return $this;
-    }
-
-    public function getNotreService(): ?NotreService
-    {
-        return $this->notreService;
-    }
-
-    public function setNotreService(?NotreService $notreService): self
-    {
-        $this->notreService = $notreService;
 
         return $this;
     }

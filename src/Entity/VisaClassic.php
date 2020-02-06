@@ -92,16 +92,6 @@ class VisaClassic
     private $doccumentsSupplementaire;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\ModeExpedition", inversedBy="visaClassic", cascade={"persist", "remove"})
-     */
-    private $modeExpedition;
-
-    /**
-     * @ORM\OneToOne(targetEntity="App\Entity\NotreService", inversedBy="visaClassic", cascade={"persist", "remove"})
-     */
-    private $notreService;
-
-    /**
      * @ORM\OneToMany(targetEntity="App\Entity\Actualite", mappedBy="visaClassic", cascade={"persist", "remove"})
      */
     private $actualites;
@@ -110,6 +100,11 @@ class VisaClassic
      * @ORM\OneToMany(targetEntity="App\Entity\CategorieVisa", mappedBy="visaClassic")
      */
     private $categorieVisas;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $instruction;
 
 
     public function __construct()
@@ -333,30 +328,6 @@ class VisaClassic
         return $this;
     }
 
-    public function getModeExpedition(): ?ModeExpedition
-    {
-        return $this->modeExpedition;
-    }
-
-    public function setModeExpedition(?ModeExpedition $modeExpedition): self
-    {
-        $this->modeExpedition = $modeExpedition;
-
-        return $this;
-    }
-
-    public function getNotreService(): ?NotreService
-    {
-        return $this->notreService;
-    }
-
-    public function setNotreService(?NotreService $notreService): self
-    {
-        $this->notreService = $notreService;
-
-        return $this;
-    }
-
     /**
      * @return Collection|Actualite[]
      */
@@ -420,6 +391,18 @@ class VisaClassic
                 $categorieVisa->setVisaClassic(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getInstruction(): ?string
+    {
+        return $this->instruction;
+    }
+
+    public function setInstruction(?string $instruction): self
+    {
+        $this->instruction = $instruction;
 
         return $this;
     }

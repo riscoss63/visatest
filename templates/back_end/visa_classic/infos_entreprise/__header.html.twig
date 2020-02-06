@@ -3,5 +3,7 @@
     <a class="nav-link {% if app.request.attributes.get('_route') == 'infos_entreprise_visa_classic' %} active {% endif %}" href="{{ path('infos_entreprise_visa_classic')}}"><i class="fa fa-info"></i>Informations générales</a>
     <a class="nav-link {% if app.request.attributes.get('_route') == 'bon_de_commande_entreprise_visa_classic' %} active {% endif %}" href="{{ path('bon_de_commande_entreprise_visa_classic')}}"><i class="fa fa-address-card"></i>Textes des bons de commandes</a>
     <a class="nav-link {% if app.request.attributes.get('_route') == 'show_demandes_visa_classic' %} active {% endif %}" href="{{ path('show_demandes_visa_classic')}}"><i class="fa fa-envelope"></i>Gestionnaire d'emails(en cours de finalisation)</a>
+    <a class="nav-link {% if app.request.attributes.get('_route') == 'edit_mode_expedition' %} active {% endif %}" href="{{ path('edit_mode_expedition')}}"><i class="fa fa-info"></i>Mode d'expedition</a>
+    <a class="nav-link {% if app.request.attributes.get('_route') == 'edit_notre_service' %} active {% endif %}" href="{{ path('edit_notre_service')}}"><i class="fa fa-info"></i>Notre service</a>
 
 </nav>

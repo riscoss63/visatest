@@ -20,6 +20,11 @@ class ModeExpeditionType extends AbstractType
                 'label'     => 'contenu du doccument',
                 'required'  => false,
             ])
+            ->add('submit', SubmitType::class, [
+                'attr'      => [
+                    'class'     => 'form-control'
+                ]
+            ])
         ;
     }
 

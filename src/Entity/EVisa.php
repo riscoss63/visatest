@@ -87,16 +87,6 @@ class EVisa
     private $voletInfos;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\NotreService", inversedBy="eVisa", cascade={"persist", "remove"})
-     */
-    private $notreService;
-
-    /**
-     * @ORM\OneToOne(targetEntity="App\Entity\ModeExpedition", inversedBy="eVisa", cascade={"persist", "remove"})
-     */
-    private $modeExpedition;
-
-    /**
      * @ORM\OneToMany(targetEntity="App\Entity\Actualite", mappedBy="evisa", cascade={"persist", "remove"})
      */
     private $actualites;
@@ -290,34 +280,10 @@ class EVisa
 
         return $this;
     }
-
-    public function getNotreService(): ?NotreService
-    {
-        return $this->notreService;
-    }
-
-    public function setNotreService(?NotreService $notreService): self
-    {
-        $this->notreService = $notreService;
-
-        return $this;
-    }
-
+    
     public function getTitre() : ?string
     {
         return $this->getPays()->getTitre();
-    }
-
-    public function getModeExpedition(): ?ModeExpedition
-    {
-        return $this->modeExpedition;
-    }
-
-    public function setModeExpedition(?ModeExpedition $modeExpedition): self
-    {
-        $this->modeExpedition = $modeExpedition;
-
-        return $this;
     }
 
     /**

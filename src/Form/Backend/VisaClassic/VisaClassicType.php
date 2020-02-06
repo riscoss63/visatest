@@ -60,6 +60,9 @@ class VisaClassicType extends AbstractType
             ->add('communique', CKEditorType::class, [
                 'label'     => 'Communiqué sous image d\'illustration'
             ])
+            ->add('instruction', CKEditorType::class, [
+                'label'     => 'Instructions fin de commande'
+            ])
             ->add('submit', SubmitType::class, [
                 'attr'  => [
                     'class'     => 'mt-3 form-control btn btn-primary'
