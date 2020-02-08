@@ -9,29 +9,31 @@
 <div class="row">
     <h5 class=" m-auto col-8"><i class="fa fa-users-cog"></i>Réception dossier</h5>
 </div>
+    <div class="alert alert-success" id="success-alert-reception" style="display:none"> Commande ajouter</div>
+    <div class="alert alert-danger" id="error-alert-reception" style="display:none"> Commande inexistante</div>
+    <div class="alert alert-success" id="success-alert-complet" style="display:none"> Commande complete</div>
+    <div class="alert alert-danger" id="error-alert-complet" style="display:none"> Commande inexistante</div>
 
 <div class="row">
     <div class="col-12">
         <div class="col-9 float-left mt-5">
-                <form method="post" action="{{ path('liste_reception_dossier') }}">
-                    <div class="row">
-                        <div class="col-6 p-0">
-                            <input type="text" id="reference" name="reference" required="true" placeholder="réference commande" class="form-control"/>
-                        </div>
-                        <div class="col-6">
-                            <button type="submit" class="btn btn-light border petite-taille"> Ajouter </button>
-                        </div>
-                    </div>
-                </form>
+            <div class="row">
+                <div class="col-6 p-0">
+                    <input type="text" id="reference" name="reference" required="true" placeholder="réference commande" class="form-control"/>
+                </div>
+                <div class="col-6">
+                    <button type="submit" id="send" class="btn btn-enregistrer"><i class="fas fa-save"></i> Enregistrer </a>
+                </div>
             </div>
-        <table class="mt-5" data-toggle="table" data-url="{{ path('json_reception_dossier_visa_classic') }}" data-pagination="true" data-search="true" data-pagination: "true">
+        </div>
+        <table class="mt-5" id="table-reception" data-toggle="table" data-url="{{ path('json_reception_dossier_visa_classic') }}" data-pagination="true" data-search="true" data-pagination: "true">
             <thead>
                 <tr>
                     <th data-field="demande" data-formatter="demandeFormatter" data-sortable="true">Demande</th>
                     <th data-field="demande.dateCreation.timestamp" data-formatter="dateFormatter" data-sortable="true">Date de création</th>
                     <th data-field="demande" data-formatter="" data-sortable="true">Paiement</th>
                     <th data-field="prestations" data-formatter="prestationsFormatter" data-sortable="true">Prestations</th>
-                    <th data-field="edit" data-formatter="actionsFormatter">Editer</th>
+                    <th data-field="edit" data-formatter="actionsFormatter" data-events="operateEvents">Editer</th>
                 </tr>
             </thead>
         </table>
@@ -40,6 +42,50 @@
 
 
     <script>
+        var table  = $('#table-reception');
+
+        $(function() {
+            $('button#send').click(function () {
+                var data = $('input[name="reference"]').val()
+                
+                var post = $.post( Routing.generate('liste_reception_dossier'), { reference : data }, function(){
+                    event.preventDefault()
+                } );
+                post.done(function() {
+                    $("#success-alert-reception").show();
+                    setTimeout(function() { $("#success-alert-reception").hide(); }, 5000);
+                    table.bootstrapTable('refresh')
+                })
+                post.fail(function() {
+                    $("#error-alert-reception").show();
+                    setTimeout(function() { $("#error-alert-reception").hide(); }, 5000);
+                    table.bootstrapTable('refresh')
+                })
+            })
+        }) ;
+
+        window.operateEvents = {
+            'click .complet': function (e, value, row, index) {
+                var data = $(`select#${row.id} option:selected`).val()
+                console.log(data)
+
+                var post = $.post( Routing.generate('complet_dossier_visa_classic'), { date : data, id : row.id }, function(){
+                    event.preventDefault()
+                });
+                post.done(function() {
+                    $("#success-alert-complet").show();
+                    setTimeout(function() { $("#success-alert-complet").hide(); }, 5000);
+                    table.bootstrapTable('refresh')
+                })
+                post.fail(function() {
+                    $("#error-alert-complet").show();
+                    setTimeout(function() { $("#error-alert-complet").hide(); }, 5000);
+                })
+                    
+            },
+        }
+
+        
 
         function demandeFormatter(value, row, index) {
             return 'Réference : <strong>'+row["demande"]["reference"]+'</strong><br/>  '+
@@ -52,9 +98,19 @@
                     
         }
 
-        function actionsFormatter(value, row, index){
+        function actionsFormatter(value, row, index){            
             return '<a href="'+Routing.generate('incomplet_visa_classic', {'id' : row.id})+'" class="btn btn-light btn-sm mb-2" rel="modal:open">Incomplet</a><br/>'+
-                    '<a href="'+Routing.generate('complet_dossier_visa_classic', {'id' : row.id})+'" class="btn btn-light btn-sm mb-2" rel="modal:open">Complet</a>';
+                    '<a href="javascript:void(0)" id="'+row.id+'" class="btn btn-light btn-sm complet mb-2">Complet</a>'+
+                    '<select class="form-control" id="'+row.id+'" name="complet_reception['+row.id+']">'+
+                    '<option value="1">2 heures</option>'+
+                    '<option value="2">4 heures</option>'+
+                    '<option value="3">24 heures</option>'+
+                    '<option value="4">2 jours</option>'+
+                    '<option value="5">3 jours</option>'+
+                    '<option value="6">4 jours</option>'+
+                    '<option value="7">7 jours</option>'+
+                    '</select>';
+                    
         }
 
         function booleanFormatter(value, row, index) {

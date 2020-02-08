@@ -9,6 +9,9 @@
     <div class="row">
         <h5 class=" m-auto col-8"><i class="fa fa-users-cog"></i>Demandes</h5>
     </div>
+    <div class="alert alert-success" id="success-alert" style="display:none"> Commande ajouter</div>
+    <div class="alert alert-success" id="success-alert-del" style="display:none"> Commande supprimer</div>
+    <div class="alert alert-danger" id="error-alert" style="display:none"> Veuillez selectionner une demande valide</div>
 
 
     <div class="row">
@@ -16,14 +19,15 @@
             <div class="col-12 float-left mt-5">
                 <a href="{{path('liste_reception_dossier')}}" class="btn btn-white petite-taille border" rel="modal:open"><i class="fas fa-motorcycle"></i> {{ nbDeCourse }} Course(s) </a>
             </div>
-            <div class="col-3 float-left mt-5">
+            <div class="col-5 float-left mt-5">
                 <a href="{{path('liste_reception_dossier')}}" class="btn btn-light petite-taille border" rel="modal:open"> Réception de dossiers </a>
                 <a href="{{path('rappel_dossier_non_recu')}}" class="btn btn-light petite-taille border" rel="modal:open"> Rappel </a>
+                <a href="#" id="delete" class="btn btn-light petite-taille border"> Supprimer </a>
             </div>
-            <table class="mt-5" data-toggle="table" data-url="{{ path('json_demandes_visa_classic') }}" data-pagination="true" data-search="true" data-pagination: "true">
+            <table class="mt-5" id="table-demandes" data-toggle="table" data-url="{{ path('json_demandes_visa_classic') }}" data-pagination="true" data-search="true" data-pagination: "true"   data-single-select="true"  data-click-to-select="true" >
                 <thead>
                     <tr>
-                        <th data-field="demande" data-formatter="demandeFormatter" data-sortable="true" >Demande</th>
+                        <th data-field="demande" data-formatter="demandeFormatter" data-sortable="true" data-checkbox="true">Demande</th>
                         <th data-field="dateCreation.timestamp" data-formatter="dateFormatter" data-sortable="true">Date de création</th>
                         <th data-field="demande" data-formatter="" data-sortable="true">Paiement</th>
                         <th data-field="prestations" data-formatter="prestationsFormatter" data-sortable="true">Prestations</th>
@@ -40,10 +44,43 @@
 
     {{ parent() }}
     <script>
+        var table =$('#table-demandes');
+        var button = $('#delete');
+        $(function() {
+            button.click(function(event) {
+                  event.preventDefault()
+                var data = JSON.stringify(table.bootstrapTable('getSelections'));
+                jsonData = JSON.parse(data);
+                objet = jsonData[0];
+                if(objet) {
+                    var post = $.post( Routing.generate('del_demande_visa_classic'), { id : objet.id }, function(){
+                        event.preventDefault()
+                    } );
+                    post.done(function() {
+                        $("#success-alert-del").show();
+                        setTimeout(function() { $("#success-alert-del").hide(); }, 5000);
+                        table.bootstrapTable('refresh')
+                    })
+                    post.fail(function() {
+                        $("#error-alert").show();
+                        setTimeout(function() { $("#error-alert").hide(); }, 5000);
+                        table.bootstrapTable('refresh')
+                    })
+                }
+                if(objet == null) {
+                    this.href = '#';
+                    $("#error-alert").show();
+                    setTimeout(function() { $("#danger-alert").hide(); }, 4500);
+                }
+            })
+        })
 
         function demandeFormatter(value, row, index) {
-            return 'Réference : <strong>'+row["reference"]+'</strong><br/>  '+
-                    '<strong>' + row["client"]["email"] + '</strong>';
+            var nom = row["client"]["nom"]
+            var prenom = row["client"]["prenom"]
+            return  '<br/>Réference : <strong>'+row["reference"]+'</strong><br/>  '+
+                    '<strong>' + prenom.charAt(0).toUpperCase() + prenom.slice(1) + ' '+nom.charAt(0).toUpperCase() + nom.slice(1)+'</strong><br/>'+
+                    row["client"]["pays"]+' / '+row["client"]["codePostal"];
         }
 
         function prestationsFormatter(value, row, index) {
@@ -56,7 +93,7 @@
         }
 
         function actionsFormatter(value, row, index){
-            return '<a href="'+Routing.generate('edit_demandes_visa_classic', {'id' : row.id})+'" title="Modifier" rel="modal:open"><i class="far fa-edit"> Editer </i></a>';
+            return '<a href="'+Routing.generate('edit_demandes_visa_classic', {'id' : row.id})+'" title="Modifier" rel="modal:open"><i class="far fa-edit"></i></a>';
         }
 
         function booleanFormatter(value, row, index) {

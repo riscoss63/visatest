@@ -75,7 +75,7 @@ class Voyageurs
     /**
      * NOTE: This is not a mapped field of entity metadata, just a simple property.
      * 
-     * @Vich\UploadableField(mapping="passeport", fileNameProperty="passeport.name", size="passeport.size", mimeType="passeport.mimeType", originalName="passeport.originalName", dimensions="passeport.dimensions")
+     * @Vich\UploadableField(mapping="passeport", fileNameProperty="imagePasseport.name", size="imagePasseport.size", mimeType="imagePasseport.mimeType", originalName="imagePasseport.originalName", dimensions="imagePasseport.dimensions")
      * 
      * @var File
      */
@@ -84,21 +84,36 @@ class Voyageurs
     /**
      * NOTE: This is not a mapped field of entity metadata, just a simple property.
      * 
-     * @Vich\UploadableField(mapping="photoIdentite", fileNameProperty="identite.name", size="identite.size", mimeType="identite.mimeType", originalName="identite.originalName", dimensions="identite.dimensions")
+     * @Vich\UploadableField(mapping="photoIdentite", fileNameProperty="image.name", size="image.size", mimeType="image.mimeType", originalName="image.originalName", dimensions="image.dimensions")
      * 
      * @var File
      */
     private $photoIdentiteFile;
+    
 
     /**
      * NOTE: This is not a mapped field of entity metadata, just a simple property.
      * 
-     * @Vich\UploadableField(mapping="evisaAttestation", fileNameProperty="evisa.name", size="evisa.size", mimeType="evisa.mimeType", originalName="evisa.originalName", dimensions="evisa.dimensions")
+     * @Vich\UploadableField(mapping="evisaAttestation", fileNameProperty="imageEvisa.name", size="imageEvisa.size", mimeType="imageEvisa.mimeType", originalName="imageEvisa.originalName", dimensions="imageEvisa.dimensions")
      * 
      * @var File
      */
     private $evisaFile;
 
+    /**
+     * @ORM\Embedded(class="Vich\UploaderBundle\Entity\File")
+     *
+     * @var EmbeddedFile
+     */
+    private $imagePasseport;
+
+    /**
+     * @ORM\Embedded(class="Vich\UploaderBundle\Entity\File")
+     *
+     * @var EmbeddedFile
+     */
+    private $imageEvisa;
+    
     /**
      * @ORM\Embedded(class="Vich\UploaderBundle\Entity\File")
      *
@@ -214,6 +229,25 @@ class Voyageurs
     public function getImage(): ?EmbeddedFile
     {
         return $this->image;
+    }
+
+    public function getImagePasseport(): ?EmbeddedFile
+    {
+        return $this->imagePasseport;
+    }
+    public function setImagePasseport(EmbeddedFile $imagePasseport)
+    {
+        $this->imagePasseport = $imagePasseport;
+    }
+
+    public function setImageEvisa(EmbeddedFile $imageEvisa)
+    {
+        $this->imageEvisa = $imageEvisa;
+    }
+
+    public function getImageEvisa(): ?EmbeddedFile
+    {
+        return $this->imageEvisa;
     }
 
     public function getNom(): ?string

@@ -1,0 +1,36 @@
+{% extends "base.html.twig" %}
+
+
+{% block body %}
+	<div>
+		<br>
+    	<h5 class="font-weight-bold">Procédez au règlement de votre commande</h5>
+    </div>
+    <div class="row">
+    	<div class="col-sm-12">
+    		<p style="margin-bottom: 50px;">
+                {{ form_start(form) }}
+                    {{ form_errors(form) }}
+                    <div class="payment-method">
+                        <div class="form-row align-items-center">
+                            <div class="form-group col-6 col-md-4">{{ form_widget(form.payment.payment_method[0]) }}</div>
+                            <div class="form-group col-6 col-md-8"><img src="{{ asset('img/cb_visa_mastercard_logo.png') }}" height="28"></div>
+                        </div>	
+                    </div>
+                    
+                	<div class="form-group row">
+                		<div class="col-sm-2"></div>
+                			<div class="col-sm-10 actions-order">
+                      			<button type="submit" class="btn validate-order">
+                        			<img class="d-none d-lg-block" src="{{ asset('img/validate-order.png') }}" width="281" height="41" alt="Régler ma commande">
+                          			<div class="d-lg-none valid-step">
+                                        <span class="validation">Valider</span>
+                                    </div>
+                  				</button>
+                    		</div>
+            		</div>
+                {{ form_end(form) }}
+    		</p>
+    	</div>
+    </div>
+{% endblock %}

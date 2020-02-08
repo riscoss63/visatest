@@ -1,0 +1,97 @@
+<style>
+    .modal{
+        margin-top: 35px;
+        max-width: 1100px;
+        overflow: auto;
+    } 
+</style>
+
+<div class="row">
+    <h5 class=" m-auto col-8"><i class="fa fa-users-cog"></i>Livraison agence</h5>
+</div>
+    <div class="alert alert-success" id="success-alert" style="display:none"> Mail envoyer et demande archiver</div>
+    <div class="alert alert-danger" id="success-alert" style="display:none"> Erreur mail non envoyer</div>
+
+<div class="row">
+    <div class="col-12">
+        <table class="mt-5" id="table-agence" data-toggle="table" data-url="{{ path('json_livraison_agence') }}" data-pagination="true" data-search="true" data-pagination: "true">
+            <thead>
+                <tr>
+                    <th data-field="demande" data-formatter="demandeFormatter" data-sortable="true">Demande</th>
+                    <th data-field="demande.dateCreation.timestamp" data-formatter="dateFormatter" data-sortable="true">Date de création</th>
+                    <th data-field="demande" data-formatter="" data-sortable="true">Paiement</th>
+                    <th data-field="prestations" data-formatter="prestationsFormatter" data-sortable="true">Prestations</th>
+                    <th data-field="edit" data-formatter="actionsFormatter" data-events="operateEvents">Editer</th>
+                </tr>
+            </thead>
+        </table>
+    </div> 
+</div>
+
+
+    <script>
+        var table  = $('#table-agence');
+
+
+        window.operateEvents = {
+            'click .send': function (e, value, row, index) {
+                var post = $.post( Routing.generate('liste_livraison_agence'), {id : row.id }, function(){
+                    event.preventDefault()
+                });
+                post.done(function() {
+                    $("#success-alert").show();
+                    setTimeout(function() { $("#success-alert").hide(); }, 5000);
+                    table.bootstrapTable('refresh')
+                })
+                post.fail(function() {
+                    $("#error-alert").show();
+                    setTimeout(function() { $("#error-alert").hide(); }, 5000);
+                })
+                    
+            },
+        }
+
+        
+
+        function demandeFormatter(value, row, index) {
+            return 'Réference : <strong>'+row["reference"]+'</strong><br/>  '+
+                    '<strong>' + row["client"]["email"] + '</strong>';
+        }
+
+        function prestationsFormatter(value, row, index) {
+            
+            return 'Visa <strong>'+row["visaType"]["visaClassic"]["pays"]["titre"]+'</strong> pour '+row["quantiteVisa"]+' personne(s)';
+                    
+        }
+
+        function actionsFormatter(value, row, index){            
+            return '<a href="javascript:void(0)" id="'+row.id+'" class="btn btn-light btn-sm send mb-2">Envoyer</a>';
+                    
+        }
+
+        function booleanFormatter(value, row, index) {
+            if (value === true) {
+                return '<i class="fa fa-check text-success text-center"></i>';
+            }
+            else {
+                return '<i class="fa fa-times text-danger text-center"></i>';
+            }
+        }
+
+        function dateFormatter(value, row, index) {
+            var date = new Date(value*1000);
+            return `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`;
+        }
+
+        // function libelleFormatter(value, row,index){
+        //     libelleZone = "";
+        //     if (row["pays"]["zoneGeographique"]){
+        //         return row["pays"]["titre"] + "<br /><small>" + row["pays"]["zoneGeographique"]["titre"] + "</small>";
+        //     }
+        //     return row["pays"]["titre"];
+        // }
+
+        
+    </script>
+
+    <script src="https://unpkg.com/bootstrap-table@1.15.5/dist/bootstrap-table.min.js"></script>

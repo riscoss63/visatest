@@ -1,0 +1,22 @@
+{% extends "front_end/emails/base.html.twig" %}
+{% block email_title %}Mise à disposition de visa en agence{% endblock %}
+{% block email_body %}
+	<table style="border-collapse: collapse;" width="600" cellspacing="0" cellpadding="0">
+		<tr>
+			<td>
+				<p>
+					Bonjour {{ client.prenom }} {{ client.nom }},
+				</p>
+				<p>
+					Nous avons le plaisir de vous annoncer que votre passeport avec visa est disponible à notre agence. 
+				</p>
+				<p>
+					Visa-en-ligne vous souhaite une excellente journée.
+				</p>
+				<p>
+					<strong>Visa-en-ligne</strong> : formalités à l'international
+				</p>
+			</td>
+		</tr>
+	</table>
+{% endblock %}

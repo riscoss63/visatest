@@ -42,7 +42,12 @@
 
 <script type="text/javascript" src="{{ asset('backend/js/jquery.collection.js') }}"></script>
     <script type="text/javascript">
-        $('.collectionB').collection();
+        $('.collectionB').collection({
+            up: '<a href="#" class="btn btn-default"><span class="fas fa-arrow-circle-up"></span></a>',
+            down: '<a href="#" class="btn btn-default"><i class="fas fa-arrow-alt-circle-down"></i></a>',
+            add: '<a href="#" class="btn btn-default"><i class="fas fa-plus-circle"></i></a>',
+            remove: '<a href="#" class="btn btn-default"><i class="fas fa-trash-alt"></i></a>'
+        });
         
         function displayVals() {
             var singleValues = $( ".form[fraisComplementaire][1][quantite]" ).val();

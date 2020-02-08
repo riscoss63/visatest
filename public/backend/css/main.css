@@ -161,14 +161,14 @@ th.sujetfaq .fht-cell {
     transform: none !important;
     color:#850d11 !important;
     font-weight: bold !important;
-    background-color: #282733;
+    background-color: #fff;
     margin: 0;
     width: 100%;
     border: none;
     border-radius: inherit;
 }
 .menu-left.show a {
-    color: #9899ac;
+    color: black;
 }
 
 .add-question {
@@ -202,6 +202,21 @@ th.sujetfaq .fht-cell {
         font-size: 0.85rem;
     }
 } 
+
+@media screen and (min-width: 1200px ) and (max-width: 1480px )
+{
+    .col-perso-3 {
+        flex: 0 0 23%;
+        max-width: 23%;
+    }
+
+    .col-perso-10 {
+        flex: 0 0 77.333333%;
+        max-width: 77.333333%;
+        margin-left: 23.00%;
+    }
+    
+}
 
 /*Tablette*/
 @media screen and (min-width: 740px ) and (max-width: 1024px )

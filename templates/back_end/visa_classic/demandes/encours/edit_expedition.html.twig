@@ -7,33 +7,52 @@
     } 
 </style>
 
-<div class="row">
+<div class="row fermer">
     <h5 class=" m-auto col-8"><i class="fa fa-users-cog"></i> Expéditions</h5>
 </div>
 
-<div class="row mt-5">
+<div class="alert alert-success" id="suivi-success-alert" style="display:none"> Suivi ajouter</div>
+<div class="alert alert-danger" id="suivi-error-alert" style="display:none"> Erreur suivi</div>
+
+<div class="alert alert-success" id="success-alert" style="display:none"> Commande ajouter</div>
+<div class="alert alert-danger" id="error-alert" style="display:none"> Commande inexistante ou déjà ajouter(Penser à vérifier si la commande n'est pas livrer par coursier)</div>
+<div class="row mt-5 ">
     <div class="col-12">
-
-
-        {{ form_start(formAjout, {'action': path('expedition_visa_classic'), 'method': 'POST'}) }}
-            {{ form_widget(formAjout.reference) }}
-            {{ form_widget(formAjout.submit) }}
-        {{ form_end(formAjout)}}
-
-        
-
+        {{ form_start(formAjout, {'attr': {'id': 'ajout'}}) }}
+            <div class="row">
+                <div class="col-6 p-0">
+                    {{ form_widget(formAjout.reference) }}
+                </div>
+                <div class="col-6">
+                    <button type="submit" id="send" class="btn btn-enregistrer"><i class="fas fa-save"></i> Enregistrer </button>
+                </div>
+            </div>
+        {{ form_end(formAjout)}}        
+    </div>
+    <div class="col-12">
+        <a href="#" id="suivi" class="btn float-right btn-enregistrer"><i class="fas fa-save"></i> Ajouter le(s) suivi </a>
         <div class="row mt-5">
-            <div class="col-12">
-                <table data-toggle="table" id="table" data-url="{{ path('json_expedition_visa_classic') }}" data-pagination="true" data-search="false" data-pagination: "true"   data-show-header="false">
-                    <thead>
-                        <tr>
-                            <th data-field="demande" data-formatter="demandeFormatter" data-sortable="true">Demande</th>
-                            <th data-field="prestations" data-formatter="prestationsFormatter" data-sortable="true">Prestations</th>
-                            <th data-field="transport" data-formatter="transportFormatter" data-sortable="true">Transport</th>
-                            <th data-field="edit" data-formatter="actionsFormatter">Etat</th>
-                        </tr>
-                    </thead>
+            <div class="col-12 mt-5">
+                <table class="table table-bordered table-hover" id="mytable">
+                    <tbody>
+                        {% for expedition in expeditions %}
+                            <tr>
+                                <td>
+                                    Réference: <strong>{{expedition.demande.reference}}</strong><br/>
+                                    <strong>{{expedition.demande.client.email}}</strong>
+                                </td>
+                                <td>
+                                    {{expedition.demande.transport.titre}}
+                                </td>
+                                <td>
+                                    <input type="text" id="{{expedition.id}}" name="suivi" placeholder="Numéro de suivi" value="{{expedition.suivi}}" class="form-control">
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        
+                    </tbody>
                 </table>
+                
             </div> 
         </div>
 
@@ -44,44 +63,58 @@
 <script src="https://unpkg.com/bootstrap-table@1.15.5/dist/bootstrap-table.min.js"></script>
 
 <script>
-    
-    function dateDiff(date1, date2){
-        var diff = {}                           // Initialisation du retour
-        var tmp = date2 - date1;
-    
-        tmp = Math.floor(tmp/1000);             // Nombre de secondes entre les 2 dates
-        diff.sec = tmp % 60;                    // Extraction du nombre de secondes
-    
-        tmp = Math.floor((tmp-diff.sec)/60);    // Nombre de minutes (partie entière)
-        diff.min = tmp % 60;                    // Extraction du nombre de minutes
-    
-        tmp = Math.floor((tmp-diff.min)/60);    // Nombre d'heures (entières)
-        diff.hour = tmp % 24;                   // Extraction du nombre d'heures
-        
-        tmp = Math.floor((tmp-diff.hour)/24);   // Nombre de jours restants
-        diff.day = tmp;
-        
-        return diff;
-    }
 
-    function demandeFormatter(value, row, index) {
-        return 'Réference : <strong>'+row["demande"]["reference"]+'</strong><br/>  '+
-                '<strong>' + row["demande"]["client"]["email"] + '</strong>';
-    }
+    function RefreshTable() {
+        $( ".modal" ).load( `${Routing.generate('expedition_visa_classic')}` );
+    };
 
-    function prestationsFormatter(value, row, index) {
-        
-        return '<strong>'+row["demande"]["quantiteVisa"]+'</strong>';
-    }
 
-    function actionsFormatter(value, row, index){
-        return '<form action="'+ Routing.generate('edit_expedition_visa_classic', {id : row["id"]}) + '" method="POST">'+
-        '<input type="text" id="suivi" name="suivi" value="'+row["suivi"]+'" placeholder="Numéro de suivi"> <button type="submit" class="btn btn-primary">Enregistrer</button> </form>';
-    }
+    $('#ajout').submit(function(e) {
+        e.preventDefault();
+        var url = "{{path('expedition_visa_classic')}}";
+        var formSerialize = $(this).serialize();
 
-    function transportFormatter(value, row, index){
-        return row["demande"]["transport"]["titre"];
-    }
+        var post = $.post(url, formSerialize, function(response) {
+        }, 'JSON');
+
+        post.done(function() {
+            $("#success-alert").show();
+            setTimeout(function() { $("#success-alert").hide(); }, 5000);
+            RefreshTable()           
+        })
+        post.fail(function() {
+            $("#error-alert").show();
+            setTimeout(function() { $("#error-alert").hide(); }, 5000);
+        })
+    })
+
+    $(function() {
+        var allSuivi = $('input[name=suivi]');
+    
+        var submitSuivi = $('#suivi');
+        submitSuivi.on('click', function() {
+            console.log('test')
+            data = [];
+            allSuivi.each(function() {
+                if($(this).val()) {
+                    var post = $.post( Routing.generate('suivi_expedition_visa_classic'), { suivi : $(this).val(), id : $(this).attr('id') }, function(){
+                    });
+                    post.done(function() {
+                        $("#suivi-success-alert").show();
+                        setTimeout(function() { $("#suivi-success-alert").hide(); }, 8000);
+                        RefreshTable()
+                    });
+                    post.fail(function() {
+                        $("#suivi-error-alert").show();
+                        setTimeout(function() { $("#suivi-error-alert").hide(); }, 8000);
+                    });
+                }
+            })
+
+            
+        });
+    
+    });
 </script>
 
     

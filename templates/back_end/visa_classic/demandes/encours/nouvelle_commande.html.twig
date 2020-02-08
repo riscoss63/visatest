@@ -138,22 +138,28 @@
 </div>
 
 <link href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" rel="stylesheet" />
+
 <script type="text/javascript">
+
     $('.my-selector').collection({
         up: '<a href="#" class="btn btn-default"><span class="fas fa-arrow-circle-up"></span></a>',
         down: '<a href="#" class="btn btn-default"><i class="fas fa-arrow-alt-circle-down"></i></a>',
         add: '<a href="#" class="btn btn-default"><i class="fas fa-plus-circle"></i></a>',
         remove: '<a href="#" class="btn btn-default"><i class="fas fa-trash-alt"></i></a>'
     });
+    
     $('.my-selector2').collection({
         up: '<a href="#" class="btn btn-default"><span class="fas fa-arrow-circle-up"></span></a>',
         down: '<a href="#" class="btn btn-default"><i class="fas fa-arrow-alt-circle-down"></i></a>',
         add: '<a href="#" class="btn btn-default"><i class="fas fa-plus-circle"></i></a>',
         remove: '<a href="#" class="btn btn-default"><i class="fas fa-trash-alt"></i></a>'
     });
-</script>
-<script>
-    // In your Javascript (external .js resource or <script> tag)
+
+    $( function() {
+        $( ".date" ).datepicker();
+        $( ".date" ).datepicker( "option", "dateFormat", "dd/mm/yy" ); 
+    });
+
     $(document).ready(function() {
         $('#nouvelle_demande_client').select2({
             placeholder:'Choisir un client',

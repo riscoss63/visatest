@@ -111,6 +111,11 @@ class Transport
      */
     private $libelleCourt;
 
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $agence;
+
     public function __construct()
     {
         $this->tarifTransports = new ArrayCollection();
@@ -356,6 +361,18 @@ class Transport
     public function setLibelleCourt(?string $libelleCourt): self
     {
         $this->libelleCourt = $libelleCourt;
+
+        return $this;
+    }
+
+    public function getAgence(): ?bool
+    {
+        return $this->agence;
+    }
+
+    public function setAgence(?bool $agence): self
+    {
+        $this->agence = $agence;
 
         return $this;
     }

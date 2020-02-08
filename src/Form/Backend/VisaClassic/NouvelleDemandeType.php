@@ -54,21 +54,19 @@ class NouvelleDemandeType extends AbstractType
                     return $visaType->getVisaClassic()->getPays()->getTitre() .' - '. $visaType->getCategorieVisa()->getTitre() .' - '. $visaType->getTypeEntre() .' - validite: '.  $visaType->getValidite() .' - durée: '. $visaType->getDureSejour();
                 }
             ])
-            ->add('entre', DateType::class, [
+            ->add('entre', TextType::class, [
                 'attr'      => [
-                    'class'     => 'form-control'
+                    'class'     => 'form-control date'
                 ],
                 'label'     => 'Date d\'entrée',
                 'required'  => true,
-                'widget' => 'choice',
             ])
-            ->add('sortie', DateType::class, [
+            ->add('sortie', TextType::class, [
                 'attr'      => [
-                    'class'     => 'form-control'
+                    'class'     => 'form-control date'
                 ],
                 'label'     => 'Date de sortie',
                 'required'  => false,
-                'widget' => 'choice',
             ])
             ->add('urgent', ChoiceType::class, [
                 'choices'       => [
@@ -106,12 +104,15 @@ class NouvelleDemandeType extends AbstractType
                 }, 
                 'attr'  => [
                     'class'     => 'form-control'
-                ]
+                ],
+                'placeholder'   => 'Choisissez une assurance',
+                'required'      => false,
             ])
             ->add('quantiteAssurance', IntegerType::class, [
                 'attr'  => [
                     'class'     => 'form-control'
-                ]
+                ],
+                'required'      => false,
             ])
             ->add('fraisComplementaire', CollectionType::class, [
                 'entry_type'    => FraisComplementaireType::class,

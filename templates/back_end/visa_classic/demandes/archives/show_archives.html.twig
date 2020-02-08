@@ -1,0 +1,75 @@
+{% extends "back_end/base.html.twig" %}
+{% block title %}Archives - Visa classic{% endblock %}
+{% block menu_header %}
+    {% include "back_end/visa_classic/demandes/__header.html.twig" %}
+{% endblock %}
+
+{% block contenu %}
+
+    <div class="row">
+        <h5 class=" m-auto col-8"><i class="fa fa-users-cog"></i>Archives</h5>
+    </div>
+
+    <div class="row">
+        <div class="col-12">
+            <table class="mt-5" id="table-demandes" data-toggle="table" data-url="{{ path('json_archives_visa_classic') }}" data-pagination="true" data-search="true" data-pagination: "true"   data-single-select="true"  data-click-to-select="true" >
+                <thead>
+                    <tr>
+                        <th data-field="demande" data-formatter="demandeFormatter" data-sortable="true" data-checkbox="true">Demande</th>
+                        <th data-field="dateCreation.timestamp" data-formatter="dateFormatter" data-sortable="true">Date de création</th>
+                        <th data-field="demande" data-formatter="" data-sortable="true">Paiement</th>
+                        <th data-field="prestations" data-formatter="prestationsFormatter" data-sortable="true">Prestations</th>
+                        <th data-field="edit" data-formatter="actionsFormatter">Editer</th>
+                    </tr>
+                </thead>
+            </table>
+        </div> 
+    </div>
+
+{% endblock %}
+
+{% block javascripts %}
+
+    {{ parent() }}
+    <script>
+        
+
+        function demandeFormatter(value, row, index) {
+            var nom = row["client"]["nom"]
+            var prenom = row["client"]["prenom"]
+            return  '<br/>Réference : <strong>'+row["reference"]+'</strong><br/>  '+
+                    '<strong>' + prenom.charAt(0).toUpperCase() + prenom.slice(1) + ' '+nom.charAt(0).toUpperCase() + nom.slice(1)+'</strong><br/>'+
+                    row["client"]["pays"]+' / '+row["client"]["codePostal"];
+        }
+
+        function prestationsFormatter(value, row, index) {
+            var urgent = '';
+            if(row["urgent"] === true)
+            {
+                urgent = 'URGENT';
+            }
+            return '<strong>'+row["quantiteVisa"]+'</strong> Visa '+row["visaType"]["visaClassic"]["pays"]["titre"]+ ' <strong> ' +urgent+ '</strong>';
+        }
+
+        function actionsFormatter(value, row, index){
+            return '<a href="'+Routing.generate('edit_demandes_visa_classic', {'id' : row.id})+'" title="Modifier" rel="modal:open"><i class="far fa-edit"></i></a>';
+        }
+
+        function booleanFormatter(value, row, index) {
+            if (value === true) {
+                return '<i class="fas fa-check text-success text-center"></i>';
+            }
+            else {
+                return '<i class="fas fa-times text-danger text-center"></i>';
+            }
+        }
+
+        function dateFormatter(value, row, index) {
+            var date = new Date(value*1000);
+            return `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`;
+        }
+
+        
+    </script>
+    
+{% endblock %}

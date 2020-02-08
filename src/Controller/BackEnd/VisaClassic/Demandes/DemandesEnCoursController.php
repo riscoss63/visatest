@@ -24,6 +24,7 @@ use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormError;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Twig\Error\RuntimeError;
 
@@ -146,26 +147,40 @@ class DemandesEnCoursController extends AbstractController
     }
 
     /**
-     * @Route("/expeditions/visa-classic", name="expedition_visa_classic")
+     * @Route("/expeditions/visa-classic", name="expedition_visa_classic", options={"expose"=true})
      */
     public function expeditionsShow(Request $request, EntityManagerInterface $manager) : Response
     {
+        $demandes = $this->getDoctrine()->getRepository(Demande::class)->findAll();
+        $expeditionVisaClassic = [];
+        foreach($demandes as $demande)
+        {
+            $visaClassic = $demande->getVisaType()->getVisaClassic();
+            $expedition = $demande->getExpedition();
+
+            if($visaClassic AND $expedition AND $expedition->getDemande()->getTransport()->getCoursier() === false AND $expedition->getDemande()->getEtat() === 'encours')
+            {
+                $expeditionVisaClassic[] = $expedition;
+            }
+
+            $expeditionVisaClassic;
+        }
+
         $formAjout = $this->createFormBuilder()
             ->add('reference', TextType::class, [
                 'attr'      => [
-                    'placeholder'   => '  reference de la demande'
+                    'placeholder'   => '  reference de la demande',
+                    'class' => 'form-control'
                 ]
                 
             ])
-            ->add('submit', SubmitType::class, [
-                'label'     => 'Ajouter'
-            ])
+            
             ->getForm()
         ;
         
         $formAjout->handleRequest($request);
 
-        if($formAjout->isSubmitted())
+        if($formAjout->isSubmitted() AND $formAjout->isValid())
         {
 
             $referenceType=$formAjout->getData('reference');
@@ -173,7 +188,7 @@ class DemandesEnCoursController extends AbstractController
                 'reference'     => $referenceType
             ]);
 
-            if($demande)
+            if($demande AND !$demande->getExpedition())
             {
                 $expedition = new Expedition;
 
@@ -181,37 +196,56 @@ class DemandesEnCoursController extends AbstractController
                 $manager->persist($expedition);
                 $manager->flush();
                 
-                return $this->redirectToRoute('show_demande_en_cours_visa_classic');
+                return new Response(json_encode(array('status'=>'success')));
             }
             else
             {
                 $formAjout->addError(new FormError('demande inexistante'));
 
-                return $this->redirectToRoute('show_demande_en_cours_visa_classic');
+                return new JsonResponse(array(
+                    'status' => 'Error',
+                    'message' => 'Error'),
+                400);
             }
         }
 
         return $this->render('/back_end/visa_classic/demandes/encours/edit_expedition.html.twig', [
             'formAjout'     => $formAjout->createView(),
+            'expeditions'   =>$expeditionVisaClassic
         ]);
     }
 
     /**
-     * @Route("/edit/expedition-{id}", name="edit_expedition_visa_classic", options={"expose"=true})
+     * @Route("/suivi/expedition", name="suivi_expedition_visa_classic", options={"expose"=true})
      */
-    public function expeditionEdit($id, Request $request, EntityManagerInterface $manager) : Response
+    public function expeditionEdit(Request $request, EntityManagerInterface $manager) : Response
     {
-        $expedition = $this->getDoctrine()->getRepository(Expedition::class)->find($id);
-
-        if($expedition)
+        $id=$request->get('id');
+        $suivi = $request->get('suivi');
+        if($id AND $suivi)
         {
-            $suivi = $request->request->get('suivi');
-            $expedition->setSuivi($suivi);
-            $manager->persist($expedition);
-            $manager->flush();
+            $expedition = $this->getDoctrine()->getRepository(Expedition::class)->find($id);
+            if($expedition)
+            {
+                $suivi = $request->request->get('suivi');
+                $expedition->setSuivi($suivi);
+                $demande = $expedition->getDemande();
+                $demande->setEtat('archive');
+                $manager->persist($expedition);
+                $manager->flush();
 
-            return $this->redirectToRoute('show_demande_en_cours_visa_classic');
+                return new Response(json_encode(array('status'=>'success')));
+            }
+
+            return new JsonResponse(array(
+                'status' => 'Error',
+                'message' => 'Error'),
+            400);
         }
+        return new JsonResponse(array(
+            'status' => 'Error',
+            'message' => 'Error'),
+        400);
     }
 
     /**
@@ -291,8 +325,75 @@ class DemandesEnCoursController extends AbstractController
         return $this->render('/back_end/visa_classic/demandes/encours/nouvelle_commande.html.twig', [
             'form'      => $form->createView()
         ]);
-        
-        
+    }
 
+    /**
+     * @Route("/json/remise-main-propre", name="json_livraison_agence")
+     */
+    public function livraisonAgenceJson()
+    {
+        $demandes = $this->getDoctrine()->getRepository(Demande::class)->findAll();
+        $livraisonAgence = [];
+        foreach($demandes as $demande)
+        {
+            $visaClassic = $demande->getVisaType()->getVisaClassic();
+
+            if($visaClassic AND $demande->getTransport()->getAgence() === true AND $demande->getEtat() === 'encours')
+            {
+                $livraisonAgence[] = $demande;
+            }
+
+            $livraisonAgence;
+        }
+
+        $encoder = new JsonEncoder();
+        
+        $normalizer = new ObjectNormalizer();
+
+        $serializer = new Serializer([$normalizer], [$encoder]);
+        $jsonLivraisonAgence=$serializer->serialize($livraisonAgence, 'json', [
+            AbstractNormalizer::CIRCULAR_REFERENCE_HANDLER => function ($object, $format, $context) {
+                return $object->getId();
+            },
+            AbstractNormalizer::ATTRIBUTES =>['id', 'reference', 'client' => ['email'], 'reference', 'quantiteVisa', 'urgent', 'demande', 'visaType'=> ['visaClassic' => ['pays' => ['titre']]], 'dateCreation' => ['timestamp']],
+            
+        ]);
+        //On retourne une réponse JSON
+        return new Response($jsonLivraisonAgence, 200, ['Content-Type' => 'application/json']);
+    }
+
+    /**
+     * @Route("/liste/remise-main-propre", name="liste_livraison_agence", options={"expose"=true})
+     */
+    public function listeLivraisonAgence(Request $request, EntityManagerInterface $manager, \Swift_Mailer $mailer)
+    {
+        $id = $request->get('id');
+        if($id)
+        {
+            $demande = $this->getDoctrine()->getRepository(Demande::class)->find($id);
+            if($demande)
+            {
+                $demande->setEtat('archive');
+                $client = $demande->getClient();
+                //Envoie de mail inscription
+                $message= (new \Swift_Message('Mise à disposition visa en agence : visa en ligne'))
+                    ->setFrom('sghairipro63@gmail.com')
+                    ->setTo($client->getEmail())
+                    ->setBody(
+                        $this->renderView(
+                            'back_end/emails/livraison_agence.html.twig',
+                            [
+                                'client'   => $client,
+                                'demande'        => $demande
+                            ]
+                        ),
+                        'text/html'
+                );
+                $mailer->send($message);
+                $manager->persist($demande);
+                $manager->flush();
+            }
+        }
+        return $this->render('/back_end/visa_classic/demandes/encours/livraison_agence.html.twig');
     }
 }

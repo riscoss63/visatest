@@ -17,6 +17,8 @@
             <script src="{{ asset('bundles/fosjsrouting/js/router.min.js') }}"></script>
             <script src="{{ path('fos_js_routing_js', { callback: 'fos.Router.setData' }) }}"></script>
             <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" />
+            <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+
             
         {% endblock %}
 
@@ -41,13 +43,13 @@
         {% block header %}
             <div class="container-fluid">
                 <div class="row">
-                    <div class="col-2">
+                    <div class="col-lg-3 col-xl-2 col-3 col-sm-3 m-auto position-fixed h-100 overflow-auto col-perso-3">
                         <div class="row" style="background-color: #282733;">
                             <div class="col-12 mt-4">
                                 <a href=""><img src=" {{ asset("/backend/images/logo-visa-en-ligne.png")}} " /> </a>
                             </div>
-                            <div class="col-12 my-5">
-                                <nav class="navbar navbar-expand-lg ">
+                            <div class="col-12 my-5 px-0">
+                                <nav class="navbar navbar-expand-lg px-0">
                                     <button class="navbar-toggler mr-auto navbar-light bg-light" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
                                         <span class="navbar-toggler-icon"></span>
                                     </button>
@@ -134,6 +136,7 @@
                                                         or app.request.attributes.get('_route') == 'edit_tarif_transport_visa_classic'
                                                         or app.request.attributes.get('_route') == 'edit_mode_expedition'
                                                         or app.request.attributes.get('_route') == 'edit_notre_service'
+                                                        or app.request.attributes.get('_route') == 'show_demande_en_cours_visa_classic'
                                                     %}        
                                                         active 
                                                     {% endif %}" href="{{ path('infos_entreprise_visa_classic')}}" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa"> VC </i> Visa classic
@@ -172,6 +175,7 @@
                                                         or app.request.attributes.get('_route') == 'edit_tarif_transport_visa_classic'
                                                         or app.request.attributes.get('_route') == 'edit_mode_expedition'
                                                         or app.request.attributes.get('_route') == 'edit_notre_service'
+                                                        or app.request.attributes.get('_route') == 'show_demande_en_cours_visa_classic'
                                                     %}
                                                         show
                                                     {% endif %}" 
@@ -233,7 +237,8 @@
 
                                                     <a class="dropdown-item 
                                                         {% if 
-                                                            app.request.attributes.get('_route') == 'show_demandes_visa_classic' 
+                                                            app.request.attributes.get('_route') == 'show_demandes_visa_classic'
+                                                            or app.request.attributes.get('_route') == 'show_demande_en_cours_visa_classic' 
                                                         %} 
                                                             active 
                                                         {% endif %}" href="{{ path('show_demandes_visa_classic')}}"><i class="fa fa-check"><span></span></i> Gestion des demandes
@@ -262,7 +267,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-10">
+                    <div class="col-9 col-xl-10 offset-lg-3 offset-xl-2 col-perso-10">
                         <div class="row align-items-baseline sticky-top z-index-1" style="background-color: #282733;">
                             {% block menu_header %}
                             <div class="mt-2 my-lg-4 col-12 text-white text-right">
@@ -297,10 +302,9 @@
                     
         {% endblock %}
         {% block javascripts %}
-            <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
-            <script type="text/javascript" src="{{ asset('backend/js/jquery.collection.js') }}"></script>
             <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
             <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+            <script type="text/javascript" src="{{ asset('backend/js/jquery.collection.js') }}"></script>
             <script src="https://unpkg.com/bootstrap-table@1.15.5/dist/bootstrap-table.min.js"></script>
             <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
             <script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>

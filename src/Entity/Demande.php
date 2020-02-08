@@ -269,11 +269,11 @@ class Demande
     {
         $this->receptionDossier = $receptionDossier;
 
-        // set (or unset) the owning side of the relation if necessary
-        $newDemande = null === $receptionDossier ? null : $this;
-        if ($receptionDossier->getDemande() !== $newDemande) {
-            $receptionDossier->setDemande($newDemande);
-        }
+        // // set (or unset) the owning side of the relation if necessary
+        // $newDemande = null === $receptionDossier ? null : $this;
+        // if ($receptionDossier->getDemande() !== $newDemande) {
+        //     $receptionDossier->setDemande($newDemande);
+        // }
 
         return $this;
     }
@@ -287,11 +287,11 @@ class Demande
     {
         $this->course = $course;
 
-        // set (or unset) the owning side of the relation if necessary
-        $newDemande = null === $course ? null : $this;
-        if ($course->getDemande() !== $newDemande) {
-            $course->setDemande($newDemande);
-        }
+        // // set (or unset) the owning side of the relation if necessary
+        // $newDemande = null === $course ? null : $this;
+        // if ($course->getDemande() !== $newDemande) {
+        //     $course->setDemande($newDemande);
+        // }
 
         return $this;
     }

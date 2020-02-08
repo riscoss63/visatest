@@ -14,6 +14,7 @@ use App\Form\Backend\VisaClassic\EtatDossierType;
 use App\Form\Backend\VisaClassic\IncompletReceptionType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -57,7 +58,7 @@ class DemandesController extends AbstractController
             AbstractNormalizer::CIRCULAR_REFERENCE_HANDLER => function ($object, $format, $context) {
                 return $object->getId();
             },
-            AbstractNormalizer::ATTRIBUTES =>['id', 'client' => ['email'], 'reference', 'quantiteVisa', 'urgent', 'demande', 'visaType'=> ['visaClassic' => ['pays' => ['titre']]], 'dateCreation' => ['timestamp']],
+            AbstractNormalizer::ATTRIBUTES =>['id', 'client' => ['prenom', 'nom', 'pays', 'codePostal'], 'reference', 'quantiteVisa', 'urgent', 'demande', 'visaType'=> ['visaClassic' => ['pays' => ['titre']]], 'dateCreation' => ['timestamp']],
             
         ]);
         //On retourne une réponse JSON
@@ -76,11 +77,12 @@ class DemandesController extends AbstractController
             foreach ($courses as $course) 
             {
                 
-                if($course->getDemande()->getVisaType() != null)
+                if($course->getDemande())
                 {
-                    $typeVisa = $course->getDemande()->getVisaType();
-                    if($typeVisa->getVisaClassic())
+                    $demande = $course->getDemande();
+                    if($demande->getVisaType()->getVisaClassic())
                     {
+
                         $courseVisa += 1;
                     }
                 }
@@ -116,6 +118,45 @@ class DemandesController extends AbstractController
             'form'      => $form->createView(),
             'demande'   => $demande
         ]);
+    }
+
+    /**
+     * @Route("/del/demande", name="del_demande_visa_classic", options={"expose"=true})
+     */
+    public function demandeVisaClassicDel(Request $request, EntityManagerInterface $manager)
+    {
+        $id=$request->get('id');
+        if($id)
+        {
+            $demande = $this->getDoctrine()->getRepository(Demande::class)->find($id);
+            if($demande)
+            {
+                $demande->setVisaType(null);
+                $demande->setReceptionDossier(null);
+                $demande->setCourse(null);
+                $demande->setTransport(null);
+                $demande->setClient(null);
+                $demande->setAssurance(null);
+                $demande->setEvisaSend(null);
+
+                $manager->remove($demande);
+                $manager->flush();
+
+                return new JsonResponse(array(
+                    'status' => 'Success',
+                    'message' => 'Enregistrer'),
+                200);                 
+            }
+
+            return new JsonResponse(array(
+                'status' => 'Error',
+                'message' => 'Error'),
+            400);
+        }
+        return new JsonResponse(array(
+            'status' => 'Error',
+            'message' => 'Error'),
+        400);
     }
 
     /**
@@ -158,7 +199,7 @@ class DemandesController extends AbstractController
     }
 
     /**
-     * @Route("/liste/reception-dossier", name="liste_reception_dossier")
+     * @Route("/liste/reception-dossier", name="liste_reception_dossier", options={"expose"=true})
      */
     public function receptionDossierShow(Request $request, EntityManagerInterface $manager) : Response
     {    
@@ -244,17 +285,46 @@ class DemandesController extends AbstractController
     }
 
     /**
-     * @Route("/complet-dossier-{id}/visa-classic", name="complet_dossier_visa_classic", options={"expose" = true})
+     * @Route("/complet-dossier/visa-classic", name="complet_dossier_visa_classic", options={"expose" = true})
      */
-    public function completDossierVisaClassic($id, Request $request, EntityManagerInterface $manager, \Swift_Mailer $mailer) : Response
+    public function completDossierVisaClassic(Request $request, EntityManagerInterface $manager, \Swift_Mailer $mailer) : Response
     {
-        $receptionDossier = $this->getDoctrine()->getRepository(ReceptionDossier::class)->find($id);
-        $demande = $receptionDossier->getDemande();
-        $form= $this->createForm(CompletReceptionType::class, $receptionDossier);
-        $form->handleRequest($request);
+        $id = $request->get('id');
+        $date = $request->get('date');
 
-        if($form->isSubmitted() AND $form->isValid())
+        if($id AND $date)
         {
+            $receptionDossier = $this->getDoctrine()->getRepository(ReceptionDossier::class)->find($id);
+            $demande = $receptionDossier->getDemande();
+
+            switch ($date) {
+                case '1':
+                    $depot = new \DateTime('+2 hours');
+                    break;
+                case '2':
+                    $depot = new \DateTime('+4 hours');
+                    break;
+                case '3':
+                    $depot = new \DateTime('+1 day');
+                    break;
+                case '4':
+                    $depot = new \DateTime('+2 days');
+                    break;
+                case '5':
+                    $depot = new \DateTime('+3 days');
+                    break;
+                case '6':
+                    $depot = new \DateTime('+4 days');
+                    break;
+                case '7':
+                    $depot = new \DateTime('+7 days');
+                    break;
+                default:
+                    $depot = null;
+                    break;
+            }
+        
+            $receptionDossier->setDepot($depot);
             $demande->setEtat('encours');
             
             $transport = $demande->getTransport();
@@ -305,9 +375,8 @@ class DemandesController extends AbstractController
 
             return $this->redirectToRoute('show_demandes_visa_classic');
         }
-
+      
         return $this->render('/back_end/visa_classic/demandes/complet_reception_dossier.html.twig', [
-            'form'      => $form->createView(),
             'id'        => $receptionDossier->getId()
         ]);
     }

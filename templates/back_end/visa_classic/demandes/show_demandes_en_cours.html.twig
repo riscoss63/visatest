@@ -20,10 +20,10 @@
                 <a href="{{path('expedition_visa_classic')}}" class="btn btn-light border petite-taille" rel="modal:open"> Expédition </a>
                 <a href="#" id="frais" class="btn btn-light border petite-taille"  rel=""> Frais supplémentaires </a>
                 <a href="{{path('add_commande_visa_classic')}}"  class="btn btn-light border petite-taille"  rel="modal:open"> New order </a>
-                <a href="#"  class="btn btn-light border petite-taille"  rel="modal:open"> Mise à disposition </a>
+                <a href="{{path('liste_livraison_agence')}}"  class="btn btn-light border petite-taille"  rel="modal:open"> Mise à disposition </a>
                 <a href="#"  class="btn btn-light border petite-taille"  rel="modal:open"> Supprimer </a>
             </div>
-            <table data-toggle="table" id="table" data-url="{{ path('json_demandes_en_cours_visa_classic') }}" data-pagination="true" data-search="false" data-pagination: "true"   data-click-to-select="true" class="mt-5" data-select-item-name="selectItemName">
+            <table data-toggle="table" id="table" data-url="{{ path('json_demandes_en_cours_visa_classic') }}" data-pagination="true" data-search="false" data-pagination: "true"   data-single-select="true"  data-click-to-select="true" class="mt-5" data-select-item-name="selectItemName">
                 <thead>
                     <tr>
                         <th data-field="demande" data-formatter="demandeFormatter" data-sortable="true" data-checkbox="true">Demande</th>
@@ -63,7 +63,7 @@
         }
 
         function demandeFormatter(value, row, index) {
-            return 'Réference : <strong>'+row["reference"]+'</strong><br/>  '+
+            return '</br>Réference : <strong>'+row["reference"]+'</strong><br/>  '+
                     '<strong>' + row["client"]["email"] + '</strong>';
         }
 
