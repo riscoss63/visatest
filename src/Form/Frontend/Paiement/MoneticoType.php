@@ -6,6 +6,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 class MoneticoType extends AbstractType
 {
@@ -14,9 +15,7 @@ class MoneticoType extends AbstractType
     {
         $formdata = $options['moneticodata'];
         
-        $builder->add('payment', OrderPaymentType::class, array(
-            'mapped' => false,
-        ));
+        
         
         /* @var Parameter $parameters */
         foreach ($formdata as $key => $value) {
@@ -31,10 +30,7 @@ class MoneticoType extends AbstractType
         $builder->setAction($options['action']);
     }
     
-    public function getBlockPrefix()
-    {
-        return null;
-    }
+    
 
     public function configureOptions(OptionsResolver $resolver)
     {

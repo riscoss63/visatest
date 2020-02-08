@@ -3,7 +3,7 @@
 namespace App\Controller\FrontEnd\Paiement;
 
 use App\Entity\Demande;
-use App\Form\MoneticoType;
+use App\Form\Frontend\Paiement\MoneticoType;
 use App\Service\MoneticoPaiement;
 use App\Service\PayementService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -18,7 +18,6 @@ class PaiementController extends AbstractController
      */
     public function monetico(Request $request, MoneticoPaiement $monetico, $id)
     {
-        var_dump($_ENV['MONETICOPAIEMENT_KEY']);
         $demande = $this->getDoctrine()->getRepository(Demande::class)->findOneBy([
             'id'        => $id
         ]);

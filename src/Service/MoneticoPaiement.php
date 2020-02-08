@@ -162,7 +162,7 @@ class MoneticoPaiement
             'url_retour_err' => $oEpt->sUrlKO . '/' . $demande->getId(),
             'lgue' => $oEpt->sLangue,
             'societe' => $oEpt->sCodeSociete,
-            'texte-libre' => HtmlEncode($sTexteLibre),
+            'texte-libre' => $this->moneticoHmac->HtmlEncode($sTexteLibre),
             'mail' => $sEmail,
             'nbrech' => $sNbrEch,
             'dateech1' => $sDateEcheance1,
@@ -180,7 +180,7 @@ class MoneticoPaiement
 
     public function getFormAction()
     {
-        return $this->moneticoept->sUrlPaiement;
+        return $this->moneticoEpt->sUrlPaiement;
     }
     
     // ----------------------------------------------------------------------------
@@ -244,7 +244,7 @@ class MoneticoPaiement
         $MoneticoPaiement_bruteVars = $this->getMethode($request);
 
         // TPE init variables
-        $oEpt = $this->moneticoept;
+        $oEpt = $this->moneticoEpt;
         $this->moneticohmac->setUsableKey($oEpt);
         $oHmac = $this->moneticohmac;
 
@@ -364,7 +364,7 @@ class MoneticoPaiement
         //-----------------------------------------------------------------------------
         // Send receipt to Monetico Paiement server
         //-----------------------------------------------------------------------------
-        printf ($_ENV['MONETICOPAIEMENT_PHASE2BACK_RECEIPT'], $receipt);
+        return printf ($_ENV['MONETICOPAIEMENT_PHASE2BACK_RECEIPT'], $receipt);
 
         // Copyright (c) 2014 Euro-Information
         // All rights reserved. ---

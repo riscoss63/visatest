@@ -32,7 +32,7 @@ class MoneticoEpt
 	public $sUrlKO;		// Url de retour KO - Return URL KO
 	public $sUrlPaiement;	// Url du serveur de paiement - Payment Server URL (Ex : https://p.monetico-services.com/paiement.cgi)
 
-	private $_sCle;		// La cl� - The Key
+	public $_sCle;		// La cl� - The Key
 	
 
 	// ----------------------------------------------------------------------------
@@ -45,7 +45,7 @@ class MoneticoEpt
 
 		// contr�le de l'existence des constantes de param�trages.
 		$aRequiredConstants = array('MONETICOPAIEMENT_KEY', 'MONETICOPAIEMENT_VERSION', 'MONETICOPAIEMENT_EPTNUMBER', 'MONETICOPAIEMENT_COMPANYCODE');
-		$this->_checkEptParams($aRequiredConstants);
+		// $this->_checkEptParams($aRequiredConstants);
 
 		$this->sVersion = $_ENV['MONETICOPAIEMENT_VERSION'];
 		$this->_sCle = $_ENV['MONETICOPAIEMENT_KEY'];
