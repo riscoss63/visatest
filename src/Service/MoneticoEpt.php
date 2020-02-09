@@ -45,7 +45,7 @@ class MoneticoEpt
 
 		// contr�le de l'existence des constantes de param�trages.
 		$aRequiredConstants = array('MONETICOPAIEMENT_KEY', 'MONETICOPAIEMENT_VERSION', 'MONETICOPAIEMENT_EPTNUMBER', 'MONETICOPAIEMENT_COMPANYCODE');
-		// $this->_checkEptParams($aRequiredConstants);
+		$this->_checkEptParams($aRequiredConstants);
 
 		$this->sVersion = $_ENV['MONETICOPAIEMENT_VERSION'];
 		$this->_sCle = $_ENV['MONETICOPAIEMENT_KEY'];
@@ -85,7 +85,7 @@ class MoneticoEpt
 	private function _checkEptParams($aConstants) {
 
 		for ($i = 0; $i < count($aConstants); $i++)
-			if (!defined($aConstants[$i]))
-				die ("Erreur param�tre " . $aConstants[$i] . " ind�fini");
+			if (!$_ENV[$aConstants[$i]])
+				die ("Erreur parametre " . $aConstants[$i] . " indefini");
 	}
 }

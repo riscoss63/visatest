@@ -8,29 +8,42 @@
     </div>
     <div class="row">
     	<div class="col-sm-12">
-    		<p style="margin-bottom: 50px;">
-                {{ form_start(form) }}
-                    {{ form_errors(form) }}
-                    <div class="payment-method">
-                        <div class="form-row align-items-center">
-                            <div class="form-group col-6 col-md-4">{{ form_widget(form) }}</div>
-                            <div class="form-group col-6 col-md-8"><img src="{{ asset('img/cb_visa_mastercard_logo.png') }}" height="28"></div>
-                        </div>	
-                    </div>
-                    
-                	<div class="form-group row">
-                		<div class="col-sm-2"></div>
-                			<div class="col-sm-10 actions-order">
-                      			<button type="submit" class="btn validate-order">
-                        			<img class="d-none d-lg-block" src="{{ asset('img/validate-order.png') }}" width="281" height="41" alt="Régler ma commande">
-                          			<div class="d-lg-none valid-step">
-                                        <span class="validation">Valider</span>
-                                    </div>
-                  				</button>
-                    		</div>
-            		</div>
-                {{ form_end(form) }}
-    		</p>
+    		<form action="{{action}}" method="post" id="PaymentRequest">
+				<p>
+					<input type="hidden" name="version"             id="version"           value="{{form.version}}" />
+					<input type="hidden" name="TPE"                 id="TPE"               value="{{form.TPE}}" />
+					<input type="hidden" name="date"                id="date"              value="{{form.date}}" />
+					<input type="hidden" name="montant"             id="montant"           value="{{form.montant}}" />
+					<input type="hidden" name="reference"           id="reference"         value="{{form.reference}}" />
+					<input type="hidden" name="MAC"                 id="MAC"               value="{{form.MAC}}" />
+					<input type="hidden" name="url_retour_ok"       id="url_retour_ok"     value="{{form.url_retour_ok}}" />
+					<input type="hidden" name="url_retour_err"      id="url_retour_err"    value="{{form.url_retour_err}}" />
+					<input type="hidden" name="lgue"                id="lgue"              value="{{form.lgue}}" />
+					<input type="hidden" name="societe"             id="societe"           value="{{form.societe}}" />
+					<input type="hidden" name="texte-libre"         id="texte-libre"       value="{{form.textelibre}}" />
+					<input type="hidden" name="mail"                id="mail"              value="{{form.mail}}" />
+					<!-------------------------------------------------------------------------------------------------------------------------------------------------------------
+					SECTION PAIEMENT FRACTIONNE - Section spécifique au paiement fractionné
+
+					INSTALLMENT PAYMENT SECTION - Section specific to the installment payment
+					-------------------------------------------------------------------------------------------------------------------------------------------------------------->
+					<input type="hidden" name="nbrech"              id="nbrech"         value="<?php echo $sNbrEch;?>" />
+					<input type="hidden" name="dateech1"            id="dateech1"       value="<?php echo $sDateEcheance1;?>" />
+					<input type="hidden" name="montantech1"         id="montantech1"    value="<?php echo $sMontantEcheance1;?>" />
+					<input type="hidden" name="dateech2"            id="dateech2"       value="<?php echo $sDateEcheance2;?>" />
+					<input type="hidden" name="montantech2"         id="montantech2"    value="<?php echo $sMontantEcheance2;?>" />
+					<input type="hidden" name="dateech3"            id="dateech3"       value="<?php echo $sDateEcheance3;?>" />
+					<input type="hidden" name="montantech3"         id="montantech3"    value="<?php echo $sMontantEcheance3;?>" />
+					<input type="hidden" name="dateech4"            id="dateech4"       value="<?php echo $sDateEcheance4;?>" />
+					<input type="hidden" name="montantech4"         id="montantech4"    value="<?php echo $sMontantEcheance4;?>" />
+					<!-------------------------------------------------------------------------------------------------------------------------------------------------------------
+					FIN SECTION PAIEMENT FRACTIONNE
+
+					END INSTALLMENT PAYMENT SECTION
+					-------------------------------------------------------------------------------------------------------------------------------------------------------------->
+					<input type="submit" name="bouton"              id="bouton"         value="Connexion / Connection" />
+				</p>
+				</form>
     	</div>
     </div>
 {% endblock %}

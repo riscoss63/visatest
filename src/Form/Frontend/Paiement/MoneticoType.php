@@ -15,8 +15,6 @@ class MoneticoType extends AbstractType
     {
         $formdata = $options['moneticodata'];
         
-        
-        
         /* @var Parameter $parameters */
         foreach ($formdata as $key => $value) {
             if ($key === 'texte-libre') {
@@ -24,7 +22,12 @@ class MoneticoType extends AbstractType
             }
             $builder->add($key, HiddenType::class, array(
                 'data' => $value,
-                'mapped' => false,
+                'required'  => false,
+                'attr'  => [
+                    'id'    => $key,
+                    'name'  => $key
+                ],
+                'id'    => $key
             ));
         }
         $builder->setAction($options['action']);

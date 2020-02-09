@@ -162,7 +162,7 @@ class MoneticoPaiement
             'url_retour_err' => $oEpt->sUrlKO . '/' . $demande->getId(),
             'lgue' => $oEpt->sLangue,
             'societe' => $oEpt->sCodeSociete,
-            'texte-libre' => $this->moneticoHmac->HtmlEncode($sTexteLibre),
+            'textelibre' => $this->moneticoHmac->HtmlEncode($sTexteLibre),
             'mail' => $sEmail,
             'nbrech' => $sNbrEch,
             'dateech1' => $sDateEcheance1,

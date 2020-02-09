@@ -22,14 +22,12 @@ class PaiementController extends AbstractController
             'id'        => $id
         ]);
 
-        $form= $this->createForm(MoneticoType::class, $monetico->genererFormData($demande), [
-            'action'    => $monetico->getFormAction(),
-            'moneticodata' => $monetico->genererFormData($demande),
-        ]);
-        $form->handleRequest($request);
+        $form=$monetico->genererFormData($demande);
+        $action = $monetico->getFormAction();
         return $this->render('front_end/paiement/monetico.html.twig', [
-            'form' => $form->createView(),
+            'form' => $form,
             'order' => $demande,
+            'action' => $action
         ]);
     }
 }
