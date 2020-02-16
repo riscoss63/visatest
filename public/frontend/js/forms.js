@@ -7,6 +7,7 @@ $(document).ready(function(){
     var addCityButton = $('.add-city');
     var rangeBox = $('.range-box');
     var codePostalLivraison = $('#code_postal_livraison');
+    var villeLivraison = $('#ville_livraison');
     var moindevoyageur = $('.moindevoyageur');
     var plusdevoyageur = $('.plusdevoyageur');
     var dateEntree = $('#date_entree');
@@ -21,8 +22,9 @@ $(document).ready(function(){
     var codePostal = $('input[name="codePostal"]');
     var ville = $('input[name="ville"]');
     var telephone = $('input[name="telephone"]');
-
-
+    var dateEntree = $('#date_entree');
+    var dateSortie = $('#date_sortie');
+    var aeroport = $('.aeroport-check');
 
     setProgressBar();
 
@@ -42,6 +44,13 @@ $(document).ready(function(){
     if(livraison.length){
         livraisonAffichage();
     }
+    
+    dateEntree.on('change', function() {
+        dureeSejourAffichage(dateEntree, dateSortie);
+    })
+    dateSortie.on('change', function() {
+        dureeSejourAffichage(dateEntree, dateSortie);
+    })
     
     submitButton.on('click', function(){
         goToNextScreen();
@@ -67,12 +76,18 @@ $(document).ready(function(){
         afficherCoursier(codePostalLivraison.val());
     });
 
+    villeLivraison.change(function() {
+        afficherVille(villeLivraison.val());
+    })
+
     moindevoyageur.on('click', function() {
         baisserVoyageur();
+        modifTotal()
     })
 
     plusdevoyageur.on('click', function() {
         monterVoyageur();
+        modifTotal()
     })
 
     dateEntree.on('change', function() {
@@ -84,12 +99,13 @@ $(document).ready(function(){
         montrerDateSortie(dateSortie);
     })
 
-    enlevement.on('click', function() {
+    enlevement.on('change', function() {
         enlevementAffichage(enlevement);
     })
 
     livraison.on('click', function() {
         livraisonAffichage();
+
     })
 
     mail.on('change', function() {
@@ -464,7 +480,17 @@ function populateCountrySelect() {
             return $country;
         }
 
-        $("[name='country']").select2({
+        // $("[name='country']").select2({
+        //     templateSelection: formatCountry,
+        //     templateResult: formatCountry,
+        //     data: isoCountries
+        // });
+        $("[name='pays-livraison']").select2({
+            templateSelection: formatCountry,
+            templateResult: formatCountry,
+            data: isoCountries
+        });
+        $(".country-nationnalite").select2({
             templateSelection: formatCountry,
             templateResult: formatCountry,
             data: isoCountries
@@ -1214,11 +1240,19 @@ function goToNextScreen() {
         setOrderRecap(nextStepNb);
         setProgressBar(nextStepNb);
         setStepsProgress(nextStepNb);
+        
         if(currentStepNb === 1){
             toggleReviewsBlock();
             toggleTabsBlock();
             $('.previous-arrow').show();
         }
+        if(currentStepNb === 3){
+            $('.required-1').removeAttr('required');
+        }
+        else if(currentStepNb === 2) {
+            $('.required-1').attr('required', 'true');
+        }
+        
     }
 }
 
@@ -1324,8 +1358,12 @@ function toggleTabsBlock() {
 }
 
 function addSelectCountryBelow(button) {
-    button.before(`<select class="classic-select input-width selectpicker countrypicker" name="country"></select>`);
+    var compteur  = $('.country-nationnalite').last().attr('compteur');
+    var resultat = Number(compteur) + 1;
+
+    button.before(`<select class="classic-select input-width selectpicker countrypicker country-nationnalite" compteur="${resultat}" name="country-${resultat}"></select>`);
     populateCountrySelect();
+    
 }
 
 // function removeSelectCountryBelow(button) {
@@ -1347,11 +1385,19 @@ function afficherCoursier(codePostal) {
     var regexIleDeFrance = /^75|77|78|91|92|93|94|95[0-9]{3}$/;
     if(regexIleDeFrance.test(codePostal)) {
         $('.ile').show();
+        $('.coursier').show()
     }
     else {
         $('.ile').hide();
+        $('.coursier').hide();
     }
+    $("input[name='codePostal']").val(codePostal);
     
+
+}
+
+function afficherVille(ville) {
+    $("input[name='ville']").val(ville);
 
 }
 
@@ -1401,20 +1447,40 @@ function montrerDateSortie(dateSortie) {
 function enlevementAffichage(enlevement) {
     var str = $("input[name='radio_enlevement']:checked").val()
     $(".enlevement-sortie").text('Enlèvement par  ' + str);
+    var visaType=$('.prix-visa-type').text();
+    // var enlevement=$('.tarif-enlevement:first').text();
+    // var livraison = $('.livraison-tarif:first').text();
+    // var assurance= $('.assurance-total').text();
+    // var total = Number(visaType) + Number(enlevement) + Number(livraison) + Number(assurance);
+    // console.log(visaType + enlevement + livraison + assurance);
+    // $('.total').text(visaType);
     if(str == "coursier") {
         var tarifCoursier = $(".prix-coursier").text();
         $(".tarif-enlevement").text(tarifCoursier);
+        total = Number(tarifCoursier) + Number(visaType);
+        $('.total').text(total);
     }
     if(str == "agence") {
         $(".enlevement-sortie").text('Enlèvement à l\''+str);
+        $(".tarif-enlevement").text(0);
     }
+    
+
 }
 
 function livraisonAffichage() {
-    var str = $("input[name='mode-livraison']:checked").val();
+
+    var str = $("input[name='mode-livraison']:checked").attr('info');
     $(".livraison-sortie").text('Livraison par ' +str);
-    var strTarif = $("input[name='mode-livraison']:checked").parent().parent().next().children();
+    var strTarif = $("input[name='mode-livraison']:checked").parent().parent().next().children().children();
     $(".livraison-tarif").text(strTarif.text());
+
+    var visaType=$('.prix-visa-type').text();
+    var enlevement=$('.tarif-enlevement:first').text();
+    var livraison = $('.livraison-tarif:last').text();
+    // var assurance= $('.assurance-total').text();
+    var total = Number(visaType) + Number(enlevement) + Number(strTarif.text());
+    $('.total').text(total);
 }
 
 function mailChange(mail) {
@@ -1431,25 +1497,32 @@ function mailChange(mail) {
 // var str;
 // var duree;
 $('input[name="radioassurance"]').on('click', function() {
-    duree = $("input[name='radioassurance']:checked").val();
+    duree = $("input[name='radioassurance']:checked").attr('info');
     dureeMove(duree);
 
 });
 function dureeMove(duree) {
+    var visaType=$('.prix-visa-type').text();
+    var enlevement=$('.tarif-enlevement:first').text();
+    var livraison = $('#tarif-de-livraison').text();
+
     strNb = $("#" + duree).val();
     $(".assurance-quantite").text(strNb);
     $("#" + duree).on('change', function() {
         strNb = $("#" + duree).val();
         $(".assurance-quantite").text(strNb);
         strTotal = strPrix * strNb;
-        $(".assurance-total").text(strTotal + '€');
-
+        $(".assurance-total").text(strTotal);
+        total = Number(strTotal) +  Number(visaType) + Number(enlevement) + Number(livraison)
+        $('.total').text(total);
     });
 
     strPrix = $("." + duree).text();
     strTotal = strPrix * strNb;
-    $(".assurance-prix").text(strPrix + '€');
-    $(".assurance-total").text(strTotal + '€');
+    $(".assurance-prix").text(strPrix);
+    $(".assurance-total").text(strTotal);
+    total = Number(strTotal) +  Number(visaType) + Number(enlevement) + Number(livraison)
+    $('.total').text(total);
 }
 
 function quantiteChange(voyageurs) {
@@ -1458,7 +1531,6 @@ function quantiteChange(voyageurs) {
     price = $('#price-visa-ttc').text();
     resultat = price * quantites;
     $('.prix-visa-type').text(resultat);
-    console.log(price);
 }
 
 function nomChange(nom) {
@@ -1490,6 +1562,55 @@ function telephoneChange(num) {
     var str = num.val();
     var strD = $('.iti__selected-dial-code').text();
     $('.numChange').text(strD + str);
-    console.log(str);
 }
+
+function dureeSejourAffichage(entree, sortie) {
+    var dateEntreformat = entree.val().split('/');
+    var dateSortieformat = sortie.val().split('/');
+    var entreeDate = new Date(dateEntreformat[2], dateEntreformat[1], dateEntreformat[0]);
+    var sortieDate = new Date(dateSortieformat[2], dateSortieformat[1], dateSortieformat[0]);
+    duree = $('#order-duration');
+    var resultat = dateDiff(entreeDate, sortieDate)
+    duree.val(resultat.day);
+    
+    
+
+}
+
+function dateDiff(date1, date2){
+    var diff = {}                           // Initialisation du retour
+    var tmp = date2 - date1;
+
+    tmp = Math.floor(tmp/1000);             // Nombre de secondes entre les 2 dates
+    diff.sec = tmp % 60;                    // Extraction du nombre de secondes
+
+    tmp = Math.floor((tmp-diff.sec)/60);    // Nombre de minutes (partie entière)
+    diff.min = tmp % 60;                    // Extraction du nombre de minutes
+
+    tmp = Math.floor((tmp-diff.min)/60);    // Nombre d'heures (entières)
+    diff.hour = tmp % 24;                   // Extraction du nombre d'heures
+    
+    tmp = Math.floor((tmp-diff.hour)/24);   // Nombre de jours restants
+    diff.day = tmp;
+    
+    return diff;
+}
+
+//Total
+function modifTotal() {
+    var visaType=$('.prix-visa-type').text();
+    // // var enlevement=$('.tarif-enlevement:first').text();
+    // // var livraison = $('.livraison-tarif:first').text();
+    // // var assurance= $('.assurance-total').text();
+    // var total = Number(visaType) + Number(enlevement) + Number(livraison) + Number(assurance);
+    // console.log(visaType + enlevement + livraison + assurance);
+    $('.total').text(visaType);
+}
+
+//numéro de vol et jour
+$('.aeroport-check').on('click', function() { 
+    $('.vol-info').show();
+});
+
+
 

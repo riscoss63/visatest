@@ -304,7 +304,7 @@ class DemandesEnCoursController extends AbstractController
             }
             
             //On génére la réference de la demande
-            $random = random_int(10, 15);
+            $random = random_int(5, 10);
             $reference = random_bytes($random);
             $reference=bin2hex($reference);
             //On modifie la reference et l'état

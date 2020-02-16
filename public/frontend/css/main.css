@@ -238,6 +238,31 @@ span.btn-label {
     top: 14px;
     right: 11px; }
 
+.save {
+  position: relative;
+  color: #fff !important;
+  font-family: 'Roboto Condensed', sans-serif;
+  font-weight: 300;
+  position: relative;
+  width: 296px;
+  height: 43px;
+  line-height: 43px;
+  font-size: 26px;
+  padding-right: 37px;
+  cursor: pointer;
+  -webkit-box-shadow: 3px 4px 3px 1px #e2e2e2 !important;
+  -moz-box-shadow: 3px 4px 3px 1px #e2e2e2 !important;
+  box-shadow: 3px 4px 3px 1px #e2e2e2 !important; }
+  
+.save .icon {
+    position: absolute;
+    right: 14px;
+    top: 11px;
+    width: 25px;
+    height: 19px;
+    margin-right: 0;
+  }
+
 #modal-mdp-oublie .modal-header, #modal-compte .modal-header, #modal-voyageur1 .modal-header {
   border: 0; }
   #modal-mdp-oublie .modal-header h4, #modal-compte .modal-header h4, #modal-voyageur1 .modal-header h4 {

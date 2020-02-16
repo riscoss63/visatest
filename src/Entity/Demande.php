@@ -123,6 +123,21 @@ class Demande
      */
     private $quantiteAssurance;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $numeroVol;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Transport", inversedBy="demandesEnlevement")
+     */
+    private $enlevement;
+
+    /**
+     * @ORM\Column(type="date", nullable=true)
+     */
+    private $jourVol;
+
     public function __construct()
     {
         $this->fraisComplementaire = new ArrayCollection();
@@ -444,6 +459,43 @@ class Demande
     public function setQuantiteAssurance(?int $quantiteAssurance): self
     {
         $this->quantiteAssurance = $quantiteAssurance;
+
+        return $this;
+    }
+
+    public function getNumeroVol(): ?string
+    {
+        return $this->numeroVol;
+    }
+
+    public function setNumeroVol(?string $numeroVol): self
+    {
+        $this->numeroVol = $numeroVol;
+
+        return $this;
+    }
+
+
+    public function getEnlevement(): ?Transport
+    {
+        return $this->enlevement;
+    }
+
+    public function setEnlevement(?Transport $enlevement): self
+    {
+        $this->enlevement = $enlevement;
+
+        return $this;
+    }
+
+    public function getJourVol(): ?\DateTimeInterface
+    {
+        return $this->jourVol;
+    }
+
+    public function setJourVol(?\DateTimeInterface $jourVol): self
+    {
+        $this->jourVol = $jourVol;
 
         return $this;
     }

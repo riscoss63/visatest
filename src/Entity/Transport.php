@@ -116,6 +116,11 @@ class Transport
      */
     private $agence;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Demande", mappedBy="enlevement")
+     */
+    private $demandesEnlevement;
+
     public function __construct()
     {
         $this->tarifTransports = new ArrayCollection();
@@ -124,6 +129,7 @@ class Transport
         $this->updatedAt = new \DateTime('now');
         $this->demandes = new ArrayCollection();
         $this->dateModification= new \DateTime('now');
+        $this->demandesEnlevement = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -373,6 +379,37 @@ class Transport
     public function setAgence(?bool $agence): self
     {
         $this->agence = $agence;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Demande[]
+     */
+    public function getDemandesEnlevement(): Collection
+    {
+        return $this->demandesEnlevement;
+    }
+
+    public function addDemandesEnlevement(Demande $demandesEnlevement): self
+    {
+        if (!$this->demandesEnlevement->contains($demandesEnlevement)) {
+            $this->demandesEnlevement[] = $demandesEnlevement;
+            $demandesEnlevement->setEnlevement($this);
+        }
+
+        return $this;
+    }
+
+    public function removeDemandesEnlevement(Demande $demandesEnlevement): self
+    {
+        if ($this->demandesEnlevement->contains($demandesEnlevement)) {
+            $this->demandesEnlevement->removeElement($demandesEnlevement);
+            // set the owning side to null (unless already changed)
+            if ($demandesEnlevement->getEnlevement() === $this) {
+                $demandesEnlevement->setEnlevement(null);
+            }
+        }
 
         return $this;
     }

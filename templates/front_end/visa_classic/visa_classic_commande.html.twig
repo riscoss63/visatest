@@ -130,6 +130,11 @@
   </div>
 </div>
 
+<div class="alert alert-success" id="success-alert" style="display:none"> Vous avez reçu un mail de confirmation</div>
+<div class="alert alert-danger" id="error-alert" style="display:none"> </a></div>
+
+
+</div>
 <div class=" row form-page">
     <div class="offset-md-1 col-md-7 form-container full-width-mobile">
         <div class="progress">
@@ -140,7 +145,7 @@
 
         <!-- Step 1 - Quantité -->
         <div class="form-step form-step-1">
-            <form>
+            <form id="save">
                 <div class="form-group">
                     <label class="form-label">Nombre de voyageurs</label>
                     <div class="range-box">
@@ -161,7 +166,7 @@
                     <label class="form-label">Nationalité des voyageurs</label>
 					
                     <div class="multiple-country-select-nationalite">
-                        <select class="classic-select input-width selectpicker countrypicker" name="country" id="country_nationalite"></select>
+                        <select class="classic-select input-width selectpicker countrypicker country-nationnalite" compteur="1" name="country-1" ></select>
 						
 							<a href="#" class="add-country"><img src="/images/plus-colored.svg" class="icon" alt="ajouter pays de destination">
 								Ajouter pays de nationalité	
@@ -191,12 +196,12 @@
                     <span class="on-desktop"><img src="/images/date-depart.svg" alt="date de départ" class="date-icon"></span>
                     <div class="input-group date">
                         <div class="on-desktop">
-                            <input type="text" class="form-control date" name="date_entree" id="date_entree" required="true"/>
+                            <input type="text" class="form-control date required-1" name="date_entree" id="date_entree"  />
                         </div>
                         <div class="on-mobile">
-                            <input type="tel" class="form-control" maxlength="2" placeholder="Jour (JJ)" required="true"/>
-                            <input type="tel" class="form-control" maxlength="2" placeholder="Mois (MM)" required="true"/>
-                            <input type="tel" class="form-control" maxlength="4" placeholder="Année (AAAA)" required="true"/>
+                            <input type="tel" class="form-control required-1" maxlength="2" placeholder="Jour (JJ)" />
+                            <input type="tel" class="form-control required-1" maxlength="2" placeholder="Mois (MM)"/>
+                            <input type="tel" class="form-control required-1" maxlength="4" placeholder="Année (AAAA)"  />
                         </div>
                         <div class="input-group-append on-desktop">
                                 <span class="input-group-text">
@@ -214,12 +219,12 @@
                     <span class="on-desktop"><img src="/images/date-sortie.svg" alt="date de sortie" class="date-icon"></span>
                     <div class="input-group date" >
                         <div class="on-desktop">
-                            <input type="text" class="form-control date" name="date_sortie" id="date_sortie" required="true">
+                            <input type="text" class="form-control date" name="date_sortie" id="date_sortie" >
                         </div>
                         <div class="on-mobile">
-                            <input type="tel" class="form-control" maxlength="2" placeholder="Jour (JJ)" required="true"/>
-                            <input type="tel" class="form-control" maxlength="2" placeholder="Mois (MM)" required="true" />
-                            <input type="tel" class="form-control" maxlength="4" placeholder="Année (AAAA)" required="true"/>
+                            <input type="tel" class="form-control" maxlength="2" placeholder="Jour (JJ)" />
+                            <input type="tel" class="form-control" maxlength="2" placeholder="Mois (MM)"  />
+                            <input type="tel" class="form-control" maxlength="4" placeholder="Année (AAAA)" />
                         </div>
                         <div class="input-group-append on-desktop">
                                 <span class="input-group-text">
@@ -235,7 +240,7 @@
                 <div class="date-group input-width-duree">
                     
                     <div class="input-group date">
-                        <input id="order-duration" type="number" class="form-control" name="order-duration" max-length="4" required="true"/>
+                        <input id="order-duration" type="number" class="form-control" name="order-duration" max-length="4" />
                         <div class="input-group-text jours"><p>jours</p></div>
                     </div>
                 </div>
@@ -257,31 +262,31 @@
                     <label class="form-label on-desktop">Pays de livraison</label>
 					<label class="form-label on-mobile">Lieu de livraison</label>
 					<div class="multiple-country-select">
-                    	<select class="classic-select input-width selectpicker countrypicker" name="country"></select>
+                    	<select class="classic-select input-width selectpicker countrypicker" name="pays-livraison"></select>
 					</div>
                 </div>
 				<div class=" form-group on-desktop">
 					<label class="form-label">Code postal de livraison</label>
 					<div class="input-width">
-                        <input class="form-control" type="text" id="code_postal_livraison" required="true">
+                        <input class="form-control" type="text" id="code_postal_livraison" >
 					</div>
                 </div>
                 <div class=" form-group on-desktop">
 					<label class="form-label">Ville</label>
 					<div class="input-width">
-                        <input class="form-control" type="text" id="ville_livraison" required="true">
+                        <input class="form-control" type="text" id="ville_livraison" >
 					</div>
                 </div>
 				<div class="form-group form-group-animated on-mobile">
 					<label for="codePostal0" class="form-label">Code postal de livraison</label>
                     <div class="input-width">
-						<input id="codePostal0" class="form-control on-mobile" type="text" name="codePostal0" required="true">
+						<input id="codePostal0" class="form-control on-mobile" type="text" name="codePostal0" >
                     </div>
                 </div>
 				<div class="form-group form-group-animated on-mobile">
 					<label for="ville0" class="form-label">Ville</label>
                     <div class="input-width">
-						<input id="ville0" class="form-control on-mobile" type="text" name="ville0" required="true">
+						<input id="ville0" class="form-control on-mobile" type="text" name="ville0" >
                     </div>
                 </div>
 				<!-- N'afficher cette div que si le code postal correspond à un département de l'ile de France-->
@@ -303,7 +308,7 @@
 
                         <!-- Afficher ci-dessous, ci l'utilisateur a ajouté un département en île de france -->
                         <label class="form-radio ile" style="display : none">
-                            Enlèvement du dossier par un coursier<span class="on-desktop"> visa-en-ligne.com</span><span class="font-weight-bold ml-4 prix-coursier">30€</span>
+                            Enlèvement du dossier par un coursier<span class="on-desktop"> visa-en-ligne.com</span><span class="font-weight-bold ml-4 prix-coursier">30</span><span>€</span>
                             <input type="radio" name="radio_enlevement" value="coursier">
                             <span class="checkmark"></span>
                         </label>
@@ -328,45 +333,63 @@
                     <table class="table table-form table-borderless">
                         <tbody>
                             {% for transport in transports %}
-                                <tr>
+                                {% if transport.coursier == true %}
+                                <tr class=" {{transport.titre}}" style="display:none">
                                     <td>
-                                        <label class="form-radio">
+                                    
+                                    
+                                        <label class="form-radio" >
+                                            <span class="on-desktop ">{{ transport.titre}} {% if transport.informations %}({{transport.informations}}){% endif %}</span>
+                                            <span class="on-mobile">{{ transport.titre}} {% if transport.informations %}({{transport.informations}}){% endif %}</span>
+                                            <input type="radio" name="mode-livraison" value="{{ transport.id }}" info="{{ transport.titre }}" >
+                                            <div class="checkmark"></div>
+                                        </label>                
+                                    </td>
+                                    <td><p><span class="price">{{ transport.tarif }}</span>€</p></td>
+                                </tr>
+                                {% else %}
+                                <tr class=" {{transport.titre}}">
+                                    <td>
+                                        <label class="form-radio" >
                                             <span class="on-desktop">{{ transport.titre}} {% if transport.informations %}({{transport.informations}}){% endif %}</span>
                                             <span class="on-mobile">{{ transport.titre}} {% if transport.informations %}({{transport.informations}}){% endif %}</span>
-                                            <input type="radio" name="mode-livraison" {% if loop.first %} checked="checked"{% endif %} value="{{ transport.titre }}" >
-                                            <div class="checkmark"></div>
-                                        </label>
+                                            <input type="radio" name="mode-livraison" class="{% if transport.aeroport == true %}aeroport-check{% endif %}" {% if loop.first %} checked="checked"{% endif %} value="{{ transport.id }}" info="{{ transport.titre }}" >
+                                            <div class="checkmark aeroport-check" ></div>
+                                        </label>                
                                     </td>
-                                    <td class="price"><p>{{ transport.tarif }}€</p<</td>
+                                    <td><p><span class="price">{{ transport.tarif }}</span>€</p></td>
                                 </tr>
+                                {% endif %}
                             {% endfor %}
                         </tbody>
                     </table>
                 </div>
                 <!-- Afficher cette div uniqement  un des 2 derniers tr-->
-                <div class=" form-group on-desktop">
-                    <label  class="form-label ">Numéro de vol</label>
-                    <div class="input-width">
-                        <input class="form-control on-desktop" type="text">
+                <div class="vol-info" style="display: none;">
+                    <div class=" form-group on-desktop">
+                        <label  class="form-label ">Numéro de vol</label>
+                        <div class="input-width">
+                            <input class="form-control on-desktop" type="text" name="numero-vol" id="numero-vol">
+                        </div>
                     </div>
-                </div>
-				<div class="form-group form-group-animated on-mobile">
-					<label for="numeroVol" class="form-label">Numéro de vol</label>
-                    <div class="input-width">
-						<input id="numeroVol" class="form-control on-mobile" type="text" name="numeroVol">
+                    <div class="form-group form-group-animated on-mobile">
+                        <label for="numero-vol-mobile" class="form-label">Numéro de vol</label>
+                        <div class="input-width">
+                            <input class="form-control on-mobile" name="numero-vol-mobile" type="text" id="numero-vol-mobile" >
+                        </div>
                     </div>
-                </div>
 
-                <div class=" form-group on-desktop">
-                    <label  class="form-label ">Jour de Vol</label>
-                    <div class="input-width">
-                        <input class="form-control on-desktop" type="text">
+                    <div class=" form-group on-desktop">
+                        <label  class="form-label ">Jour de Vol</label>
+                        <div class="input-width">
+                            <input type="text" class="form-control on-desktop date" name="jour-vol" id="jour-vol" />
+                        </div>
                     </div>
-                </div>
-				<div class="form-group form-group-animated on-mobile">
-					<label for="jourVol" class="form-label">Jour de vol</label>
-                    <div class="input-width">
-						<input id="jourVol" class="form-control on-mobile" type="text" name="jourVol">
+                    <div class="form-group form-group-animated on-mobile">
+                        <label for="jour-vol-mobile" class="form-label">Jour de vol</label>
+                        <div class="input-width">
+                            <input type="text" class="form-control on-mobile date" name="jour-vol-mobile" id="jour-vol-mobile" />
+                        </div>
                     </div>
                 </div>
                 <!-- Fin -->
@@ -387,7 +410,7 @@
                     <label class="form-label">Adresse email</label>
 
                     <div class="input-width">
-                        <input class="form-control" type="email" id="email" required="true">
+                        <input class="form-control" name="email" type="email" id="email" >
                     </div>
                 </div>
                 <div class="cta d-flex">
@@ -395,7 +418,7 @@
 						<a href="#top" class="btn btn-primary previous-arrow d-flex flex-nowrap align-items-center"><img src="/images/retour-paiement-white.svg" alt="icône étape précédente" class="icon">Précédent</a>
 					</div>
 					<div class="btn-submit">
-						<a href="#top" class="btn btn-primary btn-next">Etape suivante <img src="/images/btn-send.svg" alt="icône étape suvante" class="icon"></a>
+						<a href="#top" class="btn btn-primary save" >Etape suivante <img src="/images/btn-send.svg" alt="icône étape suvante" class="icon"></a>
 					</div>
 				</div>
         </div>
@@ -434,7 +457,7 @@
                                     <td>
                                         <label class="form-radio">
                                             Assurance voyage {{assurance.duree}} jours
-                                            <input type="radio" name="radioassurance" value="{{ assurance.duree}} ">
+                                            <input type="radio" name="radioassurance" value="{{ assurance.id }}" info="{{ assurance.duree }}">
                                             <span class="checkmark"></span>
                                         </label>
                                     </td>
@@ -446,7 +469,7 @@
                                         </div>
                                     </td>
                                     <td class="price">
-                                        <span class="{{ assurance.duree}}">{{assurance.tarif}}</span>€
+                                        <span class="assurance-price {{ assurance.duree}}">{{assurance.tarif}}</span>€
                                     </td>
                                 </tr>
                             {% endfor %}
@@ -691,26 +714,26 @@
                         <tr>
                             <td>Visa classic {{typeVisa.visaClassic.pays.titre}} : {{typeVisa.categorieVisa.titre}}</td>
                             <td class="label label-quantity quantite-voyageur">1</td>
-                            <td class="label-price prix-visa">35€</td>
-                            <td class="label-total prix-total">70€</td>
+                            <td class="label-price"><span class="prix-visa">0</span>€</td>
+                            <td class="label-total"><span class="prix-total">0</span>€</td>
                         </tr>        
                         <tr>
                             <td class="enlevement-sortie">Enlèvement par courrier</td>
                             <td class="label label-quantity">1</td>
-                            <td class="label-price tarif-enlevement">0€</td>
-                            <td class="label-total tarif-enlevement">0€</td>
+                            <td class="label-price"><span class="tarif-enlevement">0</span>€</td>
+                            <td class="label-total"><span class="tarif-enlevement">0</span>€</td>
                         </tr>
                         <tr>
                             <td class="livraison-sortie">Livraison coursier 92</td>
                             <td class="label label-quantity">1</td>
-                            <td class="label-price livraison-tarif">30€</td>
-                            <td class="label-total livraison-tarif">30€</td>
+                            <td class="label-price"><span class="livraison-tarif">0</span>€</td>
+                            <td class="label-total"><span class="livraison-tarif">0</span>€</td>
                         </tr> 
                         <tr>
                             <td>Assurance voyage</td>
                             <td class="label label-quantity assurance-quantite">1</td>
-                            <td class="label-price assurance-prix">30€</td>
-                            <td class="label-total assurance-total">30€</td>
+                            <td class="label-price"><span class="assurance-prix">0</span>€</td>
+                            <td class="label-total"><span class="assurance-prix">0</span>€</td>
                         </tr>
                     </tbody>
 			    </table>
@@ -723,12 +746,10 @@
 							<input type="text" class="form-control">
 							<a href="#">OK</a>
 						</div>
-						<span class="black">Total</span><span class="green">70€</span>
+						<span class="black">Total</span><span class="green">€</span>
 					</div>
 				</div>
 			</div>
-
-        	<form>
                 <label class="form-label">Sélectionnez le mode de paiement</label>
 
                 <div class="paiement-bloc">
@@ -792,28 +813,28 @@
                     <div class="label-wrapper">
                         <div class="label">Voyageur(s)</div>
                         <div class="label label-quantity quantite-voyageur">x1</div>
-                        <div class="label-price prix-visa-type">{{typeVisa.fraisConsulaire + typeVisa.fraisEdition}}</div>
+                        <div class="label-price"><span class="prix-visa-type">{{typeVisa.fraisConsulaire + typeVisa.fraisEdition + typeVisa.fraisFormulaire}}</span>€</div>
                     </div>
 
                     <div class="label-wrapper step-5" style="display: none">
                         <div class="label enlevement-sortie">Enlèvement par courrier</div>
-                        <div class="label-price tarif-enlevement">0€</div>
+                        <div class="label-price "><span class="tarif-enlevement">0</span>€</div>
                     </div>
 
                     <div class="label-wrapper step-6" style="display: none">
                         <div class="label livraison-sortie">Livraison lettre RAR</div>
-                        <div class="label-price livraison-tarif" id="tarif-livraison">9€</div>
+                        <div class="label-price" id="tarif-livraison"><span class="livraison-tarif" id="tarif-de-livraison">0</span>€</div>
                     </div>
                     <div class="label-wrapper step-8" style="display: none">
                         <div class="label">Assurance voyage</div>
                         <div class="label label-quantity assurance-quantite">x1</div>
-                        <div class="label-price assurance-total">60€</div>
+                        <div class="label-price"><span class="assurance-total">0</span>€</div>
                     </div>
                     <div class="label-wrapper">
-                        <div class="total">Total</div>
+                        <div class="total-text">Total</div>
                         <div class="total-price">
                             <div class="text-right text-primary small">
-                                <p class="total text-uppercase">200€</p>
+                                <p class="label-price text-uppercase"><span class="total">{{typeVisa.fraisConsulaire + typeVisa.fraisEdition + typeVisa.fraisFormulaire}}</span>€</p>
                             </div>
                         </div>
                     </div>
@@ -856,7 +877,7 @@
                         <div class="label">Adresse email</div>
                         <div class="float-right">
                             <div>
-                                <p class="label text-underline mail-show">tran07@gmail.com</p>
+                                <p class="label text-underline mail-show"></p>
                             </div>
                         </div>
                     </div>
@@ -949,7 +970,9 @@
 <script src="{{ asset('/frontend/js/intlTelInput.js') }}"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.9/js/select2.min.js"></script>
 <script src="{{ asset('/frontend/js/forms.js') }}"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>           
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>     
+<script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
+<script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script>      
 <script>
     $( function() {
         $( "#date_entree" ).datepicker();
@@ -961,6 +984,35 @@
         $( "#date_sortie" ).datepicker();
         $( "#date_sortie" ).datepicker( "option", "dateFormat", "dd/mm/yy" );
     });
+    $( function() {
+        $( "#jour-vol" ).datepicker();
+        $( "#jour-vol" ).datepicker( "option", "dateFormat", "dd/mm/yy" );
+    });
+    
+    $('.save').on('click', function() {
+        var form = $('#save')
+        var url = "{{path('enregistrer_commande_visa_classic', {id: typeVisa.id})}}";
+        var formSerialize = form.serialize();
+
+        var post = $.post(url, formSerialize, function(response) {
+
+        }, 'JSON');
+
+        post.done(function() {
+            $('#success-alert').show();
+            setTimeout(function() {$('#success-alert').hide();}, 5000);
+            goToNextScreen();         
+        })
+        post.fail(function(response) {
+            var errorMessage = response;
+            $('#error-alert').text(errorMessage.responseJSON.message)
+            $("#error-alert").show();
+            setTimeout(function() { $("#error-alert").hide(); }, 5000);
+            console.log(response);
+        })
+    })
+    
 </script>
 
 {% endblock %}
+

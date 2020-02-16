@@ -40,12 +40,12 @@ class User implements UserInterface
     private $password;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $nom;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $prenom;
 
@@ -134,6 +134,11 @@ class User implements UserInterface
      */
     private $coursesLivraison;
 
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\AdresseFacturation", inversedBy="user", cascade={"persist", "remove"})
+     */
+    private $adresseFacturation;
+
     public function __construct()
     {
         $request= Request::createFromGlobals();
@@ -147,6 +152,8 @@ class User implements UserInterface
         $this->voyageurs = new ArrayCollection();
         $this->courses = new ArrayCollection();
         $this->coursesLivraison = new ArrayCollection();
+        $this->dateCreation = new \DateTime('now');
+        $this->dateModif = new \DateTime('now');
     }
 
     public function getId(): ?int
@@ -571,6 +578,18 @@ class User implements UserInterface
     public function __toString()
     {
         return strtoupper($this->nom). '-' .  ucfirst($this->prenom). '-' . $this->email .' ';
+    }
+
+    public function getAdresseFacturation(): ?AdresseFacturation
+    {
+        return $this->adresseFacturation;
+    }
+
+    public function setAdresseFacturation(?AdresseFacturation $adresseFacturation): self
+    {
+        $this->adresseFacturation = $adresseFacturation;
+
+        return $this;
     }
 
 }

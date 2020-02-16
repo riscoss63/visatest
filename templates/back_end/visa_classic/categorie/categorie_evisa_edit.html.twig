@@ -8,7 +8,7 @@
 {% if app.request.attributes.get('_route') == 'categorie_visaclassic_edit' %}
     {{ form_start(form, {'action': path('categorie_visaclassic_edit', { 'idCategorie': idCategorie, 'idType' : idType}), 'method': 'POST'})}}
 {% else %}
-    {{ form_start(form, {'action': path('categorie_visaclassic_add', {'idVisa': idVisa, 'idType' : idType }), 'method': 'POST'})}}
+    {{ form_start(form, {'action': path('categorie_visaclassic_add'), 'method': 'POST'})}}
 {% endif %}
 
 <div class="row">
@@ -30,3 +30,28 @@
         {{ form_end(form, {'render_rest': false})}}
     </div>
 </div>
+
+<script>
+    $('.btn-enregistrer').on('click', function() {
+        var form = $('form [name="categorie_visa"]')
+        var url = "{{path('categorie_visaclassic_add')}}";
+        var formSerialize = form.serialize();
+
+        var post = $.post(url, formSerialize, function(response) {
+
+        }, 'JSON');
+
+        post.done(function() {
+            $('#success-alert').show();
+            setTimeout(function() {$('#success-alert').hide();}, 5000);
+            goToNextScreen();         
+        })
+        post.fail(function(response) {
+            // var errorMessage = response;
+            // $('#error-alert').text(errorMessage.responseJSON.message)
+            $("#error-alert").show();
+            setTimeout(function() { $("#error-alert").hide(); }, 5000);
+            console.log(response);
+        })
+    })
+</script>

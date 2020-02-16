@@ -66,13 +66,11 @@ class CategorieVisasController extends AbstractController
     }
 
     /**
-     * @Route("/add/categorie/visaclassic-{idVisa}/type-{idType}", name="categorie_visaclassic_add", options={"expose"=true})
+     * @Route("/add/categorie/visaclassic", name="categorie_visaclassic_add", options={"expose"=true})
      */
-    public function categorieAdd(Request $request, EntityManagerInterface $manager, $idVisa, $idType)
+    public function categorieAdd(Request $request, EntityManagerInterface $manager)
     {
         $categorie = new CategorieVisa;
-        $visaclassic = $this->getDoctrine()->getRepository(VisaClassic::class)->find($idVisa);
-        $categorie->setVisaClassic($visaclassic);
 
         $form = $this->createForm(CategorieVisaType::class, $categorie);
         $form->handleRequest($request);
@@ -83,15 +81,10 @@ class CategorieVisasController extends AbstractController
             $manager->flush();
             $this->addFlash('success', 'Catégorie visa ajouter');
 
-            return $this->redirectToRoute('edit_type_visa_classic', [
-                'id'        => $idType
-            ]);
         }
 
         return $this->render('/back_end/visa_classic/categorie/categorie_evisa_edit.html.twig', [
             'form'      => $form->createView(),
-            'idVisa'        => $visaclassic->getId(),
-            'idType'        => $idType
         ]);
     }
 
