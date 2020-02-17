@@ -44,7 +44,6 @@ $(document).ready(function(){
     if(livraison.length){
         livraisonAffichage();
     }
-    
     dateEntree.on('change', function() {
         dureeSejourAffichage(dateEntree, dateSortie);
     })
@@ -72,7 +71,7 @@ $(document).ready(function(){
         changeQuantity();
     });
 
-    codePostalLivraison.change(function () {
+    codePostalLivraison.on('change', function () {
         afficherCoursier(codePostalLivraison.val());
     });
 
@@ -1252,6 +1251,10 @@ function goToNextScreen() {
         else if(currentStepNb === 2) {
             $('.required-1').attr('required', 'true');
         }
+        if(currentStepNb === 6) {
+            $("input[name='codePostal']").val($("#code_postal_livraison").val());
+            $("input[name='ville']").val($("#ville_livraison").val());
+        }
         
     }
 }
@@ -1382,7 +1385,7 @@ function changeQuantity() {
 }
 
 function afficherCoursier(codePostal) {
-    var regexIleDeFrance = /^75|77|78|91|92|93|94|95[0-9]{3}$/;
+    var regexIleDeFrance = /^75|^77|^78|^91|^92|^93|^94|^95[0-9]{3}$/;
     if(regexIleDeFrance.test(codePostal)) {
         $('.ile').show();
         $('.coursier').show()
@@ -1611,6 +1614,17 @@ function modifTotal() {
 $('.aeroport-check').on('click', function() { 
     $('.vol-info').show();
 });
+
+$('input[name="address-facturation"]').on('click', function() {
+    if($('input[name="address-facturation"]').prop('checked')) {
+        $('#facturation').show();
+    }
+    else {
+        $('#facturation').hide();
+    }
+    
+    
+})
 
 
 

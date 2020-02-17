@@ -6,6 +6,8 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.9/css/select2.min.css" rel="stylesheet" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.3.0/css/flag-icon.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" type="text/css" href="https://vicopo.selfbuild.fr/index.css">
+
     <!-- TrustBox script -->
     <script type="text/javascript" src="{{ asset('/frontend/css/formulaire_visa_classic/tp.widget.bootstrap.min.js') }}" async></script>
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
@@ -130,7 +132,7 @@
   </div>
 </div>
 
-<div class="alert alert-success" id="success-alert" style="display:none"> Vous avez reçu un mail de confirmation</div>
+<div class="alert alert-success" id="success-alert" style="display:none"> </div>
 <div class="alert alert-danger" id="error-alert" style="display:none"> </a></div>
 
 
@@ -251,7 +253,7 @@
                     <a href="#top" class="btn btn-primary previous-arrow d-flex flex-nowrap align-items-center"><img src="/images/retour-paiement-white.svg" alt="icône étape précédente" class="icon">Précédent</a>
                 </div>
                 <div class="btn-submit">
-                    <a href="#top" class="btn btn-primary btn-next">Etape suivante <img src="/images/btn-send.svg" alt="icône étape suvante" class="icon"></a>
+                    <a href="#top" class="btn btn-primary save"  id="dates-entree">Etape suivante <img src="/images/btn-send.svg" alt="icône étape suvante" class="icon"></a>
                 </div>
             </div>
         </div>
@@ -268,13 +270,14 @@
 				<div class=" form-group on-desktop">
 					<label class="form-label">Code postal de livraison</label>
 					<div class="input-width">
-                        <input class="form-control" type="text" id="code_postal_livraison" >
+                        <input class="form-control code" type="text" id="code_postal_livraison" autocomplete="off" autofocus>
 					</div>
                 </div>
+                    <div id="output"></div>
                 <div class=" form-group on-desktop">
 					<label class="form-label">Ville</label>
 					<div class="input-width">
-                        <input class="form-control" type="text" id="ville_livraison" >
+                        <input class="form-control city" type="text" id="ville_livraison" autocomplete="off">
 					</div>
                 </div>
 				<div class="form-group form-group-animated on-mobile">
@@ -418,12 +421,12 @@
 						<a href="#top" class="btn btn-primary previous-arrow d-flex flex-nowrap align-items-center"><img src="/images/retour-paiement-white.svg" alt="icône étape précédente" class="icon">Précédent</a>
 					</div>
 					<div class="btn-submit">
-						<a href="#top" class="btn btn-primary save" >Etape suivante <img src="/images/btn-send.svg" alt="icône étape suvante" class="icon"></a>
+						<a href="#top" class="btn btn-primary save" id="email-save">Etape suivante <img src="/images/btn-send.svg" alt="icône étape suvante" class="icon"></a>
 					</div>
 				</div>
         </div>
         <!-- Step 7 - Assurance voyage -->
-        <div class="form-step form-step-7" style="display: none">
+        {# <div class="form-step form-step-7" style="display: none">
             <div class="description">
 				<div class="d-flex justify-content-between align-items-center">	
                 	<h2 class="form-title">Option assurance voyage</h2>
@@ -558,27 +561,26 @@
 						<a href="#top" class="btn btn-primary btn-next">Etape suivante <img src="/images/btn-send.svg" alt="icône étape suivante" class="icon"></a>
 					</div>
 			  </div>
-        </div>
+        </div> #}
 
         <!-- Step 8 - Coordonnées -->
-        <div class="form-step form-step-8" style="display: none">
+        <div class="form-step form-step-7" style="display: none">
 
 				<span class="on-mobile form-label">Coordonnées</span>
                 <div class="form-group">
                     <label class="form-label on-desktop">Vous êtes un(e)</label>
 
                     <select class="classic-select input-width">
-                        <option>Particulier</option>
-                        <option>Entreprise</option>
-                        <option>Agence de voyage</option>
-                        <option>Association</option>
-                        <option>Collectivité</option>
-                        <option>Autre</option>
+                        <option value="ROLE_CLIENT">Particulier</option>
+                        <option value="ROLE_ENTREPRISE">Entreprise</option>
+                        <option value="ROLE_AGENCE_DE_VOYAGE">Agence de voyage</option>
+                        <option value="ROLE_ASSOCIATION">Association</option>
+                        <option value="ROLE_COLLECTIVITE">Collectivité</option>
                     </select>
                 </div>
 
                 <!-- Afficher "Nom de la société" si l'user a selectionné 'entreprise' ou 'agence de voyage'-->
-                <div class=" form-group on-desktop">
+                {# <div class=" form-group on-desktop">
                     <label  class="form-label ">Nom de la société</label>
                     <div class="input-width">
                         <input class="form-control on-desktop" type="text">
@@ -589,7 +591,7 @@
                     <div class="input-width">
 						<input id="nomSociete" class="form-control on-mobile" type="text" name="nomSociete">
                     </div>
-                </div>
+                </div> #}
 
                 <div class=" form-group on-desktop">
                     <label  class="form-label ">Nom</label>
@@ -670,8 +672,64 @@
                     </div>
                 </div>
 
+                <!--Si l'adresse de facturation est coché-->
+                <div id="facturation" style="display: none;">
+                    <h3>Facturation</h3>
+                    <div class=" form-group on-desktop">
+                        <label  class="form-label ">Adresse de facturation</label>
+                        <div class="input-width">
+                            <input class="form-control on-desktop" type="text" name="adresseFacturation">
+                        </div>
+                    </div>
+                    <div class="form-group form-group-animated on-mobile">
+                        <label for="adresseFacturation" class="form-label">Adresse de facturation</label>
+                        <div class="input-width">
+                            <input id="adresseFacturation" class="form-control on-mobile" type="text" name="adresseFacturation">
+                        </div>
+                    </div>
+                    <div class=" form-group on-desktop">
+                        <label  class="form-label ">Code Postal</label>
+                        <div class="input-width">
+                            <input class="form-control on-desktop" type="text" name="codePostalFacturation">
+                        </div>
+                    </div>
+                    <div class="form-group form-group-animated on-mobile">
+                        <label for="codePostalFacturation" class="form-label">Code postal</label>
+                        <div class="input-width">
+                            <input id="codePostalFacturation" class="form-control on-mobile" type="text" name="codePostalFacturation">
+                        </div>
+                    </div>
+
+                    <div class=" form-group on-desktop">
+                        <label  class="form-label ">Ville</label>
+                        <div class="input-width">
+                            <input class="form-control on-desktop" type="text" name="villeFacturation">
+                        </div>
+                    </div>
+                    <div class="form-group form-group-animated on-mobile">
+                        <label for="villeFacturation" class="form-label">Ville</label>
+                        <div class="input-width">
+                            <input id="villeFacturation" class="form-control on-mobile" type="text" name="villeFacturation">
+                        </div>
+                    </div>
+
+                    <div class=" form-group on-desktop">
+                        <label  class="form-label ">Téléphone</label>
+                        <div class="input-width">
+                            <input class="form-control on-desktop" type="tel" id="telephoneFacturation" name="telephoneFacturation">
+                        </div>
+                    </div>
+                    <div class="form-group form-group-animated on-mobile">
+                        <label for="telephoneFacturation" class="formlabel">Téléphone</label>
+                        <div class="input-width">
+                            <input id="telephoneFacturationMobile" class="form-control on-mobile" type="tel" name="telephoneFacturation">
+                        </div>
+                    </div>
+                </div>
+                <!--Fin facturation-->
+
                 <div class="form-check mb-4">
-                    <input class="form-check-input" type="checkbox" value="" id="address-facturation">
+                    <input class="form-check-input" type="checkbox" id="address-facturation" name="address-facturation">
                     <label class="form-check-label on-desktop" for="address-facturation">
                         Cocher si votre adresse de facturation est différente de celle de l'adresse de livraison
                     </label>
@@ -692,13 +750,13 @@
 						<a href="#top" class="btn btn-primary previous-arrow d-flex flex-nowrap align-items-center"><img src="/images/retour-paiement-white.svg" alt="icône étape précédente" class="icon">Précédent</a>
 					</div>
 					<div class="btn-submit">
-						<a href="#top" class="btn btn-primary btn-next">Etape suivante <img src="/images/btn-send.svg" alt="icône étape suivante" class="icon"></a>
+						<a href="#top" class="btn btn-primary save" id="profil-save">Etape suivante <img src="/images/btn-send.svg" alt="icône étape suvante" class="icon"></a>
 					</div>
 			  </div>
         </div>
 
         <!-- Step 9 - Paiement -->
-        <div class="form-step form-step-9" style="display: none">
+        <div class="form-step form-step-8" style="display: none">
             <div class="on-mobile">
 				<label class="form-label">Récapitulatif de la commande</label>
 				<table class="table table-form">
@@ -788,9 +846,8 @@
             <div class="step">4.Pays de livraison</div>
             <div class="step">5.Mode de livraison</div>
             <div class="step">6.Email</div>
-            <div class="step">7.Assurance</div>
-            <div class="step">8.Coordonnées</div>
-            <div class="step">9.Paiement</div>
+            <div class="step">7.Coordonnées</div>
+            <div class="step">8.Paiement</div>
         </div>
 
         <div class="bloc-avis on-desktop">
@@ -973,6 +1030,8 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>     
 <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
 <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script>      
+<script src="{{ asset('/bundles/autocompletition/index.js') }}"></script>
+
 <script>
     $( function() {
         $( "#date_entree" ).datepicker();
@@ -988,8 +1047,52 @@
         $( "#jour-vol" ).datepicker();
         $( "#jour-vol" ).datepicker( "option", "dateFormat", "dd/mm/yy" );
     });
+
+    //Validation profil
+    $('#profil-save').on('click', function() {
+        var form = $('#save')
+        var url = "{{path('enregistrer_commande_visa_classic', {id: typeVisa.id, verif: 'profil'})}}";
+        var formSerialize = form.serialize();
+
+        var post = $.post(url, formSerialize, function(response) {
+
+        }, 'JSON');
+
+        post.done(function() {
+            goToNextScreen();         
+        })
+        post.fail(function(response) {
+            var errorMessage = response;
+            $('#error-alert').text(errorMessage.responseJSON.message)
+            $("#error-alert").show();
+            setTimeout(function() { $("#error-alert").hide(); }, 5000);
+            console.log(response);
+        })
+    })
     
-    $('.save').on('click', function() {
+    //Validation date d'entrée et sortie du séjour
+    $('#dates-entree').on('click', function() {
+        var form = $('#save')
+        var url = "{{path('enregistrer_commande_visa_classic', {id: typeVisa.id, verif: 'date_entree'})}}";
+        var formSerialize = form.serialize();
+
+        var post = $.post(url, formSerialize, function(response) {
+
+        }, 'JSON');
+
+        post.done(function() {
+            goToNextScreen();         
+        })
+        post.fail(function(response) {
+            var errorMessage = response;
+            $('#error-alert').text(errorMessage.responseJSON.message)
+            $("#error-alert").show();
+            setTimeout(function() { $("#error-alert").hide(); }, 5000);
+        })
+    })
+
+    //Premiere validation avec récuperation de mail
+    $('#email-save').on('click', function() {
         var form = $('#save')
         var url = "{{path('enregistrer_commande_visa_classic', {id: typeVisa.id})}}";
         var formSerialize = form.serialize();
@@ -999,16 +1102,13 @@
         }, 'JSON');
 
         post.done(function() {
-            $('#success-alert').show();
-            setTimeout(function() {$('#success-alert').hide();}, 5000);
-            goToNextScreen();         
+            goToNextScreen();     
         })
         post.fail(function(response) {
             var errorMessage = response;
             $('#error-alert').text(errorMessage.responseJSON.message)
             $("#error-alert").show();
             setTimeout(function() { $("#error-alert").hide(); }, 5000);
-            console.log(response);
         })
     })
     

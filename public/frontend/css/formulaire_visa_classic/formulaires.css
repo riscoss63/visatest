@@ -284,7 +284,7 @@
   .address-infos .address-infos-description {
     margin-bottom: 5px; }
 
-.form-step-7 {
+/* .form-step-7 {
   width: 80%; }
   .form-step-7 .form-group {
     display: flex;
@@ -316,7 +316,7 @@
         border: 1px solid #ddd;
         margin-right: 18px; }
         .form-step-7 .birthdate-wrapper .birthdate .form-control::placeholder {
-          text-align: center; }
+          text-align: center; } */
 
 /** 3.1. Inputs fields **/
 .input-group {
