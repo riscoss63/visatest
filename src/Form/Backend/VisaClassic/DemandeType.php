@@ -21,21 +21,21 @@ class DemandeType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('entre', DateType::class, [
+            ->add('entre', TextType::class, [
                 'attr'      => [
                     'class'     => 'form-control'
                 ],
                 'label'     => 'Date d\'entrée',
                 'required'  => true,
-                'widget' => 'choice',
+                'mapped'    => false,
             ])
-            ->add('sortie', DateType::class, [
+            ->add('sortie', TextType::class, [
                 'attr'      => [
                     'class'     => 'form-control'
                 ],
                 'label'     => 'Date de sortie',
                 'required'  => false,
-                'widget' => 'choice',
+                'mapped'    => false,
             ])
             ->add('urgent', ChoiceType::class, [
                 'choices'       => [
@@ -58,6 +58,7 @@ class DemandeType extends AbstractType
                 'prototype'     => true,
                 'by_reference'  => false,
             ])
+            ->add('frais', FraisType::class)
             ->add('submit', SubmitType::class, [
                 'attr'  => [
                     'class'     => 'mt-3 form-control btn btn-primary'
@@ -72,7 +73,7 @@ class DemandeType extends AbstractType
             'data_class' => Demande::class,
             'csrf_protection'       => true,
             'csrf_field_name'       => '_token',
-            'crsf_token_id'         => 'demande_type_edit'
+            'crsf_token_id'         => 'demande_type_edit_visa_classic'
         ]);
     }
 }

@@ -14,8 +14,8 @@
     </div>
     {{ form_start(form, {'action': path('edit_demandes_visa_classic', {'id': demande.id}), 'method': 'POST'}) }}
     <div class="row justify-content-center mt-5">
-        <div class="col-5 text-center"> 
-            <h3>Informations <strong>client</strong></h3>        
+        <div class="col-5 text-center" style="border-right: 1px solid #cc0;"> 
+            <h5>Informations <strong>client</strong></h5>        
                 <div class="row form-group text-right">
                     {{ form_label(form.client.nom, 'Nom' , {'label_attr' : {'class': 'col-sm-2 col-form-label'}}) }}
                     <div class="input-group col-sm-4">
@@ -56,7 +56,7 @@
                         {{ form_widget(form.client.ville) }}
                     </div>
                 </div>
-                <h3>Informations demande</h3>
+                <h5>Informations demande</h5>
                 <p>Type de Visa :<strong> {{ demande.visaType.visaClassic.pays.titre}} - {{ demande.visaType.titre }} - NB d'entrées : {{ demande.quantiteVisa }} </strong></p>
 
                 <div class="row form-group text-right mb-5">
@@ -73,66 +73,276 @@
                 </div>
 
         </div>
-        <div class="col-7" >
-            <h3>Informations <strong>Voyageurs</strong></h3>
-            {% for voyageur in form.client.voyageurs %}
-                <h5>Voyageur n°{{loop.index}}</h5>
-                <div class="row form-group text-right mb-5">
-                    {{ form_label(voyageur.nom, 'Nom', {'label_attr' : {'class': 'col-sm-2 col-form-label'}}) }}
-                    <div class="input-group col-sm-10">
-                        {{ form_widget(voyageur.nom) }}
+        <div class="col-7 text-center" >
+            <!--Frais consulaire-->
+            <h5>Frais <strong>consulaires</strong></h5>           
+            <div class="row form-group text-right mt-3">
+                <div class="row">
+                    {{ form_label(form.frais.fraisConsulaire, 'Frais unitaire' , {'label_attr' : {'class': 'col-sm-2 col-form-label'}}) }}
+                    <div class="input-group col-sm-2">
+                        {{ form_widget(form.frais.fraisConsulaire) }}
+                    </div>
+                    {{ form_label(form.frais.quantiteConsulaire, 'Quantité', {'label_attr' : {'class': 'col-sm-2 col-form-label'}}) }}
+                    <div class="input-group col-sm-2">
+                        {{ form_widget(form.frais.quantiteConsulaire) }}
+                    </div>
+                    <label class="col-sm-2 col-form-label">Total</label>
+                    <div class="input-group col-sm-2">
+                        <input type="number" class="form-control" disabled="disabled" name="total-consulaire" value="{{demande.frais.fraisConsulaire * demande.frais.quantiteConsulaire}}">
                     </div>
                 </div>
-                <div class="row form-group text-right mb-5">
-                    {{ form_label(voyageur.prenom, 'Prenom', {'label_attr' : {'class': 'col-sm-2 col-form-label'}}) }}
-                    <div class="input-group col-sm-10">
-                        {{ form_widget(voyageur.prenom) }}
+            </div>
+
+            <!--Prestation visa-->
+            <h5>Frais de la <strong>prestation visa</strong></h5>
+            <div class="row form-group text-right mt-3">
+                <!--Frais edition-->
+                <div class="row mb-3">
+                    {{ form_label(form.frais.fraisEdition, 'Frais d\'édition' , {'label_attr' : {'class': 'col-sm-2 col-form-label'}}) }}
+                    <div class="input-group col-sm-2">
+                        {{ form_widget(form.frais.fraisEdition) }}
+                    </div>
+                    {{ form_label(form.frais.quantiteEdition, 'Quantité', {'label_attr' : {'class': 'col-sm-2 col-form-label'}}) }}
+                    <div class="input-group col-sm-2">
+                        {{ form_widget(form.frais.quantiteEdition) }}
+                    </div>
+                    <label class="col-sm-2 col-form-label">Total</label>
+                    <div class="input-group col-sm-2">
+                        <input type="number" class="form-control" disabled="disabled" name="total-edition" value="{{demande.frais.fraisEdition * demande.frais.quantiteEdition}}">
                     </div>
                 </div>
-                <div class="row form-group text-right mb-5">
-                    {{ form_label(voyageur.sexe, 'Sexe', {'label_attr' : {'class': 'col-sm-2 col-form-label'}}) }}
-                    <div class="input-group col-sm-10">
-                        {{ form_widget(voyageur.sexe) }}
+                <!--Fin Frais edition-->
+                <!--Frais Formulaire-->
+                <div class="row mb-3">
+                    {{ form_label(form.frais.fraisFormulaire, 'Frais de formulaire' , {'label_attr' : {'class': 'col-sm-2 col-form-label'}}) }}
+                    <div class="input-group col-sm-2">
+                        {{ form_widget(form.frais.fraisFormulaire) }}
+                    </div>
+                    {{ form_label(form.frais.quantiteFormulaire, 'Quantité', {'label_attr' : {'class': 'col-sm-2 col-form-label'}}) }}
+                    <div class="input-group col-sm-2">
+                        {{ form_widget(form.frais.quantiteFormulaire) }}
+                    </div>
+                    <label class="col-sm-2 col-form-label">Total</label>
+                    <div class="input-group col-sm-2">
+                        <input type="number" class="form-control" disabled="disabled" name="total-formulaire" value="{{demande.frais.fraisFormulaire * demande.frais.quantiteFormulaire}}">
                     </div>
                 </div>
-                <div class="row form-group text-right mb-5">
-                    {{ form_label(voyageur.nationalite, 'Nationalite', {'label_attr' : {'class': 'col-sm-2 col-form-label'}}) }}
-                    <div class="input-group col-sm-10">
-                        {{ form_widget(voyageur.nationalite) }}
+                <!--Fin Frais Formulaire-->
+            </div>
+                
+            <h5>Frais de la <strong>livraison / enlèvement</strong></h5>
+            <div class="row form-group text-right mt-3">
+                <!--Frais livraison-->
+                <div class="row">
+                    {{ form_label(form.frais.fraisLivraison, 'Frais de livraison' , {'label_attr' : {'class': 'col-sm-2 col-form-label'}}) }}
+                    <div class="input-group col-sm-2">
+                        {{ form_widget(form.frais.fraisLivraison) }}
+                    </div>
+                    {{ form_label(form.frais.quantiteLivraison, 'Quantité', {'label_attr' : {'class': 'col-sm-2 col-form-label'}}) }}
+                    <div class="input-group col-sm-2">
+                        {{ form_widget(form.frais.quantiteLivraison) }}
+                    </div>
+                    <label class="col-sm-2 col-form-label">Total</label>
+                    <div class="input-group col-sm-2">
+                        <input type="number" class="form-control" disabled="disabled" name="total-livraison" value="{{demande.frais.fraisLivraison * demande.frais.quantiteLivraison}}">
                     </div>
                 </div>
-                <div class="row form-group text-right mb-5">
-                    {{ form_label(voyageur.dateNaissance, 'Date de naissance', {'label_attr' : {'class': 'col-sm-2 col-form-label'}}) }}
-                    <div class="input-group col-sm-10">
-                        {{ form_widget(voyageur.dateNaissance) }}
+                <!--Fin Frais livraison-->
+                <!--Frais enlevement-->
+                <div class="row">
+                    {{ form_label(form.frais.fraisEnlevement, "Frais d'enlèvement" , {'label_attr' : {'class': 'col-sm-2 col-form-label'}}) }}
+                    <div class="input-group col-sm-2">
+                        {{ form_widget(form.frais.fraisEnlevement) }}
+                    </div>
+                    {{ form_label(form.frais.quantiteEnlevement, 'Quantité', {'label_attr' : {'class': 'col-sm-2 col-form-label'}}) }}
+                    <div class="input-group col-sm-2">
+                        {{ form_widget(form.frais.quantiteEnlevement) }}
+                    </div>
+                    <label class="col-sm-2 col-form-label">Total</label>
+                    <div class="input-group col-sm-2">
+                        <input type="number" class="form-control" disabled="disabled" name="total-enlevement" value="{{demande.frais.fraisEnlevement * demande.frais.quantiteEnlevement}}">
                     </div>
                 </div>
-                <div class="row form-group text-right mb-5">
-                    {{ form_label(voyageur.numeroPasseport, 'Numéro de passeport', {'label_attr' : {'class': 'col-sm-2 col-form-label'}}) }}
-                    <div class="input-group col-sm-10">
-                        {{ form_widget(voyageur.numeroPasseport) }}
+                <!--Fin Frais enlevement-->
+            </div>
+
+            <h5>Coût total de <strong>la commande</strong></h5>
+            <div class="row form-group text-center mt-3">
+                <div class="row">
+                    <label class="col-sm-3 col-form-label">Frais consulaires</label>
+                    <label class="col-sm-3 col-form-label">Prestation visa</label>
+                    <label class="col-sm-3 col-form-label">Livraison/Enlèvement</label>
+                    <label class="col-sm-3 col-form-label">Total</label>
+
+                    <div class="input-group col-sm-3">
+                        <input type="number" class="form-control" disabled="disabled" name="total-frais-consulaire" value="{{demande.frais.fraisConsulaire * demande.frais.quantiteConsulaire}}">
+                    </div>
+                    <div class="input-group col-sm-3">
+                        <input type="number" class="form-control" disabled="disabled" name="total-frais-prestation" value="{{demande.frais.fraisEdition * demande.frais.quantiteEdition}}">
+                    </div>
+                    <div class="input-group col-sm-3">
+                        <input type="number" class="form-control" disabled="disabled" name="total-frais-livraison-retour" value="{{(demande.frais.fraisEnlevement * demande.frais.quantiteEnlevement) + (demande.frais.fraisLivraison * demande.frais.quantiteLivraison)}}">
+                    </div>
+                    <div class="input-group col-sm-3">
+                    {# {{(demande.frais.fraisEnlevement * demande.frais.quantiteEnlevement) + (demande.frais.fraisLivraison * demande.frais.quantiteLivraison) + (demande.frais.fraisEdition * demande.frais.quantiteEdition) + (demande.frais.fraisConsulaire * demande.frais.quantiteConsulaire) + (demande.frais.fraisFormulaire * demande.frais.quantiteFormulaire)}} #}
+                        <input type="number" class="form-control" name="total-frais" value="{{demande.frais.total}}">
                     </div>
                 </div>
-                <hn></hn>
-            {% endfor %}
-        </div>
+            </div>
+            <button type="submit" class="btn btn-enregistrer"><i class="fas fa-save"></i> Enregistrer </a>
+
     </div>
-
+    <div id="rappel-entree" data-rappel="{{demande.entre|date('d/m/Y')}}">
+    </div>
+    <div id="rappel-sortie" data-rappel="{{demande.sortie|date('d/m/Y')}}">
+    </div>
+    {{form_widget(form._token)}}
 {{ form_end(form, {'render_rest': false})}}
-
-    
+{% set demandeEntree = demande.entre|date('d/m/Y') %}
+{% set demandeSortie = demande.sortie|date('d/m/Y') %}
 
 <script type="text/javascript" src="{{ asset('backend/js/jquery.collection.js') }}"></script>
 <script type="text/javascript">
     $('.my-selector').collection();
 </script>
-<link rel="stylesheet" type="text/css" href="{{ asset('/bundles/datetimepicker-master/build/jquery.datetimepicker.min.css') }}"/ >
-<script src="{{ asset('/bundles/datetimepicker-master/build/jquery.datetimepicker.full.min.js') }}"></script>
+
 <script>
-    jQuery.datetimepicker.setLocale('fr');
-    jQuery('#course_edit_dateEnlevement').datetimepicker({
-        format: 'd-m-Y H:i',
-        theme: 'dark',
+    $( function() {
+        $( "#demande_entre" ).datepicker({
+            numberOfMonths: 2
+        });
+        $( "#demande_entre" ).datepicker( "option", "dateFormat", "dd/mm/yy" );
+        $( "#demande_entre" ).datepicker( "setDate", $('#rappel-entree').data('rappel') );
+    });
+
+    $( function() {
+        $( "#demande_sortie" ).datepicker({
+            numberOfMonths: 2
+        });
+        $( "#demande_sortie" ).datepicker( "option", "dateFormat", "dd/mm/yy" );
+        $( "#demande_sortie" ).datepicker( "setDate", $('#rappel-sortie').data('rappel') );
     });
     
+    //calcul du total frais consulaire
+    $('#demande_frais_fraisConsulaire').on('change', function() {
+        var total = parseInt($('#demande_frais_fraisConsulaire').val()) * parseInt($('#demande_frais_quantiteConsulaire').val());
+        $('input[name=total-consulaire]').val(total);
+        refreshTotalCommande()
+
+    })
+
+    $('#demande_frais_quantiteConsulaire').on('change', function() {
+        var total = parseInt($('#demande_frais_fraisConsulaire').val()) * parseInt($('#demande_frais_quantiteConsulaire').val());
+        $('input[name=total-consulaire]').val(total);
+        refreshTotalCommande()
+    })
+    
+    //calcul total frais d'édition 
+    $('#demande_frais_fraisEdition').on('change', function() {
+        var total = parseInt($('#demande_frais_fraisEdition').val()) * parseInt($('#demande_frais_quantiteEdition').val());
+        $('input[name=total-edition]').val(total);
+        refreshTotalCommande()
+    })
+    $('#demande_frais_quantiteEdition').on('change', function() {
+        var total = parseInt($('#demande_frais_fraisEdition').val()) * parseInt($('#demande_frais_quantiteEdition').val());
+        $('input[name=total-edition]').val(total);
+        refreshTotalCommande()
+    })
+
+    //calcul total frais de formulaire 
+    $('#demande_frais_fraisFormulaire').on('change', function() {
+        var total = parseInt($('#demande_frais_fraisFormulaire').val()) * parseInt($('#demande_frais_quantiteFormulaire').val());
+        $('input[name=total-formulaire]').val(total);
+        refreshTotalCommande()
+    })
+    $('#demande_frais_quantiteFormulaire').on('change', function() {
+        var total = parseInt($('#demande_frais_fraisFormulaire').val()) * parseInt($('#demande_frais_quantiteFormulaire').val());
+        $('input[name=total-formulaire]').val(total);
+        refreshTotalCommande()
+    })
+
+    //calcul total frais de livraison 
+    $('#demande_frais_fraisLivraison').on('change', function() {
+        var total = parseInt($('#demande_frais_fraisLivraison').val()) * parseInt($('#demande_frais_quantiteLivraison').val());
+        $('input[name=total-livraison]').val(total);
+        refreshTotalCommande()
+    })
+    $('#demande_frais_quantiteLivraison').on('change', function() {
+        var total = parseInt($('#demande_frais_fraisLivraison').val()) * parseInt($('#demande_frais_quantiteLivraison').val());
+        $('input[name=total-livraison]').val(total);
+        refreshTotalCommande()
+    })
+
+    //calcul total frais d'enlevement 
+    $('#demande_frais_fraisEnlevement').on('change', function() {
+        var total = parseInt($('#demande_frais_fraisEnlevement').val()) * parseInt($('#demande_frais_quantiteEnlevement').val());
+        $('input[name=total-enlevement]').val(total);
+        refreshTotalCommande()
+    })
+    $('#demande_frais_quantiteEnlevement').on('change', function() {
+        var total = parseInt($('#demande_frais_fraisEnlevement').val()) * parseInt($('#demande_frais_quantiteEnlevement').val());
+        $('input[name=total-enlevement]').val(total);
+        refreshTotalCommande()
+    })
+
+    //calcul total de la commande
+    
+    function refreshTotalCommande()
+    {
+        var totalConsulaire = parseInt($('input[name=total-consulaire]').val());
+        var totalEdition = parseInt($('input[name=total-edition]').val());
+        var totalFormulaire= parseInt($('input[name=total-formulaire]').val())
+        var totalLivraison = parseInt($('input[name=total-livraison]').val());
+        var totalEnlevement = parseInt($('input[name=total-enlevement]').val());
+        
+        //total consulaire
+        $('input[name=total-frais-consulaire]').val(totalConsulaire);
+        $('input[name=total-frais-prestation]').val(totalFormulaire + totalEdition);
+        $('input[name=total-frais-livraison-retour]').val(totalLivraison + totalEnlevement);
+
+        var totalCommande = totalConsulaire + totalEdition + totalFormulaire + totalLivraison + totalEnlevement + totalFormulaire;
+        $('input[name=total-frais]').val(totalCommande)
+    }
 </script>
+
+{# {% for voyageur in form.client.voyageurs %}
+    <h5>Voyageur n°{{loop.index}}</h5>
+    <div class="row form-group text-right mb-5">
+        {{ form_label(voyageur.nom, 'Nom', {'label_attr' : {'class': 'col-sm-2 col-form-label'}}) }}
+        <div class="input-group col-sm-10">
+            {{ form_widget(voyageur.nom) }}
+        </div>
+    </div>
+    <div class="row form-group text-right mb-5">
+        {{ form_label(voyageur.prenom, 'Prenom', {'label_attr' : {'class': 'col-sm-2 col-form-label'}}) }}
+        <div class="input-group col-sm-10">
+            {{ form_widget(voyageur.prenom) }}
+        </div>
+    </div>
+    <div class="row form-group text-right mb-5">
+        {{ form_label(voyageur.sexe, 'Sexe', {'label_attr' : {'class': 'col-sm-2 col-form-label'}}) }}
+        <div class="input-group col-sm-10">
+            {{ form_widget(voyageur.sexe) }}
+        </div>
+    </div>
+    <div class="row form-group text-right mb-5">
+        {{ form_label(voyageur.nationalite, 'Nationalite', {'label_attr' : {'class': 'col-sm-2 col-form-label'}}) }}
+        <div class="input-group col-sm-10">
+            {{ form_widget(voyageur.nationalite) }}
+        </div>
+    </div>
+    <div class="row form-group text-right mb-5">
+        {{ form_label(voyageur.dateNaissance, 'Date de naissance', {'label_attr' : {'class': 'col-sm-2 col-form-label'}}) }}
+        <div class="input-group col-sm-10">
+            {{ form_widget(voyageur.dateNaissance) }}
+        </div>
+    </div>
+    <div class="row form-group text-right mb-5">
+        {{ form_label(voyageur.numeroPasseport, 'Numéro de passeport', {'label_attr' : {'class': 'col-sm-2 col-form-label'}}) }}
+        <div class="input-group col-sm-10">
+            {{ form_widget(voyageur.numeroPasseport) }}
+        </div>
+    </div>
+
+    <hn></hn>
+{% endfor %} #}

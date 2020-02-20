@@ -1,0 +1,259 @@
+{% extends "/front_end/pdf/visa_classic/base.html.twig" %}
+{% block stylesheets %}
+    {{parent()}}
+    <link rel="stylesheet" type="text/css" href="{{ absolute_url(asset('/frontend/css/bon_de_commande/style.css')) }}">
+
+
+{% endblock %}
+
+{% block body %}
+
+    
+    
+    <div class="container">
+        <h1>Bon de commande - Visa-en-ligne</h1>
+        <h5 class="infos-entreprise">
+            {{entreprise.titre}} - {{entreprise.adresse}} - {{entreprise.codePostal}} {{entreprise.ville}}<br/>
+            Tél : {{entreprise.telephoneFixe}} - <span class="mail">{{entreprise.email}}</span>
+        </h5>
+        <div class="row">
+            <table style="border-collapse: collapse;" width="100%" cellspacing="0" cellpadding="10">
+                <thead style="background-color: #8080804a; color: black;">
+                    <tr>
+                        <td  colspan="2"> <strong>Nom</strong> : {{demande.client.nom}}</td>
+                        <td  colspan="2"> <strong>Prénom</strong> : {{demande.client.prenom}}</td>
+                    </tr>
+                    <tr>
+                        <td  colspan="2"> <strong>Adresse de retour</strong> : {{demande.client.adresse}} - {{demande.client.codePostal}} - {{demande.client.ville}}</td>
+                        <td  colspan="2"> <strong>Téléphone</strong> : {{demande.client.telephone}}</td>
+                    </tr>
+                    <tr>
+                        <td  colspan="2"></td>
+                        <td  colspan="2"> <strong>Télécopie</strong> : </td>
+                    </tr>
+                    <tr>
+                        <td  colspan="2"> <strong>Email</strong> : {{demande.client.email}}</td>
+                        <td  colspan="2">  </td>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+
+        <div class="row">
+            <table style="border-collapse: collapse; background-color: white; margin-bottom:2%;" width="100%" cellspacing="0" cellpadding="10">
+                <thead >
+                    <tr>
+                        <td> <strong>Type de visa</strong> : {{demande.visaType.categorieVisa.titre|capitalize}} </td>
+                        <td> <strong>Entrée</strong> : {{demande.visaType.typeEntre|capitalize}} </td>
+                        <td> <strong>Durée de séjour maxi</strong> :{{demande.visaType.dureSejour}} jours </td>
+                    </tr>
+                    <tr>
+                        <td> <strong>Délai de traitement</strong> :{{demande.visaType.delaiObtention}} jours </td>
+                        <td colspan="2" style="text-align: center;"> <strong>Validité du visa</strong> :{{demande.visaType.validite}} jours </td>
+                    </tr>
+                    <tr>
+                        <td> <strong>Date de départ</strong> :{{demande.entre|date('d/m/Y')}} </td>
+                        <td colspan="2" style="text-align: center;"> <strong>Date de retour</strong> :{{demande.sortie|date('d/m/Y')}} </td>
+                    </tr>
+                    
+                </thead>
+            </table>
+            <p><strong>Numéro du (ou des) Passeport(s)</strong> : ………………………… ; ………………………… ; …………………………… ; …………………………… ; …………………………… ; …………………………… ; …………………………… ;</p>
+        </div>
+
+        
+            
+        
+
+        <!--Table frais consulaire-->
+        <div class="row">
+            <table style="border-collapse: collapse;" width="100%" cellspacing="0" cellpadding="0">
+                <thead style="background-color: black; color: white;">
+                    <tr>
+                        <th colspan="4" >Frais consulaires</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr style="background-color: #808080; color: white;">
+                        <td  style="text-align:center;"> Pays de destination</td>
+                        <td  style="text-align:center;"> Nombre de passeport</td>
+                        <td  style="text-align:center;"> Frais unitaire</td>
+                        <td  style="text-align:center;"> TOTAL</td>
+                    </tr>
+                    <tr>
+                        <td  style="text-align:center;"> {{demande.visaType.visaClassic.pays.titre}} </td>
+                        <td  style="text-align:center;"> {{demande.quantiteVisa}} </td>
+                        <td  style="text-align:center;"> {{demande.visaType.fraisConsulaire}}€</td>
+                        <td  style="text-align:center;"> 
+                            {% set totalFraisConsulaire = demande.quantiteVisa * demande.visaType.fraisConsulaire %}
+                            {{totalFraisConsulaire}}€
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <!--Fin Table frais consulaire-->
+
+        <!--Table frais de service-->
+        <div class="row">
+            <table style="border-collapse: collapse;" width="100%" cellspacing="0" cellpadding="0" class="mt-3">
+                <thead style="background-color: black; color: white;">
+                    <tr>
+                        <th style="background-color: white;"></th>
+                        <th colspan="3" >Frais de service</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr style="background-color: #808080; color: white;">
+                        <th style="background-color: white;"></th>
+                        <td  style="text-align:center;"> Quantité</td>
+                        <td  style="text-align:center;"> Prix unitaire</td>
+                        <td  style="text-align:center;"> TOTAL</td>
+                    </tr>
+                    <tr>
+                        <td  style="text-align:center;"> Prestation normale </td>
+                        <td  style="text-align:center;"> {{demande.quantiteVisa}} </td>
+                        <td  style="text-align:center;"> 
+                            {% if demande.visaType.fraisFormulaireValide == true %}
+                                {{demande.visaType.fraisEdition + demande.visaType.fraisFormulaire}}€
+                            {% else %}
+                                {{demande.visaType.fraisEdition }}€
+                            {% endif %}
+                            
+                        </td>
+                        <td  style="text-align:center;"> 
+                            {% if demande.visaType.fraisFormulaireValide == true %}
+                                {% set totalFraisService = (demande.visaType.fraisEdition + demande.visaType.fraisFormulaire) * demande.quantiteVisa %}
+                            {% else %}
+                            {% set totalFraisService = demande.visaType.fraisEdition * demande.quantiteVisa %}
+                            {% endif %}
+                            {{totalFraisService}}€
+                        </td>
+                    </tr>
+                    <tr>
+                        <td  style="text-align:center;"> Assurance voyage </td>
+                        <td  style="text-align:center;">  </td>
+                        <td  style="text-align:center;"> </td>
+                        <td  style="text-align:center;"> </td>
+                    </tr>
+                    <tr>
+                        <td  style="text-align:center;"> Invitation </td>
+                        <td  style="text-align:center;">  </td>
+                        <td  style="text-align:center;"> </td>
+                        <td  style="text-align:center;"> </td>
+                    </tr>
+                    <tr>
+                        <th style="background-color: white;"></th>
+                        <th style="background-color: white;"></th>
+                        <th style="background-color: white; text-align:right;">TOTAL PRESTATION : </th>
+                        <td  style="text-align:center;"> {{ totalFraisService}}€ </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <!--Fin Table frais de service-->
+
+        <!--Table frais d'enlevement et retour passeport-->
+        <div class="row">
+            <table style="border-collapse: collapse;" width="100%" cellspacing="0" cellpadding="0" class="mt-3">
+                <thead style="background-color: black; color: white;">
+                    <tr>
+                        <th style="background-color: white;"></th>
+                        <th colspan="3" >FRAIS D’ENLEVEMENT ET DE RETOUR PASSEPORT(S)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr style="background-color: #808080; color: white;">
+                        <th style="background-color: white;"></th>
+                        <td  style="text-align:center;"> Quantité</td>
+                        <td  style="text-align:center;"> Prix unitaire</td>
+                        <td  style="text-align:center;"> TOTAL</td>
+                    </tr>
+                    <tr>
+                        <td  style="text-align:center;"> {{demande.transport.titre}} </td>
+                        <td  style="text-align:center;"> 1 </td>
+                        <td  style="text-align:center;"> {{demande.transport.tarif}}€</td>
+                        <td  style="text-align:center;">{{demande.transport.tarif}}€</td>
+                        {% set totalLivraison = demande.transport.tarif %}
+                    </tr>
+                    {% if demande.enlevement %}
+                        {% set totalLivraison = totalLivraison + demande.enlevement.tarif %}
+                        <tr>
+                            <td  style="text-align:center;"> {{demande.enlevement.titre}} </td>
+                            <td  style="text-align:center;"> 1 </td>
+                            <td  style="text-align:center;"> {{demande.enlevement.tarif}}€ </td>
+                            <td  style="text-align:center;"> {{demande.enlevement.tarif}}€ </td>
+                        </tr>
+                    {% endif %}
+                    
+                    
+                    <tr>
+                        <th style="background-color: white;"></th>
+                        <th style="background-color: white;"></th>
+                        <th style="background-color: white; text-align:right;">TOTAL PRESTATION : </th>
+                        <td  style="text-align:center;"> {{ totalLivraison }}€ </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <!--Fin Table frais d'enlevement et retour passeport-->
+
+        <!--Table Cout total-->
+        <div class="row">
+            <table style="border-collapse: collapse;" width="100%" cellspacing="0" cellpadding="0" class="mt-3">
+                <thead style="background-color: #dbd600; color: white;">
+                    <tr>
+                        <th colspan="4" >COUT TOTAL DE LA COMMANDE</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr style="background-color: #808080; color: white;">
+                        <td  style="text-align:center;"> <strong>Frais consulaires</strong></td>
+                        <td  style="text-align:center;"> <strong>Frais de service</strong></td>
+                        <td  style="text-align:center;"> <strong>Enlèvement / Retour</strong></td>
+                        <td  style="text-align:center;"> <strong>TOTAL</strong></td>
+                    </tr>
+                    <tr>
+                        <td  style="text-align:center;"> {{totalFraisConsulaire}}€ </td>
+                        <td  style="text-align:center;"> {{totalFraisService}}€ </td>
+                        <td  style="text-align:center;"> {{totalLivraison}}€</td>
+                        <td  style="text-align:center;background-color: #dbd600;"> 
+                            {{totalFraisConsulaire + totalFraisService + totalLivraison}}€
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <!--Fin Table Cout total-->
+
+        <div class="row mt-3">
+            <table style="border-collapse: initial;background-color: white;" width="100%" cellspacing="0" cellpadding="10">
+                <thead >
+                    <tr>
+                        <td style="border:solid #dcdcdc; color:#9e9e9e;" > 
+                            <p>✓ Veuillez lire les conditions générales de vente</p>
+                            <p>✓ Veillez à remplir lisiblement toutes les rubriques</p>
+                            <p>✓ Les tarifs sont indiqués en € TTC</p>
+                            <p>✓ Veuillez envoyer votre bon de commande, joint de votre règlement par chèque à l’ordre de Cotation Export</p>
+                            <p>✓ Veuillez vérifier les pièces nécessaires en fonction de votre destination</p>
+                        </td>
+                        <td  > <p style="text-align:right;"><strong>Cachet et signature de l’entreprise :</strong></p> </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" style="border:none;">
+                            <p class="mt-1 text-center" style="font-size:12px;">{{entreprise.titre}} - {{entreprise.adresse}} - {{entreprise.codePostal}} {{entreprise.ville}}<br/>  ☎ : {{entreprise.telephoneFixe}} - RCS Créteil - SIRET {{entreprise.siret}}</p>
+                        </td>
+                    </tr>
+                    
+                </thead>
+            </table>
+            
+        </div>
+        
+        
+        
+        
+        
+    </div>
+    
+{% endblock %}

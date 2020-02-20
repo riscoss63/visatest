@@ -120,6 +120,9 @@
             "./config/routes/fos_js_routing.yaml"
         ]
     },
+    "h4cc/wkhtmltopdf-amd64": {
+        "version": "0.12.4"
+    },
     "jdorn/sql-formatter": {
         "version": "v1.2.17"
     },
@@ -131,6 +134,21 @@
     },
     "knplabs/knp-paginator-bundle": {
         "version": "v5.1.1"
+    },
+    "knplabs/knp-snappy": {
+        "version": "v1.2.1"
+    },
+    "knplabs/knp-snappy-bundle": {
+        "version": "1.5",
+        "recipe": {
+            "repo": "github.com/symfony/recipes-contrib",
+            "branch": "master",
+            "version": "1.5",
+            "ref": "c81bdcf4a9d4e7b1959071457f9608631865d381"
+        },
+        "files": [
+            "./config/packages/knp_snappy.yaml"
+        ]
     },
     "monolog/monolog": {
         "version": "2.0.1"

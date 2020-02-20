@@ -58,10 +58,18 @@ class VisaClassicType extends AbstractType
                 'label'     =>false
             ])
             ->add('communique', CKEditorType::class, [
-                'label'     => 'Communiqué sous image d\'illustration'
+                'label'     => 'Communiqué sous image d\'illustration',
+                'attr'      => [
+                    'class'     => 'form-control'
+                ],
+                'required'  => false
             ])
             ->add('instruction', CKEditorType::class, [
-                'label'     => 'Instructions fin de commande'
+                'label'     => 'Instructions fin de commande',
+                'attr'      => [
+                    'class'     => 'form-control'
+                ],
+                'required'  => false
             ])
             ->add('submit', SubmitType::class, [
                 'attr'  => [

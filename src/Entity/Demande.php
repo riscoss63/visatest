@@ -138,6 +138,26 @@ class Demande
      */
     private $jourVol;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $moneticoDate;
+
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $payer;
+
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\Frais", inversedBy="demande", cascade={"persist", "remove"})
+     */
+    private $frais;
+
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $cheque;
+
     public function __construct()
     {
         $this->fraisComplementaire = new ArrayCollection();
@@ -496,6 +516,54 @@ class Demande
     public function setJourVol(?\DateTimeInterface $jourVol): self
     {
         $this->jourVol = $jourVol;
+
+        return $this;
+    }
+
+    public function getMoneticoDate(): ?string
+    {
+        return $this->moneticoDate;
+    }
+
+    public function setMoneticoDate(?string $moneticoDate): self
+    {
+        $this->moneticoDate = $moneticoDate;
+
+        return $this;
+    }
+
+    public function getPayer(): ?bool
+    {
+        return $this->payer;
+    }
+
+    public function setPayer(?bool $payer): self
+    {
+        $this->payer = $payer;
+
+        return $this;
+    }
+
+    public function getFrais(): ?Frais
+    {
+        return $this->frais;
+    }
+
+    public function setFrais(?Frais $frais): self
+    {
+        $this->frais = $frais;
+
+        return $this;
+    }
+
+    public function getCheque(): ?bool
+    {
+        return $this->cheque;
+    }
+
+    public function setCheque(?bool $cheque): self
+    {
+        $this->cheque = $cheque;
 
         return $this;
     }

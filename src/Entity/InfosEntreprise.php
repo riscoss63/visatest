@@ -22,7 +22,7 @@ class InfosEntreprise
     private $titre;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $telephone;
 
@@ -32,7 +32,7 @@ class InfosEntreprise
     private $adresse;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $complementAdresse;
 
@@ -47,7 +47,7 @@ class InfosEntreprise
     private $ville;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $horairesOuverture;
 
@@ -57,27 +57,27 @@ class InfosEntreprise
     private $email;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $telephoneFixe;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $siret;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $siren;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $tva;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $cnil;
 
@@ -123,7 +123,7 @@ class InfosEntreprise
         return $this->telephone;
     }
 
-    public function setTelephone(string $telephone): self
+    public function setTelephone(?string $telephone): self
     {
         $this->telephone = $telephone;
 
@@ -147,7 +147,7 @@ class InfosEntreprise
         return $this->complementAdresse;
     }
 
-    public function setComplementAdresse(string $complementAdresse): self
+    public function setComplementAdresse(?string $complementAdresse): self
     {
         $this->complementAdresse = $complementAdresse;
 
@@ -183,7 +183,7 @@ class InfosEntreprise
         return $this->horairesOuverture;
     }
 
-    public function setHorairesOuverture(string $horairesOuverture): self
+    public function setHorairesOuverture(?string $horairesOuverture): self
     {
         $this->horairesOuverture = $horairesOuverture;
 
@@ -207,7 +207,7 @@ class InfosEntreprise
         return $this->telephoneFixe;
     }
 
-    public function setTelephoneFixe(string $telephoneFixe): self
+    public function setTelephoneFixe(?string $telephoneFixe): self
     {
         $this->telephoneFixe = $telephoneFixe;
 
@@ -219,7 +219,7 @@ class InfosEntreprise
         return $this->siret;
     }
 
-    public function setSiret(string $siret): self
+    public function setSiret(?string $siret): self
     {
         $this->siret = $siret;
 
@@ -231,7 +231,7 @@ class InfosEntreprise
         return $this->siren;
     }
 
-    public function setSiren(string $siren): self
+    public function setSiren(?string $siren): self
     {
         $this->siren = $siren;
 
@@ -243,7 +243,7 @@ class InfosEntreprise
         return $this->tva;
     }
 
-    public function setTva(string $tva): self
+    public function setTva(?string $tva): self
     {
         $this->tva = $tva;
 
@@ -255,7 +255,7 @@ class InfosEntreprise
         return $this->cnil;
     }
 
-    public function setCnil(string $cnil): self
+    public function setCnil(?string $cnil): self
     {
         $this->cnil = $cnil;
 

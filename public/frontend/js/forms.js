@@ -41,9 +41,7 @@ $(document).ready(function(){
     if($('.russia-cities').length){
         populateCitySelect();
     }
-    if(livraison.length){
-        livraisonAffichage();
-    }
+    
     dateEntree.on('change', function() {
         dureeSejourAffichage(dateEntree, dateSortie);
     })
@@ -102,7 +100,7 @@ $(document).ready(function(){
         enlevementAffichage(enlevement);
     })
 
-    livraison.on('click', function() {
+    livraison.on('change', function() {
         livraisonAffichage();
 
     })
@@ -1245,16 +1243,19 @@ function goToNextScreen() {
             toggleTabsBlock();
             $('.previous-arrow').show();
         }
-        if(currentStepNb === 3){
+        else if(currentStepNb === 3){
             $('.required-1').removeAttr('required');
         }
         else if(currentStepNb === 2) {
             $('.required-1').attr('required', 'true');
         }
-        if(currentStepNb === 6) {
+        else if(currentStepNb === 5) {
             $("input[name='codePostal']").val($("#code_postal_livraison").val());
             $("input[name='ville']").val($("#ville_livraison").val());
+            livraisonAffichage();
+
         }
+       
         
     }
 }
@@ -1611,8 +1612,16 @@ function modifTotal() {
 }
 
 //numéro de vol et jour
-$('.aeroport-check').on('click', function() { 
-    $('.vol-info').show();
+$('input[name=mode-livraison]').on('click', function() {
+    if($('input[name=mode-livraison]:checked').is('.aeroport-check')) {
+        $('.vol-info').show();
+        console.log('aeroport')
+    }
+    else {
+        $('.vol-info').hide();
+        console.log('checked')
+    }
+    
 });
 
 $('input[name="address-facturation"]').on('click', function() {
@@ -1625,6 +1634,35 @@ $('input[name="address-facturation"]').on('click', function() {
     
     
 })
+
+function generatePrePaiement(form, action) {
+    $('#PaymentRequest').attr('action', action);
+    $('#monetico').html(function() {
+       return   '<input type="hidden" name="version"             id="version"           value="'+form.version+'" />'+
+                '<input type="hidden" name="TPE"                 id="TPE"               value="'+form.TPE+'" />'+
+                '<input type="hidden" name="date"                id="date"              value="'+form.date+'" />'+
+                '<input type="hidden" name="montant"             id="montant"           value="'+form.montant+'" />'+
+                '<input type="hidden" name="reference"           id="reference"         value="'+form.reference+'" />'+
+                '<input type="hidden" name="MAC"                 id="MAC"               value="'+form.MAC+'" />'+
+                '<input type="hidden" name="url_retour_ok"       id="url_retour_ok"     value="'+form.url_retour_ok+'" />'+
+                '<input type="hidden" name="url_retour_err"      id="url_retour_err"    value="'+form.url_retour_err+'" />'+
+                '<input type="hidden" name="lgue"                id="lgue"              value="'+form.lgue+'" />'+
+                '<input type="hidden" name="societe"             id="societe"           value="'+form.societe+'" />'+
+                '<input type="hidden" name="texte-libre"         id="texte-libre"       value="'+form.textelibre+'" />'+
+                '<input type="hidden" name="mail"                id="mail"              value="'+form.mail+'" />'+
+                '<input type="hidden" name="nbrech"              id="nbrech"             />'+
+                '<input type="hidden" name="dateech1"            id="dateech1"           />'+
+                '<input type="hidden" name="montantech1"         id="montantech1"        />'+
+                '<input type="hidden" name="dateech2"            id="dateech2"           />'+
+                '<input type="hidden" name="montantech2"         id="montantech2"        />'+
+                '<input type="hidden" name="dateech3"            id="dateech3"           />'+
+                '<input type="hidden" name="montantech3"         id="montantech3"        />'+
+                '<input type="hidden" name="dateech4"            id="dateech4"           />'+
+                '<input type="hidden" name="montantech4"         id="montantech4"        />'+
+                '<input type="hidden" name="mail"                id="mail"              value="'+form.ctlHmac+'" />'+
+                '<input type="hidden" name="mail"                id="mail"              value="'+form.php1gofields+'" />';
+   })
+}
 
 
 

@@ -30,7 +30,8 @@ class InfosEntrepriseType extends AbstractType
                 'attr'      => [
                     'class'     => 'form-control'
                 ],
-                'label'     => 'Complément adresse'
+                'label'     => 'Complément adresse',
+                'required'  => false
             ])
             ->add('codePostal', TextType::class, [
                 'attr'      => [
@@ -48,7 +49,8 @@ class InfosEntrepriseType extends AbstractType
                 'attr'      => [
                     'class'     => 'form-control'
                 ],
-                'label'     => 'Horaires d\'ouverture'
+                'label'     => 'Horaires d\'ouverture',
+                'required'  => false
             ])
             ->add('email', TextType::class, [
                 'attr'      => [
@@ -60,37 +62,43 @@ class InfosEntrepriseType extends AbstractType
                 'attr'      => [
                     'class'     => 'form-control'
                 ],
-                'label'     => 'Téléphone fixe'
+                'label'     => 'Téléphone fixe',
+                'required'  => false
             ])
             ->add('telephone', TextType::class, [
                 'attr'      => [
                     'class'     => 'form-control'
                 ],
-                'label'     => 'Mobile'
+                'label'     => 'Mobile',
+                'required'  => false
             ])
             ->add('siret', TextType::class, [
                 'attr'      => [
                     'class'     => 'form-control'
                 ],
-                'label'     => 'Numéro Siret'
+                'label'     => 'Numéro Siret',
+                'required'  => false
             ])
             ->add('siren', TextType::class, [
                 'attr'      => [
                     'class'     => 'form-control'
                 ],
-                'label'     => 'Numéro Siren'
+                'label'     => 'Numéro Siren',
+                'required'  => false
             ])
             ->add('tva', TextType::class, [
                 'attr'      => [
                     'class'     => 'form-control'
                 ],
-                'label'     => 'Taux Tva (en %) '
+                'label'     => 'Taux Tva (en %) ',
+                'required'  => false
             ])
             ->add('cnil', TextType::class, [
                 'attr'      => [
                     'class'     => 'form-control'
                 ],
-                'label'     => 'Numéro CNIL '
+                'label'     => 'Numéro CNIL ',
+                'required'  => false
             ])
             ->add('submit', SubmitType::class, [
                 'attr'  => [

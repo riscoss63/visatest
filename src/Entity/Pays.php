@@ -21,12 +21,37 @@ class Pays
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $titre;
+    private $iso;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $iso;
+    private $titre;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $dateCreation;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $dateModification;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $slug;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $virtuel;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $indicatif;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\ZoneGeographique", inversedBy="pays", cascade={"persist", "remove"})
@@ -57,6 +82,8 @@ class Pays
      * @ORM\OneToMany(targetEntity="App\Entity\Assurance", mappedBy="pays", cascade={"persist", "remove"})
      */
     private $assurances;
+
+    
 
     public function __construct()
     {
@@ -222,6 +249,66 @@ class Pays
                 $assurance->setPays(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getDateCreation(): ?\DateTimeInterface
+    {
+        return $this->dateCreation;
+    }
+
+    public function setDateCreation(\DateTimeInterface $dateCreation): self
+    {
+        $this->dateCreation = $dateCreation;
+
+        return $this;
+    }
+
+    public function getDateModification(): ?\DateTimeInterface
+    {
+        return $this->dateModification;
+    }
+
+    public function setDateModification(\DateTimeInterface $dateModification): self
+    {
+        $this->dateModification = $dateModification;
+
+        return $this;
+    }
+
+    public function getSlug(): ?string
+    {
+        return $this->slug;
+    }
+
+    public function setSlug(?string $slug): self
+    {
+        $this->slug = $slug;
+
+        return $this;
+    }
+
+    public function getVirtuel(): ?string
+    {
+        return $this->virtuel;
+    }
+
+    public function setVirtuel(?string $virtuel): self
+    {
+        $this->virtuel = $virtuel;
+
+        return $this;
+    }
+
+    public function getIndicatif(): ?string
+    {
+        return $this->indicatif;
+    }
+
+    public function setIndicatif(?string $indicatif): self
+    {
+        $this->indicatif = $indicatif;
 
         return $this;
     }

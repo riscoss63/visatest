@@ -34,14 +34,14 @@ class MoneticoPaiement
         $rawContexteCommand = '{
                         "billing" :
                         {
-                                    "firstName" : '.$demande->getClient()->getNom().',
-                                    "lastName" : '.$demande->getClient()->getPrenom().',
-                                    "addressLine1" : '.$demande->getClient()->getAdresse().',
-                                    "mobilePhone" : '.$demande->getClient()->getTelephone().',
-                                    "city" : '.$demande->getClient()->getVille().',
-                                    "postalCode" : '.$demande->getClient()->getCodePostal().',
-                                    "country" : '.$demande->getClient()->getPays().',
-                                    "email" : '.$demande->getClient()->getEmail().',
+                            "firstName" : '.$demande->getClient()->getNom().',
+                            "lastName" : '.$demande->getClient()->getPrenom().',
+                            "addressLine1" : '.$demande->getClient()->getAdresse().',
+                            "mobilePhone" : '.$demande->getClient()->getTelephone().',
+                            "city" : '.$demande->getClient()->getVille().',
+                            "postalCode" : '.$demande->getClient()->getCodePostal().',
+                            "country" : '.$demande->getClient()->getPays().',
+                            "email" : '.$demande->getClient()->getEmail().',
                         },
         }';
 
@@ -52,7 +52,7 @@ class MoneticoPaiement
         $sTexteLibre = "Reglement Visa en ligne";
 
         // transaction date : format d/m/y:h:m:s
-        $sDate = date("d/m/Y:H:i:s");
+        $sDate = $demande->getMoneticoDate();
 
         // Language of the company code
         $sLangue = "FR";
@@ -117,6 +117,8 @@ class MoneticoPaiement
         $oHmac = $this->moneticoHmac;
 
         // Control String for support
+        // $CtlHmac = sprintf($_ENV['MONETICOPAIEMENT_CTLHMAC'], $oEpt->sVersion, $oEpt->sNumero, $oHmac->computeHmac(sprintf($_ENV['MONETICOPAIEMENT_CTLHMACSTR'], $oEpt->sVersion, $oEpt->sNumero)));
+
         $CtlHmac = sprintf($_ENV['MONETICOPAIEMENT_CTLHMAC'], $_ENV['MONETICOPAIEMENT_VERSION'], $oEpt->sVersion, $oEpt->sNumero, $oHmac->computeHmac(sprintf($_ENV['MONETICOPAIEMENT_CTLHMACSTR'], $oEpt->sVersion, $oEpt->sNumero)));
 
         // Data to certify
@@ -147,6 +149,28 @@ class MoneticoPaiement
         ]
         );
 
+        // Data to certify
+        // $phase1go_fields = sprintf($oEpt->sNumero,
+        //     $sDate,
+        //     $sMontant,
+        //     $sDevise,
+        //     $sReference,
+        //     $sTexteLibre,
+        //     $oEpt->sVersion,
+        //     $oEpt->sLangue,
+        //     $oEpt->sCodeSociete,
+        //     $sEmail,
+        //     $sNbrEch,
+        //     $sDateEcheance1,
+        //     $sMontantEcheance1,
+        //     $sDateEcheance2,
+        //     $sMontantEcheance2,
+        //     $sDateEcheance3,
+        //     $sMontantEcheance3,
+        //     $sDateEcheance4,
+        //     $sMontantEcheance4)
+        // ;
+
         // MAC computation
         $sMAC = $oHmac->computeHmac($phase1go_fields);
 
@@ -157,7 +181,6 @@ class MoneticoPaiement
             'montant' => $sMontant . $sDevise,
             'reference' => $sReference,
             'MAC' => $sMAC,
-            'url_retour' => $oEpt->sUrlKO . '/' . $demande->getId(),
             'url_retour_ok' => $oEpt->sUrlOK . '/' . $demande->getId(),
             'url_retour_err' => $oEpt->sUrlKO . '/' . $demande->getId(),
             'lgue' => $oEpt->sLangue,

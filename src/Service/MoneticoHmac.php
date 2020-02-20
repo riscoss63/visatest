@@ -63,11 +63,11 @@ class MoneticoHmac {
 
 	public function computeHmac($sData) {
 
-		return strtolower(hash_hmac("sha1", $sData, $this->_sUsableKey));
+		// return strtolower(hash_hmac("sha1", $sData, $this->_sUsableKey));
 
 		// If you don't have PHP 5 >= 5.1.2 and PECL hash >= 1.1 
 		// you may use the hmac_sha1 function defined below
-		//return strtolower($this->hmac_sha1($this->_sUsableKey, $sData));
+		return strtolower($this->hmac_sha1($this->_sUsableKey, $sData));
 	}
 
 	// ----------------------------------------------------------------------------

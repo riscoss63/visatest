@@ -144,15 +144,30 @@
                 <div class="progress-bar-circle">0%</div>
             </div>
 		</div>
-
+    {% if rappel %}
+        <script>
+            $(function(){
+                goToNextScreen();
+                goToNextScreen();
+                goToNextScreen();
+                goToNextScreen();
+                goToNextScreen();
+                goToNextScreen();
+            });
+        </script>
+    {% endif %}
+    
+    <form id="save">
         <!-- Step 1 - Quantité -->
         <div class="form-step form-step-1">
-            <form id="save">
                 <div class="form-group">
                     <label class="form-label">Nombre de voyageurs</label>
                     <div class="range-box">
+                    
+                    
+                        
                         <div class="range moindevoyageur" ><img src="/images/btn-minus.svg" alt="bouton moins"></div>
-                        <input type="text" id="nbvoyageurs" name="nbvoyageurs" class="form-control text-center" value="1">
+                        <input type="text" id="nbvoyageurs" name="nbvoyageurs" class="form-control text-center" value="{% if rappel %}{{rappel.quantiteVisa}}{% else %}1{% endif %}">
                         <div class="range plusdevoyageur" ><img src="/images/btn-plus.svg" alt="bouton moins"></div>
                     </div>
                 </div>
@@ -198,12 +213,12 @@
                     <span class="on-desktop"><img src="/images/date-depart.svg" alt="date de départ" class="date-icon"></span>
                     <div class="input-group date">
                         <div class="on-desktop">
-                            <input type="text" class="form-control date required-1" name="date_entree" id="date_entree"  />
+                            <input type="text" class="form-control date required-1" name="date_entree" id="date_entree"  value="{% if rappel %}{{rappel.entre|date('d/m/Y')}}{% else %}{% endif %}"/>
                         </div>
                         <div class="on-mobile">
-                            <input type="tel" class="form-control required-1" maxlength="2" placeholder="Jour (JJ)" />
-                            <input type="tel" class="form-control required-1" maxlength="2" placeholder="Mois (MM)"/>
-                            <input type="tel" class="form-control required-1" maxlength="4" placeholder="Année (AAAA)"  />
+                            <input type="tel" class="form-control required-1" name="jj-entree" maxlength="2" placeholder="Jour (JJ)" value="{% if rappel %}{{rappel.entre|date('d')}}{% else %}{% endif %}"/>
+                            <input type="tel" class="form-control required-1" name="mm-entree" maxlength="2" placeholder="Mois (MM)" value="{% if rappel %}{{rappel.entre|date('m')}}{% else %}{% endif %}"/>
+                            <input type="tel" class="form-control required-1" name="aaaa-entree" maxlength="4" placeholder="Année (AAAA)"  value="{% if rappel %}{{rappel.entre|date('Y')}}{% else %}{% endif %}"/>
                         </div>
                         <div class="input-group-append on-desktop">
                                 <span class="input-group-text">
@@ -221,12 +236,12 @@
                     <span class="on-desktop"><img src="/images/date-sortie.svg" alt="date de sortie" class="date-icon"></span>
                     <div class="input-group date" >
                         <div class="on-desktop">
-                            <input type="text" class="form-control date" name="date_sortie" id="date_sortie" >
+                            <input type="text" class="form-control date" name="date_sortie" id="date_sortie" value="{% if rappel %}{{rappel.sortie|date('d/m/Y')}}{% else %}{% endif %}" >
                         </div>
                         <div class="on-mobile">
-                            <input type="tel" class="form-control" maxlength="2" placeholder="Jour (JJ)" />
-                            <input type="tel" class="form-control" maxlength="2" placeholder="Mois (MM)"  />
-                            <input type="tel" class="form-control" maxlength="4" placeholder="Année (AAAA)" />
+                            <input type="tel" class="form-control required-1" name="jj-sortie" maxlength="2" placeholder="Jour (JJ)" value="{% if rappel %}{{rappel.sortie|date('d')}}{% else %}{% endif %}"/>
+                            <input type="tel" class="form-control required-1" name="mm-sortie" maxlength="2" placeholder="Mois (MM)" value="{% if rappel %}{{rappel.sortie|date('m')}}{% else %}{% endif %}"/>
+                            <input type="tel" class="form-control required-1" name="aaaa-sortie" maxlength="4" placeholder="Année (AAAA)" value="{% if rappel %}{{rappel.sortie|date('Y')}}{% else %}{% endif %}"/>
                         </div>
                         <div class="input-group-append on-desktop">
                                 <span class="input-group-text">
@@ -270,26 +285,26 @@
 				<div class=" form-group on-desktop">
 					<label class="form-label">Code postal de livraison</label>
 					<div class="input-width">
-                        <input class="form-control code" type="text" id="code_postal_livraison" autocomplete="off" autofocus>
+                        <input class="form-control code" type="text" id="code_postal_livraison" autocomplete="off" autofocus value="{% if rappel %}{{rappel.client.codePostal}}{% else %}{% endif %}">
 					</div>
                 </div>
-                    <div id="output"></div>
                 <div class=" form-group on-desktop">
 					<label class="form-label">Ville</label>
 					<div class="input-width">
-                        <input class="form-control city" type="text" id="ville_livraison" autocomplete="off">
+                        <input class="form-control city" type="text" id="ville_livraison" autocomplete="off" value="{% if rappel %}{{rappel.client.ville}}{% else %}{% endif %}">
 					</div>
                 </div>
+                <div id="output"></div>
 				<div class="form-group form-group-animated on-mobile">
 					<label for="codePostal0" class="form-label">Code postal de livraison</label>
                     <div class="input-width">
-						<input id="codePostal0" class="form-control on-mobile" type="text" name="codePostal0" >
+						<input id="codePostal0" class="form-control on-mobile" type="text" name="codePostal0" value="{% if rappel %}{{rappel.client.codePostal}}{% else %}{% endif %}">
                     </div>
                 </div>
 				<div class="form-group form-group-animated on-mobile">
 					<label for="ville0" class="form-label">Ville</label>
                     <div class="input-width">
-						<input id="ville0" class="form-control on-mobile" type="text" name="ville0" >
+						<input id="ville0" class="form-control on-mobile" type="text" name="ville0" value="{% if rappel %}{{rappel.client.codePostal}}{% else %}{% endif %}">
                     </div>
                 </div>
 				<!-- N'afficher cette div que si le code postal correspond à un département de l'ile de France-->
@@ -299,20 +314,20 @@
                     <div>
                         <label class="form-radio">
                             Le dossier sera adressé par courrier
-                            <input type="radio" name="radio_enlevement" checked="true" value="courrier">
+                            <input type="radio" name="radio_enlevement" {% if rappel %}{% else %}checked{% endif %} value="courrier">
                             <span class="checkmark"></span>
                         </label>
 
                         <label class="form-radio ile" style="display : none">
                             <p>Le dossier sera déposé à notre agence <span class="ml-4"><a href="#" class="small text-primary text-underline on-desktop">Adresse Google Maps</a></span></p>
-                            <input type="radio" name="radio_enlevement" value="agence">
+                            <input type="radio" name="radio_enlevement" value="agence" {% if rappel %}{% if rappel.enlevement and rappel.enlevement.agence == true %}checked{% endif %}{% else %}{% endif %}>
                             <span class="checkmark"></span>
                         </label>
 
                         <!-- Afficher ci-dessous, ci l'utilisateur a ajouté un département en île de france -->
                         <label class="form-radio ile" style="display : none">
-                            Enlèvement du dossier par un coursier<span class="on-desktop"> visa-en-ligne.com</span><span class="font-weight-bold ml-4 prix-coursier">30</span><span>€</span>
-                            <input type="radio" name="radio_enlevement" value="coursier">
+                            Enlèvement du dossier par un coursier<span class="on-desktop"> visa-en-ligne.com</span><span class="font-weight-bold ml-4 prix-coursier">{% for transport in transports %}{% if transport.coursier == true %}{{transport.tarif}}{% endif %}{% endfor %}</span><span>€</span>
+                            <input type="radio" name="radio_enlevement" value="coursier" {% if rappel %}{% if rappel.enlevement and rappel.enlevement.coursier == true %}checked{% endif %}{% else %}{% endif %}>
                             <span class="checkmark"></span>
                         </label>
                     </div>
@@ -344,7 +359,7 @@
                                         <label class="form-radio" >
                                             <span class="on-desktop ">{{ transport.titre}} {% if transport.informations %}({{transport.informations}}){% endif %}</span>
                                             <span class="on-mobile">{{ transport.titre}} {% if transport.informations %}({{transport.informations}}){% endif %}</span>
-                                            <input type="radio" name="mode-livraison" value="{{ transport.id }}" info="{{ transport.titre }}" >
+                                            <input type="radio" name="mode-livraison" value="{{ transport.id }}" info="{{ transport.titre }}" {% if rappel %}{% if rappel.transport == transport %}checked{% endif %}{% else %}{% endif %}>
                                             <div class="checkmark"></div>
                                         </label>                
                                     </td>
@@ -356,7 +371,7 @@
                                         <label class="form-radio" >
                                             <span class="on-desktop">{{ transport.titre}} {% if transport.informations %}({{transport.informations}}){% endif %}</span>
                                             <span class="on-mobile">{{ transport.titre}} {% if transport.informations %}({{transport.informations}}){% endif %}</span>
-                                            <input type="radio" name="mode-livraison" class="{% if transport.aeroport == true %}aeroport-check{% endif %}" {% if loop.first %} checked="checked"{% endif %} value="{{ transport.id }}" info="{{ transport.titre }}" >
+                                            <input type="radio" name="mode-livraison" class="{% if transport.aeroport == true %}aeroport-check{% endif %}" {% if rappel %}{% if rappel.transport == transport %}checked{% endif %}{% elseif loop.first %}checked{% endif %} value="{{ transport.id }}" info="{{ transport.titre }}" >
                                             <div class="checkmark aeroport-check" ></div>
                                         </label>                
                                     </td>
@@ -372,26 +387,26 @@
                     <div class=" form-group on-desktop">
                         <label  class="form-label ">Numéro de vol</label>
                         <div class="input-width">
-                            <input class="form-control on-desktop" type="text" name="numero-vol" id="numero-vol">
+                            <input class="form-control on-desktop" type="text" name="numero-vol" id="numero-vol" value="{% if rappel %}{{rappel.numeroVol}}{% else %}{% endif %}">
                         </div>
                     </div>
                     <div class="form-group form-group-animated on-mobile">
                         <label for="numero-vol-mobile" class="form-label">Numéro de vol</label>
                         <div class="input-width">
-                            <input class="form-control on-mobile" name="numero-vol-mobile" type="text" id="numero-vol-mobile" >
+                            <input class="form-control on-mobile" name="numero-vol-mobile" type="text" id="numero-vol-mobile" value="{% if rappel %}{{rappel.numeroVol}}{% else %}{% endif %}">
                         </div>
                     </div>
 
                     <div class=" form-group on-desktop">
                         <label  class="form-label ">Jour de Vol</label>
                         <div class="input-width">
-                            <input type="text" class="form-control on-desktop date" name="jour-vol" id="jour-vol" />
+                            <input type="text" class="form-control on-desktop date" name="jour-vol" id="jour-vol" value="{% if rappel %}{{rappel.jourVol}}{% else %}{% endif %}"/>
                         </div>
                     </div>
                     <div class="form-group form-group-animated on-mobile">
                         <label for="jour-vol-mobile" class="form-label">Jour de vol</label>
                         <div class="input-width">
-                            <input type="text" class="form-control on-mobile date" name="jour-vol-mobile" id="jour-vol-mobile" />
+                            <input type="text" class="form-control on-mobile date" name="jour-vol-mobile" id="jour-vol-mobile" value="{% if rappel %}{{rappel.jourVol}}{% else %}{% endif %}"/>
                         </div>
                     </div>
                 </div>
@@ -413,7 +428,7 @@
                     <label class="form-label">Adresse email</label>
 
                     <div class="input-width">
-                        <input class="form-control" name="email" type="email" id="email" >
+                        <input class="form-control" name="email" type="email" id="email" value="{% if rappel %}{{rappel.client.email}}{% else %}{% endif %}">
                     </div>
                 </div>
                 <div class="cta d-flex">
@@ -448,7 +463,7 @@
                                 <td>
                                     <label class="form-radio">
                                         <span class="font-weight-bold">J'ai déjà une assurance voyage</span>
-                                        <input type="radio" checked="checked" name="radioassurance" value="noassurance">
+                                        <input type="radio" checked name="radioassurance" value="noassurance">
                                         <span class="checkmark"></span>
                                     </label>
                                 </td>
@@ -596,52 +611,52 @@
                 <div class=" form-group on-desktop">
                     <label  class="form-label ">Nom</label>
                     <div class="input-width">
-                        <input class="form-control on-desktop" type="text" name="nom">
+                        <input class="form-control on-desktop" type="text" name="nom" value="{% if rappel %}{{rappel.client.nom}}{% else %}{% endif %}">
                     </div>
                 </div>
 				<div class="form-group form-group-animated on-mobile">
 					<label for="nom" class="form-label">Nom</label>
                     <div class="input-width">
-						<input id="nom" class="form-control on-mobile" type="text" name="nom">
+						<input id="nom" class="form-control on-mobile" type="text" name="nomMobile" value="{% if rappel %}{{rappel.client.nom}}{% else %}{% endif %}">
                     </div>
                 </div>
 
                 <div class=" form-group on-desktop">
                     <label  class="form-label ">Prénom</label>
                     <div class="input-width">
-                        <input class="form-control on-desktop" type="text" name="prenom">
+                        <input class="form-control on-desktop" type="text" name="prenom" value="{% if rappel %}{{rappel.client.prenom}}{% else %}{% endif %}">
                     </div>
                 </div>
 				<div class="form-group form-group-animated on-mobile">
 					<label for="prenom" class="form-label">Prénom</label>
                     <div class="input-width">
-						<input id="prenom" class="form-control on-mobile" type="text" name="prenom">
+						<input id="prenom" class="form-control on-mobile" type="text" name="prenomMobile" value="{% if rappel %}{{rappel.client.prenom}}{% else %}{% endif %}">
                     </div>
                 </div>
 
                 <div class=" form-group on-desktop">
                     <label  class="form-label ">Adresse de livraison</label>
                     <div class="input-width">
-                        <input class="form-control on-desktop" type="text" name="adresse">
+                        <input class="form-control on-desktop" type="text" name="adresse" value="{% if rappel %}{{rappel.client.adresse}}{% else %}{% endif %}">
                     </div>
                 </div>
 				<div class="form-group form-group-animated on-mobile">
 					<label for="adresse" class="form-label">Adresse de livraison</label>
                     <div class="input-width">
-						<input id="adresse" class="form-control on-mobile" type="text" name="adresse">
+						<input id="adresse" class="form-control on-mobile" type="text" name="adresseMobile" value="{% if rappel %}{{rappel.client.adresse}}{% else %}{% endif %}">
                     </div>
                 </div>
 				<!-- récupérer de l'étape 4-->
                 <div class=" form-group on-desktop">
                     <label  class="form-label ">Code Postal</label>
                     <div class="input-width">
-                        <input class="form-control on-desktop" type="text" name="codePostal">
+                        <input class="form-control on-desktop" type="text" name="codePostal" value="{% if rappel %}{{rappel.client.codePostal}}{% else %}{% endif %}">
                     </div>
                 </div>
 				<div class="form-group form-group-animated on-mobile">
 					<label for="codePostal" class="form-label">Code postal</label>
                     <div class="input-width">
-						<input id="codePostal" class="form-control on-mobile" type="text" name="codePostal">
+						<input id="codePostal" class="form-control on-mobile" type="text" name="codePostalMobile" value="{% if rappel %}{{rappel.client.codePostal}}{% else %}{% endif %}">
                     </div>
                 </div>
 
@@ -649,26 +664,26 @@
                 <div class=" form-group on-desktop">
                     <label  class="form-label ">Ville</label>
                     <div class="input-width">
-                        <input class="form-control on-desktop" type="text" name="ville">
+                        <input class="form-control on-desktop" type="text" name="ville" value="{% if rappel %}{{rappel.client.ville}}{% else %}{% endif %}">
                     </div>
                 </div>
 				<div class="form-group form-group-animated on-mobile">
 					<label for="ville" class="form-label">Ville</label>
                     <div class="input-width">
-						<input id="ville" class="form-control on-mobile" type="text" name="ville">
+						<input id="ville" class="form-control on-mobile" type="text" name="villeMobile" value="{% if rappel %}{{rappel.client.ville}}{% else %}{% endif %}">
                     </div>
                 </div>
 
                 <div class=" form-group on-desktop">
                     <label  class="form-label ">Téléphone</label>
                     <div class="input-width">
-                        <input class="form-control on-desktop" type="tel" id="phone" name="telephone">
+                        <input class="form-control on-desktop" type="tel" id="phone" name="telephoneLivraison" value="{% if rappel %}{{rappel.client.telephone}}{% else %}{% endif %}">
                     </div>
                 </div>
 				<div class="form-group form-group-animated on-mobile">
 					<label for="telephone" class="formlabel">Téléphone</label>
                     <div class="input-width">
-						<input id="telephone" class="form-control on-mobile" type="tel" name="telephone">
+						<input id="telephone" class="form-control on-mobile" type="tel" name="telephoneMobile" value="{% if rappel %}{{rappel.client.telephone}}{% else %}{% endif %}">
                     </div>
                 </div>
 
@@ -678,51 +693,51 @@
                     <div class=" form-group on-desktop">
                         <label  class="form-label ">Adresse de facturation</label>
                         <div class="input-width">
-                            <input class="form-control on-desktop" type="text" name="adresseFacturation">
+                            <input class="form-control on-desktop" type="text" name="adresseFacturation" value="{% if rappel %}{{rappel.client.adresseFacturation.adresse}}{% else %}{% endif %}">
                         </div>
                     </div>
                     <div class="form-group form-group-animated on-mobile">
                         <label for="adresseFacturation" class="form-label">Adresse de facturation</label>
                         <div class="input-width">
-                            <input id="adresseFacturation" class="form-control on-mobile" type="text" name="adresseFacturation">
+                            <input id="adresseFacturation" class="form-control on-mobile" type="text" name="adresseFacturation" value="{% if rappel %}{{rappel.client.adresseFacturation.adresse}}{% else %}{% endif %}">
                         </div>
                     </div>
                     <div class=" form-group on-desktop">
                         <label  class="form-label ">Code Postal</label>
                         <div class="input-width">
-                            <input class="form-control on-desktop" type="text" name="codePostalFacturation">
+                            <input class="form-control on-desktop" type="text" name="codePostalFacturation" value="{% if rappel %}{{rappel.client.adresseFacturation.codePostal}}{% else %}{% endif %}">
                         </div>
                     </div>
                     <div class="form-group form-group-animated on-mobile">
                         <label for="codePostalFacturation" class="form-label">Code postal</label>
                         <div class="input-width">
-                            <input id="codePostalFacturation" class="form-control on-mobile" type="text" name="codePostalFacturation">
+                            <input id="codePostalFacturation" class="form-control on-mobile" type="text" name="codePostalFacturation" value="{% if rappel %}{{rappel.client.adresseFacturation.codePostal}}{% else %}{% endif %}">
                         </div>
                     </div>
 
                     <div class=" form-group on-desktop">
                         <label  class="form-label ">Ville</label>
                         <div class="input-width">
-                            <input class="form-control on-desktop" type="text" name="villeFacturation">
+                            <input class="form-control on-desktop" type="text" name="villeFacturation" value="{% if rappel %}{{rappel.client.adresseFacturation.ville}}{% else %}{% endif %}">
                         </div>
                     </div>
                     <div class="form-group form-group-animated on-mobile">
                         <label for="villeFacturation" class="form-label">Ville</label>
                         <div class="input-width">
-                            <input id="villeFacturation" class="form-control on-mobile" type="text" name="villeFacturation">
+                            <input id="villeFacturation" class="form-control on-mobile" type="text" name="villeFacturation" value="{% if rappel %}{{rappel.client.adresseFacturation.ville}}{% else %}{% endif %}">
                         </div>
                     </div>
 
                     <div class=" form-group on-desktop">
                         <label  class="form-label ">Téléphone</label>
                         <div class="input-width">
-                            <input class="form-control on-desktop" type="tel" id="telephoneFacturation" name="telephoneFacturation">
+                            <input class="form-control on-desktop" type="tel" id="telephoneFacturation" name="telephoneFacturation" value="{% if rappel %}{{rappel.client.adresseFacturation.telephone}}{% else %}{% endif %}">
                         </div>
                     </div>
                     <div class="form-group form-group-animated on-mobile">
                         <label for="telephoneFacturation" class="formlabel">Téléphone</label>
                         <div class="input-width">
-                            <input id="telephoneFacturationMobile" class="form-control on-mobile" type="tel" name="telephoneFacturation">
+                            <input id="telephoneFacturationMobile" class="form-control on-mobile" type="tel" name="telephoneFacturation" value="{% if rappel %}{{rappel.client.adresseFacturation.telephone}}{% else %}{% endif %}">
                         </div>
                     </div>
                 </div>
@@ -754,6 +769,7 @@
 					</div>
 			  </div>
         </div>
+    </form>
 
         <!-- Step 9 - Paiement -->
         <div class="form-step form-step-8" style="display: none">
@@ -809,34 +825,36 @@
 				</div>
 			</div>
                 <label class="form-label">Sélectionnez le mode de paiement</label>
+                <form id="PaymentRequest" action="" method="post">
+                    <div class="paiement-bloc">
+                        <label class="form-radio">
+                            <span class="paiement-cartes">Paiement par carte <img src="/images/mode-paiement/cartes.jpg" alt="icône de paiement par carte" class="img"></span>
+                            <input type="radio" checked name="paiement" value="carte">
+                            <span class="checkmark"></span>
+                        </label>
+                        <label class="form-radio mb-0">
+                            <span class="paiement-cheque">Paiement par chèque <img src="/images/mode-paiement/cheque.png" alt="icône de paiement par chèque" class="img"></span>
+                            <input type="radio" checked name="paiement" value="cheque">
+                            <span class="checkmark"></span>
+                        </label>
+                    </div>
 
-                <div class="paiement-bloc">
-                    <label class="form-radio">
-                        <span class="paiement-cartes">Paiement par carte <img src="/images/mode-paiement/cartes.jpg" alt="icône de paiement par carte" class="img"></span>
-                        <input type="radio" checked="checked" name="radio">
-                        <span class="checkmark"></span>
-                    </label>
-                    <label class="form-radio mb-0">
-                        <span class="paiement-cheque">Paiement par chèque <img src="/images/mode-paiement/cheque.png" alt="icône de paiement par chèque" class="img"></span>
-                        <input type="radio" checked="checked" name="radio">
-                        <span class="checkmark"></span>
-                    </label>
-                </div>
+                    <div class="help help-background on-desktop">
+                        <p>Livraison en fonction du type de paiement que vous avez sélectionné. Vous serez alerté par email sur les différentes étapes de votre commande.</p>
+                    </div>
 
-                <div class="help help-background on-desktop">
-                    <p>Livraison en fonction du type de paiement que vous avez sélectionné. Vous serez alerté par email sur les différentes étapes de votre commande.</p>
-                </div>
-
-                <div class="cta d-flex">
-					<div class="btn-precedent on-mobile">
-						<a href="#top" class="btn btn-primary previous-arrow d-flex flex-nowrap align-items-center"><img src="/images/retour-paiement-white.svg" alt="icône étape précédente" class="icon">Précédent</a>
-					</div>
-					<div class="btn-submit">
-						<a href="formulaire-success-classique.html" class="btn btn-primary btn-next">Payer ma commande <img src="/images/btn-send.svg" alt="icône étape suivante" class="icon"></a>
-					</div>
-			  </div>
-            </form>
-        </div>
+                    <div class="cta d-flex">
+                        <div class="btn-precedent on-mobile">
+                            <a href="#top" class="btn btn-primary previous-arrow d-flex flex-nowrap align-items-center"><img src="/images/retour-paiement-white.svg" alt="icône étape précédente" class="icon">Précédent</a>
+                        </div>
+                        <div class="btn-submit">
+                            <button type="submit" class="btn btn-primary save" id="paiement-submit">Payer ma commande <img src="/images/btn-send.svg" alt="icône étape suivante" class="icon"></button>
+                        </div>
+                    
+                    </div>
+                    <div id="monetico"></div>
+                </form>
+            </div>
 
         <div class="progress-steps on-desktop">
             <span class="previous-arrow" style="display: none"><img src="/images/flèche-précédent.png" alt="Flèche précédente"> Précédent</span>
@@ -882,11 +900,11 @@
                         <div class="label livraison-sortie">Livraison lettre RAR</div>
                         <div class="label-price" id="tarif-livraison"><span class="livraison-tarif" id="tarif-de-livraison">0</span>€</div>
                     </div>
-                    <div class="label-wrapper step-8" style="display: none">
+                    {# <div class="label-wrapper step-8" style="display: none">
                         <div class="label">Assurance voyage</div>
                         <div class="label label-quantity assurance-quantite">x1</div>
                         <div class="label-price"><span class="assurance-total">0</span>€</div>
-                    </div>
+                    </div> #}
                     <div class="label-wrapper">
                         <div class="total-text">Total</div>
                         <div class="total-price">
@@ -896,7 +914,7 @@
                         </div>
                     </div>
 
-                    <div class="label-wrapper delete-order step-9" style="display: none"><a href="formulaires/formulaire-visa-classique.html"><img src="/images/croix.svg" alt="croix"> Supprimer ma demande</a></div>
+                    <div class="label-wrapper delete-order step-9" style="display: none"><a href="#"><img src="/images/croix.svg" alt="croix"> Supprimer ma demande</a></div>
 
                     <div class="label-wrapper step-9" style="display: none">
                         <div class="label">Code spécial</div>
@@ -1022,32 +1040,51 @@
             </div>
         </div>
     </footer>
+    <div id="rappel-entree" data-rappel="{{rappel ? rappel.entre}}">
+    </div>
+    <div id="rappel-sortie" data-rappel="{{rappel ? rappel.sortie}}">
+    </div>
+    <div id="rappel-jour-vol" data-rappel="{{rappel ? rappel.jourVol}}">
+    </div>
 {% endblock %}
 {% block javascripts %}
+<script src="{{ asset('/bundles/autocompletition/exemple/index.js') }}"></script>
+
 <script src="{{ asset('/frontend/js/intlTelInput.js') }}"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.9/js/select2.min.js"></script>
 <script src="{{ asset('/frontend/js/forms.js') }}"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>     
 <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
 <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script>      
-<script src="{{ asset('/bundles/autocompletition/index.js') }}"></script>
 
 <script>
-    $( function() {
-        $( "#date_entree" ).datepicker();
-        $( "#date_entree" ).datepicker( "option", "dateFormat", "dd/mm/yy" );
 
+    $( function() {
+        $( "#date_entree" ).datepicker({
+            numberOfMonths: 2
+        });        
+        $( "#date_entree" ).datepicker( "option", "dateFormat", "dd/mm/yy" );
+        $( "#date_entree" ).datepicker( "setDate", $('#rappel-entre').data('rappel') );
         
     });
     $( function() {
-        $( "#date_sortie" ).datepicker();
+        $( "#date_sortie" ).datepicker({
+            numberOfMonths: 2
+        });
         $( "#date_sortie" ).datepicker( "option", "dateFormat", "dd/mm/yy" );
+        $( "#date_sortie" ).datepicker( "setDate", $('#rappel-sortie').data('rappel') );
+
+
     });
     $( function() {
         $( "#jour-vol" ).datepicker();
         $( "#jour-vol" ).datepicker( "option", "dateFormat", "dd/mm/yy" );
+        $( "#jour-vol" ).datepicker( "setDate", $('#rappel-jour-vol').data('rappel') );
+
     });
 
+
+    
     //Validation profil
     $('#profil-save').on('click', function() {
         var form = $('#save')
@@ -1058,8 +1095,11 @@
 
         }, 'JSON');
 
-        post.done(function() {
-            goToNextScreen();         
+        post.done(function(response) {
+            var form = JSON.parse(response.form);
+            var action = JSON.parse(response.action);
+            goToNextScreen();
+            generatePrePaiement(form, action);        
         })
         post.fail(function(response) {
             var errorMessage = response;
@@ -1069,7 +1109,17 @@
             console.log(response);
         })
     })
+
     
+    window.onbeforeunload = confirmExit;
+    function confirmExit()
+    {
+        $.post(Routing.generate('rappel_demande_visa_classic', {'id' : $('#email-save').attr('donnee')}), function() {}, 'JSON');
+        return "You have attempted to leave this page.  If you have made any changes to the fields without clicking the Save button, your changes will be lost.  Are you sure you want to exit this page?";
+    }
+    
+
+
     //Validation date d'entrée et sortie du séjour
     $('#dates-entree').on('click', function() {
         var form = $('#save')
@@ -1101,8 +1151,10 @@
 
         }, 'JSON');
 
-        post.done(function() {
+        post.done(function(response) {
             goToNextScreen();     
+            $('#email-save').attr('donnee', response.demande)
+
         })
         post.fail(function(response) {
             var errorMessage = response;
@@ -1112,6 +1164,16 @@
         })
     })
     
+    //Paiement 
+    {# $('#paiement-submit').on('click', function() {
+        var form = $('#paiement')
+        var url = "{{path('enregistrer_commande_visa_classic', {id: typeVisa.id, verif: 'paiement'})}}";
+        var formSerialize = form.serialize();
+
+        var post = $.post(url, formSerialize, function(response) {
+
+        }, 'JSON');
+    }) #}
 </script>
 
 {% endblock %}

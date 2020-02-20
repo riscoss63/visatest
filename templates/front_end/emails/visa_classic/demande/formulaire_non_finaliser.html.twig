@@ -1,0 +1,40 @@
+{% extends "front_end/emails/base.html.twig" %}
+{% block email_title %}Votre demande de visa {{demande.visaType.visaClassic.pays.titre}}{% endblock %}
+{% block email_body %}
+	<table style="border-collapse: collapse;" width="600" cellspacing="0" cellpadding="0">
+		<tr>
+			<td>
+				<p>
+					Bonjour {{ client.prenom }} {{ client.nom }},
+				</p>
+				<p>
+					Vous avez formulé une demande en ligne {{demande.reference}} pour l’obtention d’un visa pour le pays : {{demande.visaType.visaClassic.pays.titre}}.
+				</p>
+                <p>
+                    Il semblerait toutefois que vous n’ayez pas terminé votre demande, 
+                </p>
+                <p>
+                    Vous pouvez si vous le souhaitez, finaliser votre demande en cliquant sur le lien suivant : 
+                </p>
+                <p>
+                    <a href="{{absolute_url(path('enregistrer_commande_visa_classic', {id : demande.visaType.id, nonFinaliser: demande.id}))}}">Compléter ma demande en ligne de visa </a>
+                </p>
+                <p>
+                   Vous pouvez également imprimer votre bon de commande joint en l’état et compléter les parties manquantes au stylo à bille. Vous pourrez adresser l’ensemble des pièces nécessaires pour le pays : {{demande.visaType.visaClassic.pays.titre}} à l’adresse suivante : 
+                </p>
+				<p align="center">
+					{{entreprise.titre|upper}} - {{entreprise.adresse}} - {{entreprise.codePostal}} {{entreprise.ville}}
+				</p>
+				<p>
+					Sachez que nous nous tenons à votre disposition pour tout complément d’information.
+				</p>
+				<p>
+					L’équipe visa-en-ligne vous remercie de votre confiance et vous souhaite une agréable journée. 
+				</p>
+				<p>
+					<strong>Visa-en-ligne</strong>
+				</p>
+			</td>
+		</tr>
+	</table>
+{% endblock %}

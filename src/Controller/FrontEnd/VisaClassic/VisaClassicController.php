@@ -6,6 +6,8 @@ use App\Entity\AdresseFacturation;
 use App\Entity\Assurance;
 use App\Entity\Continent;
 use App\Entity\Demande;
+use App\Entity\Frais;
+use App\Entity\InfosEntreprise;
 use App\Entity\ModeExpedition;
 use App\Entity\NotreService;
 use App\Entity\Transport;
@@ -14,6 +16,8 @@ use App\Entity\VisaClassic;
 use App\Entity\VisaType;
 use App\Entity\Voyageurs;
 use App\Repository\TransportRepository;
+use App\Service\BonDeCommandeService;
+use App\Service\MoneticoPaiement;
 use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -24,7 +28,7 @@ use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
-use Symfony\Component\Validator\Constraints\Date;
+use Knp\Snappy\Pdf;
 
 /**
  * @Route("/visa-classic")
@@ -112,7 +116,8 @@ class VisaClassicController extends AbstractController
             return $this->render('front_end/visa_classic/visa_classic_commande.html.twig', [
                 'typeVisa'      => $typeVisa,
                 'transports'     => $this->transports,
-                'assurances'     => $assurances
+                'assurances'     => $assurances,
+                'rappel'        => null
             ]);
         }
 
@@ -122,7 +127,7 @@ class VisaClassicController extends AbstractController
     /**
      * @Route("/commande/visa-{id}", name="enregistrer_commande_visa_classic")
      */
-    public function visaClassicPaiement(Request $request, EntityManagerInterface $manager, $id, SessionInterface $session, UserPasswordEncoderInterface $encoder)
+    public function visaClassicPaiement(Request $request, EntityManagerInterface $manager, $id, SessionInterface $session, UserPasswordEncoderInterface $encoder, MoneticoPaiement $monetico, BonDeCommandeService $bonDeCommandeService)
     {
         //Variable avec la date d'aujourd'hui
         $aujourdhui = new \DateTime('now');
@@ -130,6 +135,7 @@ class VisaClassicController extends AbstractController
         //On récupere le type de visa et on crée une commande
         $typeVisa = $this->getDoctrine()->getRepository(VisaType::class)->find($id);
         $commande = new Demande();
+        
         
         //On récupe le nb de visiteurs ainsi que leur nationalités
         $nbvoyageurs = $request->get('nbvoyageurs');
@@ -173,7 +179,9 @@ class VisaClassicController extends AbstractController
         $codePostalFacturation = $request->get('codePostalFacturation');
         $villeFacturation = $request->get('villeFacturation');
         $telephoneFacturation = $request->get('telephoneFacturation');
-
+        
+        //On récupere le mode de paiement
+        $paiement = $request->get('paiement');
 
         //On récupe si une vérification est à faire
         $verif = $request->get('verif');
@@ -181,21 +189,118 @@ class VisaClassicController extends AbstractController
         //On récupe la session de user
         $userSession = $this->getUser();
 
+        //Récuperer une commande avec l'étape non finaliser
+        $commandeNonFinaliser = $request->get('nonFinaliser');
+        if($commandeNonFinaliser)
+        {
+            $assurances = $typeVisa->getVisaClassic()->getPays()->getAssurances();
+            $rappel = $this->getDoctrine()->getRepository(Demande::class)->find($commandeNonFinaliser);
+            return $this->render('front_end/visa_classic/visa_classic_commande.html.twig', [
+                'typeVisa'      => $typeVisa,
+                'transports'     => $this->transports,
+                'assurances'     => $assurances,
+                'rappel'        => $rappel
+            ]);
+        }
+        
 
         //Vérification profil
         if($verif === 'profil')
         {
-
-            //Si l'adresse de livraison/facturation est differente
-            if($diffFacturation)
+            $demande = $this->getDoctrine()->getRepository(Demande::class)->find($session->get('demande'));
+            $frais = new Frais;
+            $demande->setFrais($frais);
+            if($nom AND $prenom AND $adresseLivraison AND $codePostalLivraison AND $villeLivraison)
             {
-                $facturation = new AdresseFacturation;
-                $facturation->setAdresse($adresseFacturation);
-                $facturation->setCodePostal($codePostalFacturation);
-                $facturation->setVille($villeFacturation);
-                $facturation->setTelephone($telephoneFacturation);
-                $userSession->setAdresseFacturation($facturation);
+                //Calcule du total de la commande{{typeVisa.fraisConsulaire + typeVisa.fraisEdition + typeVisa.fraisFormulaire}}
+                $typeVisa = $demande->getVisaType();
+                $enlevement = $demande->getEnlevement();
+                $livraison = $demande->getTransport();
+                $prixVisa = $typeVisa->getFraisConsulaire() + $typeVisa->getFraisEdition() + $typeVisa->getFraisFormulaire();
+                $prixEnlevement = 0;
+                $prixLivraison = $livraison->getTarif();
+                if($enlevement)
+                {
+                    $prixEnlevement = $enlevement->getTarif();
+                }
+                $prixTotalVisa = $prixVisa * $demande->getQuantiteVisa();
+                $total = $prixTotalVisa + $prixEnlevement + $prixLivraison;
+                $demande->setTotal($total);
+
+
+                //On met a jour les frais pour être modifier en back end
+                $frais->setFraisConsulaire($typeVisa->getFraisConsulaire());
+                $frais->setQuantiteConsulaire($demande->getQuantiteVisa());
+
+                $frais->setFraisEdition($typeVisa->getFraisEdition());
+                $frais->setQuantiteEdition($demande->getQuantiteVisa());
+
+                $frais->setFraisLivraison($prixLivraison);
+                $frais->setQuantiteLivraison(1);
+
+                $frais->setFraisEnlevement($prixEnlevement);
+                $frais->setQuantiteEnlevement(1);
+
+                if($typeVisa->getFraisFormulaireValide() === true)
+                {
+                    $frais->setFraisFormulaire($typeVisa->getFraisFormulaire());
+                    $frais->setQuantiteFormulaire($demande->getQuantiteVisa());
+                }
+                $frais->setTotal($total);
+                
+
+
+
+                $userSession->setNom($nom);
+                $userSession->setPrenom($prenom);
+                $userSession->setAdresse($adresseLivraison);
+                $userSession->setCodePostal($codePostalLivraison);
+                $userSession->setVille($villeLivraison);
+                // $userSession->setTelephone($telephoneLivraison);
+
+                //Si l'adresse de livraison/facturation est differente
+                if($diffFacturation === 'on')
+                {
+                    $facturation = new AdresseFacturation;
+                    $facturation->setAdresse($adresseFacturation);
+                    $facturation->setCodePostal($codePostalFacturation);
+                    $facturation->setVille($villeFacturation);
+                    // $facturation->setTelephone($telephoneFacturation);
+                    $userSession->setAdresseFacturation($facturation);
+                }
+                else 
+                {
+                    $facturation = new AdresseFacturation;
+                    $facturation->setAdresse($adresseLivraison);
+                    $facturation->setCodePostal($codePostalLivraison);
+                    $facturation->setVille($villeLivraison);
+                    // $facturation->setTelephone($telephoneLivraison);
+                    $userSession->setAdresseFacturation($facturation);
+                }
+
+                $date = new \DateTime('now');
+                $demande->setMoneticoDate($date->format('d/m/Y:H:i:s'));
+                $manager->persist($demande);
+                $reference = $demande->getReference();
+                $manager->persist($userSession);
+                $manager->flush();
+
+                $form=$monetico->genererFormData($demande);
+                $action = $monetico->getFormAction();
+                return new JsonResponse(array(
+                    'status' => 'success',
+                    'message' => 'Profil enregistrer',
+                    'form'    => json_encode($form),
+                    'action'    => json_encode($action)),
+                200);
             }
+            
+
+            return new JsonResponse(array(
+                'status' => 'Error',
+                'message' => 'Veuillez remplir tous les champs'),
+            400);
+            
 
         }
 
@@ -230,6 +335,8 @@ class VisaClassicController extends AbstractController
                 400);
             }
         }
+
+        
         if($email)
         {
             if (!filter_var($email, FILTER_VALIDATE_EMAIL)) 
@@ -294,10 +401,53 @@ class VisaClassicController extends AbstractController
             ]);
             
             if($user) {
-                if($userSession->getId() === $user->getId() ) {
+                $frais = new Frais;
+                $commande->setFrais($frais);
+                //Calcule du total de la commande{{typeVisa.fraisConsulaire + typeVisa.fraisEdition + typeVisa.fraisFormulaire}}
+                $typeVisa = $commande->getVisaType();
+                $enlevement = $commande->getEnlevement();
+                $livraison = $commande->getTransport();
+                $prixVisa = $typeVisa->getFraisConsulaire() + $typeVisa->getFraisEdition() + $typeVisa->getFraisFormulaire();
+                $prixEnlevement = 0;
+                $prixLivraison = $livraison->getTarif();
+                if($enlevement)
+                {
+                    $prixEnlevement = $enlevement->getTarif();
+                }
+                $prixTotalVisa = $prixVisa * $commande->getQuantiteVisa();
+                $total = $prixTotalVisa + $prixEnlevement + $prixLivraison;
+                
+                $commande->setTotal($total);
+
+                //On met a jour les frais pour être modifier en back end
+                $frais->setFraisConsulaire($typeVisa->getFraisConsulaire());
+                $frais->setQuantiteConsulaire($commande->getQuantiteVisa());
+
+                $frais->setFraisEdition($typeVisa->getFraisEdition());
+                $frais->setQuantiteEdition($commande->getQuantiteVisa());
+
+                $frais->setFraisLivraison($prixLivraison);
+                $frais->setQuantiteLivraison(1);
+
+                $frais->setFraisEnlevement($prixEnlevement);
+                $frais->setQuantiteEnlevement(1);
+
+
+
+                if($userSession->getId() === $user->getId() ) 
+                {
+                    $commande->setClient($user);
+                    
+                    $manager->persist($commande);
+                    $manager->flush();
+
+                    $session->set('demande', $commande->getId());
+
+                    
                     return new JsonResponse(array(
                         'status' => 'success',
-                        'message' => 'Veuillez poursuivre votre commande'),
+                        'message' => 'Veuillez poursuivre votre commande',
+                        'demande' => $commande->getId()),
                     200);
                 }
                 return new JsonResponse(array(
@@ -324,6 +474,12 @@ class VisaClassicController extends AbstractController
 
             $manager->persist($commande);
             $manager->flush();
+            
+            
+
+            //On insere la demande dans une session
+            $session->set('demande', $commande->getId());
+
 
             //Connexion auto
             //On stock les données dans le token
@@ -338,9 +494,36 @@ class VisaClassicController extends AbstractController
             $this->get('security.token_storage')->setToken($token);
             $this->get('session')->set('_security_main', serialize($token));
 
-            return new Response(json_encode(array('status'=>'success'))); 
-        }
-        
+            return new JsonResponse(array(
+                'status' => 'success',
+                'message' => 'Veuillez poursuivre votre commande',
+                'demande' => $commande->getId()),
+            200);
+        }     
 
+    }
+
+    /**
+     * @Route("/demande/rappel-{id}", name="rappel_demande_visa_classic", options={"expose"=true})
+     */
+    public function rappelDemande($id, BonDeCommandeService $bonDeCommandeService)
+    {
+        $commande = $this->getDoctrine()->getRepository(Demande::class)->find($id);
+
+        //On genere le bon de commande et on le send
+        $infosEntreprise = $this->getDoctrine()->getRepository(InfosEntreprise::class)->findOneBy([
+            'typeVisa'  => 'visa_classic'
+        ]);
+        $template = '/front_end/emails/visa_classic/demande/formulaire_non_finaliser.html.twig';
+        $vars = [
+            'demande'   => $commande,
+            'client'    => $commande->getClient(),
+            'entreprise'    => $infosEntreprise
+        ];
+        $bonDeCommandeService->generateur($commande, $template, $vars);
+
+        return new JsonResponse(array(
+            'status' => 'success'),
+        200);
     }
 }

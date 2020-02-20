@@ -1,0 +1,25 @@
+{% extends "front_end/emails/base.html.twig" %}
+{% block email_title %}Frais du visa modifier{% endblock %}
+{% block email_body %}
+	<table style="border-collapse: collapse;" width="600" cellspacing="0" cellpadding="0">
+		<tr>
+			<td>
+				<p>
+					Bonjour {{ client.nom }} {{ client.prenom }},
+				</p>
+				<p>
+					Vous avez formulé une demande en ligne {{ demande.reference }} pour l'obtention d'un {% if demande.visaType.visaClassic %}visa classic {% else %}
+					Evisa {% endif %} pour le pays : <strong>{{ demande.visaType.visaClassic.pays.titre }}</strong>.
+				</p>
+				<p>
+					Les frais on était modifier, merci de régler le paiement par carte bancaire à cette adresse : <a href="{{ absolute_url(path('paiement_frais_monetico', { id: demande.id})) }}">Paiement</a>.
+				<p>
+					L'équipe EURO VISA SERVICE vous remercie de votre confiance et vous souhaite une agréable journée.
+				</p>
+				<p>
+					<strong>Visa-en-ligne.com</strong>
+				</p>
+			</td>
+		</tr>
+	</table>
+{% endblock %}

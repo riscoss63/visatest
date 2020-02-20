@@ -27,9 +27,9 @@
             <table class="mt-5" id="table-demandes" data-toggle="table" data-url="{{ path('json_demandes_visa_classic') }}" data-pagination="true" data-search="true" data-pagination: "true"   data-single-select="true"  data-click-to-select="true" >
                 <thead>
                     <tr>
-                        <th data-field="demande" data-formatter="demandeFormatter" data-sortable="true" data-checkbox="true">Demande</th>
-                        <th data-field="dateCreation.timestamp" data-formatter="dateFormatter" data-sortable="true">Date de création</th>
-                        <th data-field="demande" data-formatter="" data-sortable="true">Paiement</th>
+                        <th data-field="demande" data-formatter="demandeFormatter" data-sortable="true" data-checkbox="true" data-width-unit="%" data-width="15">Demande</th>
+                        <th data-field="dateCreation.timestamp" data-formatter="dateFormatter" data-sortable="true" data-width-unit="%" data-width="15">Date de création</th>
+                        <th data-field="demande" data-formatter="paiementFormatter" data-sortable="true" data-align="center">Paiement</th>
                         <th data-field="prestations" data-formatter="prestationsFormatter" data-sortable="true">Prestations</th>
                         <th data-field="edit" data-formatter="actionsFormatter">Editer</th>
                     </tr>
@@ -78,9 +78,18 @@
         function demandeFormatter(value, row, index) {
             var nom = row["client"]["nom"]
             var prenom = row["client"]["prenom"]
-            return  '<br/>Réference : <strong>'+row["reference"]+'</strong><br/>  '+
-                    '<strong>' + prenom.charAt(0).toUpperCase() + prenom.slice(1) + ' '+nom.charAt(0).toUpperCase() + nom.slice(1)+'</strong><br/>'+
-                    row["client"]["pays"]+' / '+row["client"]["codePostal"];
+            if(nom && prenom)
+            {
+                return  '<br/>Réference : <strong>'+row["reference"]+'</strong><br/>  '+
+                        '<strong>' + prenom.charAt(0).toUpperCase() + prenom.slice(1) + ' '+nom.charAt(0).toUpperCase() + nom.slice(1)+'</strong><br/>'+
+                        row["client"]["pays"]+' / '+row["client"]["codePostal"];
+            }
+            else {
+                return  '<br/>Réference : <strong>'+row["reference"]+'</strong><br/>  '+
+                        '<strong>Non défini</strong><br/>'+
+                        row["client"]["pays"]+' / '+row["client"]["codePostal"];
+            }
+            
         }
 
         function prestationsFormatter(value, row, index) {
@@ -108,6 +117,25 @@
         function dateFormatter(value, row, index) {
             var date = new Date(value*1000);
             return `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`;
+        }
+
+        function paiementFormatter(value, row, index) {
+            if(row["payer"] == false) {
+                if(row['cheque'] == true) {
+                    return 'Attente chèque <br/>'+row["total"]+'€';
+                }
+                else {
+                    return 'Non validé';
+                }
+            }
+            if(row["payer"] == true) {
+                if(row["cheque"] == true) {
+                    return 'Chèque <br/>'+row["total"]+'€';
+                }
+                else {
+                    return 'CB<br/>'+row["total"]+'€'
+                }
+            }
         }
 
         // function libelleFormatter(value, row,index){

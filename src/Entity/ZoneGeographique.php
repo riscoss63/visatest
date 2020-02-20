@@ -38,6 +38,26 @@ class ZoneGeographique
      */
     private $pays;
 
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $zoneTarifaire;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $dateCreation;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $dateModification;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $slug;
+
     public function __construct()
     {
         $this->pays = new ArrayCollection();
@@ -118,5 +138,53 @@ class ZoneGeographique
     public function __toString()
     {
         return $this->titre;
+    }
+
+    public function getZoneTarifaire(): ?bool
+    {
+        return $this->zoneTarifaire;
+    }
+
+    public function setZoneTarifaire(?bool $zoneTarifaire): self
+    {
+        $this->zoneTarifaire = $zoneTarifaire;
+
+        return $this;
+    }
+
+    public function getDateCreation(): ?\DateTimeInterface
+    {
+        return $this->dateCreation;
+    }
+
+    public function setDateCreation(?\DateTimeInterface $dateCreation): self
+    {
+        $this->dateCreation = $dateCreation;
+
+        return $this;
+    }
+
+    public function getDateModification(): ?\DateTimeInterface
+    {
+        return $this->dateModification;
+    }
+
+    public function setDateModification(?\DateTimeInterface $dateModification): self
+    {
+        $this->dateModification = $dateModification;
+
+        return $this;
+    }
+
+    public function getSlug(): ?string
+    {
+        return $this->slug;
+    }
+
+    public function setSlug(?string $slug): self
+    {
+        $this->slug = $slug;
+
+        return $this;
     }
 }

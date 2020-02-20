@@ -1,62 +1,37 @@
-jQuery(function ($) {
-    var _code = $('.code'), _city = $('.city'), _out = $('#output');
-    var _cache = {};
-    var _protocol = ~(location.protocol + '').indexOf('s') ? 'https' : 'http';
-    var _host = 'https' + '://vicopo.selfbuild.fr';
-    _code.keyup(function () {
-
-        var _val = $(this).val();
-        if (/^[^0-9]/.test(_val)) {
-            _code.val('');
-            _city.val(_val).focus().trigger('keyup');
-        }
-
-        
-
-    });
-    _city.keyup(function () {
-        var _val = $(this).val();
-        if (/^[0-9]/.test(_val)) {
-            _city.val('');
-            _code.val(_val).focus().trigger('keyup');
-        }
-    });
-    function _done(_cities) {
-        _out.html(_cities.map(function (_data) {
-            return '<a href="#">' + _data.code + ' &nbsp; ' + _data.city + '</a>';
-        }).join(''));
-    }
-
-    $.each(['code', 'city'], function (i, _name) {
-        var _input = $('.' + _name).on('keyup', function () {
-            var _val = _input.val();
-            if (_val.length > 1) {
-                _cache[_name] = _cache[_name] || {};
-                if (_cache[_name][_val]) {
-                    _done(_cache[_name][_val]);
-                }
-                var _data = {};
-                _data[_name] = _val;
-                $.getJSON(_host, _data, function (_answear) {
-                    _cache[_name][_answear.input] = _answear.cities;
-                    if (_input.val() == _answear.input) {
-                        _done(_answear.cities);
-                    }
-                });
-            }
-        });
-    });
-    $(document).on('click', '#output a', function (e) {
-        var _contents = $(this).text();
-        var _space = _contents.indexOf(' ');
-        if (~_space) {
-            _code.val(_contents.substr(0, _space));
-            _city.val(_contents.substr(_space).trim());
-            _out.empty();
-        }
-        e.preventDefault();
-        e.stopPropagation();
-        return false;
-    });
-
-});
+module.exports = function (protocol) {
+	protocol = protocol || 'https';
+	var url = 'https://vicopo.selfbuild.fr/search/';
+	switch (protocol) {
+		case 'https':
+			break;
+		case 'http':
+			url = 'http://vicopo.selfbuild.fr/search/';
+			break;
+		default:
+			throw new Error(protocol + ' protocol not supported');
+	}
+	var transport = require(protocol);
+	return function (search, done) {
+		transport.get(url + encodeURIComponent(search), function (res) {
+			var data = '';
+			res.setEncoding('utf8');
+			res.on('data', function (chunk) {
+				data += chunk;
+			});
+			res.on('end', function () {
+				var result;
+				try {
+					result = JSON.parse(data);
+				} catch(e) {
+					return done(new Error('Cannot parse Vicopo answear:\n' + e + '\n' + data));
+				}
+				if (result.cities) {
+					done(null, result.cities);
+				} else {
+					done(new Error('The answear should contains a cities list:\n' + data));
+				}
+			});
+		})
+		.on('error', done);
+	};
+};

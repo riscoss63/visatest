@@ -52,8 +52,8 @@
                         {{ form_widget(form.imageFile) }}
                     </div>
                 </div>
-                <div class="row form-group text-right">
-                    {{ form_label(form.communique, null, {'label_attr' : {'class': 'col-sm-2 col-form-label'}}) }}
+                <div class="row form-group text-right mb-5">
+                    {{ form_label(form.communique, 'Url simplifiée de la page', {'label_attr' : {'class': 'col-sm-2 col-form-label'}}) }}
                     <div class="input-group col-sm-10">
                         {{ form_widget(form.communique) }}
                     </div>
@@ -75,7 +75,7 @@
                     </li>
                 </ul>
                 {{form_widget(form._token)}}
-            {{ form_end(form, {'render_rest': false})}}
+            {{ form_end(form, {'render_rest': false}) }}
         </div>
     </div>
 {% endblock %}

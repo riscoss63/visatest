@@ -1,0 +1,8 @@
+knp_snappy:
+    pdf:
+        enabled:    true
+        binary:     '%kernel.project_dir%/vendor/wkhtmltopdf/bin/wkhtmltopdf.exe'
+        options:    
+            
+            # Recommended to set UTF-8 as default encoding :)
+            encoding: UTF-8

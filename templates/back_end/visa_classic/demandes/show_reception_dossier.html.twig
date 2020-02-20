@@ -31,7 +31,7 @@
                 <tr>
                     <th data-field="demande" data-formatter="demandeFormatter" data-sortable="true">Demande</th>
                     <th data-field="demande.dateCreation.timestamp" data-formatter="dateFormatter" data-sortable="true">Date de création</th>
-                    <th data-field="demande" data-formatter="" data-sortable="true">Paiement</th>
+                    <th data-field="demande" data-formatter="paiementFormatter" data-sortable="true" data-events="operateEvents">Paiement</th>
                     <th data-field="prestations" data-formatter="prestationsFormatter" data-sortable="true">Prestations</th>
                     <th data-field="edit" data-formatter="actionsFormatter" data-events="operateEvents">Editer</th>
                 </tr>
@@ -83,9 +83,31 @@
                 })
                     
             },
+            'click .rappel': function (e, value, row, index) {
+                var post = $.post( Routing.generate('rappel_cheque_visa_classic'), { id : row.id }, function(event){
+                    event.preventDefault()
+                });
+                post.done(function(response) {
+                    $("#success-alert-complet").text(response.responseJSON.message)
+                    $("#success-alert-complet").show();
+                    setTimeout(function() { $("#success-alert-complet").hide(); }, 5000);
+                    table.bootstrapTable('refresh')
+                })
+                post.fail(function(response) {
+                    $("#error-alert-complet").text(response.responseJSON.message)
+                    $("#error-alert-complet").show();
+                    setTimeout(function() { $("#error-alert-complet").hide(); }, 5000);
+                })
+                    
+            },
         }
 
-        
+        function paiementFormatter(value, row, index) {
+            if(row["demande"]["cheque"]) {
+                return  '<a href="javascript:void(0)" id="'+row.id+'" class="btn btn-light btn-sm rappel mb-2">Rappel(presque terminer)</a>';
+            }
+            return 'Paiement CB valider';
+        }
 
         function demandeFormatter(value, row, index) {
             return 'Réference : <strong>'+row["demande"]["reference"]+'</strong><br/>  '+
@@ -126,6 +148,7 @@
             var date = new Date(value*1000);
             return `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`;
         }
+
 
         // function libelleFormatter(value, row,index){
         //     libelleZone = "";

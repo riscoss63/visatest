@@ -5,6 +5,7 @@ namespace App\Controller\BackEnd\VisaClassic\Demandes;
 use App\Entity\Course;
 use App\Entity\Demande;
 use App\Entity\EtatDossier;
+use App\Entity\InfosEntreprise;
 use App\Entity\ReceptionDossier;
 use App\Entity\User;
 use App\Entity\VisaType;
@@ -37,7 +38,7 @@ class DemandesController extends AbstractController
         $demandesVisaClassic = [];
         foreach($demandes as $demande)
         {
-            if($demande->getEtat() === 'commande')
+            if($demande->getEtat() === 'payer' OR $demande->getEtat() === 'paiement')
             {
                 $visaClassic = $demande->getVisaType()->getVisaClassic();
                 if($visaClassic)
@@ -58,7 +59,7 @@ class DemandesController extends AbstractController
             AbstractNormalizer::CIRCULAR_REFERENCE_HANDLER => function ($object, $format, $context) {
                 return $object->getId();
             },
-            AbstractNormalizer::ATTRIBUTES =>['id', 'client' => ['prenom', 'nom', 'pays', 'codePostal'], 'reference', 'quantiteVisa', 'urgent', 'demande', 'visaType'=> ['visaClassic' => ['pays' => ['titre']]], 'dateCreation' => ['timestamp']],
+            AbstractNormalizer::ATTRIBUTES =>['id', 'client' => ['prenom', 'nom', 'pays', 'codePostal'], 'reference', 'quantiteVisa', 'urgent', 'demande', 'visaType'=> ['visaClassic' => ['pays' => ['titre']]], 'dateCreation' => ['timestamp'], 'payer', 'etat', 'total', ['frais' => ['total']]],
             
         ]);
         //On retourne une réponse JSON
@@ -99,7 +100,7 @@ class DemandesController extends AbstractController
     /**
      * @Route("/edit/demande-visa-classic-{id}", name="edit_demandes_visa_classic", options={"expose" = true})
      */
-    public function demandeEdit($id, Request $request, EntityManagerInterface $manager) : Response
+    public function demandeEdit($id, Request $request, EntityManagerInterface $manager, \Swift_Mailer $mailer) : Response
     {
         $demande = $this->getDoctrine()->getRepository(Demande::class)->find($id);
 
@@ -108,9 +109,40 @@ class DemandesController extends AbstractController
 
         if($form->isSubmitted() AND $form->isValid())
         {
+            $dateEntree = $form->get('entre')->getData();
+            $dateSortie = $form->get('sortie')->getData();
+            $dateEntreeFormat = \DateTime::createFromFormat('d/m/Y', $dateEntree);
+            $dateSortieFormat = \DateTime::createFromFormat('d/m/Y', $dateSortie);
+            $demande->setEntre($dateEntreeFormat);
+            $demande->setSortie($dateSortieFormat);
+
+            $totalFrais = $request->get('total-frais');
+            $demande->getFrais()->setTotal($totalFrais);
+
+            if($totalFrais != $demande->getTotal())
+            {
+                $client = $demande->getClient();
+                $message= (new \Swift_Message('Frais supplémentaire'))
+                    ->setFrom('sghairipro63@gmail.com')
+                    ->setTo($client->getEmail())
+                    ->setBody(
+                        $this->renderView(
+                            'back_end/emails/demande_visa_classic/frais_supplémentaire.html.twig',
+                            [
+                                'client'        => $client,
+                                'demande'   => $demande
+                            ]
+                        ),
+                        'text/html'
+                );
+                $mailer->send($message);
+                $demande->setPayer(false);
+            }
+            
+
             $manager->persist($demande);
             $manager->flush();
-
+            $this->addFlash('success', 'Commande modifier');
             return $this->redirectToRoute('show_demandes_visa_classic');
         }
 
@@ -191,7 +223,7 @@ class DemandesController extends AbstractController
             AbstractNormalizer::CIRCULAR_REFERENCE_HANDLER => function ($object, $format, $context) {
                 return $object->getId();
             },
-            AbstractNormalizer::ATTRIBUTES =>['id', 'demande', 'demande' => ['client' => ['email'], 'reference', 'visaType' => ['visaClassic' => ['pays' => ['titre']]], 'quantiteVisa', 'dateCreation' => ['timestamp'] ] ],
+            AbstractNormalizer::ATTRIBUTES =>['id', 'demande', 'demande' => ['client' => ['email'], 'cheque', 'reference', 'visaType' => ['visaClassic' => ['pays' => ['titre']]], 'quantiteVisa', 'dateCreation' => ['timestamp'] ] ],
             
         ]);
         //On retourne une réponse JSON
@@ -230,6 +262,51 @@ class DemandesController extends AbstractController
             }
         }
         return $this->render('/back_end/visa_classic/demandes/show_reception_dossier.html.twig');
+    }
+
+    /**
+     * @Route("/rappel/cheque/demande-{id}", name="rappel_cheque_visa_classic")
+     */
+    public function rappelCheque($id, Request $request, \Swift_Mailer $mailer)
+    {
+        $demande = $this->getDoctrine()->getRepository(Demande::class)->find($id);
+        if($demande) 
+        {
+           $entreprise = $this->getDoctrine()->getRepository(InfosEntreprise::class)->findOneBy([
+            'typeVisa'      => 'visa_classic'
+            ]);
+            $message= (new \Swift_Message('Rappel paiement'))
+                ->setFrom('sghairipro63@gmail.com')
+                ->setTo($demande->getClient()->getEmail())
+                ->setBody(
+                    $this->renderView(
+                        'front_end/emails/visa_classic/demande/rappel_paiement.html.twig',
+                        [
+                            'client'    => $demande->getClient(),
+                            'demande'   => $demande,
+                            'entreprise'=> $entreprise
+                        ]
+                    ),
+                    'text/html'
+            );
+            $mailer->send($message); 
+
+            return new JsonResponse(array(
+                'status' => 'success',
+                'message' => 'Rappel avec lien de paiement envoyer',
+                ),
+            200);
+        }
+
+        return new JsonResponse(array(
+            'status' => 'error',
+            'message' => 'La demande n\'existe pas',
+            ),
+        400);
+        
+
+
+
     }
 
     /**
@@ -390,7 +467,7 @@ class DemandesController extends AbstractController
         $demandesVisaClassic = [];
         foreach($demandes as $demande)
         {
-            if($demande->getEtat() === 'commande' AND $demande->getReceptionDossier() == null)
+            if($demande->getEtat() === 'payer' AND $demande->getReceptionDossier() == null AND $demande->getPayer() === true)
             {
                 $visaClassic = $demande->getVisaType()->getVisaClassic();
                 if($visaClassic)
@@ -427,7 +504,7 @@ class DemandesController extends AbstractController
         $demandesVisaClassic = [];
         foreach($demandes as $demande)
         {
-            if($demande->getEtat() === 'commande' AND $demande->getReceptionDossier() == null)
+            if($demande->getEtat() === 'payer' AND $demande->getReceptionDossier() == null AND $demande->getPayer() === true)
             {
                 $visaClassic = $demande->getVisaType()->getVisaClassic();
                 if($visaClassic)
